@@ -1,6 +1,6 @@
-<!-- Chosen Palette: Hive IT Warm Harmony -->
-<!-- Application Structure Plan: The application uses a modular dashboard approach on a single scrollable page to display complex sustainability and ethical data. The layout has been updated to split providers into three explicit categories: AI Engines (including separate entries for Google and Microsoft AI development), Cloud Hosting, and Deploy Layers. The top section introduces the main ESG trends with card-based statistics. The middle grid hosts the interactive provider grid where users can filter by the new categories and drill down into evidence panels. A reactive downstream query calculator allows users to simulate grid loads and send values directly to the real-time Gemini ESG auditing module. Side-by-side comparisons and keys configuration panels are supported via accessible, focus-locked modals. This structure was chosen to make extensive corporate lifecycle reports easy to digest and explore. -->
-<!-- Visualization & Content Choices: 1. Core KPIs -> Inform -> High Contrast Cards -> Instant comprehension of massive operational statistics. 2. Downstream Calculator -> Inform & Compare -> Interactive Form -> Dynamically models resource drain based on model type. 3. Real-Time Auditor -> Analyze -> Gemini LLM Integration -> Offers custom, dynamic expert-level ESG auditing. 4. Scorecard Grid -> Compare -> Grade Badges & Metric Bars -> Visually ranks 11 providers split across AI, Hosting, and Deploy layers without SVG dependencies. 5. Comparison Matrix -> Compare -> Side-by-Side Table -> Lets users directly evaluate any two entities across our four core performance pillars. -->
+<!-- Chosen Palette: Hive IT Warm Harmony (Warm Sand: #FAF8F5, Slate Charcoal: #131415, Accent Gold: #D97706) -->
+<!-- Application Structure Plan: The application uses a modular dashboard approach on a single scrollable page to display complex sustainability and ethical data. The layout has been updated to split providers into three explicit categories: AI Engines, Cloud Hosting, and Deploy Layers, and includes distinct AWS representations in each. The top section introduces the main ESG trends with card-based statistics. The middle grid hosts the interactive provider grid where users can filter by the categories and drill down into evidence panels. A reactive downstream query calculator allows users to simulate grid loads and send values directly to the real-time Gemini ESG auditing module. Side-by-side comparisons and keys configuration panels are supported via accessible, focus-locked modals. This structure was chosen to make extensive corporate lifecycle reports easy to digest and explore. -->
+<!-- Visualization & Content Choices: 1. Core KPIs -> Inform -> High Contrast Cards -> Instant comprehension of massive operational statistics. 2. Downstream Calculator -> Inform & Compare -> Interactive Form -> Dynamically models resource drain based on model type. 3. Real-Time Auditor -> Analyze -> Gemini LLM Integration -> Offers custom, dynamic expert-level ESG auditing. 4. Scorecard Grid -> Compare -> Grade Badges & Metric Bars -> Visually ranks 12 providers split across AI, Hosting, and Deploy layers without SVG dependencies. 5. Comparison Matrix -> Compare -> Side-by-Side Table -> Lets users directly evaluate any two entities across our four core performance pillars. -->
 <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;650;700&display=swap" rel="stylesheet">
   
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -81,11 +82,13 @@
 </head>
 <body class="bg-[#FAF8F5] text-[#1A1A1A] dark:bg-[#131415] dark:text-[#F3F4F6] min-h-screen transition-colors duration-300 antialiased">
 
+  <!-- Main Navigation / Header -->
   <header class="border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur sticky top-0 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="p-2 bg-brand-500/10 rounded-lg border border-brand-500/40 dark:border-brand-500/30">
-          <div class="w-6 h-6 text-brand-600 dark:text-brand-500 font-display font-bold text-center leading-normal">H</div>
+        <!-- CSS-Only Logo Block (No SVG) -->
+        <div class="w-10 h-10 bg-brand-500/10 rounded-lg border border-brand-500/40 dark:border-brand-500/30 flex items-center justify-center">
+          <span class="text-brand-600 dark:text-brand-500 font-display font-bold text-lg">H</span>
         </div>
         <div>
           <h1 class="font-bold text-xl leading-tight text-slate-900 dark:text-white tracking-tight">AI & Cloud Lifecycle Scorecard</h1>
@@ -93,6 +96,7 @@
         </div>
       </div>
       
+      <!-- Top Action Controls -->
       <div class="flex items-center space-x-3 font-display">
         <button onclick="openSettingsModal()" class="flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
           ⚙️
@@ -111,6 +115,7 @@
     </div>
   </header>
 
+  <!-- Key Info Banner -->
   <div id="api-warning-banner" class="bg-[#FFFDF9] dark:bg-slate-900 border-b border-amber-200/60 dark:border-slate-800 py-3 font-sans">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between flex-wrap gap-2 text-xs">
       <div class="flex items-center space-x-2 text-slate-800 dark:text-slate-300">
@@ -123,6 +128,7 @@
     </div>
   </div>
 
+  <!-- Hero Summary Section -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" aria-labelledby="hero-title">
     <div class="bg-gradient-to-br from-[#FFFDF9] to-[#F5ECE2] dark:from-slate-900 dark:to-slate-800 border border-[#F3E2CE] dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-md">
       <div class="max-w-3xl">
@@ -130,10 +136,11 @@
           The Hidden Cost of Artificial Intelligence
         </h2>
         <p class="mt-4 text-slate-700 dark:text-slate-300 leading-relaxed text-base sm:text-lg font-sans">
-          This interactive dashboard tracks, evaluates, and ranks major providers split into three core categories: AI Engines (including Google and Microsoft AI development arms), Cloud Hosting infrastructure platforms, and Front-End Abstraction/Deploy Networks.
+          This interactive dashboard tracks, evaluates, and ranks major providers split into three core categories: AI Engines (including separate entries for Google, Microsoft, and Amazon Bedrock), Cloud Hosting infrastructure platforms (including AWS), and Front-End Abstraction/Deploy Networks.
         </p>
       </div>
 
+      <!-- Quick Stats -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-brand-500/20 dark:border-slate-750">
         <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <p class="text-xs text-slate-700 dark:text-slate-300 font-medium uppercase tracking-wider">Estimated Inference Cost</p>
@@ -159,6 +166,7 @@
     </div>
   </section>
 
+  <!-- Interactive Scorecard Hub -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
     
     <nav class="flex flex-col md:flex-row md:items-center justify-between pb-6 gap-4 border-b border-slate-200 dark:border-slate-800 font-display" aria-label="Provider filters">
@@ -175,8 +183,10 @@
       </div>
     </nav>
 
+    <!-- Scorecard Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8" id="provider-grid"></div>
 
+    <!-- Operational Footprint Calculator -->
     <section class="mt-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-md" aria-labelledby="calc-title">
       <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
         <h3 id="calc-title" class="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2">
@@ -189,7 +199,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div class="lg:col-span-5 space-y-6">
           <div>
-            <label class="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Estimated Daily Queries</label>
+            <label for="calc-queries" class="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Estimated Daily Queries</label>
             <input type="range" id="calc-queries" min="10000" max="10000000" step="10000" value="1000000" oninput="updateCalculator()" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
             <div class="flex justify-between text-xs text-slate-755 dark:text-slate-300 mt-2">
               <span class="font-mono">10,000</span>
@@ -266,6 +276,7 @@
       </div>
     </section>
 
+    <!-- Section: ✨ Real-Time AI ESG Auditor & Policy Advisor -->
     <section id="auditor-panel" class="mt-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-md relative overflow-hidden" aria-labelledby="audit-title">
       <div class="absolute -right-16 -top-16 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
       
@@ -340,7 +351,7 @@
               </div>
             </div>
 
-            <div id="auditor-error" class="hidden flex-1 flex-col items-center justify-center text-center py-12 space-y-3">
+            <div id="auditor-error" class="hidden flex-1 flex flex-col items-center justify-center text-center py-12 space-y-3">
               <div class="p-2.5 bg-red-100 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 rounded-xl text-red-700 dark:text-red-400">
                 ⚠️
               </div>
@@ -528,7 +539,7 @@
         gradeColor: 'text-emerald-700 dark:text-emerald-500 font-mono',
         badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
         overallPercentage: 80,
-        description: 'Industry standard-bearer for architectural AI safety alignment and structural constitution guidelines, but hampered by data-sourcing copyright battles and lack of independent environmental filings.',
+        description: 'Industry standard-bearer for architectural AI safety alignment and structural constitution guidelines, but hampered by data-sourcing copyright battles and lack of independent environmental filings. Relies deeply on AWS infrastructure.',
         scores: {
           environmental: 58,
           carbon: 60,
@@ -539,7 +550,7 @@
           pros: [
             'Developed highly structured AI Constitution (57-page, CC0 license) managing explicit safety guidelines.',
             'Constitutional AI (RLAIF) reduces alignment dependency on manual human extreme labeling.',
-            'Utilizes AWS Sustainability Console to monitor computing footprint of active workloads.'
+            'Utilizes AWS Sustainability Console directly to monitor computing footprint of active workloads.'
           ],
           cons: [
             'Single model training estimated to require 5 GW of local grid capacity by 2027.',
@@ -549,7 +560,7 @@
         },
         metrics: {
           energy: 'Compute load managed via cloud hosts (AWS/Google); estimated training scale requirements.',
-          water: 'Relies on physical infrastructure footprint of cloud partners.',
+          water: 'Relies on physical infrastructure footprint of AWS/Google Cloud partners.',
           emissionsLocation: 'Not independently disclosed.',
           emissionsMarket: 'Not independently disclosed.',
           accountingGap: 'Does not publish comprehensive Scope 1, 2, or 3 metrics outside AWS dashboard console.'
@@ -627,7 +638,7 @@
           emissionsMarket: 'Undisclosed independently.',
           accountingGap: 'By merging AI model research under general corporate Cloud accounting, localized training carbon surges are obscured.'
         },
-        laborNotes: 'Maintains segmented global outsourcing annotation systems; moderate contract oversight with high worker target quotas.',
+        laborNotes: 'Maintains highly segmented global outsourcing annotation systems; moderate contract oversight with high worker target quotas.',
         policyNotes: 'Actively participating in safety board reviews; aligns with European General-Purpose AI Code standards.'
       },
       {
@@ -667,6 +678,42 @@
         policyNotes: 'Aggressively lobbies to override state-level compute environmental restrictions to maintain competitive global AI advantage.'
       },
       {
+        id: 'amazon-bedrock',
+        name: 'Amazon Bedrock (AI Engine)',
+        category: 'ai-engine',
+        grade: 'B-',
+        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
+        badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
+        overallPercentage: 70,
+        description: 'The foundation model serving API framework of AWS. Promotes model optimization marketplace pipelines but abstracts model-specific training footprints from direct client energy calculations.',
+        scores: {
+          environmental: 65,
+          carbon: 60,
+          data: 75,
+          labor: 68
+        },
+        highlights: {
+          pros: [
+            'Marketplace layer limits direct model training data extraction liability.',
+            'Offers optimized Bedrock client tools to track general programmatic inference queries.',
+            'Strict enterprise security boundaries protect custom models from external scraping pipelines.'
+          ],
+          cons: [
+            'Inherits upstream training carbon profiles of third-party models (e.g. Anthropic, Meta).',
+            'No individual standalone Bedrock energy or water usage metrics published.'
+          ]
+        },
+        metrics: {
+          energy: 'Inference computation loads managed directly via AWS infrastructure clusters.',
+          water: 'Deletes direct cooling footprints down to the AWS cloud-hosting layer.',
+          emissionsLocation: 'Undisclosed independently from parent AWS corporate reports.',
+          emissionsMarket: 'Undisclosed independently.',
+          accountingGap: 'Bedrock abstracts large-scale foundational inference carbon metrics, shifting measurement tasks onto enterprise downstream users.'
+        },
+        laborNotes: 'Minimal direct content moderation footprint; relies on baseline compliance frameworks of participating model providers.',
+        policyNotes: 'Integrates Bedrock safety filters to comply with global General-Purpose AI guidelines; leverages massive scale to enforce enterprise security gates.'
+      },
+      {
         id: 'meta',
         name: 'Meta',
         category: 'ai-engine',
@@ -693,7 +740,7 @@
           ]
         },
         metrics: {
-          energy: 'Rapidly scaling multi-GW LLaMA training arrays across the United States.',
+          energy: 'Rapidly scaling LLaMA model training compute infrastructure.',
           water: 'Projected annual draft expanding exponentially inline with custom GPU clusters.',
           emissionsLocation: '5,141,350 t CO2e (Location-based, Scope 2, FY2023)',
           emissionsMarket: '1,358 t CO2e (Market-based, Scope 2, FY2023)',
@@ -701,42 +748,6 @@
         },
         laborNotes: 'Defendants in Kenyan high court class action regarding toxic exposure to content moderators labeling graphic extreme violence/abuse, paid under $2.00/hour.',
         policyNotes: 'Advocates open-source model releases (LLaMA) to shift compliance burden to downstream developers while protecting central cloud compute.'
-      },
-      {
-        id: 'perplexity',
-        name: 'Perplexity AI',
-        category: 'ai-engine',
-        grade: 'F',
-        gradeColor: 'text-red-700 dark:text-red-500 font-mono',
-        badgeColor: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-550/10 dark:text-red-450 dark:border-red-500/20',
-        overallPercentage: 18,
-        description: 'Systematically bypasses standard web ethics. Actively evades regional bot blocking, rotates IP networks to spoof browsers, and ignores voluntary robots.txt parameters while providing zero transparent ecological accounting.',
-        scores: {
-          environmental: 30,
-          carbon: 10,
-          data: 12,
-          labor: 40
-        },
-        highlights: {
-          pros: [
-            'High model-distillation and multi-host options for end-user choices.'
-          ],
-          cons: [
-            'Caught employing stealth crawler bots to intentionally bypass robots.txt restriction protocols.',
-            'Spoofs user-agents (impersonates macOS Safari/Chrome browsers) to circumvent Web Application Firewalls.',
-            'Rotates IP ranges and ASNs dynamically to strip website operator blocking mechanisms.',
-            'Leadership publicly dismissed Robots Exclusion Protocol as "not a legal framework."'
-          ]
-        },
-        metrics: {
-          energy: 'Unrated. Demands extensive recursive search workloads, scaling regional data server burdens.',
-          water: 'Undisclosed.',
-          emissionsLocation: 'Undisclosed.',
-          emissionsMarket: 'Undisclosed.',
-          accountingGap: 'Provides zero ecological transparency, carbon audits, or usage metrics.'
-        },
-        laborNotes: 'Relies on underlying base models (such as GPT/LLaMA), shifting the burden of original human labeler trauma onto primary host providers while harvesting outputs.',
-        policyNotes: 'Lobbying for bilateral commercial licensing to replace community-driven protocols, bypassing open-web governance paradigms.'
       },
       {
         id: 'google',
@@ -813,6 +824,43 @@
         policyNotes: 'Aggressively supports US Federal preemption through lobby groups to maintain high-speed compute dominance over state-level environmental/municipal restrictions.'
       },
       {
+        id: 'aws-hosting',
+        name: 'AWS (Cloud Hosting)',
+        category: 'cloud-hosting',
+        grade: 'C+',
+        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
+        badgeColor: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
+        overallPercentage: 66,
+        description: 'The world\'s largest cloud hosting provider. Contracting massive GW-scale renewable energy portfolios and signing pioneering nuclear power deals, but heavily challenged by extreme physical grid strains in Northern Virginia.',
+        scores: {
+          environmental: 70,
+          carbon: 48,
+          data: 82,
+          labor: 64
+        },
+        highlights: {
+          pros: [
+            'Contracted over 20+ GW of clean renewable grid capacity globally.',
+            'Signed historical 960 MW co-located nuclear power purchase deal at Talen Energy\'s Susquehanna facility.',
+            'Pioneering water-replenishment programs returning millions of gallons to local watersheds.'
+          ],
+          cons: [
+            'Location-based grid emissions remain highly carbon-intensive in key regions (like US-East-1 in Virginia, which relies heavily on coal/gas).',
+            'Relies heavily on unbundled market-based offsets to report virtual net-zero profiles.',
+            'Underlying physical host to Anthropic, Vercel, and Webflow, carrying massive systemic Scope 3 responsibilities.'
+          ]
+        },
+        metrics: {
+          energy: 'Estimated >38.5 Million MWh across global datacenter networks.',
+          water: 'Direct driver of critical evaporative datacenter cooling draw in water-stressed counties.',
+          emissionsLocation: 'Extensive Scope 2 location footprint, heavily dominated by US fossil grids.',
+          emissionsMarket: 'Minimizes reported values using Virtual PPAs and offset packages.',
+          accountingGap: 'AWS true carbon footprint is over 15 million tons of CO2e when replacing market offsets with location-based grid intensity.'
+        },
+        laborNotes: 'Highly optimized, automated datacenter facility operations. Limits direct annotation labor except for internal Bedrock model services.',
+        policyNotes: 'Lobbies extensively to secure grid allocations and municipal water concessions in dense computation alleys.'
+      },
+      {
         id: 'digitalocean',
         name: 'DigitalOcean',
         category: 'cloud-hosting',
@@ -856,7 +904,7 @@
         gradeColor: 'text-emerald-700 dark:text-emerald-500 font-mono',
         badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
         overallPercentage: 75,
-        description: 'Front-end deployment platform abstracting serverless infrastructure. Promotes high efficiency via edge functions, but inherits the raw carbon footprint of underlying hyperscale hosts (AWS/Google Cloud).',
+        description: 'Front-end deployment platform abstracting serverless infrastructure. Promotes high efficiency via edge functions, but inherits the raw carbon footprint of underlying AWS hosting networks.',
         scores: {
           environmental: 60,
           carbon: 55,
@@ -883,6 +931,42 @@
         },
         laborNotes: 'High-paying digital native employment matrices; lacks high-exposure content moderation annotation pipelines.',
         policyNotes: 'Supports standard open-source front-end framework compliance; avoids aggressive federal lobby groupings.'
+      },
+      {
+        id: 'aws-amplify',
+        name: 'AWS Amplify / Lambda (Deploy Layer)',
+        category: 'deploy-layer',
+        grade: 'B',
+        gradeColor: 'text-emerald-700 dark:text-emerald-500 font-mono',
+        badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
+        overallPercentage: 76,
+        description: 'The serverless hosting and execution layer of AWS. Highly optimized for modular, on-demand micro-billing code execution, reducing baseline idle CPU draw but inheriting global location-based grid intensities.',
+        scores: {
+          environmental: 65,
+          carbon: 58,
+          data: 88,
+          labor: 78
+        },
+        highlights: {
+          pros: [
+            'Modular serverless structure and "scale-to-zero" logic minimizes wasted computation cycles.',
+            'Provides direct developer dashboards monitoring cloud energy resource efficiency.',
+            'Strong programmatic bot routing and DDoS shielding features.'
+          ],
+          cons: [
+            'Highly dispersed serverless execution makes direct Location-Based grid carbon tracking complex.',
+            'Abstracts physical infrastructure layers from developer calculation, reducing direct footprint visibility.'
+          ]
+        },
+        metrics: {
+          energy: 'Dispersed across hundreds of global PoPs; absolute energy usage integrated within parent AWS reports.',
+          water: 'Indirect, inherits the physical cooling draft profiles of the regional hosting grids.',
+          emissionsLocation: 'N/A - Abstracts environmental parameters into serverless routing metrics.',
+          emissionsMarket: 'Passively benefits from AWS corporate offset programs.',
+          accountingGap: 'Serverless deployment obscures localized execution spikes, complicating corporate Scope 3 value-chain audits.'
+        },
+        laborNotes: 'Built and managed by high-level engineering teams; negligible downstream content moderation BPO exposure.',
+        policyNotes: 'Standard corporate compliance; drives efficiency-centered open-source routing protocols.'
       },
       {
         id: 'webflow',
@@ -915,7 +999,7 @@
           water: 'Outsourced entirely.',
           emissionsLocation: 'Undisclosed standalone.',
           emissionsMarket: 'Undisclosed standalone.',
-          accountingGap: 'Delegates all environmental accountability upstream, creating a Scope 3 reporting vacuum.'
+          accountingGap: 'Delegates all environmental accountability upstream to AWS, creating a Scope 3 reporting vacuum.'
         },
         laborNotes: 'Focuses on high-quality internal engineering standards, with negligible downstream BPO data labeling hazards.',
         policyNotes: 'Strong focus on standard design systems accessibility and web standards; neutral on global copyright legislation.'
@@ -1568,12 +1652,6 @@ Adopt a rigorous, advisory, and professional style. Divide your report with clea
       }
       document.body.removeChild(tempTextArea);
     }
-
-    const auditPresets = {
-      reasoning: "Analyze the environmental threat of implementing real-time 'tree-of-thought' reasoning loops (e.g., DeepSeek R1 or o1) in a high-volume enterprise deployment (running 5,000,000 queries per day). Focus on localized grid constraints, peak water draw in cooling towers, and recommendations for architectural pruning.",
-      policy: "Draft a comprehensive corporate compliance and model alignment policy aligned with the EU AI Act's rules on general-purpose AI (GPAI). Provide clear guardrails on model auditing, Scope 3 supply-chain carbon tracking, and content moderating labor conditions.",
-      sourcing: "Audit the ethical and compliance trade-offs of using automated stealth crawl bots to bypass robots.txt limits vs. training models with synthetic data. Highlight copyright dilution risks, legal safety compliance, and model collapse scenarios."
-    };
 
     window.addEventListener('DOMContentLoaded', init);
   </script>
