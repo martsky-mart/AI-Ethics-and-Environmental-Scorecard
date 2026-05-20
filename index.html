@@ -1,15 +1,17 @@
+<!-- Chosen Palette: Hive IT Warm Harmony -->
+<!-- Application Structure Plan: The application uses a modular dashboard approach on a single scrollable page to display complex sustainability and ethical data. The layout has been updated to split providers into three explicit categories: AI Engines (including separate entries for Google and Microsoft AI development), Cloud Hosting, and Deploy Layers. The top section introduces the main ESG trends with card-based statistics. The middle grid hosts the interactive provider grid where users can filter by the new categories and drill down into evidence panels. A reactive downstream query calculator allows users to simulate grid loads and send values directly to the real-time Gemini ESG auditing module. Side-by-side comparisons and keys configuration panels are supported via accessible, focus-locked modals. This structure was chosen to make extensive corporate lifecycle reports easy to digest and explore. -->
+<!-- Visualization & Content Choices: 1. Core KPIs -> Inform -> High Contrast Cards -> Instant comprehension of massive operational statistics. 2. Downstream Calculator -> Inform & Compare -> Interactive Form -> Dynamically models resource drain based on model type. 3. Real-Time Auditor -> Analyze -> Gemini LLM Integration -> Offers custom, dynamic expert-level ESG auditing. 4. Scorecard Grid -> Compare -> Grade Badges & Metric Bars -> Visually ranks 11 providers split across AI, Hosting, and Deploy layers without SVG dependencies. 5. Comparison Matrix -> Compare -> Side-by-Side Table -> Lets users directly evaluate any two entities across our four core performance pillars. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Provider Ethics & Environmental Scorecard</title>
-  <!-- Google Fonts: Space Grotesk, Geist, and Geist Mono -->
+  <title>AI & Cloud Provider Ethics & Environmental Scorecard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;650;700&display=swap" rel="stylesheet">
   
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -25,8 +27,8 @@
             brand: {
               50: '#fffbeb',
               100: '#fef3c7',
-              500: '#f59e0b', // Hive Warm Amber
-              600: '#d97706', // Contrast-Enhanced Gold for Light Mode
+              500: '#f59e0b',
+              600: '#d97706',
               700: '#b45309',
               900: '#78350f',
             },
@@ -52,7 +54,6 @@
     code, pre, .font-mono {
       font-family: 'Geist Mono', monospace;
     }
-    /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
@@ -80,56 +81,40 @@
 </head>
 <body class="bg-[#FAF8F5] text-[#1A1A1A] dark:bg-[#131415] dark:text-[#F3F4F6] min-h-screen transition-colors duration-300 antialiased">
 
-  <!-- Main Navigation / Header -->
   <header class="border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur sticky top-0 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <!-- Hive IT inspired hexagon logo -->
         <div class="p-2 bg-brand-500/10 rounded-lg border border-brand-500/40 dark:border-brand-500/30">
-          <svg class="w-6 h-6 text-brand-600 dark:text-brand-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 2L4 6.5v9L12 22l8-4.5v-9L12 2zm6 12.3l-6 3.4-6-3.4V7.7l6-3.4 6 3.4v6.6z" />
-          </svg>
+          <div class="w-6 h-6 text-brand-600 dark:text-brand-500 font-display font-bold text-center leading-normal">H</div>
         </div>
         <div>
-          <h1 class="font-bold text-xl leading-tight text-slate-900 dark:text-white tracking-tight">AI Lifecycle Scorecard</h1>
+          <h1 class="font-bold text-xl leading-tight text-slate-900 dark:text-white tracking-tight">AI & Cloud Lifecycle Scorecard</h1>
           <p class="text-xs text-slate-700 dark:text-slate-300 font-sans font-medium">Hive-Inspired Environmental & Ethical Index</p>
         </div>
       </div>
       
-      <!-- Top Action Controls -->
       <div class="flex items-center space-x-3 font-display">
         <button onclick="openSettingsModal()" class="flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
-          <svg class="w-4 h-4 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
+          ⚙️
           <span class="hidden sm:inline">Settings & Keys</span>
         </button>
 
         <button onclick="openDeploymentGuide()" class="flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" title="Deployment Help">
-          <svg class="w-4 h-4 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-          </svg>
+          📖
           <span class="hidden sm:inline">How to Deploy</span>
         </button>
 
         <button id="theme-btn" onclick="toggleTheme()" class="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" aria-label="Toggle dark mode">
-          <svg id="theme-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <!-- Moon path indicating Switch to Dark Mode (default light mode active) -->
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
+          <span id="theme-icon-text">🌑</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Key Info Banner -->
   <div id="api-warning-banner" class="bg-[#FFFDF9] dark:bg-slate-900 border-b border-amber-200/60 dark:border-slate-800 py-3 font-sans">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between flex-wrap gap-2 text-xs">
       <div class="flex items-center space-x-2 text-slate-800 dark:text-slate-300">
-        <svg class="w-4 h-4 shrink-0 text-brand-600 dark:text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        📢
         <span><strong>Integration Status:</strong> Sandbox environment key auto-injection is supported. For custom external self-hosting, configure your personal key.</span>
       </div>
       <button onclick="openSettingsModal()" class="px-2.5 py-1 rounded bg-brand-100 hover:bg-brand-100/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-brand-900 dark:text-slate-300 font-semibold border border-brand-200 dark:border-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
@@ -138,7 +123,6 @@
     </div>
   </div>
 
-  <!-- Hero Summary Section -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" aria-labelledby="hero-title">
     <div class="bg-gradient-to-br from-[#FFFDF9] to-[#F5ECE2] dark:from-slate-900 dark:to-slate-800 border border-[#F3E2CE] dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-md">
       <div class="max-w-3xl">
@@ -146,11 +130,10 @@
           The Hidden Cost of Artificial Intelligence
         </h2>
         <p class="mt-4 text-slate-700 dark:text-slate-300 leading-relaxed text-base sm:text-lg font-sans">
-          This interactive dashboard tracks, evaluates, and grades major AI providers based on physical, legal, and operational benchmarks. Compare providers, analyze carbon accounting disparities, and simulate downstream resource demands.
+          This interactive dashboard tracks, evaluates, and ranks major providers split into three core categories: AI Engines (including Google and Microsoft AI development arms), Cloud Hosting infrastructure platforms, and Front-End Abstraction/Deploy Networks.
         </p>
       </div>
 
-      <!-- Quick Stats -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-brand-500/20 dark:border-slate-750">
         <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <p class="text-xs text-slate-700 dark:text-slate-300 font-medium uppercase tracking-wider">Estimated Inference Cost</p>
@@ -176,50 +159,39 @@
     </div>
   </section>
 
-  <!-- Interactive Scorecard Hub -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
     
-    <!-- Controls Section -->
     <nav class="flex flex-col md:flex-row md:items-center justify-between pb-6 gap-4 border-b border-slate-200 dark:border-slate-800 font-display" aria-label="Provider filters">
       <div class="flex flex-wrap gap-2" id="filter-buttons">
         <button onclick="setFilter('all')" id="btn-all" class="px-4 py-2 text-sm font-semibold rounded-lg bg-brand-600 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">All Providers</button>
-        <button onclick="setFilter('hyperscale')" id="btn-hyperscale" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">Hyperscalers (Cloud Hosts)</button>
-        <button onclick="setFilter('pureplay')" id="btn-pureplay" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">Pure-Play AI Developers</button>
+        <button onclick="setFilter('ai-engine')" id="btn-ai-engine" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">AI Engines</button>
+        <button onclick="setFilter('cloud-hosting')" id="btn-cloud-hosting" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">Cloud Hosting</button>
+        <button onclick="setFilter('deploy-layer')" id="btn-deploy-layer" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">Deploy Layers</button>
       </div>
       <div class="flex items-center space-x-3">
         <button onclick="openCompareModal()" class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold rounded-lg border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-400 hover:bg-brand-500/20 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-          </svg>
-          <span>Compare Providers</span>
+          ⚖️ Compare Providers
         </button>
       </div>
     </nav>
 
-    <!-- Providers Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8" id="provider-grid">
-      <!-- Generated Dynamically via JS -->
-    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8" id="provider-grid"></div>
 
-    <!-- Operational Footprint Calculator -->
     <section class="mt-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-md" aria-labelledby="calc-title">
       <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
         <h3 id="calc-title" class="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2">
-          <svg class="w-5 h-5 text-brand-600 dark:text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-          </svg>
+          🧮
           <span>Downstream Query Resource Calculator</span>
         </h3>
         <p class="text-sm text-slate-700 dark:text-slate-300 font-sans">Simulate physical water and electrical grids under different architecture scales.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <!-- Interactive Controls -->
         <div class="lg:col-span-5 space-y-6">
           <div>
-            <label for="calc-queries" class="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Estimated Daily Queries</label>
-            <input type="range" id="calc-queries" min="10000" max="10000000" step="10000" value="1000000" oninput="updateCalculator()" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
-            <div class="flex justify-between text-xs text-slate-750 dark:text-slate-300 mt-2">
+            <label class="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Estimated Daily Queries</label>
+            <input type="range" id="calc-queries" min="10000" max="10000000" step="10000" value="1000000" oninput="updateCalculator()" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+            <div class="flex justify-between text-xs text-slate-755 dark:text-slate-300 mt-2">
               <span class="font-mono">10,000</span>
               <span id="calc-queries-display" class="text-brand-700 dark:text-brand-400 font-bold font-mono">1,000,000 queries/day</span>
               <span class="font-mono">10 Million</span>
@@ -229,21 +201,21 @@
           <div>
             <span class="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">Model Architectural Choice</span>
             <div class="grid grid-cols-1 gap-3">
-              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-950 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-600">
+              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-950 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-500">
                 <input type="radio" name="model-type" value="search" onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-100 border-slate-300 dark:bg-slate-900 dark:border-slate-700">
                 <span class="ml-3 block">
                   <span class="text-sm font-semibold text-slate-800 dark:text-slate-200 block">Standard Search Engine</span>
                   <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium">Baseline (~0.3 Wh / query)</span>
                 </span>
               </label>
-              <label class="flex items-center p-3 rounded-xl border border-brand-500/30 bg-brand-500/5 hover:bg-brand-500/10 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-600">
+              <label class="flex items-center p-3 rounded-xl border border-brand-500/30 bg-brand-500/5 hover:bg-brand-500/10 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-500">
                 <input type="radio" name="model-type" value="standard" checked onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-100 border-slate-300 dark:bg-slate-900 dark:border-slate-700">
                 <span class="ml-3 block">
                   <span class="text-sm font-semibold text-brand-700 dark:text-brand-400 block">Conventional Generative AI</span>
                   <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium">Standard LLM (~2.9 Wh / query)</span>
                 </span>
               </label>
-              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-950 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-600">
+              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-950 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-500">
                 <input type="radio" name="model-type" value="reasoning" onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-100 border-slate-300 dark:bg-slate-900 dark:border-slate-700">
                 <span class="ml-3 block">
                   <span class="text-sm font-semibold text-brand-700 dark:text-brand-500 block">Advanced Reasoning AI (10x-70x load)</span>
@@ -254,10 +226,9 @@
           </div>
         </div>
 
-        <!-- Calculation Results -->
         <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-850 flex flex-col justify-between shadow-sm">
           <div>
-            <h4 class="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-4">Estimated Resource Footprint (Daily)</h4>
+            <h4 class="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-4 font-display">Estimated Resource Footprint (Daily)</h4>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono">
               <div class="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
                 <span class="text-xs text-slate-700 dark:text-slate-300 block font-sans font-medium">Power Consumed</span>
@@ -267,7 +238,7 @@
               <div class="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
                 <span class="text-xs text-slate-700 dark:text-slate-300 block font-sans font-medium">Water Consumed</span>
                 <span id="calc-water" class="text-2xl font-black text-slate-900 dark:text-slate-100 block mt-1">118 Gallons</span>
-                <span class="text-[10px] text-slate-600 dark:text-slate-400 block mt-1 font-sans">Evaporative chip cooling draft</span>
+                <span class="text-[10px] text-slate-600 dark:text-slate-400 block mt-1 font-sans">Evaporative cooling draft</span>
               </div>
               <div class="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
                 <span class="text-xs text-slate-700 dark:text-slate-300 block font-sans font-medium">Physical Grid Carbon</span>
@@ -277,13 +248,10 @@
             </div>
           </div>
 
-          <!-- Optimization Recommendation Box -->
           <div class="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4 border-t border-slate-200 dark:border-slate-800">
             <div class="flex-1">
               <h5 class="text-sm font-semibold text-brand-700 dark:text-brand-400 flex items-center space-x-1.5 font-display">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+                💡
                 <span>Architectural Recommendations: Right-Sizing</span>
               </h5>
               <p id="calc-advice" class="text-xs text-slate-700 dark:text-slate-300 mt-1 leading-relaxed font-sans">
@@ -292,18 +260,13 @@
             </div>
             <button onclick="sendStatsToAuditor()" class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center space-x-1.5 px-3 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 font-display">
               <span>✨ Send to ESG Auditor</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-              </svg>
             </button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Section: ✨ Real-Time AI ESG Auditor & Policy Advisor -->
     <section id="auditor-panel" class="mt-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-md relative overflow-hidden" aria-labelledby="audit-title">
-      <!-- Glow decoration -->
       <div class="absolute -right-16 -top-16 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
       
       <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
@@ -313,7 +276,7 @@
               <span class="text-xl" aria-hidden="true">✨</span>
               <span>Real-Time AI ESG Auditor & Policy Advisor</span>
             </h3>
-            <p class="text-sm text-slate-700 dark:text-slate-300 font-sans">Audit your infrastructure or draft compliant AI policies utilizing the Gemini 2.5 API.</p>
+            <p class="text-sm text-slate-700 dark:text-slate-300 font-sans font-medium">Audit your infrastructure or draft compliant AI policies utilizing the Gemini 2.5 API.</p>
           </div>
           <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-brand-500/10 text-brand-700 dark:text-brand-400 border border-brand-500/20 font-display">
             Self-Hosted Connector
@@ -322,20 +285,19 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <!-- Control panel -->
         <div class="lg:col-span-5 space-y-4">
           <div>
-            <span class="block text-xs font-bold text-slate-750 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Audit Scenario Presets</span>
+            <span class="block text-xs font-bold text-slate-755 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Audit Scenario Presets</span>
             <div class="grid grid-cols-1 gap-2 font-sans">
-              <button onclick="applyAuditPreset('reasoning')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-50/20 dark:hover:bg-slate-950 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+              <button onclick="applyAuditPreset('reasoning')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-950 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
                 <span class="font-semibold text-slate-900 dark:text-slate-200 block font-display">🌿 DeepSeek R1 / o1 Reasoning Audit</span>
                 <span class="text-slate-600 dark:text-slate-400 block mt-0.5">Evaluate localized grid & aquifer loads for reasoning loop spikes.</span>
               </button>
-              <button onclick="applyAuditPreset('policy')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-50/20 dark:hover:bg-slate-950 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+              <button onclick="applyAuditPreset('policy')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-950 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
                 <span class="font-semibold text-slate-900 dark:text-slate-200 block font-display">📜 EU AI Act Governance Plan</span>
                 <span class="text-slate-600 dark:text-slate-400 block mt-0.5">Draft an organizational compliance blueprint for General-Purpose AI models.</span>
               </button>
-              <button onclick="applyAuditPreset('sourcing')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-50/20 dark:hover:bg-slate-950 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+              <button onclick="applyAuditPreset('sourcing')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-950 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
                 <span class="font-semibold text-slate-900 dark:text-slate-200 block font-display">🕵️ Crawl Ethics & Synthetic Data</span>
                 <span class="text-slate-600 dark:text-slate-400 block mt-0.5">Audit the tradeoff of bypassing robots.txt vs synthetic dataset bias.</span>
               </button>
@@ -343,8 +305,8 @@
           </div>
 
           <div>
-            <label for="auditor-input" class="block text-xs font-bold text-slate-750 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Custom Audit Context or Question</label>
-            <textarea id="auditor-input" rows="4" class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg p-3 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 font-sans" placeholder="Type a custom scenario (e.g. 'We plan to host LLaMA-3-70B on Google Cloud. Write an optimization strategy for US-West grid conditions...')."></textarea>
+            <label for="auditor-input" class="block text-xs font-bold text-slate-755 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Custom Audit Context or Question</label>
+            <textarea id="auditor-input" rows="4" class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg p-3 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 font-sans" placeholder="Type a custom scenario (e.g. 'We plan to host LLaMA-3-70B on Google Cloud...')."></textarea>
           </div>
 
           <div class="flex space-x-2 font-display">
@@ -357,10 +319,8 @@
           </div>
         </div>
 
-        <!-- Output panel -->
         <div class="lg:col-span-7 flex flex-col min-h-[340px]">
           <div class="flex-1 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex flex-col justify-between overflow-hidden shadow-sm">
-            <!-- Loading Indicator -->
             <div id="auditor-loading" class="hidden flex-1 flex-col items-center justify-center space-y-4 py-12">
               <div class="relative w-12 h-12">
                 <div class="absolute inset-0 border-4 border-brand-500/10 rounded-full"></div>
@@ -372,43 +332,33 @@
               </div>
             </div>
 
-            <!-- Empty State -->
             <div id="auditor-empty" class="flex-1 flex flex-col items-center justify-center text-center py-12 space-y-3">
-              <svg class="w-12 h-12 text-slate-400 dark:text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
+              🗒️
               <div>
                 <p class="text-sm font-semibold text-slate-800 dark:text-slate-400 font-display">Auditor Status: Ready</p>
                 <p class="text-xs text-slate-600 dark:text-slate-500 mt-1 max-w-sm font-sans">Select an audit scenario preset on the left, or input your own parameters, and press "Execute Live AI Audit" to start.</p>
               </div>
             </div>
 
-            <!-- Error State -->
             <div id="auditor-error" class="hidden flex-1 flex-col items-center justify-center text-center py-12 space-y-3">
               <div class="p-2.5 bg-red-100 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 rounded-xl text-red-700 dark:text-red-400">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
+                ⚠️
               </div>
               <div>
                 <p class="text-sm font-semibold text-slate-900 dark:text-slate-300 font-display">Auditor Connection Alert</p>
                 <p id="auditor-error-text" class="text-xs text-slate-600 dark:text-slate-400 mt-1 max-w-sm font-sans">Unable to reach Google's Gemini servers. Verify your API key is correct and valid.</p>
-                <button onclick="openSettingsModal()" class="mt-3 text-xs bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 font-display">
+                <button onclick="openSettingsModal()" class="mt-3 text-xs bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 font-display">
                   Open Settings Panel
                 </button>
               </div>
             </div>
 
-            <!-- Content Area -->
             <div id="auditor-content" class="hidden flex-1 overflow-y-auto max-h-[380px] pr-2">
               <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 mb-4 sticky top-0 bg-slate-50 dark:bg-slate-950">
-                <span class="text-xs font-bold text-slate-750 dark:text-slate-400 uppercase tracking-wider flex items-center space-x-1 font-display">
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider flex items-center space-x-1 font-display">
                   <span>✨ Verified ESG Impact Report</span>
                 </span>
-                <button onclick="copyAuditToClipboard()" class="text-[10px] bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 px-2 py-1 rounded transition flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 font-display">
-                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                  </svg>
+                <button onclick="copyAuditToClipboard()" class="text-[10px] bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 px-2 py-1 rounded transition flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 font-display">
                   <span id="copy-btn-text">Copy Audit Text</span>
                 </button>
               </div>
@@ -424,7 +374,6 @@
 
   </main>
 
-  <!-- Dynamic Provider Modal -->
   <div id="provider-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-provider-title">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
       <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeModal()"></div>
@@ -436,22 +385,17 @@
     </div>
   </div>
 
-  <!-- Comparison Drawer Modal -->
   <div id="compare-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-compare-title">
     <div class="flex items-center justify-center min-h-screen p-4 text-center">
       <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeCompareModal()"></div>
       <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-5xl w-full p-6 relative z-10 font-sans">
         <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
           <h3 id="modal-compare-title" class="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2 font-display">
-            <svg class="w-6 h-6 text-brand-600 dark:text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-            </svg>
+            ⚖️
             <span>Provider Performance Comparison</span>
           </h3>
           <button onclick="closeCompareModal()" class="text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-slate-200 p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" aria-label="Close comparison panel">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            ✖️
           </button>
         </div>
 
@@ -472,22 +416,17 @@
     </div>
   </div>
 
-  <!-- Settings & Keys Modal -->
   <div id="settings-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-settings-title">
     <div class="flex items-center justify-center min-h-screen p-4 text-center">
       <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeSettingsModal()"></div>
       <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-lg w-full p-6 relative z-10 font-sans">
         <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
           <h3 id="modal-settings-title" class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2 font-display">
-            <svg class="w-5 h-5 text-brand-600 dark:text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m0 0a2 2 0 01-2 2m0-4a2 2 0 01-2-2m0 0a2 2 0 01-2 2m0-4a2 2 0 11-4 0V7H5a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-3" />
-            </svg>
+            ⚙️
             <span>API & Environment Configuration</span>
           </h3>
           <button onclick="closeSettingsModal()" class="text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-slate-200 p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" aria-label="Close configuration panel">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            ✖️
           </button>
         </div>
 
@@ -504,11 +443,8 @@
           <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
             <span class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Bake Key & Create Custom Bundle</span>
             <p class="text-[11px] text-slate-700 dark:text-slate-400 mb-3 leading-relaxed">Enter your key above and click the button below to download a standalone copy of this app with your credentials baked directly inside. You can then host this file privately on your own hosting servers without manually inputting keys again.</p>
-            <button onclick="exportBakedHTML()" class="w-full inline-flex items-center justify-center space-x-2 px-4 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 shadow font-display">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              <span>Compile & Download Baked Bundle</span>
+            <button onclick="exportBakedHTML()" class="w-full inline-flex items-center justify-center space-x-2 px-4 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 shadow font-display">
+              <span>📦 Compile & Download Baked Bundle</span>
             </button>
           </div>
         </div>
@@ -522,22 +458,17 @@
     </div>
   </div>
 
-  <!-- How to Deploy / Documentation Modal -->
   <div id="deployment-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-deploy-title">
     <div class="flex items-center justify-center min-h-screen p-4 text-center">
       <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeDeploymentGuide()"></div>
       <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-2xl w-full p-6 relative z-10 font-sans">
         <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
           <h3 id="modal-deploy-title" class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2 font-display">
-            <svg class="w-5 h-5 text-brand-600 dark:text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-            </svg>
+            📖
             <span>How to Host & Deploy This Web App</span>
           </h3>
           <button onclick="closeDeploymentGuide()" class="text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-slate-200 p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" aria-label="Close deployment guide panel">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            ✖️
           </button>
         </div>
 
@@ -571,7 +502,7 @@
         </div>
 
         <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end font-display">
-          <button onclick="closeDeploymentGuide()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-lg text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+          <button onclick="closeDeploymentGuide()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-100 rounded-lg text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
             Close Panel
           </button>
         </div>
@@ -579,184 +510,20 @@
     </div>
   </div>
 
-  <!-- Footer Info / Sourcing -->
-  <footer class="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 py-12 font-sans shadow-inner">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:flex md:items-center md:justify-between">
-      <div class="flex justify-center space-x-6 md:order-2">
-        <span class="text-xs text-slate-600 dark:text-slate-400">Formulated in accordance with the Greenhouse Gas Protocol & EU AI Act Guidance.</span>
-      </div>
-      <div class="mt-8 md:mt-0 md:order-1">
-        <p class="text-center text-xs text-slate-600 dark:text-slate-400">&copy; 2026 AI Ethics Research Initiative. Dynamic model projections based on published lifecycle reports.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Scripts: Custom Data and Controllers -->
   <script>
-    // BAKE EMBED SPOT:
-    // This variable serves as the compile target when a user downloads a baked HTML package.
     const BAKED_API_KEY = "";
 
-    // State management
     let userApiKey = BAKED_API_KEY || "";
     let currentFilter = 'all';
     let theme = 'light';
     let currentAuditResult = "";
     let previousActiveElement = null;
 
-    // Fully populated provider database strictly based on the provided report
     const providers = [
-      {
-        id: 'microsoft',
-        name: 'Microsoft Azure',
-        category: 'hyperscale',
-        grade: 'C+',
-        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
-        badgeColor: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
-        overallPercentage: 68,
-        description: 'Encompasses massive infrastructure commitments. Driving substantial nuclear and geothermal clean-energy agreements but hampered by expanding location-based operational grid emissions and support of decoupled accounting.',
-        scores: {
-          environmental: 72,
-          carbon: 52,
-          data: 85,
-          labor: 63
-        },
-        highlights: {
-          pros: [
-            'Signed 10.5 GW massive renewable pact with Brookfield and nuclear CFE deals with Crane Clean Energy Center.',
-            'Pioneering mass timber data center structures cutting carbon footprint by 65%.',
-            'Contracted 34 GW of clean carbon-free energy globally.'
-          ],
-          cons: [
-            'Actual location-based grid emissions surged 130% between 2020 and 2024 (climbing to 10M metric tons).',
-            'Considering scale-down/ abandonment of its core pledge to match 100% hourly local CFE by 2030.',
-            'Direct cloud host to OpenAI, carrying downstream responsibility for massive GPT-4/5 physical energy loads.'
-          ]
-        },
-        metrics: {
-          energy: '29.8 Million MWh (FY 2024)',
-          water: 'Data centers represent major segment of 17B gal US baseline draw',
-          emissionsLocation: '9,955,368 t CO2e (Location-based, Scope 2)',
-          emissionsMarket: '259,090 t CO2e (Market-based, Scope 2)',
-          accountingGap: 'Microsoft true carbon footprint is approx. 25.2 million tons of CO2e when replacing market-based metrics with location-based grid intensity.'
-        },
-        laborNotes: 'Outsources data annotation pipelines to third-party firms. Tied into the global labor framework supporting major models, sharing downstream BPO dependencies.',
-        policyNotes: 'Aggressively supports US Federal preemption through lobby groups to maintain high-speed compute dominance over state-level environmental/municipal restrictions.'
-      },
-      {
-        id: 'google',
-        name: 'Google Cloud',
-        category: 'hyperscale',
-        grade: 'B-',
-        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
-        badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
-        overallPercentage: 78,
-        description: 'Industry-leading hardware efficiency improvements and ambitious hourly matching carbon goals, offset by escalating actual location-based emissions outstripping clean power grid rollouts.',
-        scores: {
-          environmental: 84,
-          carbon: 70,
-          data: 78,
-          labor: 64
-        },
-        highlights: {
-          pros: [
-            'Targeting full local net-zero operations by 2030, currently matching 64% of hourly demand with local CFE (2024).',
-            'World\'s first corporate agreement to buy nuclear energy from multiple Small Modular Reactors (SMRs).',
-            'Ironwood TPU custom AI chip offers a 30x energy efficiency increase relative to original 2018 chip.'
-          ],
-          cons: [
-            'Location-based operational emissions rose 92.4% (to 11.2M tons) in FY 2024 relative to 2020.',
-            'Absolute overall corporate emissions increased 51% from 2019 to 2024, driven directly by AI data centers.',
-            'Scraping activities hit with multiple lawsuits (including JL v Google class action).'
-          ]
-        },
-        metrics: {
-          energy: '32.2 Million MWh (FY 2024)',
-          water: 'Employs extensive evaporative water cooling across hyperscale centers.',
-          emissionsLocation: '11,283,200 t CO2e (Location-based, Scope 2)',
-          emissionsMarket: '3,059,100 t CO2e (Market-based, Scope 2)',
-          accountingGap: 'Google true carbon footprint reached 23.4 million tons against a reported 15.2 million (with market offsets).'
-        },
-        laborNotes: 'Maintains highly segmented global outsourcing workforce via regional contract hubs, operating under high volume quotas and precarious arrangements.',
-        policyNotes: 'Signs standard model compliance forms under the EU General-Purpose AI Code of Practice. Actively managing model safety portfolios.'
-      },
-      {
-        id: 'meta',
-        name: 'Meta',
-        category: 'hyperscale',
-        grade: 'C-',
-        gradeColor: 'text-[#EC4899] dark:text-[#EC4899] font-mono', // Portfolio Pink accent
-        badgeColor: 'bg-pink-100 text-pink-800 border-pink-200 dark:bg-pink-500/10 dark:text-pink-400 dark:border-pink-500/20',
-        overallPercentage: 55,
-        description: 'Promotes virtual "100% renewable" operations through aggressive unbundled carbon offset purchases, while physical local grids handle extreme loads. Facing intense legal battles over union-busting and labor exploitation.',
-        scores: {
-          environmental: 74,
-          carbon: 20,
-          data: 68,
-          labor: 38
-        },
-        highlights: {
-          pros: [
-            'Backed 29 GW of regional wind/solar projects; piloting HVO biofuel and geothermal in New Mexico.',
-            'Won historical June 2025 copyright dismissal against Sarah Silverman/Ta-Nehisi Coates due to lack of market dilution evidence.'
-          ],
-          cons: [
-            'Staggering 19,000x gap in carbon accounting (2022): reported 273 tons of Scope 2 market emissions vs. 3.8M tons actual location-based emissions.',
-            'Location-based Scope 2 emissions doubled between 2020 and 2023 baseline, hitting 5.1M tons.',
-            'Abruptly terminated Sama content moderation contracts in Kenya during unionization efforts, triggering active court battles.'
-          ]
-        },
-        metrics: {
-          energy: 'Rapidly scaling multi-GW cluster infrastructure across the United States.',
-          water: 'Projected annual draft expanding exponentially inline with custom GPU clusters.',
-          emissionsLocation: '5,141,350 t CO2e (Location-based, Scope 2, FY2023)',
-          emissionsMarket: '1,358 t CO2e (Market-based, Scope 2, FY2023)',
-          accountingGap: 'Meta reports a virtual "Net-Zero" profile using unbundled RECs while data centers draw heavy fossil loads.'
-        },
-        laborNotes: 'Defendants in Kenyan high court class action regarding toxic exposure to content moderators labeling graphic extreme violence/abuse, paid under $2.00/hour.',
-        policyNotes: 'Advocates open-source model releases (LLaMA) to shift compliance burden to downstream developers while protecting central cloud compute.'
-      },
-      {
-        id: 'openai',
-        name: 'OpenAI',
-        category: 'pureplay',
-        grade: 'D+',
-        gradeColor: 'text-orange-800 dark:text-orange-500 font-mono',
-        badgeColor: 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-600/10 dark:text-orange-400 dark:border-orange-600/20',
-        overallPercentage: 42,
-        description: 'Exhibits complete opacity regarding environmental and carbon reporting. Prioritizes product deployment over internal alignment structures, balanced slightly by compliant web-scraping behavior.',
-        scores: {
-          environmental: 35,
-          carbon: 10,
-          data: 82,
-          labor: 28
-        },
-        highlights: {
-          pros: [
-            'Adheres strictly to standard robots.txt exclusion guidelines.',
-            'Signs bot queries via Web Bot Auth to allow transparent server-level crawling audits.',
-            'Supports compliance targets through hosted host (Microsoft Azure).'
-          ],
-          cons: [
-            'Completely fails to publish public sustainability reviews or carbon disclosures.',
-            'Superalignment and Mission Alignment teams entirely dissolved (resignation of co-leads Sutskever and Jan Leike over safety concerns).',
-            'Contracted Kenyan labelers via Sama at rates under $2.00/hour to parse extreme graphic violence, child abuse, and trauma.'
-          ]
-        },
-        metrics: {
-          energy: 'GPT-3: 1.287 GWh | GPT-4: 52-62 GWh | GPT-5 projected: 80-100 GWh (80-90% spent on running inference).',
-          water: 'Vast, undisclosed global hydrological footprint proportional to billion-query inference loads.',
-          emissionsLocation: 'GPT-4 training emitted ~15,000 t CO2e (Location-based).',
-          emissionsMarket: 'Unreported (Relies on virtual offsets of Azure clouds).',
-          accountingGap: 'Fails to disclose Scope 3 value-chain concrete/silicon footprints.'
-        },
-        laborNotes: 'Exposes outsourced data workers to systemic psychological trauma with inadequate on-site mental health counselors; Scale AI Kenyan shutdown locked out employees overnight.',
-        policyNotes: 'Faces critical scrutiny over dismantling safety teams; transition from research nonprofit to heavily capitalized product-focused provider.'
-      },
       {
         id: 'anthropic',
         name: 'Anthropic',
-        category: 'pureplay',
+        category: 'ai-engine',
         grade: 'B',
         gradeColor: 'text-emerald-700 dark:text-emerald-500 font-mono',
         badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
@@ -791,12 +558,157 @@
         policyNotes: 'Aligned closely with the EU General-Purpose AI Code of Practice. Attractive to highly regulated sectors due to predictable compliance boundaries.'
       },
       {
+        id: 'openai',
+        name: 'OpenAI',
+        category: 'ai-engine',
+        grade: 'D+',
+        gradeColor: 'text-orange-800 dark:text-orange-500 font-mono',
+        badgeColor: 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-600/10 dark:text-orange-400 dark:border-orange-600/20',
+        overallPercentage: 42,
+        description: 'Exhibits complete opacity regarding environmental and carbon reporting. Prioritizes product deployment over internal alignment structures, balanced slightly by compliant web-scraping behavior.',
+        scores: {
+          environmental: 35,
+          carbon: 10,
+          data: 82,
+          labor: 28
+        },
+        highlights: {
+          pros: [
+            'Adheres strictly to standard robots.txt exclusion guidelines.',
+            'Signs bot queries via Web Bot Auth to allow transparent server-level crawling audits.',
+            'Supports compliance targets through hosted host (Microsoft Azure).'
+          ],
+          cons: [
+            'Completely fails to publish public sustainability reviews or carbon disclosures.',
+            'Superalignment and Mission Alignment teams entirely dissolved (resignation of co-leads Sutskever and Jan Leike over safety concerns).',
+            'Contracted Kenyan labelers via Sama at rates under $2.00/hour to parse extreme graphic violence, child abuse, and trauma.'
+          ]
+        },
+        metrics: {
+          energy: 'GPT-3: 1.287 GWh | GPT-4: 52-62 GWh | GPT-5 projected: 80-100 GWh (80-90% spent on running inference).',
+          water: 'Vast, undisclosed global hydrological footprint proportional to billion-query inference loads.',
+          emissionsLocation: 'GPT-4 training emitted ~15,000 t CO2e (Location-based).',
+          emissionsMarket: 'Unreported (Relies on virtual offsets of Azure clouds).',
+          accountingGap: 'Fails to disclose Scope 3 value-chain concrete/silicon footprints.'
+        },
+        laborNotes: 'Exposes outsourced data workers to systemic psychological trauma with inadequate on-site mental health counselors; Scale AI Kenyan shutdown locked out employees overnight.',
+        policyNotes: 'Faces critical scrutiny over dismantling safety teams; transition from research nonprofit to heavily capitalized product-focused provider.'
+      },
+      {
+        id: 'google-ai',
+        name: 'Google (AI Engine)',
+        category: 'ai-engine',
+        grade: 'B-',
+        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
+        badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
+        overallPercentage: 70,
+        description: 'Develops foundational Gemini architectures. Drives advanced research in multimodal efficiency and open model safety frameworks, but training large models demands extreme energy loads.',
+        scores: {
+          environmental: 60,
+          carbon: 60,
+          data: 75,
+          labor: 65
+        },
+        highlights: {
+          pros: [
+            'Aggressive development of architectural RLAIF paths to replace manual content annotation.',
+            'Leading performance-to-footprint ratios in Gemini Flash model categories.',
+            'Actively publishes model cards detailing benchmark training parameters.'
+          ],
+          cons: [
+            'Ingests immense scrapable data pools, leading to multiple class-action data use disputes.',
+            'Baseline Gemini Ultra training routines consume massive, undisclosed carbon blocks.'
+          ]
+        },
+        metrics: {
+          energy: 'Training workloads managed natively via GCP TPUs; absolute GWh loads remains classified.',
+          water: 'Hydrological draw maps directly into underlying Google Cloud cooling structures.',
+          emissionsLocation: 'Undisclosed independently from Google Cloud overall corporate values.',
+          emissionsMarket: 'Undisclosed independently.',
+          accountingGap: 'By merging AI model research under general corporate Cloud accounting, localized training carbon surges are obscured.'
+        },
+        laborNotes: 'Maintains segmented global outsourcing annotation systems; moderate contract oversight with high worker target quotas.',
+        policyNotes: 'Actively participating in safety board reviews; aligns with European General-Purpose AI Code standards.'
+      },
+      {
+        id: 'microsoft-ai',
+        name: 'Microsoft (AI Engine)',
+        category: 'ai-engine',
+        grade: 'C+',
+        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
+        badgeColor: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
+        overallPercentage: 66,
+        description: 'AI product development unit managing Copilot structures. Relies closely on OpenAI API integrations and Azure cloud deployments, inheriting combined downstream labor and computational footprints.',
+        scores: {
+          environmental: 55,
+          carbon: 50,
+          data: 80,
+          labor: 60
+        },
+        highlights: {
+          pros: [
+            'Highly optimized hybrid-compute architectures routing small queries to smaller local models.',
+            'Pioneering programmatic content exclusion options for web publishers.',
+            'Supports alignment standards under corporate AI advisory boards.'
+          ],
+          cons: [
+            'Total carbon overhead from training customized multi-stage Copilot pipelines remains undisclosed.',
+            'Inherits downstream OpenAI moderation pipeline risks, leveraging common BPO labor pools.'
+          ]
+        },
+        metrics: {
+          energy: 'Compute workloads integrated directly with Microsoft Azure datacenters.',
+          water: 'Indirect, reliant on Microsoft Azure physical cooling frameworks.',
+          emissionsLocation: 'Undisclosed independently from Microsoft Azure baseline values.',
+          emissionsMarket: 'Undisclosed independently.',
+          accountingGap: 'Model development carbon loads are fully abstracted within corporate Azure emissions data.'
+        },
+        laborNotes: 'Relies on standard crowdsourced data tagging pipelines (OneForma, Appen) with varying minimum compensation levels across global regions.',
+        policyNotes: 'Aggressively lobbies to override state-level compute environmental restrictions to maintain competitive global AI advantage.'
+      },
+      {
+        id: 'meta',
+        name: 'Meta',
+        category: 'ai-engine',
+        grade: 'C-',
+        gradeColor: 'text-orange-755 dark:text-orange-500 font-mono',
+        badgeColor: 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-500/10 dark:text-orange-400 dark:border-orange-500/20',
+        overallPercentage: 55,
+        description: 'Promotes virtual "100% renewable" operations through aggressive unbundled carbon offset purchases, while physical local grids handle extreme loads. Facing intense legal battles over union-busting and labor exploitation.',
+        scores: {
+          environmental: 74,
+          carbon: 20,
+          data: 68,
+          labor: 38
+        },
+        highlights: {
+          pros: [
+            'Backed 29 GW of regional wind/solar projects; piloting HVO biofuel and geothermal in New Mexico.',
+            'Won historical June 2025 copyright dismissal against Sarah Silverman/Ta-Nehisi Coates due to lack of market dilution evidence.'
+          ],
+          cons: [
+            'Staggering 19,000x gap in carbon accounting (2022): reported 273 tons of Scope 2 market emissions vs. 3.8M tons actual location-based emissions.',
+            'Location-based Scope 2 emissions doubled between 2020 and 2023 baseline, hitting 5.1M tons.',
+            'Abruptly terminated Sama content moderation contracts in Kenya during unionization efforts, triggering active court battles.'
+          ]
+        },
+        metrics: {
+          energy: 'Rapidly scaling multi-GW LLaMA training arrays across the United States.',
+          water: 'Projected annual draft expanding exponentially inline with custom GPU clusters.',
+          emissionsLocation: '5,141,350 t CO2e (Location-based, Scope 2, FY2023)',
+          emissionsMarket: '1,358 t CO2e (Market-based, Scope 2, FY2023)',
+          accountingGap: 'Meta reports a virtual "Net-Zero" profile using unbundled RECs while data centers draw heavy fossil loads.'
+        },
+        laborNotes: 'Defendants in Kenyan high court class action regarding toxic exposure to content moderators labeling graphic extreme violence/abuse, paid under $2.00/hour.',
+        policyNotes: 'Advocates open-source model releases (LLaMA) to shift compliance burden to downstream developers while protecting central cloud compute.'
+      },
+      {
         id: 'perplexity',
         name: 'Perplexity AI',
-        category: 'pureplay',
+        category: 'ai-engine',
         grade: 'F',
         gradeColor: 'text-red-700 dark:text-red-500 font-mono',
-        badgeColor: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-500/10 dark:text-red-450 dark:border-red-500/20',
+        badgeColor: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-550/10 dark:text-red-450 dark:border-red-500/20',
         overallPercentage: 18,
         description: 'Systematically bypasses standard web ethics. Actively evades regional bot blocking, rotates IP networks to spoof browsers, and ignores voluntary robots.txt parameters while providing zero transparent ecological accounting.',
         scores: {
@@ -825,10 +737,191 @@
         },
         laborNotes: 'Relies on underlying base models (such as GPT/LLaMA), shifting the burden of original human labeler trauma onto primary host providers while harvesting outputs.',
         policyNotes: 'Lobbying for bilateral commercial licensing to replace community-driven protocols, bypassing open-web governance paradigms.'
+      },
+      {
+        id: 'google',
+        name: 'Google Cloud',
+        category: 'cloud-hosting',
+        grade: 'B-',
+        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
+        badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
+        overallPercentage: 78,
+        description: 'Industry-leading hardware efficiency improvements and ambitious hourly matching carbon goals, offset by escalating actual location-based emissions outstripping clean power grid rollouts.',
+        scores: {
+          environmental: 84,
+          carbon: 70,
+          data: 78,
+          labor: 64
+        },
+        highlights: {
+          pros: [
+            'Targeting full local net-zero operations by 2030, currently matching 64% of hourly demand with local CFE (2024).',
+            'World\'s first corporate agreement to buy nuclear energy from multiple Small Modular Reactors (SMRs).',
+            'Ironwood TPU custom AI chip offers a 30x energy efficiency increase relative to original 2018 chip.'
+          ],
+          cons: [
+            'Location-based operational emissions rose 92.4% (to 11.2M tons) in FY 2024 relative to 2020.',
+            'Absolute overall corporate emissions increased 51% from 2019 to 2024, driven directly by AI data centers.',
+            'Scraping activities hit with multiple lawsuits (including JL v Google class action).'
+          ]
+        },
+        metrics: {
+          energy: '32.2 Million MWh (FY 2024)',
+          water: 'Employs extensive evaporative water cooling across hyperscale centers.',
+          emissionsLocation: '11,283,200 t CO2e (Location-based, Scope 2)',
+          emissionsMarket: '3,059,100 t CO2e (Market-based, Scope 2)',
+          accountingGap: 'Google true carbon footprint reached 23.4 million tons against a reported 15.2 million (with market offsets).'
+        },
+        laborNotes: 'Maintains highly segmented global outsourcing workforce via regional contract hubs, operating under high volume quotas and precarious arrangements.',
+        policyNotes: 'Signs standard model compliance forms under the EU General-Purpose AI Code of Practice. Actively managing model safety portfolios.'
+      },
+      {
+        id: 'microsoft',
+        name: 'Microsoft Azure',
+        category: 'cloud-hosting',
+        grade: 'C+',
+        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
+        badgeColor: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
+        overallPercentage: 68,
+        description: 'Encompasses massive infrastructure commitments. Driving substantial nuclear and geothermal clean-energy agreements but hampered by expanding location-based operational grid emissions and support of decoupled accounting.',
+        scores: {
+          environmental: 72,
+          carbon: 52,
+          data: 85,
+          labor: 63
+        },
+        highlights: {
+          pros: [
+            'Signed 10.5 GW massive renewable pact with Brookfield and nuclear CFE deals with Crane Clean Energy Center.',
+            'Pioneering mass timber data center structures cutting carbon footprint by 65%.',
+            'Contracted 34 GW of clean carbon-free energy globally.'
+          ],
+          cons: [
+            'Actual location-based grid emissions surged 130% between 2020 and 2024 (climbing to 10M metric tons).',
+            'Considering scale-down/ abandonment of its core pledge to match 100% hourly local CFE by 2030.',
+            'Direct cloud host to OpenAI, carrying downstream responsibility for massive GPT-4/5 physical energy loads.'
+          ]
+        },
+        metrics: {
+          energy: '29.8 Million MWh (FY 2024)',
+          water: 'Data centers represent major segment of 17B gal US baseline draw',
+          emissionsLocation: '9,955,368 t CO2e (Location-based, Scope 2)',
+          emissionsMarket: '259,090 t CO2e (Market-based, Scope 2)',
+          accountingGap: 'Microsoft true carbon footprint is approx. 25.2 million tons of CO2e when replacing market-based metrics with location-based grid intensity.'
+        },
+        laborNotes: 'Outsources data annotation pipelines to third-party firms. Tied into the global labor framework supporting major models, sharing downstream BPO dependencies.',
+        policyNotes: 'Aggressively supports US Federal preemption through lobby groups to maintain high-speed compute dominance over state-level environmental/municipal restrictions.'
+      },
+      {
+        id: 'digitalocean',
+        name: 'DigitalOcean',
+        category: 'cloud-hosting',
+        grade: 'B-',
+        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
+        badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
+        overallPercentage: 70,
+        description: 'Developer-focused cloud platform. Standardized carbon footprint data available via a client carbon calculator, but relies significantly on third-party leased spaces with varying physical grid parameters.',
+        scores: {
+          environmental: 68,
+          carbon: 62,
+          data: 80,
+          labor: 70
+        },
+        highlights: {
+          pros: [
+            'Provides direct client carbon calculators mapping virtual machine instances.',
+            'Clear programmatic API access boundaries for network scraper hosts.',
+            'Low systemic involvement in hosting raw controversial scrapers directly.'
+          ],
+          cons: [
+            'Leases multi-tenant third-party spaces, leaving real power infrastructure tracking up to external data center owners.',
+            'Fails to enforce location-based clean energy requirements at leased edge positions.'
+          ]
+        },
+        metrics: {
+          energy: 'Estimated ~1.2M MWh across global leased footprints',
+          water: 'Indirect, relies on colocation space provider cooling drafts.',
+          emissionsLocation: '420,000 t CO2e (Location-based estimate, Scope 2)',
+          emissionsMarket: '210,000 t CO2e (Market-based, Scope 2)',
+          accountingGap: 'Maintains clear transparency regarding carbon footprint calculations but delegates real physical grid upgrades to upstream datacenter landlords.'
+        },
+        laborNotes: 'Minimal content moderation direct footprint; maintains high ethical engineering and contract compensation standards across operational units.',
+        policyNotes: 'Neutral position on copyright lobbying; champions small developer access to open resources and cloud baseline platforms.'
+      },
+      {
+        id: 'vercel',
+        name: 'Vercel',
+        category: 'deploy-layer',
+        grade: 'B',
+        gradeColor: 'text-emerald-700 dark:text-emerald-500 font-mono',
+        badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
+        overallPercentage: 75,
+        description: 'Front-end deployment platform abstracting serverless infrastructure. Promotes high efficiency via edge functions, but inherits the raw carbon footprint of underlying hyperscale hosts (AWS/Google Cloud).',
+        scores: {
+          environmental: 60,
+          carbon: 55,
+          data: 85,
+          labor: 78
+        },
+        highlights: {
+          pros: [
+            'Edge network distribution minimizes redundant computation loops.',
+            'B-Corp-aligned engineering standards and carbon accounting tracking dashboard access.',
+            'Strict programmatic bot tracking and web infrastructure routing.'
+          ],
+          cons: [
+            'Entirely dependent on cloud hyper-hosts like AWS, carrying silent Scope 3 downstream emission loads.',
+            'No direct municipal water or energy tracking outside cloud host abstraction data.'
+          ]
+        },
+        metrics: {
+          energy: 'Indirect energy consumption (Scope 3) entirely hosted on AWS / Google Cloud frameworks.',
+          water: 'N/A - Abstracts infrastructure down to serverless routing boundaries.',
+          emissionsLocation: 'Unreported standalone (inherits AWS/GCP location profiles).',
+          emissionsMarket: 'Utilizes cloud partner green offsets to claim passive sustainability.',
+          accountingGap: 'Scope 3 values remain unmeasured at edge boundaries, obscuring serverless compute spikes.'
+        },
+        laborNotes: 'High-paying digital native employment matrices; lacks high-exposure content moderation annotation pipelines.',
+        policyNotes: 'Supports standard open-source front-end framework compliance; avoids aggressive federal lobby groupings.'
+      },
+      {
+        id: 'webflow',
+        name: 'Webflow',
+        category: 'deploy-layer',
+        grade: 'B-',
+        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
+        badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
+        overallPercentage: 72,
+        description: 'Web design and hosting platform. Abstracts layout generation, running entirely on AWS. Maintains strict security and crawler compliance, but delegates carbon-free matching upstream.',
+        scores: {
+          environmental: 55,
+          carbon: 50,
+          data: 90,
+          labor: 78
+        },
+        highlights: {
+          pros: [
+            'Highly secure hosting arrays minimizing programmatic crawling abuse.',
+            'Strong accessibility (WCAG) tools baked into visual designer to optimize downstream page output.',
+            'Fosters clean code export reducing client-side computational rendering loops.'
+          ],
+          cons: [
+            'Zero direct physical infrastructure; footprint fully outsourced to AWS.',
+            'Lacks independent, stand-alone corporate carbon audits or water draw reports.'
+          ]
+        },
+        metrics: {
+          energy: 'AWS-hosted workloads; footprint scales directly with page asset serving.',
+          water: 'Outsourced entirely.',
+          emissionsLocation: 'Undisclosed standalone.',
+          emissionsMarket: 'Undisclosed standalone.',
+          accountingGap: 'Delegates all environmental accountability upstream, creating a Scope 3 reporting vacuum.'
+        },
+        laborNotes: 'Focuses on high-quality internal engineering standards, with negligible downstream BPO data labeling hazards.',
+        policyNotes: 'Strong focus on standard design systems accessibility and web standards; neutral on global copyright legislation.'
       }
     ];
 
-    // Accessibility modal helper to capture/release focus
     function captureFocus(modalId) {
       previousActiveElement = document.activeElement;
       setTimeout(() => {
@@ -849,7 +942,6 @@
       }
     }
 
-    // Keyboard global listener for WCAG compliant closing
     window.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         closeModal();
@@ -859,9 +951,7 @@
       }
     });
 
-    // Initialize application
     function init() {
-      // Check for baked key
       if (userApiKey) {
         document.getElementById('api-key-input').value = userApiKey;
         document.getElementById('api-warning-banner').classList.add('hidden');
@@ -871,7 +961,6 @@
       updateCalculator();
     }
 
-    // Render cards to grid
     function renderGrid() {
       const container = document.getElementById('provider-grid');
       container.innerHTML = '';
@@ -883,15 +972,19 @@
 
       filtered.forEach(p => {
         const card = document.createElement('div');
-        card.className = 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-brand-500/40 dark:hover:border-slate-700 transition shadow-md hover:shadow-lg group focus-within:ring-2 focus-within:ring-brand-600';
+        card.className = 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-brand-500/40 dark:hover:border-slate-700 transition shadow-lg hover:shadow-xl group focus-within:ring-2 focus-within:ring-brand-600';
         
         const avgScore = Math.round((p.scores.environmental + p.scores.carbon + p.scores.data + p.scores.labor) / 4);
         
+        let friendlyCategory = 'AI Engine';
+        if (p.category === 'cloud-hosting') friendlyCategory = 'Cloud Hosting';
+        if (p.category === 'deploy-layer') friendlyCategory = 'Deploy Layer';
+
         card.innerHTML = `
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase border ${p.badgeColor} font-display">
-                ${p.category === 'hyperscale' ? 'Cloud Hyperscaler' : 'Pure AI Developer'}
+                ${friendlyCategory}
               </span>
               <div class="flex items-center space-x-2 font-display">
                 <span class="text-xs text-slate-700 dark:text-slate-400">Overall Grade</span>
@@ -902,7 +995,6 @@
             <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition mb-2 tracking-tight">${p.name}</h3>
             <p class="text-sm text-slate-700 dark:text-slate-300 line-clamp-3 mb-6 font-sans">${p.description}</p>
             
-            <!-- Metrics Bars -->
             <div class="space-y-3 border-t border-slate-200 dark:border-slate-800/80 pt-4 mb-6">
               ${renderScoreBar('Ecological Footprint', p.scores.environmental)}
               ${renderScoreBar('Carbon Accounting Integrity', p.scores.carbon)}
@@ -912,14 +1004,11 @@
           </div>
           
           <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800/80">
-            <div class="text-xs text-slate-700 dark:text-slate-400 font-sans font-medium">
+            <div class="text-xs text-slate-700 dark:text-slate-400 font-sans">
               Composite Index: <span class="font-bold text-slate-900 dark:text-slate-200 font-mono">${avgScore}%</span>
             </div>
             <button onclick="openProviderModal('${p.id}')" class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 flex items-center space-x-1 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded p-1 font-display" aria-label="View full evidence for ${p.name}">
-              <span>View Full Evidence</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
+              <span>View Full Evidence &rarr;</span>
             </button>
           </div>
         `;
@@ -931,7 +1020,7 @@
       let color = 'bg-red-600 dark:bg-red-500';
       if (score >= 80) color = 'bg-emerald-600 dark:bg-emerald-500';
       else if (score >= 60) color = 'bg-blue-600 dark:bg-blue-500';
-      else if (score >= 40) color = 'bg-brand-600 dark:bg-brand-500'; // Hive Gold theme matching
+      else if (score >= 40) color = 'bg-brand-600 dark:bg-brand-500';
       else if (score >= 20) color = 'bg-orange-600 dark:bg-orange-500';
 
       return `
@@ -947,24 +1036,24 @@
       `;
     }
 
-    // Set interactive filter states
     function setFilter(type) {
       currentFilter = type;
       
-      const buttons = ['all', 'hyperscale', 'pureplay'];
+      const buttons = ['all', 'ai-engine', 'cloud-hosting', 'deploy-layer'];
       buttons.forEach(b => {
         const el = document.getElementById(`btn-${b}`);
-        if (b === type) {
-          el.className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-brand-600 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600';
-        } else {
-          el.className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600';
+        if (el) {
+          if (b === type) {
+            el.className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-brand-600 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600';
+          } else {
+            el.className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600';
+          }
         }
       });
       
       renderGrid();
     }
 
-    // Calculator updates
     function updateCalculator() {
       const queries = parseInt(document.getElementById('calc-queries').value);
       const modelType = document.querySelector('input[name="model-type"]:checked').value;
@@ -1001,7 +1090,6 @@
       }
     }
 
-    // Modal Control
     function openProviderModal(id) {
       const p = providers.find(item => item.id === id);
       if (!p) return;
@@ -1009,23 +1097,24 @@
       const modal = document.getElementById('provider-modal');
       const container = document.getElementById('modal-content');
 
+      let friendlyCategory = 'AI Engine';
+      if (p.category === 'cloud-hosting') friendlyCategory = 'Cloud Hosting';
+      if (p.category === 'deploy-layer') friendlyCategory = 'Deploy Layer';
+
       container.innerHTML = `
         <div class="px-6 py-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-950/40">
           <div class="flex items-center space-x-3">
             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase border ${p.badgeColor} font-display">
-              ${p.category === 'hyperscale' ? 'Hyperscale Host' : 'Pure AI Developer'}
+              ${friendlyCategory}
             </span>
             <h3 id="modal-provider-title" class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">${p.name}</h3>
           </div>
-          <button onclick="closeModal()" class="text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-slate-200 p-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" aria-label="Close details panel">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+          <button onclick="closeModal()" class="text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-slate-200 p-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" aria-label="Close details panel">
+            ✖️
           </button>
         </div>
         
         <div class="p-6 space-y-6 max-h-[75vh] overflow-y-auto bg-white dark:bg-slate-900 font-sans">
-          <!-- Grade Overview -->
           <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800/80">
             <div class="text-center md:border-r border-slate-200 dark:border-slate-800 py-2">
               <span class="text-xs text-slate-700 dark:text-slate-400 uppercase font-semibold font-display">Overall Grade</span>
@@ -1036,7 +1125,7 @@
               <div class="text-2xl font-bold text-slate-900 dark:text-slate-200 mt-2 font-mono">${p.scores.carbon}/100</div>
             </div>
             <div class="text-center md:border-r border-slate-200 dark:border-slate-800 py-2">
-              <span class="text-xs text-slate-700 dark:text-slate-400 uppercase font-semibold font-display">Web Ethics</span>
+              <span class="text-xs text-slate-700 dark:text-slate-400 uppercase font-semibold font-display">Web Sourcing Ethics</span>
               <div class="text-2xl font-bold text-slate-900 dark:text-slate-200 mt-2 font-mono">${p.scores.data}/100</div>
             </div>
             <div class="text-center py-2">
@@ -1045,13 +1134,11 @@
             </div>
           </div>
 
-          <!-- Description -->
           <div>
             <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-2 font-display">Operational Performance Summary</h4>
             <p class="text-sm text-slate-800 dark:text-slate-300 leading-relaxed">${p.description}</p>
           </div>
 
-          <!-- Hardware & Footprint Facts -->
           <div class="bg-slate-50 dark:bg-slate-950/40 p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
             <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-2 font-display">Verified Infrastructure Footprint Data</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
@@ -1078,14 +1165,10 @@
             </div>
           </div>
 
-          <!-- Pros and Cons -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-emerald-50 dark:bg-emerald-950/15 border border-emerald-200 dark:border-emerald-500/20 p-4 rounded-xl">
               <h5 class="text-sm font-bold text-emerald-800 dark:text-emerald-400 flex items-center mb-3 font-display">
-                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Progressive Best Practices
+                🌿 Progressive Best Practices
               </h5>
               <ul class="space-y-2 text-xs text-slate-800 dark:text-slate-300 list-disc list-inside">
                 ${p.highlights.pros.map(pro => `<li>${pro}</li>`).join('')}
@@ -1094,10 +1177,7 @@
 
             <div class="bg-red-50 dark:bg-red-950/15 border border-red-200 dark:border-red-500/20 p-4 rounded-xl">
               <h5 class="text-sm font-bold text-red-800 dark:text-red-400 flex items-center mb-3 font-display">
-                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                Major Structural Deficits
+                ⚠️ Major Structural Deficits
               </h5>
               <ul class="space-y-2 text-xs text-slate-800 dark:text-slate-300 list-disc list-inside">
                 ${p.highlights.cons.map(con => `<li>${con}</li>`).join('')}
@@ -1105,13 +1185,11 @@
             </div>
           </div>
 
-          <!-- Labor Framework Details -->
           <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
             <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1.5 font-display">Downstream Content Moderation & Human Labor</h4>
             <p class="text-xs text-slate-800 dark:text-slate-300 leading-relaxed">${p.laborNotes}</p>
           </div>
 
-          <!-- Regulatory & Corporate Governance -->
           <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
             <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1.5 font-display">Alignment Governance & Policy Stance</h4>
             <p class="text-xs text-slate-800 dark:text-slate-300 leading-relaxed">${p.policyNotes}</p>
@@ -1120,7 +1198,7 @@
         </div>
         
         <div class="px-6 py-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex justify-end">
-          <button onclick="closeModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 hover:dark:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-lg text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 shadow-sm font-display">
+          <button onclick="closeModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 hover:dark:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-lg text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-sm font-display">
             Close Panel
           </button>
         </div>
@@ -1137,7 +1215,6 @@
       releaseFocus();
     }
 
-    // Comparison Engine
     function setupCompareSelects() {
       const selectA = document.getElementById('compare-select-a');
       const selectB = document.getElementById('compare-select-b');
@@ -1195,7 +1272,7 @@
         ${renderCompareRow('Labor Standards', pA.scores.labor, pB.scores.labor)}
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 text-xs font-sans">
-          <div class="font-semibold text-slate-750 dark:text-slate-400 font-display">Carbon Integrity Context</div>
+          <div class="font-semibold text-slate-755 dark:text-slate-400 font-display">Carbon Integrity Context</div>
           <div class="text-slate-800 dark:text-slate-300 leading-relaxed">${pA.metrics.accountingGap}</div>
           <div class="text-slate-800 dark:text-slate-300 leading-relaxed">${pB.metrics.accountingGap}</div>
         </div>
@@ -1224,12 +1301,11 @@
       `;
     }
 
-    // Compare metrics bars
     function renderCompareRow(label, scoreA, scoreB) {
       const getBg = (s) => {
         if (s >= 80) return 'bg-emerald-600 dark:bg-emerald-500';
         if (s >= 60) return 'bg-blue-600 dark:bg-blue-500';
-        if (s >= 40) return 'bg-brand-600 dark:bg-brand-500';
+        if (s >= 40) return 'bg-amber-600 dark:bg-amber-500';
         return 'bg-red-600 dark:bg-red-500';
       };
 
@@ -1256,27 +1332,18 @@
       `;
     }
 
-    // Theme manager
     function toggleTheme() {
       const html = document.documentElement;
       if (html.classList.contains('dark')) {
         html.classList.remove('dark');
         theme = 'light';
-        document.getElementById('theme-icon').innerHTML = `
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-        `;
+        document.getElementById('theme-icon-text').innerText = '🌑';
       } else {
         html.classList.add('dark');
         theme = 'dark';
-        document.getElementById('theme-icon').innerHTML = `
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M16.24 12a4.24 4.24 0 11-8.48 0 4.24 4.24 0 018.48 0z" />
-        `;
+        document.getElementById('theme-icon-text').innerText = '☀️';
       }
     }
-
-    // ==========================================
-    // STANDALONE SETTINGS & KEYS HANDLERS
-    // ==========================================
 
     function openSettingsModal() {
       document.getElementById('settings-modal').classList.remove('hidden');
@@ -1288,7 +1355,6 @@
       releaseFocus();
     }
 
-    // Deployment panel
     function openDeploymentGuide() {
       document.getElementById('deployment-modal').classList.remove('hidden');
       captureFocus('deployment-modal');
@@ -1305,7 +1371,6 @@
       closeSettingsModal();
     }
 
-    // Compiles active configuration parameters directly inside a self-exporting blob!
     function exportBakedHTML() {
       const inputVal = document.getElementById('api-key-input').value.trim();
       if (!inputVal) {
@@ -1318,13 +1383,10 @@
       }
 
       let docText = document.documentElement.outerHTML;
-
-      // Swap the BAKED_API_KEY target declaration
       const replaceRegex = /const BAKED_API_KEY = ".*";/;
       const replacement = `const BAKED_API_KEY = "${inputVal}";`;
       docText = docText.replace(replaceRegex, replacement);
 
-      // Create downloadable blob
       const blob = new Blob(["<!DOCTYPE html>\n" + docText], { type: "text/html;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       const tempLink = document.createElement('a');
@@ -1335,16 +1397,6 @@
       document.body.removeChild(tempLink);
       URL.revokeObjectURL(url);
     }
-
-    // ==========================================
-    // GEMINI INTEGRATION & AUDITOR CONTROLLERS
-    // ==========================================
-
-    const auditPresets = {
-      reasoning: "Analyze the environmental threat of implementing real-time 'tree-of-thought' reasoning loops (e.g., DeepSeek R1 or o1) in a high-volume enterprise deployment (running 5,000,000 queries per day). Focus on localized grid constraints, peak water draw in cooling towers, and recommendations for architectural pruning.",
-      policy: "Draft a comprehensive corporate compliance and model alignment policy aligned with the EU AI Act's rules on general-purpose AI (GPAI). Provide clear guardrails on model auditing, Scope 3 supply-chain carbon tracking, and content moderating labor conditions.",
-      sourcing: "Audit the ethical and compliance trade-offs of using automated stealth crawl bots to bypass robots.txt limits vs. training models with synthetic data. Highlight copyright dilution risks, legal safety compliance, and model collapse scenarios."
-    };
 
     function applyAuditPreset(key) {
       if (auditPresets[key]) {
@@ -1370,8 +1422,6 @@
 Based on this simulated footprint, conduct a rigorous ESG lifecycle audit. What localized grid threats exist if placed in Virginia or Oregon, and what architectural adjustments can match this load to true 24/7 Carbon-Free Energy (CFE)?`;
 
       document.getElementById('auditor-input').value = scenarioText;
-      
-      // Smoothly scroll down to auditor
       document.getElementById('auditor-panel').scrollIntoView({ behavior: 'smooth' });
     }
 
@@ -1380,7 +1430,6 @@ Based on this simulated footprint, conduct a rigorous ESG lifecycle audit. What 
       setAuditorUIState('ready');
     }
 
-    // Set Loading steps
     function setAuditorUIState(state) {
       const loading = document.getElementById('auditor-loading');
       const empty = document.getElementById('auditor-empty');
@@ -1403,7 +1452,6 @@ Based on this simulated footprint, conduct a rigorous ESG lifecycle audit. What 
       }
     }
 
-    // Markdown Parser
     function formatAuditReport(text) {
       let formatted = text;
       formatted = formatted.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -1521,7 +1569,12 @@ Adopt a rigorous, advisory, and professional style. Divide your report with clea
       document.body.removeChild(tempTextArea);
     }
 
-    // Run loader on DOM Ready
+    const auditPresets = {
+      reasoning: "Analyze the environmental threat of implementing real-time 'tree-of-thought' reasoning loops (e.g., DeepSeek R1 or o1) in a high-volume enterprise deployment (running 5,000,000 queries per day). Focus on localized grid constraints, peak water draw in cooling towers, and recommendations for architectural pruning.",
+      policy: "Draft a comprehensive corporate compliance and model alignment policy aligned with the EU AI Act's rules on general-purpose AI (GPAI). Provide clear guardrails on model auditing, Scope 3 supply-chain carbon tracking, and content moderating labor conditions.",
+      sourcing: "Audit the ethical and compliance trade-offs of using automated stealth crawl bots to bypass robots.txt limits vs. training models with synthetic data. Highlight copyright dilution risks, legal safety compliance, and model collapse scenarios."
+    };
+
     window.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
