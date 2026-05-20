@@ -1,0 +1,2641 @@
+<!DOCTYPE html>
+<html lang="en" class="dark"><head><script>(function(firebaseConfig, initialAuthToken, appId) {
+        window.__firebase_config = firebaseConfig;
+        window.__initial_auth_token = initialAuthToken;
+        window.__app_id = appId;
+            })("\n{\n  \"apiKey\": \"AIzaSyCqyCcs2R2e7AegGjvFAwG98wlamtbHvZY\",\n  \"authDomain\": \"bard-frontend.firebaseapp.com\",\n  \"projectId\": \"bard-frontend\",\n  \"storageBucket\": \"bard-frontend.firebasestorage.app\",\n  \"messagingSenderId\": \"175205271074\",\n  \"appId\": \"1:175205271074:web:2b7bd4d34d33bf38e6ec7b\"\n}\n","eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1MTMzNTUyZGIzZmQ1ZWM5NjdlZWFkNjk3ZjNhZTgwYjliNzk1ZjQiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay1mYnN2Y0BiYXJkLWZyb250ZW5kLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQiLCJ1aWQiOiIwNTg4OTgyOTA4MjUzNTcyNzgxNyIsImlzcyI6ImZpcmViYXNlLWFkbWluc2RrLWZic3ZjQGJhcmQtZnJvbnRlbmQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJjbGFpbXMiOnsiYXBwSWQiOiJjXzVmYjU1NDI5OTY4MDVmMTRfZXRoaWNzX3Njb3JlY2FyZF9zdGFuZGFsb25lLmh0bWwtNzQ0In0sImV4cCI6MTc3OTI5MjUwOSwiaWF0IjoxNzc5Mjg4OTA5LCJhbGciOiJSUzI1NiJ9.QEIjbZnoDUuCYuI7hGUjQE_QOp7KCJyIg6fZH3PS84I69OQ8_dX_8g9VC8aXpE4x2Y57xVYzUrNFNCh4tCGt0ygmEgb86X6_gv9RorIZrJJ_8Ar5vhVmx-BhqYN_3o-Yz1QDzLh8-GP0X5nj8RlYTcQcrGwjCykaWenWAbkVOk0VvqwiT_hvk9pftJPanvny6WLSj7wJAmvbTbH3bcRoBFjnfM6wNIWdvQ3gk2-DIrcPOshk1vDh0QvSIf07fym6oNEMPOgzZloCm45gR6iACRM4KyonERDWu5xCTmHfjKf_zMKV7EaIFZ7lvlcKMnN7awcxJVagRov-L5QxePFnuw","c_5fb5542996805f14_ethics_scorecard_standalone.html-744")</script><script>(function(){'use strict';var h=typeof Object.defineProperties=="function"?Object.defineProperty:function(a,b,d){if(a==Array.prototype||a==Object.prototype)return a;a[b]=d.value;return a};function l(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var d=a[b];if(d&&d.Math==Math)return d}throw Error("Cannot find global object");}var n=l(this);
+function p(a,b){if(b)a:{var d=n;a=a.split(".");for(var c=0;c<a.length-1;c++){var e=a[c];if(!(e in d))break a;d=d[e]}a=a[a.length-1];c=d[a];b=b(c);b!=c&&b!=null&&h(d,a,{configurable:!0,writable:!0,value:b})}}function r(a){function b(c){return a.next(c)}function d(c){return a.throw(c)}return new Promise(function(c,e){function f(g){g.done?c(g.value):Promise.resolve(g.value).then(b,d).then(f,e)}f(a.next())})}function t(a){return r(a())}
+p("Object.values",function(a){return a?a:function(b){var d=[],c;for(c in b)Object.prototype.hasOwnProperty.call(b,c)&&d.push(b[c]);return d}});p("Array.prototype.includes",function(a){return a?a:function(b,d){var c=this;c instanceof String&&(c=String(c));var e=c.length;d=d||0;for(d<0&&(d=Math.max(d+e,0));d<e;d++){var f=c[d];if(f===b||Object.is(f,b))return!0}return!1}});/*
+
+ MIT License
+
+ Copyright (c) 2017-2023 W.Y.
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+*/
+function u(a,b){var d=a.style;b.backgroundColor&&(d.backgroundColor=b.backgroundColor);b.width&&(d.width=`${b.width}px`);b.height&&(d.height=`${b.height}px`);var c=b.style;c!=null&&Object.keys(c).forEach(e=>{d[e]=c[e]})};var v=(()=>{var a=0;return()=>{a+=1;return`u${`0000${(Math.random()*1679616<<0).toString(36)}`.slice(-4)}${a}`}})();function w(a){var b=[];for(let d=0,c=a.length;d<c;d++)b.push(a[d]);return b}let x=null;function y(a={}){return x?x:a.l?x=a.l:x=w(window.getComputedStyle(document.documentElement))}function z(a,b){return(a=(a.ownerDocument.defaultView||window).getComputedStyle(a).getPropertyValue(b))?parseFloat(a.replace("px","")):0}
+function A(a,b={}){var d;if(!(d=b.width)){d=z(a,"border-left-width");var c=z(a,"border-right-width");d=a.clientWidth+d+c}(b=b.height)||(b=z(a,"border-top-width"),c=z(a,"border-bottom-width"),b=a.clientHeight+b+c);return{width:d,height:b}}function B(a){return new Promise((b,d)=>{var c=new Image;c.onload=()=>{c.decode().then(()=>{requestAnimationFrame(()=>b(c))})};c.onerror=d;c.crossOrigin="anonymous";c.decoding="async";c.src=a})}
+function C(a){return t(function*(){return Promise.resolve().then(()=>(new XMLSerializer).serializeToString(a)).then(encodeURIComponent).then(b=>`data:image/svg+xml;charset=utf-8,${b}`)})}
+function D(a,b,d){return t(function*(){var c=document.createElementNS("http://www.w3.org/2000/svg","svg"),e=document.createElementNS("http://www.w3.org/2000/svg","foreignObject");c.setAttribute("width",`${b}`);c.setAttribute("height",`${d}`);c.setAttribute("viewBox",`0 0 ${b} ${d}`);e.setAttribute("width","100%");e.setAttribute("height","100%");e.setAttribute("x","0");e.setAttribute("y","0");e.setAttribute("externalResourcesRequired","true");c.appendChild(e);e.appendChild(a);return C(c)})}
+var E=(a,b)=>{if(a instanceof b)return!0;a=Object.getPrototypeOf(a);return a===null?!1:a.constructor.name===b.name||E(a,b)};function F(a,b){return y(b).map(d=>{var c=a.getPropertyValue(d),e=a.getPropertyPriority(d);return`${d}: ${c}${e?" !important":""};`}).join(" ")}
+function G(a,b,d,c){a=window.getComputedStyle(a,d);var e=a.getPropertyValue("content");if(e!==""&&e!=="none"){var f=v();try{b.className=`${b.className} ${f}`}catch(k){return}e=document.createElement("style");var g=e.appendChild;d=`.${f}:${d}`;a.cssText?(c=a.getPropertyValue("content"),c=`${a.cssText} content: '${c.replace(/'|"/g,"")}';`):c=F(a,c);g.call(e,document.createTextNode(`${d}{${c}}`));b.appendChild(e)}};function H(a){return a.search(/^(data:)/)!==-1}function I(a,b,d){return t(function*(){var c=yield fetch(a,b);if(c.status===404)throw Error(`Resource "${c.url}" not found`);var e=yield c.blob();return new Promise((f,g)=>{var k=new FileReader;k.onerror=g;k.onloadend=()=>{try{f(d({o:c,result:k.result}))}catch(m){g(m)}};k.readAsDataURL(e)})})}const J={};function K(a,b,d){var c=a.replace(/\?.*/,"");d&&(c=a);/ttf|otf|eot|woff2?/i.test(c)&&(c=c.replace(/.*\//,""));return b?`[${b}]${c}`:c}
+function L(a,b,d){return t(function*(){var c=K(a,b,d.C);if(J[c]!=null)return J[c];d.u&&(a+=(/\?/.test(a)?"&":"?")+(new Date).getTime());try{let f=yield I(a,d.i,({o:g,result:k})=>{b||(b=g.headers.get("Content-Type")||"");return k.split(/,/)[1]});var e=`data:${b};base64,${f}`}catch(f){e=d.B||""}return J[c]=e})};const M={P:"application/font-woff",R:"application/font-woff",N:"application/font-truetype",v:"application/vnd.ms-fontobject",H:"image/png",F:"image/jpeg",D:"image/jpeg",A:"image/gif",M:"image/tiff",L:"image/svg+xml",O:"image/webp"};function N(a){return(a=/\.([^./]*?)$/g.exec(a))?a[1]:""};function O(a){return t(function*(){var b=a.toDataURL();return b==="data:,"?a.cloneNode(!1):B(b)})}function aa(a,b){return t(function*(){if(a.currentSrc){var d=document.createElement("canvas");let c=d.getContext("2d");d.width=a.clientWidth;d.height=a.clientHeight;c==null||c.drawImage(a,0,0,d.width,d.height);d=d.toDataURL();return B(d)}d=a.poster;d=yield L(d,M[N(d).toLowerCase()]||"",b);return B(d)})}
+function ba(a,b){return t(function*(){try{let d;if(a==null?0:(d=a.contentDocument)==null?0:d.body)return yield P(a.contentDocument.body,b,!0)}catch(d){}return a.cloneNode(!1)})}function ca(a,b){return t(function*(){return E(a,HTMLCanvasElement)?O(a):E(a,HTMLVideoElement)?aa(a,b):E(a,HTMLIFrameElement)?ba(a,b):a.cloneNode(a.tagName!=null&&a.tagName.toUpperCase()==="SVG")})}
+function da(a,b,d){return t(function*(){if(b.tagName!=null&&b.tagName.toUpperCase()==="SVG")return b;var c=[];if(a.tagName!=null&&a.tagName.toUpperCase()==="SLOT"&&a.assignedNodes)c=w(a.assignedNodes());else{let e;if(E(a,HTMLIFrameElement)&&((e=a.contentDocument)==null?0:e.body))c=w(a.contentDocument.body.childNodes);else{let f;c=w(((f=a.shadowRoot)!=null?f:a).childNodes)}}if(c.length===0||E(a,HTMLVideoElement))return b;yield c.reduce((e,f)=>e.then(()=>P(f,d)).then(g=>{g&&b.appendChild(g)}),Promise.resolve());
+return b})}function ea(a,b,d){var c=b.style;if(c){var e=window.getComputedStyle(a);e.cssText?(c.cssText=e.cssText,c.transformOrigin=e.transformOrigin):y(d).forEach(f=>{var g=e.getPropertyValue(f);f==="font-size"&&g.endsWith("px")&&(g=`${Math.floor(parseFloat(g.substring(0,g.length-2)))-.1}px`);E(a,HTMLIFrameElement)&&f==="display"&&g==="inline"&&(g="block");f==="d"&&b.getAttribute("d")&&(g=`path(${b.getAttribute("d")})`);c.setProperty(f,g,e.getPropertyPriority(f))})}}
+function fa(a,b){E(a,HTMLSelectElement)&&(b=Array.from(b.children).find(d=>a.value===d.getAttribute("value")))&&b.setAttribute("selected","")}
+function ha(a,b){return t(function*(){var d=a.querySelectorAll?a.querySelectorAll("use"):[];if(d.length===0)return a;var c={};for(var e=0;e<d.length;e++){var f=d[e].getAttribute("xlink:href");if(f){let g=document.querySelector(f);a.querySelector(f)||!g||c[f]||(c[f]=yield P(g,b,!0))}}d=Object.values(c);if(d.length){c=document.createElementNS("http://www.w3.org/1999/xhtml","svg");c.setAttribute("xmlns","http://www.w3.org/1999/xhtml");c.style.position="absolute";c.style.width="0";c.style.height="0";
+c.style.overflow="hidden";c.style.display="none";e=document.createElementNS("http://www.w3.org/1999/xhtml","defs");c.appendChild(e);for(f=0;f<d.length;f++)e.appendChild(d[f]);a.appendChild(c)}return a})}
+function P(a,b,d){return t(function*(){return d||!b.filter||b.filter(a)?Promise.resolve(a).then(c=>ca(c,b)).then(c=>da(a,c,b)).then(c=>{E(c,Element)&&(ea(a,c,b),G(a,c,":before",b),G(a,c,":after",b),E(a,HTMLTextAreaElement)&&(c.textContent=a.value),E(a,HTMLInputElement)&&c.setAttribute("value",a.value),fa(a,c));return c}).then(c=>ha(c,b)):null})};const Q=/url\((['"]?)([^'"]+?)\1\)/g,ia=/url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g,ja=/src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;function ka(a){var b=[];a.replace(Q,(d,c,e)=>{b.push(e);return d});return b.filter(d=>!H(d))}
+function la(a,b,d,c){return t(function*(){try{let e=d?(new URL(b,d||void 0)).toString():b,f;f=yield L(e,M[N(b).toLowerCase()]||"",c);return a.replace(new RegExp(`(url\\(['"]?)(${b.replace(/([.*+?^${}()|\[\]\/\\])/g,"\\$1")})(['"]?\\))`,"g"),`$1${f}$3`)}catch(e){}return a})}function ma(a,{I:b}){return b?a.replace(ja,d=>{for(;;){let [c,,e]=ia.exec(d)||[];if(!e)return"";if(e===b)return`src: ${c};`}}):a}
+function R(a,b,d){return t(function*(){if(a.search(Q)===-1)return a;var c=ma(a,d);return ka(c).reduce((e,f)=>e.then(g=>la(g,f,b,d)),Promise.resolve(c))})};function S(a,b,d){return t(function*(){var c,e=(c=b.style)==null?void 0:c.getPropertyValue(a);return e?(c=yield R(e,null,d),b.style.setProperty(a,c,b.style.getPropertyPriority(a)),!0):!1})}function na(a,b){return t(function*(){(yield S("background",a,b))||(yield S("background-image",a,b));(yield S("mask",a,b))||(yield S("-webkit-mask",a,b))||(yield S("mask-image",a,b))||(yield S("-webkit-mask-image",a,b))})}
+function oa(a,b){return t(function*(){var d=E(a,HTMLImageElement);if(d&&!H(a.src)||E(a,SVGImageElement)&&!H(a.href.baseVal)){var c=d?a.src:a.href.baseVal,e=yield L(c,M[N(c).toLowerCase()]||"",b);yield new Promise((f,g)=>{a.onload=f;a.onerror=b.m?(...k)=>{try{f(b.m(...k))}catch(m){g(m)}}:g;a.decode&&(a.decode=f);a.loading==="lazy"&&(a.loading="eager");d?(a.srcset="",a.src=e):a.href.baseVal=e})}})}
+function pa(a,b){return t(function*(){var d=w(a.childNodes).map(c=>T(c,b));yield Promise.all(d).then(()=>a)})}function T(a,b){return t(function*(){E(a,Element)&&(yield na(a,b),yield oa(a,b),yield pa(a,b))})};const U={};function V(a){return t(function*(){var b=U[a];if(b!=null)return b;b=yield(yield fetch(a)).text();b={url:a,cssText:b};return U[a]=b})}function W(a,b){return t(function*(){var d=a.cssText,c=/url\(["']?([^"')]+)["']?\)/g,e=(d.match(/url\([^)]+\)/g)||[]).map(f=>t(function*(){var g=f.replace(c,"$1");g.startsWith("https://")||(g=(new URL(g,a.url)).href);return I(g,b.i,({result:k})=>{d=d.replace(f,`url(${k})`);return[f,k]})}));return Promise.all(e).then(()=>d)})}
+function X(a){if(a==null)return[];var b=[];a=a.replace(/(\/\*[\s\S]*?\*\/)/gi,"");for(var d=RegExp("((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})","gi");;){var c=d.exec(a);if(c===null)break;b.push(c[0])}a=a.replace(d,"");d=/@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi;for(c=RegExp("((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})","gi");;){let e=d.exec(a);if(e===null)if(e=c.exec(a),e===null)break;else d.lastIndex=c.lastIndex;else c.lastIndex=
+d.lastIndex;b.push(e[0])}return b}
+function qa(a,b){return t(function*(){var d=[],c=[];a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach((f,g)=>{if(f.type===CSSRule.IMPORT_RULE){let k=g+1;f=V(f.href).then(m=>W(m,b)).then(m=>X(m).forEach(q=>{try{e.insertRule(q,q.startsWith("@import")?k+=1:e.cssRules.length)}catch(Da){}})).catch(()=>{});c.push(f)}})}catch(f){let g=a.find(k=>k.href==null)||document.styleSheets[0];e.href!=null&&c.push(V(e.href).then(k=>W(k,b)).then(k=>X(k).forEach(m=>{g.insertRule(m,g.cssRules.length)})).catch(()=>
+{}))}});return Promise.all(c).then(()=>{a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach(f=>{d.push(f)})}catch(f){}});return d})})}function ra(a){return a.filter(b=>b.type===CSSRule.FONT_FACE_RULE).filter(b=>b.style.getPropertyValue("src").search(Q)!==-1)}function sa(a,b){return t(function*(){if(a.ownerDocument==null)throw Error("Provided element is not within a Document");var d=w(a.ownerDocument.styleSheets);d=yield qa(d,b);return ra(d)})}
+function ta(a){function b(c){(c.style.fontFamily||getComputedStyle(c).fontFamily).split(",").forEach(e=>{d.add(e.trim().replace(/["']/g,""))});Array.from(c.children).forEach(e=>{e instanceof HTMLElement&&b(e)})}var d=new Set;b(a);return d}function ua(a,b){return t(function*(){var d=yield sa(a,b),c=ta(a);return(yield Promise.all(d.filter(e=>c.has(e.style.fontFamily.trim().replace(/["']/g,""))).map(e=>R(e.cssText,e.parentStyleSheet?e.parentStyleSheet.href:null,b)))).join("\n")})}
+function va(a,b){return t(function*(){var d=b.j!=null?b.j:b.K?null:yield ua(a,b);if(d){let c=document.createElement("style");c.appendChild(document.createTextNode(d));a.firstChild?a.insertBefore(c,a.firstChild):a.appendChild(c)}})};function wa(a,b={}){return t(function*(){var {width:d,height:c}=A(a,b),e=yield P(a,b,!0);yield va(e,b);yield T(e,b);u(e,b);return yield D(e,d,c)})}
+function xa(a,b={}){return t(function*(){var {width:d,height:c}=A(a,b),e=yield wa(a,b);e=yield B(e);var f=document.createElement("canvas"),g=f.getContext("2d"),k=b.G||window.devicePixelRatio||1,m=b.h||d,q=b.g||c;f.width=m*k;f.height=q*k;!b.J&&(f.width>16384||f.height>16384)&&(f.width>16384&&f.height>16384?f.width>f.height?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384):f.width>16384?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384));
+f.style.width=`${m}`;f.style.height=`${q}`;b.backgroundColor&&(g.fillStyle=b.backgroundColor,g.fillRect(0,0,f.width,f.height));g.drawImage(e,0,0,f.width,f.height);return f})}function ya(a,b={}){return t(function*(){return(yield xa(a,b)).toDataURL()})};const za=["gemini.google.com","corp.google.com","proxy.googlers.com"];function Y(){return document.body.querySelectorAll('[class*="animate"]').length>0}function Z(a){return t(function*(){try{return yield ya(a,{h:a.offsetWidth,g:a.offsetHeight})}catch(d){var b=a.offsetHeight;let c=document.createElement("canvas");c.width=a.offsetWidth;c.height=b;return c.toDataURL("image/png")}})}
+function Aa(){return t(function*(){var a=document.body.offsetWidth,b=document.body.offsetHeight,d=document.body.cloneNode(!0);d.querySelectorAll('[class*="animate"]').forEach(c=>{c.classList.remove(...Array.from(c.classList).filter(e=>e.startsWith("animate")))});d.style.width=`${a}px`;d.style.height=`${b}px`;return d})}
+function Ba(a){return t(function*(){var b=document.body;if(Y()){var d=yield Aa();b=d;document.body.appendChild(d)}d=yield Z(b);Y()&&document.body.removeChild(b);window.parent.postMessage({type:"SEND_SCREENSHOT",image:d,topOffset:document.documentElement.scrollTop},a.origin)})}function Ca(a){return t(function*(){var b={type:"SEND_SCREENSHOT_FOR_DATA_VISUALIZATION",image:yield Z(document.body),topOffset:0};window.parent.postMessage(b,a.origin)})}
+window.addEventListener("message",a=>t(function*(){if(za.some(d=>a.origin.includes(d))){var b=a.data;b&&(b.type==="MAKE_SCREENSHOT"&&(yield Ba(a)),b.type==="MAKE_SCREENSHOT_FOR_DATA_VISUALIZATION"&&(yield Ca(a)))}}));
+})();</script><script>(function() {
+  // Ensure this script is executed only once
+  if (window.firebaseAuthBridgeScriptLoaded) {
+    return;
+  }
+  window.firebaseAuthBridgeScriptLoaded = true;
+
+  let nextTokenPromiseId = 0;
+
+  // Stores { resolve, reject } for ongoing token requests
+  const pendingTokenPromises = {};
+
+  // Listen for messages from the Host Application
+  window.addEventListener('message', function(event) {
+
+    const messageData = event.data;
+
+  if (messageData && messageData.type === 'RESOLVE_NEW_FIREBASE_TOKEN') {
+      const { success, token, error, promiseId } = messageData ?? {};
+      if (pendingTokenPromises[promiseId]) {
+        if (success) {
+          pendingTokenPromises[promiseId].resolve(token);
+        } else {
+          pendingTokenPromises[promiseId].reject(new Error(error || 'Token refresh failed from host.'));
+        }
+        delete pendingTokenPromises[promiseId];
+      }
+    }
+  });
+
+  // Expose a function for the Generated App to request a new Firebase token
+  window.requestNewFirebaseToken = function() {
+    const currentPromiseId = nextTokenPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingTokenPromises[currentPromiseId] = { resolve, reject };
+    });
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({
+        type: 'REQUEST_NEW_FIREBASE_TOKEN',
+        promiseId: currentPromiseId
+      }, '*');
+    } else {
+      pendingTokenPromises[currentPromiseId].reject(new Error('No parent window to request token from.'));
+      delete pendingTokenPromises[currentPromiseId];
+    }
+    return promise;
+  };
+})();</script><script>
+let realOriginalGetUserMedia = null;
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  realOriginalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+}
+
+(function() {
+  if (navigator.mediaDevices && navigator.mediaDevices.__proto__) {
+    try {
+      Object.defineProperty(navigator.mediaDevices.__proto__, 'getUserMedia', {
+        get: function() {
+          return undefined; // Or throw an error
+        },
+        configurable: false
+      });
+    } catch (error) {
+      console.error("Error defining prototype getter:", error);
+    }
+  }
+})();
+
+(function() {
+  const pendingMediaResolvers = {};
+  let nextMediaPromiseId = 0;
+
+  function requestMediaPermissions(constraints) {
+    const mediaPromiseId = nextMediaPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingMediaResolvers[mediaPromiseId] = (granted) => {
+        delete pendingMediaResolvers[mediaPromiseId];
+        resolve(granted);
+      };
+    });
+
+    window.parent.postMessage({
+      type: 'requestMediaPermission',
+      constraints: constraints,
+      promiseId: mediaPromiseId,
+    }, '*');
+
+    return promise;
+  }
+
+  let originalGetUserMedia = realOriginalGetUserMedia;
+
+  function interceptGetUserMedia() {
+    if (navigator.mediaDevices) {
+      Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {
+        value: function(constraints) {
+          return requestMediaPermissions(constraints).then((granted) => {
+            if (granted) {
+              if (originalGetUserMedia) {
+                return originalGetUserMedia(constraints);
+              } else {
+                throw new Error("Original getUserMedia not available.");
+              }
+            } else {
+              throw new DOMException('Permission denied', 'NotAllowedError');
+            }
+          });
+        },
+        writable: false,
+        configurable: false
+      });
+    }
+  }
+
+  interceptGetUserMedia();
+
+  const observer = new MutationObserver(function(mutationsList, observer) {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'reconfigured' && mutation.name === 'getUserMedia' && mutation.object === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'attributes' && mutation.attributeName === 'getUserMedia' && mutation.target === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'childList' && mutation.addedNodes) {
+        mutation.addedNodes.forEach(node => {
+          if (node === navigator.mediaDevices) {
+            interceptGetUserMedia();
+          }
+        });
+      }
+    }
+  });
+
+  function interceptSpeechRecognition() {
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+      return;
+    }
+
+    const OriginalSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const SpeechRecognitionWrapper = function(...args) {
+      const recognizer = new OriginalSpeechRecognition(...args);
+      const originalStart = recognizer.start.bind(recognizer);
+
+      recognizer.start = function() {
+        requestMediaPermissions({ audio: true }).then(granted => {
+          if (granted) {
+            originalStart();
+          } else {
+            const errorEvent = new SpeechRecognitionErrorEvent('error');
+            errorEvent.error = 'not-allowed'; // This is the standard error for permission denial.
+            recognizer.dispatchEvent(errorEvent);
+          }
+        });
+      };
+
+      return recognizer;
+    };
+
+    SpeechRecognitionWrapper.prototype = OriginalSpeechRecognition.prototype;
+    SpeechRecognitionWrapper.prototype.constructor = SpeechRecognitionWrapper;
+
+    if (window.SpeechRecognition) {
+      window.SpeechRecognition = SpeechRecognitionWrapper;
+    }
+    if (window.webkitSpeechRecognition) {
+      window.webkitSpeechRecognition = SpeechRecognitionWrapper;
+    }
+  }
+
+  interceptSpeechRecognition();
+
+  window.addEventListener('message', function(event) {
+    if (event.data) {
+      if (event.data.type === 'resolveMediaPermission') {
+        const { promiseId, granted } = event.data;
+        if (pendingMediaResolvers[promiseId]) {
+          pendingMediaResolvers[promiseId](granted);
+        }
+      }
+    }
+  });
+
+})();</script><script ws-interception-config="{&quot;parentOrigin&quot;:&quot;https://gemini.google.com&quot;,&quot;proxiedDomains&quot;:[]}">(function(){'use strict';var u=typeof Object.defineProperties=="function"?Object.defineProperty:function(b,d,e){if(b==Array.prototype||b==Object.prototype)return b;b[d]=e.value;return b};function v(b){b=["object"==typeof globalThis&&globalThis,b,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var d=0;d<b.length;++d){var e=b[d];if(e&&e.Math==Math)return e}throw Error("Cannot find global object");}var w=v(this);
+function y(b,d){if(d)a:{var e=w;b=b.split(".");for(var h=0;h<b.length-1;h++){var k=b[h];if(!(k in e))break a;e=e[k]}b=b[b.length-1];h=e[b];d=d(h);d!=h&&d!=null&&u(e,b,{configurable:!0,writable:!0,value:d})}}function z(b){function d(h){return b.next(h)}function e(h){return b.throw(h)}return new Promise(function(h,k){function m(n){n.done?h(n.value):Promise.resolve(n.value).then(d,e).then(m,k)}m(b.next())})}y("globalThis",function(b){return b||w});/*
+
+ Copyright The Closure Library Authors.
+ SPDX-License-Identifier: Apache-2.0
+*/
+function A(b,d){function e(){}e.prototype=d.prototype;b.i=d.prototype;b.prototype=new e;b.prototype.constructor=b;b.g=function(h,k,m){for(var n=Array(arguments.length-2),p=2;p<arguments.length;p++)n[p-2]=arguments[p];return d.prototype[k].apply(h,n)}};function B(b,d,e="*"){function h(a){if(typeof a==="string")return F.encode(a).buffer;if(a instanceof ArrayBuffer)return a.slice(0);if(ArrayBuffer.isView(a))return a.buffer.slice(a.byteOffset,a.byteOffset+a.byteLength);throw Error("Invalid data type");}function k(a){a=h(a);var f={type:"send",data:new Uint8Array(a)},g;(g=r)==null||g.postMessage(f,[a])}function m(){if(!r)throw Error("Data port not captured yet.");r.onmessage=a=>{if(a.data.type==="message"){a=new MessageEvent("message",{data:G.decode(a.data.data)});
+let f;(f=c.onmessage)==null||f.call(c,a);c.dispatchEvent(a)}}}function n(){if(!t)throw Error("Control port not captured yet.");t.onmessage=a=>{switch(a.data.type){case "open":l=1;var f=new Event("open"),g;(g=c.onopen)==null||g.call(c,f);c.dispatchEvent(f);q.forEach(H=>{k(H)});q=[];break;case "close":g=a.data;l=3;g=new CloseEvent("close",{code:g.code,reason:g.reason,wasClean:g.wasClean});(f=c.onclose)==null||f.call(c,g);c.dispatchEvent(g);break;case "error":l=3;f=new Event("error");let x;(x=c.onerror)==
+null||x.call(c,f);c.dispatchEvent(f)}}}function p(a){return z(function*(){var f=new MessageChannel;t=f.port1;var g=new MessageChannel;r=g.port1;n();m();window.parent.postMessage({type:"websocket_open",portOrdering:["control","data"],url:b,protocols:a||[],connectionId:I},e,[f.port2,g.port2])}())}var c=Reflect.construct(EventTarget,[],new.target);c.CONNECTING=0;c.OPEN=1;c.CLOSING=2;c.CLOSED=3;c.url=b;c.binaryType="arraybuffer";c.protocol="";c.h="";var l=0,t=null,r=null,q=[],F=new TextEncoder,G=new TextDecoder;
+c.onopen=null;c.onmessage=null;c.onclose=null;c.onerror=null;Object.defineProperty(c,"readyState",{get:()=>l,enumerable:!0,configurable:!0});Object.defineProperty(c,"bufferedAmount",{get:()=>{var a=0;q.forEach(f=>{a+=typeof f==="string"?f.length:f.byteLength});return a},enumerable:!0,configurable:!0});var I=function(){var a;return((a=globalThis.crypto)==null?0:a.randomUUID)?globalThis.crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,f=>{var g=Math.random()*16|0;return(f===
+"x"?g:g&3|8).toString(16)})}();c.send=a=>{if(l===1)a instanceof Blob?a.arrayBuffer().then(f=>{k(f)}):k(a);else if(l===0)if(typeof a==="string")q.push(a);else if(a instanceof ArrayBuffer||ArrayBuffer.isView(a))q.push(h(a));else throw Error("Sending Blob is not supported before the connection is open.");else console.debug("WebSocket send called in CLOSING or CLOSED state; ignored.")};c.close=(a=1E3,f="")=>{if(l!==2&&l!==3){l=2;a={type:"close",code:a,reason:f,wasClean:a===1E3};var g;(g=t)==null||g.postMessage(a)}};
+Promise.resolve().then(()=>p(d));return c}A(B,EventTarget);var C=document.currentScript,D=C==null?void 0:C.getAttribute("ws-interception-config");if(!D)throw Error("WebSocket Interceptor: Missing ws-interception-config attribute in the script tag.");var E=JSON.parse(D);if(!E.parentOrigin||typeof E.parentOrigin!=="string")throw Error("WebSocket Interceptor: Invalid parentOrigin in ws-interception-config");
+(function(b){var d=Object.getOwnPropertyDescriptor(window,"WebSocket");if(!d||d.writable||d.configurable)d=Object.assign(function(e,h){try{let k=(new URL(e)).hostname;if(b.proxiedDomains.some(m=>k===m||k.endsWith(`.${m}`)))return new B(e,h,b.parentOrigin)}catch(k){throw window.parent.postMessage({type:"websocket_blocked",url:e,reason:"blocked_invalid_url"},b.parentOrigin),new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");}window.parent.postMessage({type:"websocket_blocked",
+url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");},{CONNECTING:0,OPEN:1,CLOSING:2,CLOSED:3}),Object.defineProperty(window,"WebSocket",{value:d,writable:!1,configurable:!1})})({proxiedDomains:E.proxiedDomains||[],parentOrigin:E.parentOrigin});}).call(this);
+</script><script>((function(modelInformation) {
+  const originalFetch = window.fetch;
+  // TODO: b/421908508 - Move these out of the script and match all generative AI model calls.
+  let googleLlmBaseApiUrls = [
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':streamGenerateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageEditModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageTransformModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.ttsModelName + ':generateContent',
+  ];
+  modelInformation.deprecatedTextModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+    );
+  });
+  modelInformation.deprecatedImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predict',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predictLongRunning',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+  modelInformation.deprecatedGenerateImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+
+  const pendingFetchResolvers = {};
+  let nextPromiseId = 0;
+
+  function handleStringInput(input, optionsArgument) {
+    const actualUrl = input;
+    const fetchCallArgs = [actualUrl, optionsArgument];
+    const effectiveOptions = optionsArgument || {};
+    const bodyForApiKeyCheck = effectiveOptions.body;
+    const bodyForPostMessage = effectiveOptions.body;
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  function handleRequestInput(input, optionsArgument) {
+    const actualUrl = input.url;
+    const fetchCallArgs = [input, optionsArgument];
+    const effectiveOptions = { method: input.method, headers: new Headers(input.headers) };
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (optionsArgument) {
+      if (optionsArgument.method) effectiveOptions.method = optionsArgument.method;
+      if (optionsArgument.headers) effectiveOptions.headers = new Headers(optionsArgument.headers);
+      if ('body' in optionsArgument) {
+        bodyForApiKeyCheck = optionsArgument.body;
+        bodyForPostMessage = optionsArgument.body;
+      } else {
+        bodyForApiKeyCheck = undefined;
+        bodyForPostMessage = input.body;
+      }
+    } else {
+      bodyForApiKeyCheck = undefined;
+      bodyForPostMessage = input.body;
+    }
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  window.fetch = function(input, optionsArgument) {
+    let actualUrl;
+    let fetchCallArgs;
+    let effectiveOptions = {};
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (typeof input === 'string') {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleStringInput(input, optionsArgument));
+    } else if (input instanceof Request) {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleRequestInput(input, optionsArgument));
+    } else {
+      return originalFetch.apply(window, [input, optionsArgument]);
+    }
+
+    effectiveOptions.method = effectiveOptions.method || 'GET';
+    if (!effectiveOptions.headers) {
+      effectiveOptions.headers = new Headers();
+    }
+
+
+    if (typeof actualUrl === 'string' && googleLlmBaseApiUrls.some((url) => actualUrl.startsWith(url))) {
+      let apiKeyIsNull = true;
+
+      const regex = new RegExp("models/([^:]+)");
+      const modelNameMatch = actualUrl.match(regex);
+      const modelName = modelNameMatch ? modelNameMatch[1] : 'unspecified';
+
+
+      try {
+        const urlObject = new URL(actualUrl);  // Use URL object for robust parsing
+        const apiKeyParam = urlObject.searchParams.get('key');
+        if (apiKeyParam) {
+          apiKeyIsNull = false;
+        }
+      } catch (e) {
+        // Continue checks even if URL parsing fails
+      }
+
+      if (apiKeyIsNull && effectiveOptions.headers) {
+        const h = new Headers(effectiveOptions.headers);
+        const apiKeyHeaderValue = h.get('X-API-Key') || h.get('x-api-key');
+        if (apiKeyHeaderValue) {
+          apiKeyIsNull = false;
+          return originalFetch.apply(window, fetchCallArgs);
+        }
+      }
+
+      if (apiKeyIsNull && effectiveOptions.method && ['POST', 'PUT', 'PATCH'].includes(effectiveOptions.method.toUpperCase()) && typeof bodyForApiKeyCheck === 'string') {
+        try {
+          const bodyData = JSON.parse(bodyForApiKeyCheck);
+          if (bodyData && bodyData.apiKey) {
+            apiKeyIsNull = false;
+            return originalFetch.apply(window, fetchCallArgs);
+          }
+        } catch (e) {
+          // Ignore JSON parsing errors
+        }
+      }
+
+      if(apiKeyIsNull) {
+        const promiseId = nextPromiseId++;
+        const promise = new Promise((resolve) => {
+          pendingFetchResolvers[promiseId] = (resolvedResponse) => {
+            delete pendingFetchResolvers[promiseId];
+            resolve(resolvedResponse);
+          };
+        });
+
+        let serializedBodyForPostMessage;
+        if (typeof bodyForPostMessage === 'string' || bodyForPostMessage == null) {
+            serializedBodyForPostMessage = bodyForPostMessage;
+        } else if (bodyForPostMessage instanceof ReadableStream) {
+            serializedBodyForPostMessage = null;
+        } else {
+            try {
+                serializedBodyForPostMessage = JSON.stringify(bodyForPostMessage);
+            } catch (e) {
+                serializedBodyForPostMessage = null;
+            }
+        }
+
+        const messageOptions = {
+            method: effectiveOptions.method,
+            headers: Object.fromEntries(new Headers(effectiveOptions.headers).entries()),
+            body: serializedBodyForPostMessage
+        };
+
+        window.parent.postMessage({
+          type: 'requestFetch',
+          url: actualUrl,
+          modelName: modelName,
+          options: messageOptions,
+          promiseId: promiseId,
+        }, '*');
+
+        return promise;
+      }
+      return originalFetch.apply(window, fetchCallArgs);
+    }
+    return originalFetch.apply(window, fetchCallArgs);
+  };
+
+  window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'resolveFetch') {
+      const { promiseId, response } = event.data;
+      if (pendingFetchResolvers[promiseId]) {
+        try {
+          const reconstructedResponse = new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: new Headers(response.headers),
+          });
+          pendingFetchResolvers[promiseId](reconstructedResponse);
+        } catch (error) {
+          pendingFetchResolvers[promiseId](new Response(null, { status: 500, statusText: "Interceptor Response Reconstruction Error" }));
+        }
+      }
+    }
+  });
+
+}))({"textModelName":"gemini-3-flash-preview","imageModelName":"imagen-4.0-generate-001","imageEditModelName":"gemini-3.1-flash-image-preview","imageTransformModelName":"gemini-3-pro-image-preview-11-2025","videoModelName":"veo-2.0-generate-001","ttsModelName":"gemini-2.5-flash-preview-tts","deprecatedTextModelNames":["gemini-2.0-flash","gemini-2.5-flash","gemini-2.5-flash-preview-04-17","gemini-2.5-flash-preview-05-20","gemini-2.5-flash-preview-09-2025"],"deprecatedImageModelNames":["imagen-3.0-generate-001","imagen-3.0-generate-002"],"deprecatedGenerateImageModelNames":["gemini-2.5-flash-image-preview","gemini-2.5-flash-image"]})</script><script>(function(){'use strict';function a(){window.parent.postMessage({type:"interaction"},"*")}window.addEventListener("click",a,{capture:!0,passive:!0});window.addEventListener("touchstart",a,{capture:!0,passive:!0});window.addEventListener("keydown",a,{capture:!0,passive:!0});}).call(this);
+</script><script>(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+    /**
+   * Normalizes an error event or a promise rejection reason into a structured error object.
+   * @param {*} errorEventOrReason The error object or reason.
+   * @return {object} Structured error data { message, name, stack }.
+   */
+  function getErrorObject(errorEventOrReason) {
+    if (errorEventOrReason instanceof Error) {
+      return {
+        message: errorEventOrReason.message,
+        name: errorEventOrReason.name,
+        stack: errorEventOrReason.stack,
+      };
+    }
+    // Fallback for non-Error objects.
+    try {
+      return {
+        message: JSON.stringify(errorEventOrReason),
+        name: 'UnknownErrorType',
+        stack: null,
+      };
+    } catch (e) {
+      return {
+        message: String(errorEventOrReason),
+        name: 'UnknownErrorTypeNonStringifiable',
+        stack: null,
+      };
+    }
+  }
+
+  /**
+   * Converts an array of arguments (from log/error) into a single string.
+   * Handles Error objects specially to include their message and stack.
+   * @param {Array<*>} args - Arguments passed to console methods.
+   * @return {string} A string representation of the arguments.
+   */
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (arg instanceof Error) {
+          const {message, stack} = arg;
+          return `Error: ${message}${stack ? ('\nStack: ' + stack) : ''}`;
+        }
+        if (typeof arg === 'object' && arg !== null) {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    let errorData;
+    if (args.length > 0 && args[0] instanceof Error) {
+      const err = args[0];
+      // If the first arg is an Error, capture its details.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        ...getErrorObject(err),
+        rawArgsString: stringifyArgs(args.slice(1)),
+        timestamp: new Date().toISOString(),
+      };
+    } else {
+      // If not an Error object, treat all args as a general error message.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        message: stringifyArgs(args),
+        name: 'ConsoleLoggedError',
+        stack: null,
+        timestamp: new Date().toISOString(),
+      };
+    }
+    window.parent.postMessage(errorData, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  // Listen for global unhandled synchronous errors.
+  window.addEventListener('error', function(event) {
+    const errorDetails = event.error ? getErrorObject(event.error) : {
+      message: event.message,
+      name: 'GlobalError',
+      stack: null,
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno,
+    };
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'global',
+      ...errorDetails,
+      message: errorDetails.message || event.message,
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+  // Listen for unhandled promise rejections (asynchronous errors).
+  window.addEventListener('unhandledrejection', function(event) {
+    const errorDetails = getErrorObject(event.reason);
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'unhandledrejection',
+      ...errorDetails,
+      message: errorDetails.message || 'Unhandled Promise Rejection',
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+})();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Provider Ethics &amp; Environmental Scorecard (Self-Hosted)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+            },
+            grade: {
+              A: '#10b981',
+              B: '#3b82f6',
+              C: '#f59e0b',
+              D: '#f97316',
+              F: '#ef4444',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0px}.-right-16{right:-4rem}.-top-16{top:-4rem}.top-0{top:0px}.z-10{z-index:10}.z-40{z-index:40}.z-50{z-index:50}.col-span-1{grid-column:span 1 / span 1}.mx-auto{margin-left:auto;margin-right:auto}.my-5{margin-top:1.25rem;margin-bottom:1.25rem}.my-6{margin-top:1.5rem;margin-bottom:1.5rem}.mb-1{margin-bottom:0.25rem}.mb-1\.5{margin-bottom:0.375rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.ml-3{margin-left:0.75rem}.mt-0\.5{margin-top:0.125rem}.mt-1{margin-top:0.25rem}.mt-16{margin-top:4rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.line-clamp-3{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-12{height:3rem}.h-16{height:4rem}.h-2{height:0.5rem}.h-3{height:0.75rem}.h-3\.5{height:0.875rem}.h-4{height:1rem}.h-48{height:12rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-8{height:2rem}.h-1\.5{height:0.375rem}.max-h-\[380px\]{max-height:380px}.max-h-\[60vh\]{max-height:60vh}.min-h-\[340px\]{min-height:340px}.min-h-screen{min-height:100vh}.w-12{width:3rem}.w-3{width:0.75rem}.w-3\.5{width:0.875rem}.w-4{width:1rem}.w-48{width:12rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-8{width:2rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-5xl{max-width:64rem}.max-w-7xl{max-width:80rem}.max-w-lg{max-width:32rem}.max-w-none{max-width:none}.max-w-sm{max-width:24rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:spin 1s linear infinite}.cursor-pointer{cursor:pointer}.select-all{-webkit-user-select:all;user-select:all}.list-inside{list-style-position:inside}.list-disc{list-style-type:disc}.appearance-none{-webkit-appearance:none;appearance:none}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-x-1 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.25rem * var(--tw-space-x-reverse));margin-left:calc(0.25rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-1\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.375rem * var(--tw-space-x-reverse));margin-left:calc(0.375rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-3 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.75rem * var(--tw-space-x-reverse));margin-left:calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-6 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1.5rem * var(--tw-space-x-reverse));margin-left:calc(1.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.space-y-1\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.375rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.375rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-y-auto{overflow-y:auto}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-4{border-width:4px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-amber-500\/20{border-color:rgb(245 158 11 / 0.2)}.border-amber-500\/30{border-color:rgb(245 158 11 / 0.3)}.border-brand-500\/10{border-color:rgb(14 165 233 / 0.1)}.border-brand-500\/20{border-color:rgb(14 165 233 / 0.2)}.border-brand-500\/30{border-color:rgb(14 165 233 / 0.3)}.border-red-500\/30{border-color:rgb(239 68 68 / 0.3)}.border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.border-slate-800{--tw-border-opacity:1;border-color:rgb(30 41 59 / var(--tw-border-opacity, 1))}.border-slate-800\/80{border-color:rgb(30 41 59 / 0.8)}.border-slate-900{--tw-border-opacity:1;border-color:rgb(15 23 42 / var(--tw-border-opacity, 1))}.border-blue-400\/20{border-color:rgb(96 165 250 / 0.2)}.border-emerald-500\/20{border-color:rgb(16 185 129 / 0.2)}.border-orange-500\/20{border-color:rgb(249 115 22 / 0.2)}.border-orange-600\/20{border-color:rgb(234 88 12 / 0.2)}.border-red-500\/20{border-color:rgb(239 68 68 / 0.2)}.border-slate-800\/50{border-color:rgb(30 41 59 / 0.5)}.border-slate-800\/60{border-color:rgb(30 41 59 / 0.6)}.border-yellow-500\/20{border-color:rgb(234 179 8 / 0.2)}.border-t-brand-500{--tw-border-opacity:1;border-top-color:rgb(14 165 233 / var(--tw-border-opacity, 1))}.bg-amber-500\/20{background-color:rgb(245 158 11 / 0.2)}.bg-brand-500\/10{background-color:rgb(14 165 233 / 0.1)}.bg-brand-500\/5{background-color:rgb(14 165 233 / 0.05)}.bg-brand-600{--tw-bg-opacity:1;background-color:rgb(2 132 199 / var(--tw-bg-opacity, 1))}.bg-emerald-600{--tw-bg-opacity:1;background-color:rgb(5 150 105 / var(--tw-bg-opacity, 1))}.bg-red-500\/10{background-color:rgb(239 68 68 / 0.1)}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.bg-slate-900\/80{background-color:rgb(15 23 42 / 0.8)}.bg-slate-950{--tw-bg-opacity:1;background-color:rgb(2 6 23 / var(--tw-bg-opacity, 1))}.bg-slate-950\/50{background-color:rgb(2 6 23 / 0.5)}.bg-slate-950\/60{background-color:rgb(2 6 23 / 0.6)}.bg-slate-950\/80{background-color:rgb(2 6 23 / 0.8)}.bg-blue-400\/10{background-color:rgb(96 165 250 / 0.1)}.bg-blue-500{--tw-bg-opacity:1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-emerald-500\/10{background-color:rgb(16 185 129 / 0.1)}.bg-orange-500{--tw-bg-opacity:1;background-color:rgb(249 115 22 / var(--tw-bg-opacity, 1))}.bg-orange-500\/10{background-color:rgb(249 115 22 / 0.1)}.bg-orange-600\/10{background-color:rgb(234 88 12 / 0.1)}.bg-red-500{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity, 1))}.bg-yellow-500{--tw-bg-opacity:1;background-color:rgb(234 179 8 / var(--tw-bg-opacity, 1))}.bg-yellow-500\/10{background-color:rgb(234 179 8 / 0.1)}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-amber-950\/40{--tw-gradient-from:rgb(69 26 3 / 0.4) var(--tw-gradient-from-position);--tw-gradient-to:rgb(69 26 3 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-slate-900{--tw-gradient-from:#0f172a var(--tw-gradient-from-position);--tw-gradient-to:rgb(15 23 42 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-amber-900\/10{--tw-gradient-to:rgb(120 53 15 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), rgb(120 53 15 / 0.1) var(--tw-gradient-via-position), var(--tw-gradient-to)}.via-slate-900{--tw-gradient-to:rgb(15 23 42 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #0f172a var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-slate-800{--tw-gradient-to:#1e293b var(--tw-gradient-to-position)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.p-2{padding:0.5rem}.p-2\.5{padding:0.625rem}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.px-1{padding-left:0.25rem;padding-right:0.25rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-2\.5{padding-left:0.625rem;padding-right:0.625rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-3\.5{padding-left:0.875rem;padding-right:0.875rem}.px-4{padding-left:1rem;padding-right:1rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-16{padding-bottom:4rem}.pb-20{padding-bottom:5rem}.pb-3{padding-bottom:0.75rem}.pb-4{padding-bottom:1rem}.pb-6{padding-bottom:1.5rem}.pl-2{padding-left:0.5rem}.pr-2{padding-right:0.5rem}.pt-4{padding-top:1rem}.pt-8{padding-top:2rem}.text-left{text-align:left}.text-center{text-align:center}.align-bottom{vertical-align:bottom}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-normal{line-height:1.5}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-0.025em}.tracking-wide{letter-spacing:0.025em}.tracking-wider{letter-spacing:0.05em}.text-amber-300{--tw-text-opacity:1;color:rgb(252 211 77 / var(--tw-text-opacity, 1))}.text-brand-500{--tw-text-opacity:1;color:rgb(14 165 233 / var(--tw-text-opacity, 1))}.text-red-400{--tw-text-opacity:1;color:rgb(248 113 113 / var(--tw-text-opacity, 1))}.text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249 / var(--tw-text-opacity, 1))}.text-slate-200{--tw-text-opacity:1;color:rgb(226 232 240 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-yellow-500{--tw-text-opacity:1;color:rgb(234 179 8 / var(--tw-text-opacity, 1))}.text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity, 1))}.text-orange-400{--tw-text-opacity:1;color:rgb(251 146 60 / var(--tw-text-opacity, 1))}.text-orange-500{--tw-text-opacity:1;color:rgb(249 115 22 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity:1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.text-yellow-400{--tw-text-opacity:1;color:rgb(250 204 21 / var(--tw-text-opacity, 1))}.placeholder-slate-600::placeholder{--tw-placeholder-opacity:1;color:rgb(71 85 105 / var(--tw-placeholder-opacity, 1))}.placeholder-slate-700::placeholder{--tw-placeholder-opacity:1;color:rgb(51 65 85 / var(--tw-placeholder-opacity, 1))}.accent-brand-500{accent-color:#0ea5e9}.shadow{--tw-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-brand-500\/10{--tw-shadow-color:rgb(14 165 233 / 0.1);--tw-shadow:var(--tw-shadow-colored)}.blur-3xl{--tw-blur:blur(64px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur{--tw-backdrop-blur:blur(8px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:border-slate-700:hover{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.hover\:bg-amber-500\/30:hover{background-color:rgb(245 158 11 / 0.3)}.hover\:bg-brand-500:hover{--tw-bg-opacity:1;background-color:rgb(14 165 233 / var(--tw-bg-opacity, 1))}.hover\:bg-brand-500\/10:hover{background-color:rgb(14 165 233 / 0.1)}.hover\:bg-brand-500\/20:hover{background-color:rgb(14 165 233 / 0.2)}.hover\:bg-emerald-500:hover{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-700:hover{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-950:hover{--tw-bg-opacity:1;background-color:rgb(2 6 23 / var(--tw-bg-opacity, 1))}.hover\:text-slate-200:hover{--tw-text-opacity:1;color:rgb(226 232 240 / var(--tw-text-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}.hover\:shadow-xl:hover{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.focus\:border-brand-500:focus{--tw-border-opacity:1;border-color:rgb(14 165 233 / var(--tw-border-opacity, 1))}.focus\:ring-1:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-brand-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(14 165 233 / var(--tw-ring-opacity, 1))}@media (min-width: 640px){.sm\:my-8{margin-top:2rem;margin-bottom:2rem}.sm\:block{display:block}.sm\:inline-block{display:inline-block}.sm\:inline{display:inline}.sm\:h-screen{height:100vh}.sm\:w-auto{width:auto}.sm\:w-full{width:100%}.sm\:max-w-4xl{max-width:56rem}.sm\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}.sm\:p-0{padding:0px}.sm\:p-8{padding:2rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:align-middle{vertical-align:middle}.sm\:text-4xl{font-size:2.25rem;line-height:2.5rem}.sm\:text-lg{font-size:1.125rem;line-height:1.75rem}}@media (min-width: 768px){.md\:order-1{order:1}.md\:order-2{order:2}.md\:mt-0{margin-top:0px}.md\:flex{display:flex}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:items-center{align-items:center}.md\:justify-between{justify-content:space-between}}@media (min-width: 1024px){.lg\:col-span-5{grid-column:span 5 / span 5}.lg\:col-span-7{grid-column:span 7 / span 7}.lg\:grid-cols-12{grid-template-columns:repeat(12, minmax(0, 1fr))}.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:px-8{padding-left:2rem;padding-right:2rem}}</style></head>
+<body class="bg-slate-950 text-slate-100 min-h-screen transition-colors duration-300">
+
+  <!-- Main Navigation / Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="p-2 bg-brand-500/10 rounded-lg border border-brand-500/30">
+          <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight">AI Lifecycle Scorecard</h1>
+          <p class="text-xs text-slate-400">Environmental &amp; Ethical Performance Index (Self-Hosted)</p>
+        </div>
+      </div>
+      
+      <!-- Top Action Controls -->
+      <div class="flex items-center space-x-3">
+        <button onclick="openSettingsModal()" class="flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg border border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          <span class="hidden sm:inline">Settings &amp; Keys</span>
+        </button>
+
+        <button onclick="openDeploymentGuide()" class="flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg border border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 transition" title="Deployment Help">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+          <span class="hidden sm:inline">How to Deploy</span>
+        </button>
+
+        <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300" title="Toggle Light/Dark">
+          <svg id="theme-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M16.24 12a4.24 4.24 0 11-8.48 0 4.24 4.24 0 018.48 0z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Key Warning Banner if API Key is not set -->
+  <div id="api-warning-banner" class="bg-gradient-to-r from-amber-950/40 via-amber-900/10 to-transparent border-b border-amber-500/20 py-2.5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between flex-wrap gap-2 text-xs">
+      <div class="flex items-center space-x-2 text-amber-300">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+        </svg>
+        <span><strong>API Configuration Required:</strong> To use the Live ESG Auditor, configure your personal Gemini API Key.</span>
+      </div>
+      <button onclick="openSettingsModal()" class="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-semibold border border-amber-500/30 transition">
+        Configure Key Now
+      </button>
+    </div>
+  </div>
+
+  <!-- Hero Summary Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-800 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <div class="max-w-3xl">
+        <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+          The Hidden Cost of Artificial Intelligence
+        </h2>
+        <p class="mt-4 text-slate-300 leading-relaxed text-base sm:text-lg">
+          This interactive dashboard tracks, evaluates, and grades major AI providers based on physical, legal, and operational benchmarks. Compare providers, analyze carbon accounting disparities, and simulate downstream resource demands.
+        </p>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-800">
+        <div class="p-4 bg-slate-950/50 rounded-xl border border-slate-800/80">
+          <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Estimated Inference Cost</p>
+          <p class="text-2xl font-bold mt-1 text-slate-100">2.9 Wh <span class="text-xs text-brand-400">/ query</span></p>
+          <p class="text-[10px] text-slate-500 mt-1">~10x conventional Google Search</p>
+        </div>
+        <div class="p-4 bg-slate-950/50 rounded-xl border border-slate-800/80">
+          <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">US Datacenter Water Draw</p>
+          <p class="text-2xl font-bold mt-1 text-slate-100">17 Billion <span class="text-xs text-brand-400">gals/yr</span></p>
+          <p class="text-[10px] text-slate-500 mt-1">Projected up to 33B gals by 2028</p>
+        </div>
+        <div class="p-4 bg-slate-950/50 rounded-xl border border-slate-800/80">
+          <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Decoupled Emissions Gap</p>
+          <p class="text-2xl font-bold mt-1 text-red-400">Up to 19,000x</p>
+          <p class="text-[10px] text-slate-500 mt-1">Market vs. Location-Based reporting</p>
+        </div>
+        <div class="p-4 bg-slate-950/50 rounded-xl border border-slate-800/80">
+          <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Global Grid Projection (2030)</p>
+          <p class="text-2xl font-bold mt-1 text-yellow-500">945 TWh</p>
+          <p class="text-[10px] text-slate-500 mt-1">Expected to double from 2024</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Scorecard Hub -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    
+    <!-- Controls Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 gap-4 border-b border-slate-800">
+      <div class="flex flex-wrap gap-2" id="filter-buttons">
+        <button onclick="setFilter('all')" id="btn-all" class="px-4 py-2 text-sm font-semibold rounded-lg bg-brand-600 text-white transition">All Providers</button>
+        <button onclick="setFilter('hyperscale')" id="btn-hyperscale" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition">Hyperscalers (Cloud Hosts)</button>
+        <button onclick="setFilter('pureplay')" id="btn-pureplay" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition">Pure-Play AI Developers</button>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="openCompareModal()" class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold rounded-lg border border-brand-500/30 bg-brand-500/10 text-brand-400 hover:bg-brand-500/20 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+          </svg>
+          <span>Compare Providers</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Providers Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8" id="provider-grid"><div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition shadow-lg hover:shadow-xl group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase border bg-yellow-500/10 text-yellow-400 border-yellow-500/20">
+                Cloud Hyperscaler
+              </span>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs text-slate-500">Overall Grade</span>
+                <span class="text-2xl font-black text-yellow-500">C+</span>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-bold text-slate-100 group-hover:text-brand-400 transition mb-2">Microsoft Azure</h3>
+            <p class="text-sm text-slate-400 line-clamp-3 mb-6">Encompasses massive infrastructure commitments. Driving substantial nuclear and geothermal clean-energy agreements but hampered by expanding location-based operational grid emissions and support of decoupled accounting.</p>
+            
+            <!-- Metrics Bars -->
+            <div class="space-y-3 border-t border-slate-800/80 pt-4 mb-6">
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Ecological Footprint</span>
+            <span class="font-medium text-slate-300">72/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 72%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Carbon Accounting Integrity</span>
+            <span class="font-medium text-slate-300">52/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-yellow-500 h-1.5 rounded-full" style="width: 52%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Web Sourcing &amp; Ethics</span>
+            <span class="font-medium text-slate-300">85/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 85%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Labor &amp; Compensation Standards</span>
+            <span class="font-medium text-slate-300">63/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 63%"></div>
+          </div>
+        </div>
+      
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between pt-4 border-t border-slate-800/80">
+            <div class="text-xs text-slate-500">
+              Composite Integrity Index: <span class="font-bold text-slate-300">68%</span>
+            </div>
+            <button onclick="openProviderModal('microsoft')" class="text-xs font-semibold text-brand-400 hover:text-brand-300 flex items-center space-x-1 transition">
+              <span>View Full Evidence</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div><div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition shadow-lg hover:shadow-xl group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase border bg-blue-400/10 text-blue-400 border-blue-400/20">
+                Cloud Hyperscaler
+              </span>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs text-slate-500">Overall Grade</span>
+                <span class="text-2xl font-black text-blue-400">B-</span>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-bold text-slate-100 group-hover:text-brand-400 transition mb-2">Google Cloud</h3>
+            <p class="text-sm text-slate-400 line-clamp-3 mb-6">Industry-leading hardware efficiency improvements and ambitious hourly matching carbon goals, offset by escalating actual location-based emissions outstripping clean power grid rollouts.</p>
+            
+            <!-- Metrics Bars -->
+            <div class="space-y-3 border-t border-slate-800/80 pt-4 mb-6">
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Ecological Footprint</span>
+            <span class="font-medium text-slate-300">84/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 84%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Carbon Accounting Integrity</span>
+            <span class="font-medium text-slate-300">70/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 70%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Web Sourcing &amp; Ethics</span>
+            <span class="font-medium text-slate-300">78/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 78%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Labor &amp; Compensation Standards</span>
+            <span class="font-medium text-slate-300">64/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 64%"></div>
+          </div>
+        </div>
+      
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between pt-4 border-t border-slate-800/80">
+            <div class="text-xs text-slate-500">
+              Composite Integrity Index: <span class="font-bold text-slate-300">74%</span>
+            </div>
+            <button onclick="openProviderModal('google')" class="text-xs font-semibold text-brand-400 hover:text-brand-300 flex items-center space-x-1 transition">
+              <span>View Full Evidence</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div><div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition shadow-lg hover:shadow-xl group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase border bg-orange-500/10 text-orange-400 border-orange-500/20">
+                Cloud Hyperscaler
+              </span>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs text-slate-500">Overall Grade</span>
+                <span class="text-2xl font-black text-yellow-500">C-</span>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-bold text-slate-100 group-hover:text-brand-400 transition mb-2">Meta</h3>
+            <p class="text-sm text-slate-400 line-clamp-3 mb-6">Promotes virtual "100% renewable" operations through aggressive unbundled carbon offset purchases, while physical local grids handle extreme loads. Facing intense legal battles over union-busting and labor exploitation.</p>
+            
+            <!-- Metrics Bars -->
+            <div class="space-y-3 border-t border-slate-800/80 pt-4 mb-6">
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Ecological Footprint</span>
+            <span class="font-medium text-slate-300">74/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 74%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Carbon Accounting Integrity</span>
+            <span class="font-medium text-slate-300">20/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-orange-500 h-1.5 rounded-full" style="width: 20%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Web Sourcing &amp; Ethics</span>
+            <span class="font-medium text-slate-300">68/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 68%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Labor &amp; Compensation Standards</span>
+            <span class="font-medium text-slate-300">38/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-orange-500 h-1.5 rounded-full" style="width: 38%"></div>
+          </div>
+        </div>
+      
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between pt-4 border-t border-slate-800/80">
+            <div class="text-xs text-slate-500">
+              Composite Integrity Index: <span class="font-bold text-slate-300">50%</span>
+            </div>
+            <button onclick="openProviderModal('meta')" class="text-xs font-semibold text-brand-400 hover:text-brand-300 flex items-center space-x-1 transition">
+              <span>View Full Evidence</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div><div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition shadow-lg hover:shadow-xl group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase border bg-orange-600/10 text-orange-400 border-orange-600/20">
+                Pure AI Developer
+              </span>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs text-slate-500">Overall Grade</span>
+                <span class="text-2xl font-black text-orange-500">D+</span>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-bold text-slate-100 group-hover:text-brand-400 transition mb-2">OpenAI</h3>
+            <p class="text-sm text-slate-400 line-clamp-3 mb-6">Exhibits complete opacity regarding environmental and carbon reporting. Prioritizes product deployment over internal alignment structures, balanced slightly by compliant web-scraping behavior.</p>
+            
+            <!-- Metrics Bars -->
+            <div class="space-y-3 border-t border-slate-800/80 pt-4 mb-6">
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Ecological Footprint</span>
+            <span class="font-medium text-slate-300">35/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-orange-500 h-1.5 rounded-full" style="width: 35%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Carbon Accounting Integrity</span>
+            <span class="font-medium text-slate-300">10/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-red-500 h-1.5 rounded-full" style="width: 10%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Web Sourcing &amp; Ethics</span>
+            <span class="font-medium text-slate-300">82/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 82%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Labor &amp; Compensation Standards</span>
+            <span class="font-medium text-slate-300">28/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-orange-500 h-1.5 rounded-full" style="width: 28%"></div>
+          </div>
+        </div>
+      
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between pt-4 border-t border-slate-800/80">
+            <div class="text-xs text-slate-500">
+              Composite Integrity Index: <span class="font-bold text-slate-300">39%</span>
+            </div>
+            <button onclick="openProviderModal('openai')" class="text-xs font-semibold text-brand-400 hover:text-brand-300 flex items-center space-x-1 transition">
+              <span>View Full Evidence</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div><div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition shadow-lg hover:shadow-xl group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase border bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
+                Pure AI Developer
+              </span>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs text-slate-500">Overall Grade</span>
+                <span class="text-2xl font-black text-blue-400">B</span>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-bold text-slate-100 group-hover:text-brand-400 transition mb-2">Anthropic</h3>
+            <p class="text-sm text-slate-400 line-clamp-3 mb-6">Industry standard-bearer for architectural AI safety alignment and structural constitution guidelines, but hampered by data-sourcing copyright battles and lack of independent environmental filings.</p>
+            
+            <!-- Metrics Bars -->
+            <div class="space-y-3 border-t border-slate-800/80 pt-4 mb-6">
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Ecological Footprint</span>
+            <span class="font-medium text-slate-300">58/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-yellow-500 h-1.5 rounded-full" style="width: 58%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Carbon Accounting Integrity</span>
+            <span class="font-medium text-slate-300">60/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 60%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Web Sourcing &amp; Ethics</span>
+            <span class="font-medium text-slate-300">72/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 72%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Labor &amp; Compensation Standards</span>
+            <span class="font-medium text-slate-300">68/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 68%"></div>
+          </div>
+        </div>
+      
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between pt-4 border-t border-slate-800/80">
+            <div class="text-xs text-slate-500">
+              Composite Integrity Index: <span class="font-bold text-slate-300">65%</span>
+            </div>
+            <button onclick="openProviderModal('anthropic')" class="text-xs font-semibold text-brand-400 hover:text-brand-300 flex items-center space-x-1 transition">
+              <span>View Full Evidence</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div><div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition shadow-lg hover:shadow-xl group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase border bg-red-500/10 text-red-400 border-red-500/20">
+                Pure AI Developer
+              </span>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs text-slate-500">Overall Grade</span>
+                <span class="text-2xl font-black text-red-500">F</span>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-bold text-slate-100 group-hover:text-brand-400 transition mb-2">Perplexity AI</h3>
+            <p class="text-sm text-slate-400 line-clamp-3 mb-6">Systematically bypasses standard web ethics. Actively evades regional bot blocking, rotates IP networks to spoof browsers, and ignores voluntary robots.txt parameters while providing zero transparent ecological accounting.</p>
+            
+            <!-- Metrics Bars -->
+            <div class="space-y-3 border-t border-slate-800/80 pt-4 mb-6">
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Ecological Footprint</span>
+            <span class="font-medium text-slate-300">30/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-orange-500 h-1.5 rounded-full" style="width: 30%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Carbon Accounting Integrity</span>
+            <span class="font-medium text-slate-300">10/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-red-500 h-1.5 rounded-full" style="width: 10%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Web Sourcing &amp; Ethics</span>
+            <span class="font-medium text-slate-300">12/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-red-500 h-1.5 rounded-full" style="width: 12%"></div>
+          </div>
+        </div>
+      
+              
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">Labor &amp; Compensation Standards</span>
+            <span class="font-medium text-slate-300">40/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="bg-yellow-500 h-1.5 rounded-full" style="width: 40%"></div>
+          </div>
+        </div>
+      
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between pt-4 border-t border-slate-800/80">
+            <div class="text-xs text-slate-500">
+              Composite Integrity Index: <span class="font-bold text-slate-300">23%</span>
+            </div>
+            <button onclick="openProviderModal('perplexity')" class="text-xs font-semibold text-brand-400 hover:text-brand-300 flex items-center space-x-1 transition">
+              <span>View Full Evidence</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div></div>
+
+    <!-- Operational Footprint Calculator -->
+    <section class="mt-16 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <div class="border-b border-slate-800 pb-4 mb-6">
+        <h3 class="text-xl font-bold text-slate-100 flex items-center space-x-2">
+          <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+          </svg>
+          <span>Downstream Query Resource Calculator</span>
+        </h3>
+        <p class="text-sm text-slate-400">Simulate physical water and electrical grids under different architecture scales.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Interactive Controls -->
+        <div class="lg:col-span-5 space-y-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-300 mb-2">Estimated Daily Queries</label>
+            <input type="range" id="calc-queries" min="10000" max="10000000" step="10000" value="1000000" oninput="updateCalculator()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+            <div class="flex justify-between text-xs text-slate-400 mt-2">
+              <span>10,000</span>
+              <span class="text-brand-400 font-bold" id="calc-queries-display">1,000,000 queries/day</span>
+              <span>10 Million</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-300 mb-3">Model Architectural Choice</label>
+            <div class="grid grid-cols-1 gap-3">
+              <label class="flex items-center p-3 rounded-xl border border-slate-800 bg-slate-950/50 hover:bg-slate-950 cursor-pointer transition">
+                <input type="radio" name="model-type" value="search" onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-900 border-slate-700">
+                <span class="ml-3 block">
+                  <span class="text-sm font-semibold text-slate-200 block">Standard Search Engine</span>
+                  <span class="text-xs text-slate-500 block">Baseline (~0.3 Wh / query)</span>
+                </span>
+              </label>
+              <label class="flex items-center p-3 rounded-xl border border-brand-500/30 bg-brand-500/5 hover:bg-brand-500/10 cursor-pointer transition">
+                <input type="radio" name="model-type" value="standard" checked="" onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-900 border-slate-700">
+                <span class="ml-3 block">
+                  <span class="text-sm font-semibold text-brand-400 block">Conventional Generative AI</span>
+                  <span class="text-xs text-slate-400 block">Standard LLM (~2.9 Wh / query)</span>
+                </span>
+              </label>
+              <label class="flex items-center p-3 rounded-xl border border-slate-800 bg-slate-950/50 hover:bg-slate-950 cursor-pointer transition">
+                <input type="radio" name="model-type" value="reasoning" onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-900 border-slate-700">
+                <span class="ml-3 block">
+                  <span class="text-sm font-semibold text-yellow-500 block">Advanced Reasoning AI (10x-70x load)</span>
+                  <span class="text-xs text-slate-500 block">Complex real-time tree-of-thought (~116 Wh / query)</span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculation Results -->
+        <div class="lg:col-span-7 bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div>
+            <h4 class="text-sm font-semibold text-slate-400 uppercase tracking-wide mb-4">Estimated Resource Footprint (Daily)</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="p-4 bg-slate-900 rounded-lg border border-slate-800">
+                <span class="text-xs text-slate-400 block">Power Consumed</span>
+                <span id="calc-power" class="text-2xl font-black text-slate-100 block mt-1">2.90 MWh</span>
+                <span id="calc-households" class="text-[10px] text-slate-500 block mt-1">Power for ~97 US homes/day</span>
+              </div>
+              <div class="p-4 bg-slate-900 rounded-lg border border-slate-800">
+                <span class="text-xs text-slate-400 block">Water Consumed</span>
+                <span id="calc-water" class="text-2xl font-black text-slate-100 block mt-1">116,000 Gallons</span>
+                <span class="text-[10px] text-slate-500 block mt-1">Evaporative chip cooling draft</span>
+              </div>
+              <div class="p-4 bg-slate-900 rounded-lg border border-slate-800">
+                <span class="text-xs text-slate-400 block">Physical Grid Carbon</span>
+                <span id="calc-carbon" class="text-2xl font-black text-slate-100 block mt-1">1.19 Metric Tons</span>
+                <span class="text-[10px] text-slate-500 block mt-1">Based on location grid index</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Optimization Recommendation Box -->
+          <div class="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4 border-t border-slate-800">
+            <div class="flex-1">
+              <h5 class="text-sm font-semibold text-brand-400 flex items-center space-x-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <span>Architectural Recommendations: Right-Sizing</span>
+              </h5>
+              <p id="calc-advice" class="text-xs text-slate-300 mt-1 leading-relaxed">Running standard LLMs consumes <strong>2.9 Wh per query</strong> (nearly 10x search baseline). While manageable for complex queries, scaling this structure to billions of user interactions forces municipal grids to increase peak natural gas and coal generation. Consider task-specific fine-tuning or model pruning.</p>
+            </div>
+            <button onclick="sendStatsToAuditor()" class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center space-x-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition shadow">
+              <span>✨ Send to ESG Auditor</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: ✨ Real-Time AI ESG Auditor & Policy Advisor -->
+    <section id="auditor-panel" class="mt-16 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+      <!-- Glow decoration -->
+      <div class="absolute -right-16 -top-16 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="border-b border-slate-800 pb-4 mb-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 class="text-xl font-bold text-slate-100 flex items-center space-x-2">
+              <span class="text-xl">✨</span>
+              <span>Real-Time AI ESG Auditor &amp; Policy Advisor</span>
+            </h3>
+            <p class="text-sm text-slate-400">Audit your infrastructure or draft compliant AI policies utilizing the Gemini 2.5 API.</p>
+          </div>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-brand-500/10 text-brand-400 border border-brand-500/20">
+            Self-Hosted Connector
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Control panel -->
+        <div class="lg:col-span-5 space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Audit Scenario Presets</label>
+            <div class="grid grid-cols-1 gap-2">
+              <button onclick="applyAuditPreset('reasoning')" class="w-full text-left p-3 rounded-lg bg-slate-950/60 border border-slate-800 hover:border-slate-700 hover:bg-slate-950 transition text-xs">
+                <span class="font-semibold text-slate-200 block">🌿 DeepSeek R1 / o1 Reasoning Audit</span>
+                <span class="text-slate-500 block mt-0.5">Evaluate localized grid &amp; aquifer loads for reasoning loop spikes.</span>
+              </button>
+              <button onclick="applyAuditPreset('policy')" class="w-full text-left p-3 rounded-lg bg-slate-950/60 border border-slate-800 hover:border-slate-700 hover:bg-slate-950 transition text-xs">
+                <span class="font-semibold text-slate-200 block">📜 EU AI Act Governance Plan</span>
+                <span class="text-slate-500 block mt-0.5">Draft an organizational compliance blueprint for General-Purpose AI models.</span>
+              </button>
+              <button onclick="applyAuditPreset('sourcing')" class="w-full text-left p-3 rounded-lg bg-slate-950/60 border border-slate-800 hover:border-slate-700 hover:bg-slate-950 transition text-xs">
+                <span class="font-semibold text-slate-200 block">🕵️ Crawl Ethics &amp; Synthetic Data</span>
+                <span class="text-slate-500 block mt-0.5">Audit the tradeoff of bypassing robots.txt vs synthetic dataset bias.</span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Custom Audit Context or Question</label>
+            <textarea id="auditor-input" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-xs text-slate-200 placeholder-slate-600 focus:ring-1 focus:ring-brand-500 focus:border-brand-500" placeholder="Type a custom scenario (e.g. 'We plan to host LLaMA-3-70B on Google Cloud. Write an optimization strategy for US-West grid conditions...')."></textarea>
+          </div>
+
+          <div class="flex space-x-2">
+            <button onclick="runAudit()" class="flex-1 inline-flex items-center justify-center space-x-2 px-4 py-2.5 text-sm font-semibold rounded-lg bg-brand-600 hover:bg-brand-500 text-white transition shadow-lg shadow-brand-500/10">
+              <span>✨ Execute Live AI Audit</span>
+            </button>
+            <button onclick="clearAudit()" class="px-3 py-2.5 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition" title="Clear input">
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- Output panel -->
+        <div class="lg:col-span-7 flex flex-col min-h-[340px]">
+          <div class="flex-1 bg-slate-950 rounded-xl border border-slate-800 p-5 flex flex-col justify-between overflow-hidden">
+            <!-- Loading Indicator -->
+            <div id="auditor-loading" class="hidden flex-1 flex-col items-center justify-center space-y-4 py-12">
+              <div class="relative w-12 h-12">
+                <div class="absolute inset-0 border-4 border-brand-500/10 rounded-full"></div>
+                <div class="absolute inset-0 border-4 border-t-brand-500 rounded-full animate-spin"></div>
+              </div>
+              <div class="text-center">
+                <p class="text-sm font-medium text-slate-300">Gemini LLM is evaluating lifecycle datasets...</p>
+                <p class="text-xs text-slate-500 mt-1" id="loading-step">Evaluating localized grid metrics...</p>
+              </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="auditor-empty" class="flex-1 flex flex-col items-center justify-center text-center py-12 space-y-3">
+              <svg class="w-12 h-12 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              <div>
+                <p class="text-sm font-semibold text-slate-400">Auditor Status: Ready</p>
+                <p class="text-xs text-slate-500 mt-1 max-w-sm">Select an audit scenario preset on the left, or input your own parameters, and press "Execute Live AI Audit" to start.</p>
+              </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="auditor-error" class="hidden flex-1 flex flex-col items-center justify-center text-center py-12 space-y-3">
+              <div class="p-2.5 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-slate-300">Auditor Connection Alert</p>
+                <p id="auditor-error-text" class="text-xs text-slate-500 mt-1 max-w-sm">No API key is configured or the key provided has been rejected by the endpoint.</p>
+                <button onclick="openSettingsModal()" class="mt-2 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded border border-slate-700 transition">
+                  Open Settings Panel
+                </button>
+              </div>
+            </div>
+
+            <!-- Content Area -->
+            <div id="auditor-content" class="hidden flex-1 overflow-y-auto max-h-[380px] pr-2">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4 sticky top-0 bg-slate-950">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-1">
+                  <span>✨ Verified ESG Impact Report</span>
+                </span>
+                <button onclick="copyAuditToClipboard()" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-1 rounded transition flex items-center space-x-1">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                  </svg>
+                  <span id="copy-btn-text">Copy Audit Text</span>
+                </button>
+              </div>
+              <div id="auditor-text" class="text-xs text-slate-300 leading-relaxed space-y-3 prose prose-invert max-w-none">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Dynamic Provider Modal -->
+  <div id="provider-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeModal()"></div>
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+      
+      <div class="inline-block align-bottom bg-slate-900 border border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+        <div id="modal-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison Drawer Modal -->
+  <div id="compare-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen p-4 text-center">
+      <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeCompareModal()"></div>
+      <div class="inline-block bg-slate-900 border border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-5xl w-full p-6 relative z-10">
+        <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+          <h3 class="text-xl font-bold text-slate-100 flex items-center space-x-2">
+            <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+            </svg>
+            <span>Provider Performance Comparison</span>
+          </h3>
+          <button onclick="closeCompareModal()" class="text-slate-400 hover:text-slate-200">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 my-6">
+          <div class="col-span-1"></div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Provider A</label>
+            <select id="compare-select-a" onchange="runComparison()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:ring-brand-500 focus:border-brand-500"><option value="microsoft">Microsoft Azure</option><option value="google">Google Cloud</option><option value="meta">Meta</option><option value="openai">OpenAI</option><option value="anthropic">Anthropic</option><option value="perplexity">Perplexity AI</option></select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Provider B</label>
+            <select id="compare-select-b" onchange="runComparison()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:ring-brand-500 focus:border-brand-500"><option value="microsoft">Microsoft Azure</option><option value="google">Google Cloud</option><option value="meta">Meta</option><option value="openai">OpenAI</option><option value="anthropic">Anthropic</option><option value="perplexity">Perplexity AI</option></select>
+          </div>
+        </div>
+
+        <div id="comparison-results" class="space-y-4">
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800 pt-4">
+          <div class="text-sm font-semibold text-slate-400">Pillar Grade</div>
+          <div class="text-lg font-black text-yellow-500">Microsoft Azure (C+)</div>
+          <div class="text-lg font-black text-blue-400">Google Cloud (B-)</div>
+        </div>
+
+        
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800/60 py-2.5 items-center">
+          <div class="text-xs font-semibold text-slate-400">Ecological Footprint</div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">72/100</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800">
+              <div class="bg-blue-500 h-1.5 rounded-full" style="width: 72%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">84/100</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800">
+              <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 84%"></div>
+            </div>
+          </div>
+        </div>
+      
+        
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800/60 py-2.5 items-center">
+          <div class="text-xs font-semibold text-slate-400">Carbon Reporting Integrity</div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">52/100</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800">
+              <div class="bg-yellow-500 h-1.5 rounded-full" style="width: 52%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">70/100</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800">
+              <div class="bg-blue-500 h-1.5 rounded-full" style="width: 70%"></div>
+            </div>
+          </div>
+        </div>
+      
+        
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800/60 py-2.5 items-center">
+          <div class="text-xs font-semibold text-slate-400">Web Sourcing Protocols</div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">85/100</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800">
+              <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 85%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">78/100</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800">
+              <div class="bg-blue-500 h-1.5 rounded-full" style="width: 78%"></div>
+            </div>
+          </div>
+        </div>
+      
+        
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800/60 py-2.5 items-center">
+          <div class="text-xs font-semibold text-slate-400">Labor Compensation Standards</div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">63/100</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800">
+              <div class="bg-blue-500 h-1.5 rounded-full" style="width: 63%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">64/100</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800">
+              <div class="bg-blue-500 h-1.5 rounded-full" style="width: 64%"></div>
+            </div>
+          </div>
+        </div>
+      
+
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800 pt-4 text-xs">
+          <div class="font-semibold text-slate-400">Carbon Integrity Context</div>
+          <div class="text-slate-300 leading-relaxed">Microsoft true carbon footprint is approx. 25.2 million tons of CO2e when replacing market-based metrics with location-based grid intensity.</div>
+          <div class="text-slate-300 leading-relaxed">Google true carbon footprint reached 23.4 million tons against a reported 15.2 million (with market offsets).</div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800 pt-4 text-xs">
+          <div class="font-semibold text-slate-400">Human Labor Framework</div>
+          <div class="text-slate-300 leading-relaxed">Outsources data annotation pipelines to third-party firms. Tied into the global labor framework supporting major models, sharing downstream BPO dependencies.</div>
+          <div class="text-slate-300 leading-relaxed">Maintains highly segmented global outsourcing workforce via regional contract hubs, operating under high volume quotas and precarious arrangements.</div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800 pt-4 text-xs">
+          <div class="font-semibold text-slate-400">Strategic Position &amp; Pro-Cons</div>
+          <div class="space-y-1">
+            <span class="text-emerald-400 font-semibold">Pro:</span>
+            <p class="text-slate-300 mb-2">Signed 10.5 GW massive renewable pact with Brookfield and nuclear CFE deals with Crane Clean Energy Center.</p>
+            <span class="text-red-400 font-semibold">Con:</span>
+            <p class="text-slate-300">Actual location-based grid emissions surged 130% between 2020 and 2024 (climbing to 10M metric tons).</p>
+          </div>
+          <div class="space-y-1">
+            <span class="text-emerald-400 font-semibold">Pro:</span>
+            <p class="text-slate-300 mb-2">Targeting full local net-zero operations by 2030, currently matching 64% of hourly demand with local CFE (2024).</p>
+            <span class="text-red-400 font-semibold">Con:</span>
+            <p class="text-slate-300">Location-based operational emissions rose 92.4% (to 11.2M tons) in FY 2024 relative to 2020.</p>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings & Keys Modal -->
+  <div id="settings-modal" class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen p-4 text-center">
+      <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeSettingsModal()"></div>
+      <div class="inline-block bg-slate-900 border border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-lg w-full p-6 relative z-10">
+        <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+          <h3 class="text-lg font-bold text-slate-100 flex items-center space-x-2">
+            <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m0 0a2 2 0 01-2 2m0-4a2 2 0 01-2-2m0 0a2 2 0 01-2 2m0-4a2 2 0 11-4 0V7H5a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-3"></path>
+            </svg>
+            <span>API &amp; Environment Configuration</span>
+          </h3>
+          <button onclick="closeSettingsModal()" class="text-slate-400 hover:text-slate-200">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="my-5 space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Google Gemini API Key</label>
+            <input type="password" id="api-key-input" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-100 placeholder-slate-700 focus:ring-1 focus:ring-brand-500 focus:border-brand-500" placeholder="AIzaSy...">
+            <div class="flex justify-between items-center mt-2">
+              <p class="text-[10px] text-slate-500 leading-normal">Your key remains entirely in-memory inside your local web browser session.</p>
+              <a href="https://aistudio.google.com/" target="_blank" class="text-[10px] text-brand-400 hover:underline shrink-0">Get Free Key from AI Studio →</a>
+            </div>
+          </div>
+
+          <div class="border-t border-slate-800 pt-4">
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Bake Key &amp; Create Custom Bundle</label>
+            <p class="text-[11px] text-slate-400 mb-3 leading-relaxed">Enter your key above and click the button below to download a standalone copy of this app with your credentials baked directly inside. You can then host this file privately on your own hosting servers without manually inputting keys again.</p>
+            <button onclick="exportBakedHTML()" class="w-full inline-flex items-center justify-center space-x-2 px-4 py-2 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+              </svg>
+              <span>Compile &amp; Download Baked Bundle</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 flex justify-end">
+          <button onclick="saveSettings()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-slate-100 rounded-lg text-xs font-semibold transition">
+            Save Configuration
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to Deploy / Documentation Modal -->
+  <div id="deployment-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="flex items-center justify-center min-h-screen p-4 text-center">
+      <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeDeploymentGuide()"></div>
+      <div class="inline-block bg-slate-900 border border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-2xl w-full p-6 relative z-10">
+        <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+          <h3 class="text-lg font-bold text-slate-100 flex items-center space-x-2">
+            <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+            </svg>
+            <span>How to Host &amp; Deploy This Web App</span>
+          </h3>
+          <button onclick="closeDeploymentGuide()" class="text-slate-400 hover:text-slate-200">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="my-5 space-y-4 text-xs text-slate-300 leading-relaxed max-h-[60vh] overflow-y-auto pr-2">
+          <div>
+            <h4 class="font-bold text-slate-200 uppercase tracking-wider mb-1.5 text-brand-400">Option 1: Host Locally (Instant)</h4>
+            <p class="mb-2">This is a pure client-side static HTML file. You can simply double-click the file to open it in any web browser, or launch a quick local server:</p>
+            <div class="bg-slate-950 p-2.5 rounded-lg font-mono text-slate-400 select-all border border-slate-850">
+              python -m http.server 8000
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-200 uppercase tracking-wider mb-1.5 text-brand-400">Option 2: Deploy to Free Static Hosting</h4>
+            <p class="mb-2">Since the app runs completely on the front-end, you can deploy it to any modern serverless/static platform for free:</p>
+            <ul class="list-disc list-inside space-y-1.5 pl-2">
+              <li><strong>GitHub Pages:</strong> Upload this single file named as <code class="bg-slate-950 px-1 py-0.5 rounded text-brand-300">index.html</code> to a public or private repository and enable Pages in settings.</li>
+              <li><strong>Vercel / Netlify:</strong> Simply drag and drop the single HTML file directly into their dashboards.</li>
+              <li><strong>Cloudflare Pages:</strong> Upload to Cloudflare dashboard or deploy via CLI with a simple static output rule.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-200 uppercase tracking-wider mb-1.5 text-brand-400">Security Architecture</h4>
+            <p class="mb-2">Your API keys are completely safe:</p>
+            <ul class="list-disc list-inside space-y-1 pl-2">
+              <li>The key is only sent directly to Google's official server-side endpoints over secure HTTPS connection.</li>
+              <li>No middleman servers, cookies, tracking codes, or remote databases have access to your keys.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 flex justify-end">
+          <button onclick="closeDeploymentGuide()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-lg text-xs font-semibold transition">
+            Close Panel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Info / Sourcing -->
+  <footer class="bg-slate-950 border-t border-slate-900 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:flex md:items-center md:justify-between">
+      <div class="flex justify-center space-x-6 md:order-2">
+        <span class="text-xs text-slate-500">Formulated in accordance with the Greenhouse Gas Protocol &amp; EU AI Act Guidance.</span>
+      </div>
+      <div class="mt-8 md:mt-0 md:order-1">
+        <p class="text-center text-xs text-slate-400">© 2026 AI Ethics Research Initiative. Dynamic model projections based on published lifecycle reports.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: Custom Data and Controllers -->
+  <script>
+    // BAKE EMBED SPOT:
+    // This variable serves as the compile target when a user downloads a baked HTML package.
+    const BAKED_API_KEY = "AIzaSyD4OUTj7bEtp9bjRfciHsmTy6XI0HgdfOs";
+
+    // State management
+    let userApiKey = BAKED_API_KEY || "";
+    let currentFilter = 'all';
+    let theme = 'dark';
+    let currentAuditResult = "";
+
+    // Fully populated provider database strictly based on the provided report
+    const providers = [
+      {
+        id: 'microsoft',
+        name: 'Microsoft Azure',
+        category: 'hyperscale',
+        grade: 'C+',
+        gradeColor: 'text-yellow-500 border-yellow-500/30',
+        badgeColor: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
+        overallPercentage: 68,
+        description: 'Encompasses massive infrastructure commitments. Driving substantial nuclear and geothermal clean-energy agreements but hampered by expanding location-based operational grid emissions and support of decoupled accounting.',
+        scores: {
+          environmental: 72,
+          carbon: 52,
+          data: 85,
+          labor: 63
+        },
+        highlights: {
+          pros: [
+            'Signed 10.5 GW massive renewable pact with Brookfield and nuclear CFE deals with Crane Clean Energy Center.',
+            'Pioneering mass timber data center structures cutting carbon footprint by 65%.',
+            'Contracted 34 GW of clean carbon-free energy globally.'
+          ],
+          cons: [
+            'Actual location-based grid emissions surged 130% between 2020 and 2024 (climbing to 10M metric tons).',
+            'Considering scale-down/ abandonment of its core pledge to match 100% hourly local CFE by 2030.',
+            'Direct cloud host to OpenAI, carrying downstream responsibility for massive GPT-4/5 physical energy loads.'
+          ]
+        },
+        metrics: {
+          energy: '29.8 Million MWh (FY 2024)',
+          water: 'Data centers represent major segment of 17B gal US baseline draw',
+          emissionsLocation: '9,955,368 t CO2e (Location-based, Scope 2)',
+          emissionsMarket: '259,090 t CO2e (Market-based, Scope 2)',
+          accountingGap: 'Microsoft true carbon footprint is approx. 25.2 million tons of CO2e when replacing market-based metrics with location-based grid intensity.'
+        },
+        laborNotes: 'Outsources data annotation pipelines to third-party firms. Tied into the global labor framework supporting major models, sharing downstream BPO dependencies.',
+        policyNotes: 'Aggressively supports US Federal preemption through lobby groups to maintain high-speed compute dominance over state-level environmental/municipal restrictions.'
+      },
+      {
+        id: 'google',
+        name: 'Google Cloud',
+        category: 'hyperscale',
+        grade: 'B-',
+        gradeColor: 'text-blue-400 border-blue-400/30',
+        badgeColor: 'bg-blue-400/10 text-blue-400 border-blue-400/20',
+        overallPercentage: 78,
+        description: 'Industry-leading hardware efficiency improvements and ambitious hourly matching carbon goals, offset by escalating actual location-based emissions outstripping clean power grid rollouts.',
+        scores: {
+          environmental: 84,
+          carbon: 70,
+          data: 78,
+          labor: 64
+        },
+        highlights: {
+          pros: [
+            'Targeting full local net-zero operations by 2030, currently matching 64% of hourly demand with local CFE (2024).',
+            'World\'s first corporate agreement to buy nuclear energy from multiple Small Modular Reactors (SMRs).',
+            'Ironwood TPU custom AI chip offers a 30x energy efficiency increase relative to original 2018 chip.'
+          ],
+          cons: [
+            'Location-based operational emissions rose 92.4% (to 11.2M tons) in FY 2024 relative to 2020.',
+            'Absolute overall corporate emissions increased 51% from 2019 to 2024, driven directly by AI data centers.',
+            'Scraping activities hit with multiple lawsuits (including JL v Google class action).'
+          ]
+        },
+        metrics: {
+          energy: '32.2 Million MWh (FY 2024)',
+          water: 'Employs extensive evaporative water cooling across hyperscale centers.',
+          emissionsLocation: '11,283,200 t CO2e (Location-based, Scope 2)',
+          emissionsMarket: '3,059,100 t CO2e (Market-based, Scope 2)',
+          accountingGap: 'Google true carbon footprint reached 23.4 million tons against a reported 15.2 million (with market offsets).'
+        },
+        laborNotes: 'Maintains highly segmented global outsourcing workforce via regional contract hubs, operating under high volume quotas and precarious arrangements.',
+        policyNotes: 'Signs standard model compliance forms under the EU General-Purpose AI Code of Practice. Actively managing model safety portfolios.'
+      },
+      {
+        id: 'meta',
+        name: 'Meta',
+        category: 'hyperscale',
+        grade: 'C-',
+        gradeColor: 'text-orange-500 border-orange-500/30',
+        badgeColor: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+        overallPercentage: 55,
+        description: 'Promotes virtual "100% renewable" operations through aggressive unbundled carbon offset purchases, while physical local grids handle extreme loads. Facing intense legal battles over union-busting and labor exploitation.',
+        scores: {
+          environmental: 74,
+          carbon: 20,
+          data: 68,
+          labor: 38
+        },
+        highlights: {
+          pros: [
+            'Backed 29 GW of regional wind/solar projects; piloting HVO biofuel and geothermal in New Mexico.',
+            'Won historical June 2025 copyright dismissal against Sarah Silverman/Ta-Nehisi Coates due to lack of market dilution evidence.'
+          ],
+          cons: [
+            'Staggering 19,000x gap in carbon accounting (2022): reported 273 tons of Scope 2 market emissions vs. 3.8M tons actual location-based emissions.',
+            'Location-based Scope 2 emissions doubled between 2020 and 2023 baseline, hitting 5.1M tons.',
+            'Abruptly terminated Sama content moderation contracts in Kenya during unionization efforts, triggering active court battles.'
+          ]
+        },
+        metrics: {
+          energy: 'Rapidly scaling multi-GW cluster infrastructure across the United States.',
+          water: 'Projected annual draft expanding exponentially inline with custom GPU clusters.',
+          emissionsLocation: '5,141,350 t CO2e (Location-based, Scope 2, FY2023)',
+          emissionsMarket: '1,358 t CO2e (Market-based, Scope 2, FY2023)',
+          accountingGap: 'Meta reports a virtual "Net-Zero" profile using unbundled RECs while local data centers draw heavy fossil loads.'
+        },
+        laborNotes: 'Defendants in Kenyan high court class action regarding toxic exposure to content moderators labeling graphic extreme violence/abuse, paid under $2.00/hour.',
+        policyNotes: 'Advocates open-source model releases (LLaMA) to shift compliance burden to downstream developers while protecting central cloud compute.'
+      },
+      {
+        id: 'openai',
+        name: 'OpenAI',
+        category: 'pureplay',
+        grade: 'D+',
+        gradeColor: 'text-orange-600 border-orange-600/30',
+        badgeColor: 'bg-orange-600/10 text-orange-400 border-orange-600/20',
+        overallPercentage: 42,
+        description: 'Exhibits complete opacity regarding environmental and carbon reporting. Prioritizes product deployment over internal alignment structures, balanced slightly by compliant web-scraping behavior.',
+        scores: {
+          environmental: 35,
+          carbon: 10,
+          data: 82,
+          labor: 28
+        },
+        highlights: {
+          pros: [
+            'Adheres strictly to standard robots.txt exclusion guidelines.',
+            'Signs bot queries via Web Bot Auth to allow transparent server-level crawling audits.',
+            'Supports compliance targets through hosted host (Microsoft Azure).'
+          ],
+          cons: [
+            'Completely fails to publish public sustainability reviews or carbon disclosures.',
+            'Superalignment and Mission Alignment teams entirely dissolved (resignation of co-leads Sutskever and Jan Leike over safety concerns).',
+            'Contracted Kenyan labelers via Sama at rates under $2.00/hour to parse extreme graphic violence, child abuse, and trauma.'
+          ]
+        },
+        metrics: {
+          energy: 'GPT-3: 1.287 GWh | GPT-4: 52-62 GWh | GPT-5 projected: 80-100 GWh (80-90% spent on running inference).',
+          water: 'Vast, undisclosed global hydrological footprint proportional to billion-query inference loads.',
+          emissionsLocation: 'GPT-4 training emitted ~15,000 t CO2e (Location-based).',
+          emissionsMarket: 'Unreported (Relies on virtual offsets of Azure clouds).',
+          accountingGap: 'Fails to disclose Scope 3 value-chain concrete/silicon embodied footprints.'
+        },
+        laborNotes: 'Exposes outsourced data workers to systemic psychological trauma with inadequate on-site mental health counselors; Scale AI Kenyan shutdown locked out employees overnight.',
+        policyNotes: 'Faces critical scrutiny over dismantling safety teams; transition from research nonprofit to heavily capitalized product-focused provider.'
+      },
+      {
+        id: 'anthropic',
+        name: 'Anthropic',
+        category: 'pureplay',
+        grade: 'B',
+        gradeColor: 'text-emerald-500 border-emerald-500/30',
+        badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+        overallPercentage: 80,
+        description: 'Industry standard-bearer for architectural AI safety alignment and structural constitution guidelines, but hampered by data-sourcing copyright battles and lack of independent environmental filings.',
+        scores: {
+          environmental: 58,
+          carbon: 60,
+          data: 72,
+          labor: 68
+        },
+        highlights: {
+          pros: [
+            'Developed highly structured AI Constitution (57-page, CC0 license) managing explicit safety guidelines.',
+            'Constitutional AI (RLAIF) reduces alignment dependency on manual human extreme labeling.',
+            'Utilizes AWS Sustainability Console to monitor computing footprint of active workloads.'
+          ],
+          cons: [
+            'Single model training estimated to require 5 GW of local grid capacity by 2027.',
+            'Lost copyright summary judgment: ordered to face federal trial over unauthorized ingestion of 7 million books.',
+            'Lacks independent, stand-alone public corporate carbon/water disclosures.'
+          ]
+        },
+        metrics: {
+          energy: 'Compute load managed via cloud hosts (AWS/Google); estimated massive training scale requirements.',
+          water: 'Relies on physical infrastructure footprint of cloud partners.',
+          emissionsLocation: 'Not independently disclosed.',
+          emissionsMarket: 'Not independently disclosed.',
+          accountingGap: 'Does not publish comprehensive Scope 1, 2, or 3 metrics outside AWS dashboard console.'
+        },
+        laborNotes: 'Limits some BPO exposure through automated self-critique (RLAIF), but remains structurally dependent on standard underlying visual and metadata annotators.',
+        policyNotes: 'Aligned closely with the EU General-Purpose AI Code of Practice. Attractive to highly regulated sectors due to predictable compliance boundaries.'
+      },
+      {
+        id: 'perplexity',
+        name: 'Perplexity AI',
+        category: 'pureplay',
+        grade: 'F',
+        gradeColor: 'text-red-500 border-red-500/30',
+        badgeColor: 'bg-red-500/10 text-red-400 border-red-500/20',
+        overallPercentage: 18,
+        description: 'Systematically bypasses standard web ethics. Actively evades regional bot blocking, rotates IP networks to spoof browsers, and ignores voluntary robots.txt parameters while providing zero transparent ecological accounting.',
+        scores: {
+          environmental: 30,
+          carbon: 10,
+          data: 12,
+          labor: 40
+        },
+        highlights: {
+          pros: [
+            'High model-distillation and multi-host options for end-user choices.'
+          ],
+          cons: [
+            'Caught employing stealth crawler bots to intentionally bypass robots.txt restriction protocols.',
+            'Spoofs user-agents (impersonates macOS Safari/Chrome browsers) to circumvent Web Application Firewalls.',
+            'Rotates IP ranges and ASNs dynamically to strip website operator blocking mechanisms.',
+            'Leadership publicly dismissed Robots Exclusion Protocol as "not a legal framework."'
+          ]
+        },
+        metrics: {
+          energy: 'Unrated. Demands extensive recursive search workloads, scaling regional data server burdens.',
+          water: 'Undisclosed.',
+          emissionsLocation: 'Undisclosed.',
+          emissionsMarket: 'Undisclosed.',
+          accountingGap: 'Provides zero ecological transparency, carbon audits, or energy usage metrics.'
+        },
+        laborNotes: 'Relies on underlying base models (such as GPT/LLaMA), shifting the burden of original human labeler trauma onto primary host providers while harvesting outputs.',
+        policyNotes: 'Lobbying for bilateral commercial licensing to replace community-driven protocols, bypassing open-web governance paradigms.'
+      }
+    ];
+
+    // Initialize application
+    function init() {
+      // Check for baked key
+      if (userApiKey) {
+        document.getElementById('api-key-input').value = userApiKey;
+        document.getElementById('api-warning-banner').classList.add('hidden');
+      }
+      renderGrid();
+      setupCompareSelects();
+      updateCalculator();
+    }
+
+    // Render cards to grid
+    function renderGrid() {
+      const container = document.getElementById('provider-grid');
+      container.innerHTML = '';
+
+      const filtered = providers.filter(p => {
+        if (currentFilter === 'all') return true;
+        return p.category === currentFilter;
+      });
+
+      filtered.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition shadow-lg hover:shadow-xl group';
+        
+        // Progress bar calc
+        const avgScore = Math.round((p.scores.environmental + p.scores.carbon + p.scores.data + p.scores.labor) / 4);
+        
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase border ${p.badgeColor}">
+                ${p.category === 'hyperscale' ? 'Cloud Hyperscaler' : 'Pure AI Developer'}
+              </span>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs text-slate-500">Overall Grade</span>
+                <span class="text-2xl font-black ${getGradeColorClass(p.grade)}">${p.grade}</span>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-bold text-slate-100 group-hover:text-brand-400 transition mb-2">${p.name}</h3>
+            <p class="text-sm text-slate-400 line-clamp-3 mb-6">${p.description}</p>
+            
+            <!-- Metrics Bars -->
+            <div class="space-y-3 border-t border-slate-800/80 pt-4 mb-6">
+              ${renderScoreBar('Ecological Footprint', p.scores.environmental)}
+              ${renderScoreBar('Carbon Accounting Integrity', p.scores.carbon)}
+              ${renderScoreBar('Web Sourcing & Ethics', p.scores.data)}
+              ${renderScoreBar('Labor & Compensation Standards', p.scores.labor)}
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between pt-4 border-t border-slate-800/80">
+            <div class="text-xs text-slate-500">
+              Composite Integrity Index: <span class="font-bold text-slate-300">${avgScore}%</span>
+            </div>
+            <button onclick="openProviderModal('${p.id}')" class="text-xs font-semibold text-brand-400 hover:text-brand-300 flex items-center space-x-1 transition">
+              <span>View Full Evidence</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderScoreBar(label, score) {
+      let color = 'bg-red-500';
+      if (score >= 80) color = 'bg-emerald-500';
+      else if (score >= 60) color = 'bg-blue-500';
+      else if (score >= 40) color = 'bg-yellow-500';
+      else if (score >= 20) color = 'bg-orange-500';
+
+      return `
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="text-slate-400">${label}</span>
+            <span class="font-medium text-slate-300">${score}/100</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800/50">
+            <div class="${color} h-1.5 rounded-full" style="width: ${score}%"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getGradeColorClass(grade) {
+      if (grade.startsWith('A')) return 'text-emerald-500';
+      if (grade.startsWith('B')) return 'text-blue-400';
+      if (grade.startsWith('C')) return 'text-yellow-500';
+      if (grade.startsWith('D')) return 'text-orange-500';
+      return 'text-red-500';
+    }
+
+    // Set interactive filter states
+    function setFilter(type) {
+      currentFilter = type;
+      
+      const buttons = ['all', 'hyperscale', 'pureplay'];
+      buttons.forEach(b => {
+        const el = document.getElementById(`btn-${b}`);
+        if (b === type) {
+          el.className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-brand-600 text-white transition';
+        } else {
+          el.className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition';
+        }
+      });
+      
+      renderGrid();
+    }
+
+    // Calculator updates
+    function updateCalculator() {
+      const queries = parseInt(document.getElementById('calc-queries').value);
+      const modelType = document.querySelector('input[name="model-type"]:checked').value;
+      
+      // Calculate queries text display
+      document.getElementById('calc-queries-display').innerText = `${queries.toLocaleString()} queries/day`;
+      
+      let whPerQuery = 2.9; // standard conventional GenAI
+      if (modelType === 'search') {
+        whPerQuery = 0.3;
+      } else if (modelType === 'reasoning') {
+        whPerQuery = 116.0; // 40x on average based on 10x-70x scale
+      }
+      
+      // Calculations
+      const totalWh = queries * whPerQuery;
+      const totalMWh = totalWh / 1000000;
+      
+      // Household conversion: average US household uses ~30,000 Wh per day (30 kWh)
+      const households = Math.round(totalWh / 30000);
+      
+      // Water footprint calculation: ~1 gallon of water consumed (evaporative draw) per 25 Wh (scaled from typical data center metrics)
+      const waterGallons = Math.round(totalWh / 25);
+      
+      // Carbon emissions calculation (Physical Grid Intensity baseline: average US grid emits ~0.4 kg CO2 per kWh)
+      const totalKWh = totalWh / 1000;
+      const carbonKg = totalKWh * 0.41;
+      const carbonTons = (carbonKg / 1000).toFixed(2);
+      
+      // Render results to DOM
+      document.getElementById('calc-power').innerText = `${totalMWh.toFixed(2)} MWh`;
+      document.getElementById('calc-households').innerText = `Power for ~${households.toLocaleString()} US homes/day`;
+      document.getElementById('calc-water').innerText = `${waterGallons.toLocaleString()} Gallons`;
+      document.getElementById('calc-carbon').innerText = `${carbonTons} Metric Tons`;
+      
+      // Update advice snippet dynamically
+      const adviceBox = document.getElementById('calc-advice');
+      if (modelType === 'search') {
+        adviceBox.innerHTML = `Running standard index search consumes <strong>0.3 Wh per query</strong>. This represents a lightweight, highly optimized baseline. Directing user traffic away from automated LLMs for direct index-retrieval requests prevents massive unnecessary energy expenditure on the electrical grid.`;
+      } else if (modelType === 'standard') {
+        adviceBox.innerHTML = `Running standard LLMs consumes <strong>2.9 Wh per query</strong> (nearly 10x search baseline). While manageable for complex queries, scaling this structure to billions of user interactions forces municipal grids to increase peak natural gas and coal generation. Consider task-specific fine-tuning or model pruning.`;
+      } else if (modelType === 'reasoning') {
+        adviceBox.innerHTML = `<span class="text-yellow-400 font-semibold">Grid Strain Alert:</span> Advanced reasoning models (e.g. o1/o3, DeepSeek R1) consume up to <strong>116 Wh per query</strong> due to recursive thinking loops. Scaling this load to millions of requests demands up to 40x more energy, threatening regional transmission margins and municipal water reservoirs.`;
+      }
+    }
+
+    // Modal Control
+    function openProviderModal(id) {
+      const p = providers.find(item => item.id === id);
+      if (!p) return;
+
+      const modal = document.getElementById('provider-modal');
+      const container = document.getElementById('modal-content');
+      
+      const avgScore = Math.round((p.scores.environmental + p.scores.carbon + p.scores.data + p.scores.labor) / 4);
+
+      container.innerHTML = `
+        <div class="px-6 py-5 border-b border-slate-800 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase border ${p.badgeColor}">
+              ${p.category === 'hyperscale' ? 'Hyperscale Host' : 'Pure AI Developer'}
+            </span>
+            <h3 class="text-2xl font-extrabold text-slate-100">${p.name}</h3>
+          </div>
+          <button onclick="closeModal()" class="text-slate-400 hover:text-slate-200">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <div class="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
+          <!-- Grade Overview -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800/80">
+            <div class="text-center md:border-r md:border-slate-800 py-2">
+              <span class="text-xs text-slate-500 uppercase font-semibold">Overall Grade</span>
+              <div class="text-4xl font-black ${getGradeColorClass(p.grade)} mt-1">${p.grade}</div>
+            </div>
+            <div class="text-center md:border-r md:border-slate-800 py-2">
+              <span class="text-xs text-slate-500 uppercase font-semibold">Carbon Integrity</span>
+              <div class="text-2xl font-bold text-slate-200 mt-2">${p.scores.carbon}/100</div>
+            </div>
+            <div class="text-center md:border-r md:border-slate-800 py-2">
+              <span class="text-xs text-slate-500 uppercase font-semibold">Web Ethics</span>
+              <div class="text-2xl font-bold text-slate-200 mt-2">${p.scores.data}/100</div>
+            </div>
+            <div class="text-center py-2">
+              <span class="text-xs text-slate-500 uppercase font-semibold">Human Labor Score</span>
+              <div class="text-2xl font-bold text-slate-200 mt-2">${p.scores.labor}/100</div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Operational Performance Summary</h4>
+            <p class="text-sm text-slate-300 leading-relaxed">${p.description}</p>
+          </div>
+
+          <!-- Hardware & Footprint Facts -->
+          <div class="bg-slate-950/40 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Verified Infrastructure Footprint Data</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div>
+                <span class="text-slate-500 block">Reported Energy Load:</span>
+                <span class="text-slate-200 font-semibold block mt-0.5">${p.metrics.energy}</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Hydrological Footprint:</span>
+                <span class="text-slate-200 font-semibold block mt-0.5">${p.metrics.water}</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Physical Scope 2 Grid Emissions:</span>
+                <span class="text-slate-200 font-semibold block mt-0.5">${p.metrics.emissionsLocation}</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block">Reported Market Offset Emissions:</span>
+                <span class="text-slate-200 font-semibold block mt-0.5">${p.metrics.emissionsMarket}</span>
+              </div>
+            </div>
+            <div class="border-t border-slate-800 pt-3 mt-2 text-xs">
+              <span class="text-red-400 font-semibold block">Carbon Decoupling Gap Analysis:</span>
+              <p class="text-slate-300 mt-1 leading-relaxed">${p.metrics.accountingGap}</p>
+            </div>
+          </div>
+
+          <!-- Pros and Cons -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-emerald-950/10 border border-emerald-500/20 p-4 rounded-xl">
+              <h5 class="text-sm font-bold text-emerald-400 flex items-center mb-3">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Progressive Best Practices
+              </h5>
+              <ul class="space-y-2 text-xs text-slate-300 list-disc list-inside">
+                ${p.highlights.pros.map(pro => `<li>${pro}</li>`).join('')}
+              </ul>
+            </div>
+
+            <div class="bg-red-950/10 border border-red-500/20 p-4 rounded-xl">
+              <h5 class="text-sm font-bold text-red-400 flex items-center mb-3">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                Major Structural Deficits
+              </h5>
+              <ul class="space-y-2 text-xs text-slate-300 list-disc list-inside">
+                ${p.highlights.cons.map(con => `<li>${con}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Labor Framework Details -->
+          <div class="border-t border-slate-800 pt-4">
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Downstream Content Moderation & Human Labor</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">${p.laborNotes}</p>
+          </div>
+
+          <!-- Regulatory & Corporate Governance -->
+          <div class="border-t border-slate-800 pt-4">
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Alignment Governance & Policy Stance</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">${p.policyNotes}</p>
+          </div>
+
+        </div>
+        
+        <div class="px-6 py-4 bg-slate-950 border-t border-slate-800 flex justify-end">
+          <button onclick="closeModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-lg text-sm font-semibold transition">
+            Close Panel
+          </button>
+        </div>
+      `;
+
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('provider-modal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Comparison Engine
+    function setupCompareSelects() {
+      const selectA = document.getElementById('compare-select-a');
+      const selectB = document.getElementById('compare-select-b');
+      
+      selectA.innerHTML = '';
+      selectB.innerHTML = '';
+      
+      providers.forEach((p, idx) => {
+        const optA = document.createElement('option');
+        optA.value = p.id;
+        optA.innerText = p.name;
+        if (idx === 0) optA.selected = true;
+        selectA.appendChild(optA);
+        
+        const optB = document.createElement('option');
+        optB.value = p.id;
+        optB.innerText = p.name;
+        if (idx === 1 || (idx === 0 && providers.length === 1)) optB.selected = true;
+        selectB.appendChild(optB);
+      });
+      
+      runComparison();
+    }
+
+    function openCompareModal() {
+      document.getElementById('compare-modal').classList.remove('hidden');
+    }
+
+    function closeCompareModal() {
+      document.getElementById('compare-modal').classList.add('hidden');
+    }
+
+    function runComparison() {
+      const idA = document.getElementById('compare-select-a').value;
+      const idB = document.getElementById('compare-select-b').value;
+      
+      const pA = providers.find(x => x.id === idA);
+      const pB = providers.find(x => x.id === idB);
+      
+      const container = document.getElementById('comparison-results');
+      if (!pA || !pB) return;
+      
+      container.innerHTML = `
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800 pt-4">
+          <div class="text-sm font-semibold text-slate-400">Pillar Grade</div>
+          <div class="text-lg font-black ${getGradeColorClass(pA.grade)}">${pA.name} (${pA.grade})</div>
+          <div class="text-lg font-black ${getGradeColorClass(pB.grade)}">${pB.name} (${pB.grade})</div>
+        </div>
+
+        ${renderCompareRow('Ecological Footprint', pA.scores.environmental, pB.scores.environmental)}
+        ${renderCompareRow('Carbon Reporting Integrity', pA.scores.carbon, pB.scores.carbon)}
+        ${renderCompareRow('Web Sourcing Protocols', pA.scores.data, pB.scores.data)}
+        ${renderCompareRow('Labor Compensation Standards', pA.scores.labor, pB.scores.labor)}
+
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800 pt-4 text-xs">
+          <div class="font-semibold text-slate-400">Carbon Integrity Context</div>
+          <div class="text-slate-300 leading-relaxed">${pA.metrics.accountingGap}</div>
+          <div class="text-slate-300 leading-relaxed">${pB.metrics.accountingGap}</div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800 pt-4 text-xs">
+          <div class="font-semibold text-slate-400">Human Labor Framework</div>
+          <div class="text-slate-300 leading-relaxed">${pA.laborNotes}</div>
+          <div class="text-slate-300 leading-relaxed">${pB.laborNotes}</div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800 pt-4 text-xs">
+          <div class="font-semibold text-slate-400">Strategic Position & Pro-Cons</div>
+          <div class="space-y-1">
+            <span class="text-emerald-400 font-semibold">Pro:</span>
+            <p class="text-slate-300 mb-2">${pA.highlights.pros[0] || 'N/A'}</p>
+            <span class="text-red-400 font-semibold">Con:</span>
+            <p class="text-slate-300">${pA.highlights.cons[0] || 'N/A'}</p>
+          </div>
+          <div class="space-y-1">
+            <span class="text-emerald-400 font-semibold">Pro:</span>
+            <p class="text-slate-300 mb-2">${pB.highlights.pros[0] || 'N/A'}</p>
+            <span class="text-red-400 font-semibold">Con:</span>
+            <p class="text-slate-300">${pB.highlights.cons[0] || 'N/A'}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCompareRow(label, scoreA, scoreB) {
+      const getBg = (s) => {
+        if (s >= 80) return 'bg-emerald-500';
+        if (s >= 60) return 'bg-blue-500';
+        if (s >= 40) return 'bg-yellow-500';
+        return 'bg-red-500';
+      };
+
+      return `
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-800/60 py-2.5 items-center">
+          <div class="text-xs font-semibold text-slate-400">${label}</div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">${scoreA}/100</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800">
+              <div class="${getBg(scoreA)} h-1.5 rounded-full" style="width: ${scoreA}%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">${scoreB}/100</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-1.5 border border-slate-800">
+              <div class="${getBg(scoreB)} h-1.5 rounded-full" style="width: ${scoreB}%"></div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Theme manager
+    function toggleTheme() {
+      const html = document.documentElement;
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        theme = 'light';
+        document.getElementById('theme-icon').innerHTML = `
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        `;
+      } else {
+        html.classList.add('dark');
+        theme = 'dark';
+        document.getElementById('theme-icon').innerHTML = `
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M16.24 12a4.24 4.24 0 11-8.48 0 4.24 4.24 0 018.48 0z" />
+        `;
+      }
+    }
+
+    // ==========================================
+    // STANDALONE SETTINGS & KEYS HANDLERS
+    // ==========================================
+
+    function openSettingsModal() {
+      document.getElementById('settings-modal').classList.remove('hidden');
+    }
+
+    function closeSettingsModal() {
+      document.getElementById('settings-modal').classList.add('hidden');
+    }
+
+    function openDeploymentGuide() {
+      document.getElementById('deployment-modal').classList.remove('hidden');
+    }
+
+    function closeDeploymentGuide() {
+      document.getElementById('deployment-modal').classList.add('hidden');
+    }
+
+    function saveSettings() {
+      const inputVal = document.getElementById('api-key-input').value.trim();
+      userApiKey = inputVal;
+      
+      if (userApiKey) {
+        document.getElementById('api-warning-banner').classList.add('hidden');
+      } else {
+        document.getElementById('api-warning-banner').classList.remove('hidden');
+      }
+      
+      closeSettingsModal();
+    }
+
+    // Compiles active configuration parameters directly inside a self-exporting blob!
+    function exportBakedHTML() {
+      const inputVal = document.getElementById('api-key-input').value.trim();
+      if (!inputVal) {
+        // Safe UX confirmation: warn without interrupting standard UI flow
+        const initialBorder = document.getElementById('api-key-input').className;
+        document.getElementById('api-key-input').className = "w-full bg-slate-950 border border-red-500 rounded-lg p-2.5 text-xs text-slate-100 placeholder-slate-700";
+        setTimeout(() => {
+          document.getElementById('api-key-input').className = initialBorder;
+        }, 2000);
+        return;
+      }
+
+      // Grab current full document outerHTML
+      let docText = document.documentElement.outerHTML;
+
+      // Swap the BAKED_API_KEY target declaration
+      const replaceRegex = /const BAKED_API_KEY = ".*";/;
+      const replacement = `const BAKED_API_KEY = "${inputVal}";`;
+      docText = docText.replace(replaceRegex, replacement);
+
+      // Create downloadable blob
+      const blob = new Blob(["<!DOCTYPE html>\n" + docText], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const tempLink = document.createElement('a');
+      tempLink.href = url;
+      tempLink.download = "ethics_scorecard_standalone.html";
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+      URL.revokeObjectURL(url);
+    }
+
+    // ==========================================
+    // GEMINI INTEGRATION & AUDITOR CONTROLLERS
+    // ==========================================
+
+    const auditPresets = {
+      reasoning: "Analyze the environmental threat of implementing real-time 'tree-of-thought' reasoning loops (e.g., DeepSeek R1 or o1) in a high-volume enterprise deployment (running 5,000,000 queries per day). Focus on localized grid constraints, peak water draw in cooling towers, and recommendations for architectural pruning.",
+      policy: "Draft a comprehensive corporate compliance and model alignment policy aligned with the EU AI Act's rules on general-purpose AI (GPAI). Provide clear guardrails on model auditing, Scope 3 supply-chain carbon tracking, and content moderating labor conditions.",
+      sourcing: "Audit the ethical and compliance trade-offs of using automated stealth crawl bots to bypass robots.txt limits vs. training models with synthetic data. Highlight copyright dilution risks, legal safety compliance, and model collapse scenarios."
+    };
+
+    function applyAuditPreset(key) {
+      if (auditPresets[key]) {
+        document.getElementById('auditor-input').value = auditPresets[key];
+      }
+    }
+
+    function sendStatsToAuditor() {
+      const queries = parseInt(document.getElementById('calc-queries').value);
+      const modelType = document.querySelector('input[name="model-type"]:checked').value;
+      const power = document.getElementById('calc-power').innerText;
+      const water = document.getElementById('calc-water').innerText;
+      const carbon = document.getElementById('calc-carbon').innerText;
+
+      const scenarioText = `I am running an active AI simulation with the following operational specifications:
+- Estimated Daily Queries: ${queries.toLocaleString()}
+- Model Architecture Scale: ${modelType.toUpperCase()} (~${modelType === 'search' ? '0.3' : modelType === 'standard' ? '2.9' : '116'} Wh/query)
+- Calculated Daily Resource Drain:
+  * Electrical Power: ${power}
+  * Cooling Water Evaporative Draw: ${water}
+  * Location-Based Carbon Footprint: ${carbon}
+
+Based on this simulated footprint, conduct a rigorous ESG lifecycle audit. What localized grid threats exist if placed in Virginia or Oregon, and what architectural adjustments can match this load to true 24/7 Carbon-Free Energy (CFE)?`;
+
+      document.getElementById('auditor-input').value = scenarioText;
+      
+      // Smoothly scroll down to auditor
+      document.getElementById('auditor-panel').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function clearAudit() {
+      document.getElementById('auditor-input').value = "";
+      setAuditorUIState('ready');
+    }
+
+    function setAuditorUIState(state) {
+      const loading = document.getElementById('auditor-loading');
+      const empty = document.getElementById('auditor-empty');
+      const error = document.getElementById('auditor-error');
+      const content = document.getElementById('auditor-content');
+
+      loading.classList.add('hidden');
+      empty.classList.add('hidden');
+      error.classList.add('hidden');
+      content.classList.add('hidden');
+
+      if (state === 'loading') {
+        loading.classList.remove('hidden');
+      } else if (state === 'ready') {
+        empty.classList.remove('hidden');
+      } else if (state === 'error') {
+        error.classList.remove('hidden');
+      } else if (state === 'content') {
+        content.classList.remove('hidden');
+      }
+    }
+
+    // Markdown Parser
+    function formatAuditReport(text) {
+      let formatted = text;
+      
+      // Clean HTML escapes
+      formatted = formatted.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+      // Replace main headers (###)
+      formatted = formatted.replace(/^### (.*)$/gm, '<h5 class="text-sm font-bold text-slate-100 mt-4 mb-2 border-b border-slate-800 pb-1 flex items-center"><span class="w-1.5 h-1.5 bg-brand-500 rounded-full mr-2"></span>$1</h5>');
+      
+      // Replace section headers (##)
+      formatted = formatted.replace(/^## (.*)$/gm, '<h4 class="text-base font-extrabold text-slate-100 mt-5 mb-2.5 text-brand-400">$1</h4>');
+
+      // Replace bold elements
+      formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-100 font-semibold">$1</strong>');
+
+      // Bullet items
+      formatted = formatted.replace(/^\s*[\-\*]\s+(.*)$/gm, '<li class="ml-4 list-disc text-slate-300 pl-1 py-0.5">$1</li>');
+
+      // Line breaks
+      formatted = formatted.replace(/\n/g, '<br>');
+
+      // Wrap lists inside clean ul blocks
+      formatted = formatted.replace(/(<li.*<\/li>)/gs, '<ul class="space-y-1 my-2">$1</ul>');
+
+      return formatted;
+    }
+
+    async function runAudit() {
+      const userQuery = document.getElementById('auditor-input').value.trim();
+      if (!userQuery) {
+        document.getElementById('auditor-input').placeholder = "⚠️ Write or choose a scenario first!";
+        return;
+      }
+
+      if (!userApiKey) {
+        setAuditorUIState('error');
+        document.getElementById('auditor-error-text').innerText = "An API key is required. Click the 'Settings & Keys' button on the header to configure your free Google Gemini API key.";
+        return;
+      }
+
+      setAuditorUIState('loading');
+      
+      const systemInstruction = `You are a world-class AI ESG and Sustainability Infrastructure Auditor. 
+Your objective is to evaluate corporate AI deployment footprints, carbon accounting integrity (explicitly criticizing unbundled offsets/PPAs vs physical 24/7 matching), and human labor ethics in BPO pipelines.
+Be highly specific, technical, and objective. Cite exact operational metrics such as megawatt-hours, gallon consumption rates, Scope 1, 2, and 3 emission scopes, and relevant legislation like the EU AI Act or GHG Protocol guidelines.
+Adopt a rigorous, advisory, and professional style. Divide your report with clean, structural markdown headers (## and ###).`;
+
+      // Cycle loading steps
+      const loadingSteps = [
+        "Ingesting simulated infrastructure telemetry...",
+        "Querying regional grid carbon indices...",
+        "Calculating aquifer hydrological stress factors...",
+        "Evaluating supply chain labor pipelines...",
+        "Formulating corporate optimization strategies..."
+      ];
+      let stepIndex = 0;
+      const stepInterval = setInterval(() => {
+        stepIndex = (stepIndex + 1) % loadingSteps.length;
+        document.getElementById('loading-step').innerText = loadingSteps[stepIndex];
+      }, 1500);
+
+      try {
+        const auditTextResult = await callGeminiAPI(userQuery, systemInstruction);
+        clearInterval(stepInterval);
+        
+        currentAuditResult = auditTextResult;
+        document.getElementById('auditor-text').innerHTML = formatAuditReport(auditTextResult);
+        setAuditorUIState('content');
+      } catch (err) {
+        clearInterval(stepInterval);
+        document.getElementById('auditor-error-text').innerText = err.message || "Endpoint rejected the query.";
+        setAuditorUIState('error');
+      }
+    }
+
+    async function callGeminiAPI(prompt, systemPrompt = "") {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${userApiKey}`;
+      
+      const payload = {
+        contents: [{ parts: [{ text: prompt }] }]
+      };
+      
+      if (systemPrompt) {
+        payload.systemInstruction = { parts: [{ text: systemPrompt }] };
+      }
+
+      let backoffDelay = 1000;
+      for (let attempt = 0; attempt < 5; attempt++) {
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            return data.candidates?.[0]?.content?.parts?.[0]?.text || "The auditor returned an empty evaluation.";
+          }
+        } catch (error) {
+          // Retry
+        }
+        await new Promise(resolve => setTimeout(resolve, backoffDelay));
+        backoffDelay *= 2;
+      }
+      throw new Error("Unable to reach Google's Gemini servers. Verify your API key is correct and valid.");
+    }
+
+    function copyAuditToClipboard() {
+      if (!currentAuditResult) return;
+      
+      const tempTextArea = document.createElement("textarea");
+      tempTextArea.value = currentAuditResult;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      
+      try {
+        document.execCommand('copy');
+        const copyBtnText = document.getElementById('copy-btn-text');
+        copyBtnText.innerText = "Copied!";
+        setTimeout(() => {
+          copyBtnText.innerText = "Copy Audit Text";
+        }, 2000);
+      } catch (err) {
+        // Fallback
+      }
+      document.body.removeChild(tempTextArea);
+    }
+
+    // Run loader on DOM Ready
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+
+</body></html>
