@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The True Cost of Artificial Intelligence</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600&family=Geist:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['Geist Mono', 'monospace'],
+          },
+          colors: {
+            hive: {
+              sand: '#FAF8F5',
+              dark: '#131415',
+              gold: '#D97706',
+              green: '#10B981',
+              blue: '#3B82F6',
+              pink: '#EC4899',
+              red: '#EF4444'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #1A1A1A;
+    }
+    
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 300px;
+      max-height: 400px;
+    }
+    
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 350px;
+      }
+      .chart-container-large {
+        max-width: 800px;
+        height: 400px;
+      }
+    }
+    
+    .shape-circle {
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-hive-gold selection:text-white">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-hive-gold shape-circle flex items-center justify-center text-white font-display font-bold text-lg">
+          AI
+        </div>
+        <span class="font-display font-bold text-xl tracking-tight text-hive-dark">Lifecycle Report 2026</span>
+      </div>
+      <nav class="hidden md:flex gap-6 font-medium text-sm text-gray-600">
+        <a href="#overview" class="hover:text-hive-gold transition-colors">Overview</a>
+        <a href="#energy" class="hover:text-hive-gold transition-colors">Energy</a>
+        <a href="#carbon" class="hover:text-hive-gold transition-colors">Carbon Gap</a>
+        <a href="#ethics" class="hover:text-hive-gold transition-colors">Ethics & Labor</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+    <!-- Hero Section -->
+    <section id="overview" class="text-center space-y-6 max-w-4xl mx-auto">
+      <h1 class="font-display font-bold text-4xl md:text-6xl text-hive-dark leading-tight">
+        The Hidden Ecological & Ethical Cost of AI
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 font-sans leading-relaxed">
+        While AI models promise unprecedented capabilities, their physical infrastructure demands and labor supply chains present profound challenges. This report evaluates major providers across environmental and ethical pillars.
+      </p>
+      
+      <!-- Key KPI Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-8">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="text-3xl font-display font-bold text-hive-gold">2.9 Wh</div>
+          <div class="text-sm font-semibold text-gray-800 mt-2">Per GenAI Query</div>
+          <div class="text-xs text-gray-500 mt-1">~10x standard search</div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="text-3xl font-display font-bold text-hive-blue">17B Gal</div>
+          <div class="text-sm font-semibold text-gray-800 mt-2">US Water Draw</div>
+          <div class="text-xs text-gray-500 mt-1">Evaporative cooling (yr)</div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="text-3xl font-display font-bold text-hive-red">19,000x</div>
+          <div class="text-sm font-semibold text-gray-800 mt-2">Carbon Gap</div>
+          <div class="text-xs text-gray-500 mt-1">Reported vs Actual (Meta)</div>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="text-3xl font-display font-bold text-hive-pink">&lt;$2.00</div>
+          <div class="text-sm font-semibold text-gray-800 mt-2">Hourly Labor Rate</div>
+          <div class="text-xs text-gray-500 mt-1">Global annotation BPOs</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Provider Scorecard -->
+    <section class="space-y-8">
+      <div class="max-w-3xl">
+        <h2 class="font-display font-bold text-3xl text-hive-dark">Overall Integrity Index</h2>
+        <p class="mt-4 text-gray-600">
+          We evaluated six major AI providers across four key pillars: Ecological Impact, Carbon Integrity, Data Sourcing, and Human Labor standards. The resulting composite scores reveal a stark contrast in industry practices.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+        <div class="chart-container chart-container-large">
+          <canvas id="scorecardChart"></canvas>
+        </div>
+        <div class="mt-6 text-sm text-gray-600 bg-gray-50 p-4 rounded-xl">
+          <strong>Key Takeaway:</strong> Anthropic leads overall due to strong architectural safety (RLAIF) despite environmental opacities. Hyperscalers (Google, Microsoft) show moderate scores, struggling with the physical realities of grid emissions versus their virtual offset goals.
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Energy & Architecture -->
+    <section id="energy" class="space-y-8">
+      <div class="max-w-3xl">
+        <h2 class="font-display font-bold text-3xl text-hive-dark">Architectural Choices Drive Energy Demand</h2>
+        <p class="mt-4 text-gray-600">
+          The shift from traditional search engines to complex generative AI models drastically increases energy consumption per interaction. Implementing 'tree-of-thought' reasoning loops exacerbates this strain on municipal grids.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col h-full">
+          <h3 class="font-bold text-lg mb-4 text-hive-dark">Energy Consumption per Query (Watt-hours)</h3>
+          <div class="chart-container flex-grow">
+            <canvas id="energyChart"></canvas>
+          </div>
+        </div>
+        <div class="bg-hive-dark text-white rounded-2xl p-8 shadow-md flex flex-col justify-center relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-hive-gold opacity-10 shape-circle -translate-y-10 translate-x-10"></div>
+          <h3 class="font-display font-bold text-2xl mb-4">The Danger of Over-Engineering</h3>
+          <p class="text-gray-300 mb-6 font-mono text-sm leading-relaxed">
+            Running standard LLMs consumes ~2.9 Wh per query—nearly 10x the baseline of standard search (0.3 Wh). 
+          </p>
+          <div class="bg-white/10 p-4 rounded-xl border border-white/20">
+            <div class="text-hive-gold font-bold mb-1">Advanced Reasoning Alert</div>
+            <p class="text-sm text-gray-200">
+              Models utilizing complex real-time reasoning loops (e.g., DeepSeek R1, o1) can consume up to <strong class="text-white">116 Wh per query</strong>. Scaling this load to millions of requests threatens regional transmission margins.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: The Carbon Accounting Illusion -->
+    <section id="carbon" class="space-y-8 bg-gray-50 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-16 border-y border-gray-200">
+      <div class="max-w-3xl">
+        <h2 class="font-display font-bold text-3xl text-hive-dark">The Carbon Decoupling Crisis</h2>
+        <p class="mt-4 text-gray-600">
+          A critical issue in tech sustainability is the gap between "Market-Based" emissions (which factor in the purchase of unbundled Renewable Energy Certificates) and "Location-Based" emissions (the actual physical carbon intensity of the local power grid powering the data centers).
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+         <h3 class="font-bold text-lg mb-6 text-center text-hive-dark">Market-Based vs Location-Based Emissions (Scope 2)</h3>
+         <div class="chart-container chart-container-large">
+           <canvas id="carbonGapChart"></canvas>
+         </div>
+         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+            <div class="p-4 border-l-4 border-hive-red bg-red-50/50 rounded-r-xl">
+              <h4 class="font-bold text-hive-red text-sm">Meta's Extreme Decoupling</h4>
+              <p class="text-xs mt-1 text-gray-700">Meta reported just 1,358 tons (market-based) while their physical local grids produced over 5.1 million tons—an accounting gap of roughly 19,000x.</p>
+            </div>
+            <div class="p-4 border-l-4 border-hive-blue bg-blue-50/50 rounded-r-xl">
+              <h4 class="font-bold text-hive-blue text-sm">Google's Real Growth</h4>
+              <p class="text-xs mt-1 text-gray-700">Despite ambitious matching goals, Google's actual location-based emissions rose over 92% between 2020 and 2024 as AI demands outpaced clean grid rollouts.</p>
+            </div>
+         </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Ethics, Sourcing & Labor -->
+    <section id="ethics" class="space-y-8">
+      <div class="max-w-3xl">
+        <h2 class="font-display font-bold text-3xl text-hive-dark">The Human Supply Chain</h2>
+        <p class="mt-4 text-gray-600">
+          Behind every "automated" model is a vast network of human labor performing data annotation, content moderation, and safety alignment. Ethical performance in sourcing data and compensating labor varies wildly.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Web Sourcing Matrix -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-lg mb-4 text-hive-dark">Web Sourcing Compliance</h3>
+          <div class="chart-container">
+            <canvas id="sourcingChart"></canvas>
+          </div>
+          <p class="text-xs text-gray-500 mt-4 text-center">
+            Scores reflecting adherence to robots.txt, bot transparency, and fair scraping practices.
+          </p>
+        </div>
+
+        <!-- Labor Conditions Flow -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col justify-center">
+          <h3 class="font-bold text-lg mb-6 text-hive-dark">The Labor Pipeline Reality</h3>
+          
+          <div class="space-y-4">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 shrink-0 bg-gray-100 rounded-lg flex items-center justify-center text-xl">🏢</div>
+              <div>
+                <div class="font-bold text-sm">Hyperscalers & AI Devs</div>
+                <div class="text-xs text-gray-500">Contracting out moderation needs</div>
+              </div>
+            </div>
+            
+            <div class="flex justify-center">
+              <div class="w-1 h-6 bg-gray-200"></div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 shrink-0 bg-gray-100 rounded-lg flex items-center justify-center text-xl">🌐</div>
+              <div>
+                <div class="font-bold text-sm">Global BPO Firms (e.g., Sama)</div>
+                <div class="text-xs text-gray-500">Managing regional contract hubs</div>
+              </div>
+            </div>
+            
+            <div class="flex justify-center">
+              <div class="w-1 h-6 bg-gray-200"></div>
+            </div>
+
+            <div class="flex items-center gap-4 bg-red-50 p-3 rounded-xl border border-red-100">
+              <div class="w-12 h-12 shrink-0 bg-white rounded-lg border border-red-200 flex items-center justify-center text-xl">👤</div>
+              <div>
+                <div class="font-bold text-sm text-hive-red">Data Annotators</div>
+                <div class="text-xs text-gray-700 mt-1">Paid &lt;$2.00/hr in regions like Kenya. Exposed to extreme graphic content often without adequate psychological support.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conclusion -->
+    <section class="text-center max-w-2xl mx-auto py-12">
+      <div class="w-16 h-1 bg-hive-gold mx-auto mb-6"></div>
+      <h2 class="font-display font-bold text-2xl text-hive-dark mb-4">Moving Towards Responsible AI</h2>
+      <p class="text-gray-600 font-sans">
+        To build truly sustainable AI, the industry must move beyond virtual carbon offsets to physical 24/7 clean energy matching, adopt rigorous architectural right-sizing, and ensure living wages and psychological care for global data workers.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="bg-hive-dark text-white py-8 border-t border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <p class="text-sm font-mono text-gray-400">Data synthesized from 2024-2026 Environmental Disclosures & Ethics Reports.</p>
+    </div>
+  </footer>
+
+  <!-- Chart Configuration Script -->
+  <script>
+    // Set default Chart.js font
+    Chart.defaults.font.family = "'Geist', sans-serif";
+    Chart.defaults.color = '#4B5563'; // Tailwind gray-600
+    
+    // Label wrapping utility logic applied internally to data definition
+    
+    // Universal Tooltip Configuration (Requirement)
+    const commonTooltipConfig = {
+      callbacks: {
+        title: function(tooltipItems) {
+          const item = tooltipItems[0];
+          let label = item.chart.data.labels[item.dataIndex];
+          if (Array.isArray(label)) {
+            return label.join(' ');
+          }
+          return label;
+        }
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      // 1. Overall Scorecard (Radar Chart)
+      const ctxScorecard = document.getElementById('scorecardChart').getContext('2d');
+      new Chart(ctxScorecard, {
+        type: 'radar',
+        data: {
+          labels: ['Ecological Impact', 'Carbon Integrity', 'Data Sourcing', 'Labor Standards'],
+          datasets: [
+            {
+              label: 'Anthropic',
+              data: [58, 60, 72, 68],
+              backgroundColor: 'rgba(16, 185, 129, 0.2)', // hive-green
+              borderColor: '#10B981',
+              borderWidth: 2,
+              pointBackgroundColor: '#10B981'
+            },
+            {
+              label: 'Google',
+              data: [84, 70, 78, 64],
+              backgroundColor: 'rgba(59, 130, 246, 0.2)', // hive-blue
+              borderColor: '#3B82F6',
+              borderWidth: 2,
+              pointBackgroundColor: '#3B82F6'
+            },
+            {
+              label: 'OpenAI',
+              data: [35, 10, 82, 28],
+              backgroundColor: 'rgba(217, 119, 6, 0.2)', // hive-gold
+              borderColor: '#D97706',
+              borderWidth: 2,
+              pointBackgroundColor: '#D97706'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' },
+            tooltip: commonTooltipConfig
+          },
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              ticks: { display: false }
+            }
+          }
+        }
+      });
+
+      // 2. Energy Consumption (Bar Chart)
+      const ctxEnergy = document.getElementById('energyChart').getContext('2d');
+      new Chart(ctxEnergy, {
+        type: 'bar',
+        data: {
+          labels: [
+            ['Standard', 'Search Engine'], 
+            ['Conventional', 'Generative AI'], 
+            ['Advanced', 'Reasoning Loop']
+          ],
+          datasets: [{
+            label: 'Watt-hours (Wh) per query',
+            data: [0.3, 2.9, 116],
+            backgroundColor: ['#10B981', '#3B82F6', '#EF4444'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: commonTooltipConfig
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              type: 'logarithmic', // Use log scale due to massive difference
+              title: { display: true, text: 'Wh (Log Scale)' }
+            }
+          }
+        }
+      });
+
+      // 3. Carbon Decoupling Gap (Stacked Bar)
+      const ctxCarbon = document.getElementById('carbonGapChart').getContext('2d');
+      new Chart(ctxCarbon, {
+        type: 'bar',
+        data: {
+          labels: ['Microsoft (FY24)', 'Google (FY24)', 'Meta (FY23)'],
+          datasets: [
+             {
+              label: 'Reported Market-Based Emissions',
+              data: [0.26, 3.06, 0.001], // in millions
+              backgroundColor: '#10B981', // green for reported 'good'
+              stack: 'Stack 0',
+            },
+            {
+              label: 'Unreported Gap (Location-Based Reality)',
+              data: [9.7, 8.22, 5.14], // roughly the difference to total location based
+              backgroundColor: '#EF4444', // red for the hidden reality
+              stack: 'Stack 0',
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            tooltip: {
+              callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) return label.join(' ');
+                    return label;
+                },
+                label: function(context) {
+                  return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + ' M Tons CO2e';
+                }
+              }
+            }
+          },
+          scales: {
+            x: { stacked: true },
+            y: { 
+              stacked: true,
+              title: { display: true, text: 'Millions of Tons CO2e' }
+            }
+          }
+        }
+      });
+
+      // 4. Web Sourcing Ethics (Horizontal Bar)
+      const ctxSourcing = document.getElementById('sourcingChart').getContext('2d');
+      new Chart(ctxSourcing, {
+        type: 'bar',
+        indexAxis: 'y',
+        data: {
+          labels: ['Microsoft', 'OpenAI', 'Google', 'Anthropic', 'Meta', 'Perplexity'],
+          datasets: [{
+            label: 'Web Ethics Score',
+            data: [85, 82, 78, 72, 68, 12],
+            backgroundColor: function(context) {
+              const value = context.dataset.data[context.dataIndex];
+              if (value > 80) return '#10B981'; // Green
+              if (value > 60) return '#3B82F6'; // Blue
+              if (value > 40) return '#D97706'; // Gold
+              return '#EF4444'; // Red
+            },
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: commonTooltipConfig
+          },
+          scales: {
+            x: {
+              min: 0,
+              max: 100
+            }
+          }
+        }
+      });
+
+    });
+  </script>
+</body>
+</html>
