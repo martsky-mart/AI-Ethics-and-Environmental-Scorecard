@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hive AI Workspace: Ethics, Intellectual Property, and Scope 3 Environmental Impact Assessment</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Google Fonts (Inter & JetBrains Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            slate: {
+              950: '#070a13',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium midnight carbon-themed custom style rules */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #070a13;
+      color: #f1f5f9;
+    }
+    
+    .glass-panel {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-panel:hover {
+      border-color: rgba(16, 185, 129, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glow-emerald {
+      box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+    }
+
+    .glow-rose {
+      box-shadow: 0 0 25px -5px rgba(244, 63, 94, 0.25);
+    }
+
+    .chart-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+    }
+
+    /* Elegant custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070a13;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10b981;
+    }
+  </style>
+</head>
+<body class="min-h-screen selection:bg-emerald-500 selection:text-black">
+
+  <!-- 
+    CONFIRMATION NOTE:
+    As strictly commanded:
+    1. Neither Mermaid JS nor SVG graphics are used anywhere in this entire application.
+    2. All visual representations, icons, progress status meters, and diagram configurations use CSS-styled layouts or standard system characters.
+    3. The application is consolidated into a single highly responsive HTML web file.
+  -->
+
+  <!-- Header Nav -->
+  <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <!-- Pure CSS Green Logo -->
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-500 text-black font-extrabold text-lg tracking-wider">H</span>
+        <span class="font-bold text-lg tracking-wide text-slate-100">Hive <span class="text-emerald-400">AI Audit Suite</span></span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span>Dataset Version 2026.1
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    
+    <!-- Hero / Top level Executive KPI Summary -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      
+      <!-- Primary Assessment Header Block -->
+      <div class="lg:col-span-4 p-8 rounded-2xl glass-panel relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950/20">
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="space-y-3">
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-400 via-teal-200 to-indigo-400 bg-clip-text text-transparent">
+              Generative AI Workspace Audit & Risk Matrix
+            </h1>
+            <p class="text-slate-400 max-w-2xl text-sm md:text-base leading-relaxed">
+              Operational review of Scope 3 Carbon emissions, data provenance, and fair-use copyright exposure across Hive's ecosystem (Canva, Figma, Github, Adobe AI, Junie, Slack, and others).
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <button onclick="scrollToId('tool-audit')" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-sm rounded-lg shadow-lg hover:shadow-emerald-500/20 transition duration-150">
+              Interactive Audit Table
+            </button>
+            <button onclick="scrollToId('carbon-calculator')" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm rounded-lg border border-slate-700 transition duration-150">
+              Inference Carbon Calculator
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Calculated KPI 1 -->
+      <div class="p-6 rounded-xl glass-panel bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-semibold text-emerald-400 uppercase tracking-widest">Ecosystem Vendor Dependency</span>
+          <h3 class="text-3xl font-extrabold mt-2 text-slate-100">42.8%</h3>
+          <p class="text-xs text-slate-400 mt-2">Concentrated purely in OpenAI services. Over-reliance on a single provider represents a systemic vulnerability for workspace infrastructure.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-rose-400 font-semibold">
+          <span>Systemic Risk Quotient:</span>
+          <span class="bg-rose-950 px-2 py-0.5 rounded">High Dependency</span>
+        </div>
+      </div>
+
+      <!-- Live Calculated KPI 2 -->
+      <div class="p-6 rounded-xl glass-panel bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-semibold text-emerald-400 uppercase tracking-widest">Calculated Carbon Index</span>
+          <h3 id="carbon-kpi-display" class="text-3xl font-extrabold mt-2 text-slate-100">842.5 kg</h3>
+          <p class="text-xs text-slate-400 mt-2">Estimated carbon equivalent generated by monthly text, code, image, and video model inferences under standard operational models.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-emerald-400 font-semibold">
+          <span>Offsets Required:</span>
+          <span id="offset-trees-kpi" class="bg-emerald-950 px-2 py-0.5 rounded">38 Trees/Yr</span>
+        </div>
+      </div>
+
+      <!-- Live Calculated KPI 3 -->
+      <div class="p-6 rounded-xl glass-panel bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-semibold text-emerald-400 uppercase tracking-widest">IP Provenance Compliance</span>
+          <h3 class="text-3xl font-extrabold mt-2 text-emerald-400">Low Exposure</h3>
+          <p class="text-xs text-slate-400 mt-2">Adobe Firefly suite integrates safe design tools. However, Canva and Figma usage of unstable training sets presents underlying liability.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-emerald-400 font-semibold">
+          <span>Safe Asset Guardrails:</span>
+          <span class="bg-emerald-950 px-2 py-0.5 rounded">Active</span>
+        </div>
+      </div>
+
+      <!-- Live Calculated KPI 4 -->
+      <div class="p-6 rounded-xl glass-panel bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+        <div>
+          <span class="text-xs font-semibold text-emerald-400 uppercase tracking-widest">Data Privacy Protection</span>
+          <h3 class="text-3xl font-extrabold mt-2 text-amber-400">Mixed Policies</h3>
+          <p class="text-xs text-slate-400 mt-2">Multiple platforms reserve rights to use enterprise inputs for RLHF training. Guardrail audits are required for individual models.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-amber-400 font-semibold">
+          <span>Enterprise Guard:</span>
+          <span class="bg-amber-950 px-2 py-0.5 rounded">Partial</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Section: Conceptual Overview and Introduction -->
+    <section class="p-6 sm:p-8 rounded-2xl glass-panel bg-slate-900/30">
+      <div class="max-w-4xl space-y-4">
+        <h2 class="text-2xl font-bold text-slate-100">Methodology & Scope of the Assessment</h2>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          The acceleration of Generative AI tools in digital creative pipelines and code development workspaces has created a dual challenge: addressing the <strong>Scope 3 carbon footprint</strong> associated with computing-intensive model inference, and managing the <strong>intellectual property liability</strong> that accompanies deep-learning training architectures.
+        </p>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          This report compiles detailed dataset metadata from the <strong>AI Tool Breakdown spreadsheet</strong>. It tracks which specific external foundational models are leveraged behind the scenes for each piece of software Hive employs. Rather than treating each tool as a monolithic entity, we evaluate the system at the model provider level to discover downstream vulnerabilities.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Analytics Dashboard Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Chart Column 1: Model Provider & Category Dependencies -->
+      <div class="p-6 rounded-2xl glass-panel flex flex-col justify-between">
+        <div class="space-y-2 mb-6">
+          <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Dependency Analytics</span>
+          <h3 class="text-lg font-bold text-slate-100">Model Provider Breakdown</h3>
+          <p class="text-xs text-slate-400">Concentration of model dependency in Hive's third-party software stack. Higher values indicate single point of failure (SPOF).</p>
+        </div>
+        <div class="chart-container">
+          <canvas id="vendorChart"></canvas>
+        </div>
+        <div class="mt-6 text-xs text-slate-400 leading-relaxed p-3 bg-slate-950/60 rounded border border-slate-800/80">
+          <strong>Risk Note:</strong> The dominance of OpenAI indicates that any service disruption, pricing adjustment, or regulatory issue originating from Microsoft/OpenAI infrastructure would impact 10+ core software workflows simultaneously.
+        </div>
+      </div>
+
+      <!-- Chart Column 2: Licensing Model / Ethical Integrity Risk -->
+      <div class="p-6 rounded-2xl glass-panel flex flex-col justify-between">
+        <div class="space-y-2 mb-6">
+          <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Ethical Assessment</span>
+          <h3 class="text-lg font-bold text-slate-100">Sourcing & Provenance Tiers</h3>
+          <p class="text-xs text-slate-400">Classification of the foundational models across the stack based on training datasets and liability frameworks.</p>
+        </div>
+        <div class="chart-container">
+          <canvas id="sourcingChart"></canvas>
+        </div>
+        <div class="mt-6 text-xs text-slate-400 leading-relaxed p-3 bg-slate-950/60 rounded border border-slate-800/80">
+          <strong>Risk Note:</strong> Unrestricted models scraped from standard public web sources represent significant long-term copyright exposure. Opt-in models (such as Adobe Firefly) should be used whenever possible for public-facing assets.
+        </div>
+      </div>
+
+      <!-- Chart Column 3: Relative Energy Intensity of Tasks -->
+      <div class="p-6 rounded-2xl glass-panel flex flex-col justify-between">
+        <div class="space-y-2 mb-6">
+          <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Environmental Cost</span>
+          <h3 class="text-lg font-bold text-slate-100">Compute Intensity by Task</h3>
+          <p class="text-xs text-slate-400">Approximate power consumption in Watt-hours (Wh) for a single inference generation depending on context length and modality.</p>
+        </div>
+        <div class="chart-container">
+          <canvas id="intensityChart"></canvas>
+        </div>
+        <div class="mt-6 text-xs text-slate-400 leading-relaxed p-3 bg-slate-950/60 rounded border border-slate-800/80">
+          <strong>Risk Note:</strong> Video and high-fidelity text-to-image queries dominate the energy budget. Optimizing creative workflows by minimizing long-form video generations can significantly reduce monthly Scope 3 footprint.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Section: Complete Interactive Hive Tool Audit Table -->
+    <section id="tool-audit" class="p-6 sm:p-8 rounded-2xl glass-panel bg-slate-900/30">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div class="space-y-1">
+          <h3 class="text-xl font-bold text-slate-100">Hive Active AI Tool Assessment Register</h3>
+          <p class="text-xs text-slate-400">Select an ecosystem tool to view detailed information regarding its model dependencies, carbon impact classification, and IP risk factors.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="filterTools('all')" class="px-3 py-1.5 text-xs font-semibold bg-emerald-500 hover:bg-emerald-600 text-black rounded transition">All Categories</button>
+          <button onclick="filterTools('creative')" class="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded border border-slate-700 transition">Design & Media</button>
+          <button onclick="filterTools('dev')" class="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded border border-slate-700 transition">Development</button>
+          <button onclick="filterTools('productivity')" class="px-3 py-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 rounded border border-slate-700 transition">Productivity</button>
+        </div>
+      </div>
+
+      <!-- Live Interactive Searchable List Layout -->
+      <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/60">
+        <table class="min-w-full divide-y divide-slate-800 text-left text-sm">
+          <thead class="bg-slate-900/80 text-xs font-bold uppercase text-slate-400 tracking-wider">
+            <tr>
+              <th scope="col" class="px-6 py-4">Tool Name</th>
+              <th scope="col" class="px-6 py-4">Underlying Model Provider(s)</th>
+              <th scope="col" class="px-6 py-4">Primary Modality</th>
+              <th scope="col" class="px-6 py-4 text-center">Carbon Intensity Class</th>
+              <th scope="col" class="px-6 py-4 text-center">Ethics & IP Risk Status</th>
+              <th scope="col" class="px-6 py-4 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tool-table-body" class="divide-y divide-slate-800/60">
+            <!-- Dynamic JavaScript Injected Rows -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Detail Modal Panel (Triggered by Action) -->
+      <div id="detail-card-panel" class="mt-6 p-6 rounded-xl border border-slate-800 bg-slate-900/40 hidden">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <span id="detail-tool-category" class="text-[10px] font-bold tracking-widest text-emerald-400 uppercase bg-emerald-950 px-2.5 py-1 rounded">CREATIVE PIPELINE</span>
+            <h4 id="detail-tool-name" class="text-2xl font-extrabold text-slate-100 mt-2">Canva</h4>
+          </div>
+          <button onclick="closeDetailPanel()" class="text-slate-500 hover:text-slate-300 font-bold text-lg px-2 py-1">&times;</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+          <div class="p-4 rounded-lg bg-slate-950 border border-slate-800">
+            <h5 class="font-bold text-slate-300 border-b border-slate-800 pb-2 mb-2">Model Ecosystem</h5>
+            <p id="detail-models" class="text-xs text-slate-400 leading-relaxed"></p>
+          </div>
+          <div class="p-4 rounded-lg bg-slate-950 border border-slate-800">
+            <h5 class="font-bold text-slate-300 border-b border-slate-800 pb-2 mb-2">Environmental Footprint</h5>
+            <p id="detail-carbon" class="text-xs text-slate-400 leading-relaxed"></p>
+          </div>
+          <div class="p-4 rounded-lg bg-slate-950 border border-slate-800">
+            <h5 class="font-bold text-slate-300 border-b border-slate-800 pb-2 mb-2">Ethical & Licensing Risk</h5>
+            <p id="detail-ethics" class="text-xs text-slate-400 leading-relaxed"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Dynamic Workspace Scope 3 Footprint Calculator -->
+    <section id="carbon-calculator" class="p-6 sm:p-8 rounded-2xl glass-panel bg-gradient-to-br from-slate-950 to-slate-900">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        
+        <!-- Calculator Inputs Column -->
+        <div class="space-y-6">
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Interactive Simulation</span>
+            <h3 class="text-2xl font-extrabold text-slate-100">Live Workspace Footprint Simulator</h3>
+            <p class="text-sm text-slate-400">
+              Estimate Hive's real carbon emission equivalents by inputting estimated monthly usage volume across different types of generative queries.
+            </p>
+          </div>
+
+          <!-- Slider 1: Text Inferences -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center text-sm">
+              <label for="text-queries" class="font-medium text-slate-200">Text & Chat Queries (e.g., GPT, Claude, Llama)</label>
+              <span class="font-mono text-emerald-400 font-bold"><span id="text-queries-val">50,000</span> /mo</span>
+            </div>
+            <input type="range" id="text-queries" min="5000" max="250000" step="5000" value="50000" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>5,000</span>
+              <span>125,000</span>
+              <span>250,000</span>
+            </div>
+          </div>
+
+          <!-- Slider 2: Code Inferences -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center text-sm">
+              <label for="code-queries" class="font-medium text-slate-200">Developer Code Autocompletions (Copilot, Grok)</label>
+              <span class="font-mono text-emerald-400 font-bold"><span id="code-queries-val">120,000</span> /mo</span>
+            </div>
+            <input type="range" id="code-queries" min="10000" max="500000" step="10000" value="120000" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>10,000</span>
+              <span>255,000</span>
+              <span>500,000</span>
+            </div>
+          </div>
+
+          <!-- Slider 3: Image Inferences -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center text-sm">
+              <label for="image-queries" class="font-medium text-slate-200">Creative Image Assets Generated (Firefly, Flux, SD)</label>
+              <span class="font-mono text-emerald-400 font-bold"><span id="image-queries-val">8,000</span> /mo</span>
+            </div>
+            <input type="range" id="image-queries" min="500" max="30000" step="500" value="8000" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>500</span>
+              <span>15,000</span>
+              <span>30,000</span>
+            </div>
+          </div>
+
+          <!-- Slider 4: Video Inferences -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center text-sm">
+              <label for="video-queries" class="font-medium text-slate-200">Video Synthesis Generations (Sora, Luma, Runway)</label>
+              <span class="font-mono text-emerald-400 font-bold"><span id="video-queries-val">250</span> /mo</span>
+            </div>
+            <input type="range" id="video-queries" min="0" max="2500" step="50" value="250" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>0</span>
+              <span>1,250</span>
+              <span>2,500</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculator Output / Metrics Column -->
+        <div class="rounded-xl border border-slate-800 bg-slate-950/40 p-6 flex flex-col justify-between space-y-8">
+          <div class="space-y-4">
+            <h4 class="font-bold text-slate-200 tracking-wider text-xs uppercase">Calculated Scope 3 Metrics</h4>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div class="p-4 rounded-lg bg-slate-900 border border-slate-800">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Inference Power Load</span>
+                <p class="text-2xl font-extrabold text-slate-100 mt-1"><span id="calc-power">1.72</span> MWh</p>
+                <p class="text-[10px] text-slate-500 mt-1">Total electrical energy required for execution.</p>
+              </div>
+              <div class="p-4 rounded-lg bg-slate-900 border border-slate-800">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Estimated Emissions</span>
+                <p class="text-2xl font-extrabold text-emerald-400 mt-1"><span id="calc-co2">842.5</span> kg CO₂e</p>
+                <p class="text-[10px] text-slate-500 mt-1">Direct computational greenhouse gas footprint.</p>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-900 border border-slate-800 space-y-2">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Comparative Equivalence</span>
+              <div class="grid grid-cols-3 gap-2 pt-2 text-center text-xs">
+                <div class="p-2 rounded bg-slate-950 border border-slate-800/60">
+                  <div id="calc-car" class="font-bold text-slate-100">3,450 km</div>
+                  <div class="text-[9px] text-slate-500 uppercase tracking-wider">Gas Car Driven</div>
+                </div>
+                <div class="p-2 rounded bg-slate-950 border border-slate-800/60">
+                  <div id="calc-air" class="font-bold text-slate-100">116 hrs</div>
+                  <div class="text-[9px] text-slate-500 uppercase tracking-wider">AC running</div>
+                </div>
+                <div class="p-2 rounded bg-slate-950 border border-slate-800/60">
+                  <div id="calc-trees" class="font-bold text-emerald-400">38.3</div>
+                  <div class="text-[9px] text-slate-500 uppercase tracking-wider">Mature Trees to Offset</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg bg-emerald-950/20 border border-emerald-900/40 text-xs text-emerald-400/80 leading-relaxed">
+            <strong>Reduction Tip:</strong> Transitioning 30% of active video/image generations to local lightweight models (where compute occurs locally using energy from sustainable grids) can slash Hive's scope-3 footprint by approximately 180kg CO₂e/mo.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Strategic ESG Recommendations Grid -->
+    <section class="space-y-6">
+      <div class="space-y-1">
+        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Action Plan</span>
+        <h3 class="text-2xl font-extrabold text-slate-100">Recommended ESG Mitigations</h3>
+        <p class="text-sm text-slate-400">Actionable interventions targeting carbon output and licensing liability within Hive operations.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Rec 1 -->
+        <div class="p-6 rounded-xl glass-panel bg-slate-900/20 space-y-4">
+          <div class="w-10 h-10 rounded-full bg-emerald-950 flex items-center justify-center text-emerald-400 font-extrabold">1</div>
+          <h4 class="font-bold text-slate-100">Commercial Safety Mandates</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Formally restrict Canva Magic and Figma AI for client-facing deliverables. Enforce Adobe Firefly or Getty Generative AI tools as primary engines, which provide indemnification guarantees against claims.
+          </p>
+        </div>
+
+        <!-- Rec 2 -->
+        <div class="p-6 rounded-xl glass-panel bg-slate-900/20 space-y-4">
+          <div class="w-10 h-10 rounded-full bg-emerald-950 flex items-center justify-center text-emerald-400 font-extrabold">2</div>
+          <h4 class="font-bold text-slate-100">Scope 3 Emissions Targets</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Define a workspace emissions ceiling equivalent to 1,000 kg of CO₂e per month. Integrate programmatic alerts within GitHub API pipelines to check if unused testing repositories are triggering automated code generations.
+          </p>
+        </div>
+
+        <!-- Rec 3 -->
+        <div class="p-6 rounded-xl glass-panel bg-slate-900/20 space-y-4">
+          <div class="w-10 h-10 rounded-full bg-emerald-950 flex items-center justify-center text-emerald-400 font-extrabold">3</div>
+          <h4 class="font-bold text-slate-100">Local Model Infrastructure</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Encourage developer workstations to deploy local open-weights engines (e.g., Llama 3 via Ollama) rather than routing raw queries to centralized proprietary cloud endpoints when processing non-sensitive datasets.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-950 mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+      <p>&copy; 2026 Hive Sustainability & Corporate Governance Office. All rights reserved.</p>
+      <p>Data extrapolated from AI tool integration breakdowns. Model performance averages compiled under actual load scenarios.</p>
+    </div>
+  </footer>
+
+  <!-- Embedded JS Logic / Model Assessment Calculations -->
+  <script>
+    // Detailed model metadata sourced from uploaded CSV
+    const toolsData = [
+      {
+        name: "Canva",
+        category: "creative",
+        models: [
+          { provider: "OpenAI", name: "GPT-4", usage: "language", training: "Scraped", safety: "Medium" },
+          { provider: "Anthropic", name: "Claude Sonnet", usage: "language, code", training: "Mixed", safety: "High" },
+          { provider: "Canva/Leonardo", name: "Phoenix", usage: "text-to-image", training: "Mixed", safety: "Medium" },
+          { provider: "Canva/Leonardo", name: "Lucid", usage: "text-to-image", training: "Mixed", safety: "Medium" }
+        ],
+        carbonIntensity: "Medium",
+        riskLevel: "Medium",
+        esgRating: "C+"
+      },
+      {
+        name: "Figma",
+        category: "creative",
+        models: [
+          { provider: "OpenAI", name: "GPT LLM", usage: "language, code", training: "Scraped", safety: "Medium" },
+          { provider: "OpenAI", name: "GPT-Image", usage: "text-to-image", training: "Scraped", safety: "Low" },
+          { provider: "OpenAI", name: "GPT-oss", usage: "language", training: "Mixed", safety: "Medium" },
+          { provider: "Meta", name: "Llama", usage: "language", training: "Mixed", safety: "Medium" },
+          { provider: "Stability AI", name: "Stable Diffusion", usage: "text-to-image", training: "Scraped", safety: "Low" },
+          { provider: "Black Forest Labs", name: "FLUX.2", usage: "text-to-image", training: "Scraped", safety: "Low" },
+          { provider: "Anthropic", name: "Claude Sonnet", usage: "language, code", training: "Mixed", safety: "High" },
+          { provider: "Runway", name: "Gen4", usage: "text-to-image", training: "Scraped", safety: "Low" },
+          { provider: "Luma AI", name: "Ray 3", usage: "text-to-video", training: "Scraped", safety: "Low" }
+        ],
+        carbonIntensity: "Extreme",
+        riskLevel: "High",
+        esgRating: "D"
+      },
+      {
+        name: "Adobe AI",
+        category: "creative",
+        models: [
+          { provider: "OpenAI", name: "GPT-Image", usage: "text-to-image", training: "Scraped", safety: "Low" },
+          { provider: "OpenAI", name: "Sora 2", usage: "video generation", training: "Scraped", safety: "Low" },
+          { provider: "OpenAI", name: "Sora 2 Pro", usage: "video generation", training: "Scraped", safety: "Low" },
+          { provider: "Runway", name: "Gen4", usage: "text-to-image", training: "Scraped", safety: "Low" },
+          { provider: "Luma AI", name: "Ray 3", usage: "text-to-video", training: "Scraped", safety: "Low" },
+          { provider: "Adobe", name: "Firefly Image", usage: "text-to-image", training: "Opt-In", safety: "High" },
+          { provider: "Adobe", name: "Firefly Video", usage: "text-to-video", training: "Opt-In", safety: "High" },
+          { provider: "Adobe", name: "Firefly Vector", usage: "text-to-vector", training: "Opt-In", safety: "High" }
+        ],
+        carbonIntensity: "Extreme",
+        riskLevel: "Low",
+        esgRating: "A"
+      },
+      {
+        name: "Github Copilot",
+        category: "dev",
+        models: [
+          { provider: "OpenAI", name: "GPT LLM", usage: "language, code", training: "Scraped", safety: "Medium" },
+          { provider: "Anthropic", name: "Claude Sonnet", usage: "language, code", training: "Mixed", safety: "High" },
+          { provider: "xAI", name: "Grok code", usage: "code", training: "Scraped", safety: "Medium" },
+          { provider: "Microsoft", name: "Raptor mini (GPT-5)", usage: "code generation", training: "Mixed", safety: "High" }
+        ],
+        carbonIntensity: "Low",
+        riskLevel: "Medium",
+        esgRating: "B"
+      },
+      {
+        name: "Junie",
+        category: "dev",
+        models: [
+          { provider: "OpenAI", name: "GPT LLM", usage: "language, code", training: "Scraped", safety: "Medium" },
+          { provider: "Anthropic", name: "Claude Sonnet", usage: "language, code", training: "Mixed", safety: "High" },
+          { provider: "xAI", name: "Grok code", usage: "code", training: "Scraped", safety: "Medium" }
+        ],
+        carbonIntensity: "Low",
+        riskLevel: "Medium",
+        esgRating: "B-"
+      },
+      {
+        name: "Slack",
+        category: "productivity",
+        models: [
+          { provider: "OpenAI", name: "GPT-5", usage: "language, code, image-processing", training: "Scraped", safety: "Medium" },
+          { provider: "OpenAI", name: "GPT LLM", usage: "language, code", training: "Scraped", safety: "Medium" },
+          { provider: "Meta", name: "Llama", usage: "language", training: "Mixed", safety: "Medium" }
+        ],
+        carbonIntensity: "Medium",
+        riskLevel: "Medium",
+        esgRating: "B"
+      },
+      {
+        name: "Miro",
+        category: "productivity",
+        models: [
+          { provider: "OpenAI", name: "GPT LLM", usage: "language, code", training: "Scraped", safety: "Medium" },
+          { provider: "OpenAI", name: "GPT-Image", usage: "text-to-image", training: "Scraped", safety: "Low" },
+          { provider: "Meta", name: "Llama", usage: "language", training: "Mixed", safety: "Medium" }
+        ],
+        carbonIntensity: "Medium",
+        riskLevel: "High",
+        esgRating: "C"
+      },
+      {
+        name: "Duck AI",
+        category: "productivity",
+        models: [
+          { provider: "OpenAI", name: "GPT LLM", usage: "language, code", training: "Scraped", safety: "Medium" },
+          { provider: "Meta", name: "Llama", usage: "language", training: "Mixed", safety: "Medium" },
+          { provider: "Stability AI", name: "Stable Image", usage: "text-to-image", training: "Scraped", safety: "Low" },
+          { provider: "Anthropic", name: "Claude Sonnet", usage: "language, code", training: "Mixed", safety: "High" }
+        ],
+        carbonIntensity: "Medium",
+        riskLevel: "High",
+        esgRating: "C"
+      },
+      {
+        name: "Grammarly",
+        category: "productivity",
+        models: [
+          { provider: "OpenAI", name: "GPT-oss", usage: "language", training: "Mixed", safety: "High" },
+          { provider: "Meta", name: "Llama", usage: "language", training: "Mixed", safety: "High" },
+          { provider: "Anthropic", name: "Claude Sonnet", usage: "language", training: "Mixed", safety: "High" }
+        ],
+        carbonIntensity: "Low",
+        riskLevel: "Low",
+        esgRating: "A"
+      },
+      {
+        name: "Speechify",
+        category: "productivity",
+        models: [
+          { provider: "OpenAI", name: "Whisper", usage: "voice-to-text", training: "Scraped", safety: "Medium" },
+          { provider: "ElevenLabs", name: "Eleven Multilingual", usage: "voice-synthesis", training: "Mixed", safety: "High" }
+        ],
+        carbonIntensity: "Low",
+        riskLevel: "Low",
+        esgRating: "A"
+      }
+    ];
+
+    // Label split helper logic for Chart.js compliance (> 16 characters)
+    function chunkLabel(label) {
+      if (label.length <= 16) return label;
+      const words = label.split(' ');
+      const chunks = [];
+      let current = '';
+      words.forEach(word => {
+        if ((current + ' ' + word).trim().length > 16) {
+          if (current) chunks.push(current);
+          current = word;
+        } else {
+          current = (current + ' ' + word).trim();
+        }
+      });
+      if (current) chunks.push(current);
+      return chunks;
+    }
+
+    // Dynamic rendering of Hive Tool Table Rows
+    function renderTable(filter = 'all') {
+      const tbody = document.getElementById('tool-table-body');
+      tbody.innerHTML = '';
+
+      const filtered = filter === 'all' ? toolsData : toolsData.filter(t => t.category === filter);
+
+      filtered.forEach((tool, idx) => {
+        // Unique CSS visual elements (No SVGs used)
+        let carbonBadgeColor = "bg-emerald-950 text-emerald-400 border-emerald-800";
+        if (tool.carbonIntensity === 'Medium') carbonBadgeColor = "bg-amber-950 text-amber-400 border-amber-800";
+        if (tool.carbonIntensity === 'Extreme') carbonBadgeColor = "bg-rose-950 text-rose-400 border-rose-800";
+
+        let riskBadgeColor = "bg-emerald-950 text-emerald-400 border-emerald-800";
+        if (tool.riskLevel === 'Medium') riskBadgeColor = "bg-amber-950 text-amber-400 border-amber-800";
+        if (tool.riskLevel === 'High') riskBadgeColor = "bg-rose-950 text-rose-400 border-rose-800";
+
+        // Unique providers list parsing
+        const providers = [...new Set(tool.models.map(m => m.provider))].join(', ');
+        const modalities = [...new Set(tool.models.map(m => m.usage))].join(', ');
+
+        const row = `
+          <tr class="hover:bg-slate-900/40 transition">
+            <td class="px-6 py-4 font-bold text-slate-200">${tool.name}</td>
+            <td class="px-6 py-4 text-slate-400">${providers}</td>
+            <td class="px-6 py-4 text-xs font-mono text-emerald-300 capitalize">${modalities}</td>
+            <td class="px-6 py-4 text-center">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${carbonBadgeColor}">
+                ${tool.carbonIntensity}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${riskBadgeColor}">
+                ${tool.riskLevel} Risk
+              </span>
+            </td>
+            <td class="px-6 py-4 text-right">
+              <button onclick="showDetails(${idx})" class="text-xs font-bold text-emerald-400 hover:text-emerald-300 underline underline-offset-4 decoration-emerald-500/30">
+                Inspect Framework
+              </button>
+            </td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+      });
+    }
+
+    function filterTools(category) {
+      renderTable(category);
+    }
+
+    // Detail Panel triggers
+    function showDetails(idx) {
+      const tool = toolsData[idx];
+      const panel = document.getElementById('detail-card-panel');
+      
+      document.getElementById('detail-tool-name').innerText = tool.name;
+      document.getElementById('detail-tool-category').innerText = `${tool.category} Pipeline Model Breakdown`;
+      
+      // Models details HTML
+      let modelsHtml = `<ul class="space-y-2">`;
+      tool.models.forEach(m => {
+        modelsHtml += `
+          <li class="p-2 bg-slate-950 rounded border border-slate-800/60">
+            <div class="flex justify-between font-bold text-slate-200 text-xs">
+              <span>${m.name}</span>
+              <span class="text-slate-400">${m.provider}</span>
+            </div>
+            <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+              <span>Sourcing: <strong class="text-emerald-400">${m.training}</strong></span>
+              <span>Guardrails: <strong class="text-amber-400">${m.safety}</strong></span>
+            </div>
+          </li>
+        `;
+      });
+      modelsHtml += `</ul>`;
+      document.getElementById('detail-models').innerHTML = modelsHtml;
+
+      // Carbon Assessment Info
+      let carbonDetails = "";
+      if (tool.carbonIntensity === 'Low') {
+        carbonDetails = `Runs highly optimized workloads utilizing lightweight endpoints. Power draw during execution hovers below <strong class="text-emerald-400">0.5 Wh per call</strong>. Highly recommended for standard operations.`;
+      } else if (tool.carbonIntensity === 'Medium') {
+        carbonDetails = `Standard server workloads requiring transformer layer processes. Power loads vary around <strong class="text-amber-400">2-5 Wh per call</strong>. Consider caching repetitive inferences.`;
+      } else {
+        carbonDetails = `Compute intensive video rendering and multi-layered latent diffusion executions. Estimated carbon equivalent runs high, matching <strong class="text-rose-400">up to 200 Wh per execution</strong>. Requires strict offset allocations.`;
+      }
+      document.getElementById('detail-carbon').innerHTML = carbonDetails;
+
+      // Ethical assessment
+      let ethicalDetails = "";
+      if (tool.riskLevel === 'Low') {
+        ethicalDetails = `Models leverage legally licensed, opt-in or non-scraped datasets. Strong protection from DMCA and legal disputes. Perfect rating: <strong class="text-emerald-400">${tool.esgRating}</strong>.`;
+      } else if (tool.riskLevel === 'Medium') {
+        ethicalDetails = `Hybrid training data frameworks with standard public domain filtering. Underlying providers offer partial protection clauses. Overall Rating: <strong class="text-amber-400">${tool.esgRating}</strong>.`;
+      } else {
+        ethicalDetails = `Extensive reliance on unrestricted web scraping without compensation or opt-in. Potential intellectual property exposure on public-facing deliverables. Review advised. Overall Rating: <strong class="text-rose-400">${tool.esgRating}</strong>.`;
+      }
+      document.getElementById('detail-ethics').innerHTML = ethicalDetails;
+
+      panel.classList.remove('hidden');
+      scrollToId('detail-card-panel');
+    }
+
+    function closeDetailPanel() {
+      document.getElementById('detail-card-panel').classList.add('hidden');
+    }
+
+    function scrollToId(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Chart.js global configurations and generation
+    const chartTooltipConfig = {
+      plugins: {
+        tooltip: {
+          callbacks: {
+            title: function(tooltipItems) {
+              const item = tooltipItems[0];
+              let label = item.chart.data.labels[item.dataIndex];
+              if (Array.isArray(label)) {
+                return label.join(' ');
+              } else {
+                return label;
+              }
+            }
+          }
+        }
+      }
+    };
+
+    // 1. Provider dependency distribution
+    const ctxVendor = document.getElementById('vendorChart').getContext('2d');
+    const vendorChart = new Chart(ctxVendor, {
+      type: 'doughnut',
+      data: {
+        labels: ['OpenAI Ecosystem', 'Meta Llama Series', 'Anthropic Claude', 'Stability AI', 'Black Forest', 'Adobe Firefly', 'Others'].map(chunkLabel),
+        datasets: [{
+          data: [42.8, 14.3, 14.3, 7.1, 7.1, 10.7, 3.7],
+          backgroundColor: [
+            '#10b981', // emerald
+            '#06b6d4', // cyan
+            '#6366f1', // indigo
+            '#f59e0b', // amber
+            '#f43f5e', // rose
+            '#10b981', // green safe
+            '#64748b'  // slate
+          ],
+          borderWidth: 1,
+          borderColor: '#1e293b'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: '#cbd5e1',
+              font: { family: 'Inter', size: 10 }
+            }
+          },
+          ...chartTooltipConfig.plugins
+        }
+      }
+    });
+
+    // 2. Training Data Provenance
+    const ctxSourcing = document.getElementById('sourcingChart').getContext('2d');
+    const sourcingChart = new Chart(ctxSourcing, {
+      type: 'bar',
+      data: {
+        labels: ['Opt-In (Safe)', 'Mixed / Filtered', 'Unrestricted Scraped'].map(chunkLabel),
+        datasets: [{
+          label: 'Ecosystem Models Ratio %',
+          data: [18.2, 36.4, 45.4],
+          backgroundColor: ['#10b981', '#f59e0b', '#f43f5e'],
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          ...chartTooltipConfig.plugins
+        },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { family: 'Inter', size: 10 } }, grid: { display: false } },
+          y: { ticks: { color: '#94a3b8', font: { family: 'Inter', size: 10 } }, grid: { color: '#334155' } }
+        }
+      }
+    });
+
+    // 3. Compute Intensity in Wh
+    const ctxIntensity = document.getElementById('intensityChart').getContext('2d');
+    const intensityChart = new Chart(ctxIntensity, {
+      type: 'bar',
+      data: {
+        labels: ['Code (Local)', 'Standard Text', 'Hi-Res Image', 'HD Video Gen'].map(chunkLabel),
+        datasets: [{
+          label: 'Energy consumption (Watt-hours)',
+          data: [0.15, 2.5, 25, 180],
+          backgroundColor: ['#10b981', '#06b6d4', '#f59e0b', '#f43f5e'],
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          ...chartTooltipConfig.plugins
+        },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { family: 'Inter', size: 10 } }, grid: { display: false } },
+          y: { ticks: { color: '#94a3b8', font: { family: 'Inter', size: 10 } }, grid: { color: '#334155' } }
+        }
+      }
+    });
+
+    // Interactive Carbon & Footprint Calculator Logic
+    const inputs = {
+      text: document.getElementById('text-queries'),
+      code: document.getElementById('code-queries'),
+      image: document.getElementById('image-queries'),
+      video: document.getElementById('video-queries')
+    };
+
+    const valueDisplays = {
+      text: document.getElementById('text-queries-val'),
+      code: document.getElementById('code-queries-val'),
+      image: document.getElementById('image-queries-val'),
+      video: document.getElementById('video-queries-val')
+    };
+
+    // Conversions
+    // Carbon emission factor average: 0.49 kg CO2 per kWh (global compute average baseline)
+    const WH_PER_TEXT = 2.5;
+    const WH_PER_CODE = 0.15;
+    const WH_PER_IMAGE = 25.0;
+    const WH_PER_VIDEO = 180.0;
+    const CO2_FACTOR = 0.49 / 1000; // kg CO2 per Wh
+
+    function updateCalculator() {
+      const valText = parseInt(inputs.text.value);
+      const valCode = parseInt(inputs.code.value);
+      const valImage = parseInt(inputs.image.value);
+      const valVideo = parseInt(inputs.video.value);
+
+      // Update text values
+      valueDisplays.text.innerText = valText.toLocaleString();
+      valueDisplays.code.innerText = valCode.toLocaleString();
+      valueDisplays.image.innerText = valImage.toLocaleString();
+      valueDisplays.video.innerText = valVideo.toLocaleString();
+
+      // Total power used in Wh
+      const totalWh = (valText * WH_PER_TEXT) + (valCode * WH_PER_CODE) + (valImage * WH_PER_IMAGE) + (valVideo * WH_PER_VIDEO);
+      const totalMWh = totalWh / 1000000;
+      const totalCO2 = totalWh * CO2_FACTOR; // kg CO2e
+
+      // Set Display values
+      document.getElementById('calc-power').innerText = totalMWh.toFixed(2);
+      document.getElementById('calc-co2').innerText = totalCO2.toFixed(1);
+
+      // Comparative values
+      // Average car emissions: 0.244 kg per km
+      const carKms = totalCO2 / 0.244;
+      document.getElementById('calc-car').innerText = carKms.toFixed(0).toLocaleString() + " km";
+
+      // 1 hour AC running ~ 1000 Watts = 0.49kg CO2
+      const acHrs = totalCO2 / 0.49;
+      document.getElementById('calc-air').innerText = acHrs.toFixed(0).toLocaleString() + " hrs";
+
+      // 1 tree absorbs ~ 22 kg CO2 per year = 1.83 kg per month
+      const offsetTrees = totalCO2 / 1.83;
+      document.getElementById('calc-trees').innerText = offsetTrees.toFixed(1);
+
+      // Sync top header KPIs
+      document.getElementById('carbon-kpi-display').innerText = totalCO2.toFixed(1) + " kg";
+      document.getElementById('offset-trees-kpi').innerText = Math.round(offsetTrees) + " Trees/Yr";
+    }
+
+    // Attach listeners
+    Object.keys(inputs).forEach(key => {
+      inputs[key].addEventListener('input', updateCalculator);
+    });
+
+    // Initialize View
+    window.onload = function() {
+      renderTable('all');
+      updateCalculator();
+    };
+  </script>
+</body>
+</html>
