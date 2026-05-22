@@ -237,11 +237,11 @@
         <div class="lg:col-span-5 space-y-6">
           <div>
             <label for="calc-queries" class="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Daily Computational Query Rate</label>
-            <input type="range" id="calc-queries" min="100" max="1000" step="50" value="500" oninput="updateCalculator()" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+            <input type="range" id="calc-queries" min="100" max="5000" step="50" value="500" oninput="updateCalculator()" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
             <div class="flex justify-between text-xs text-slate-755 dark:text-slate-300 mt-2">
               <span class="font-mono">100</span>
               <span id="calc-queries-display" class="text-brand-700 dark:text-brand-400 font-bold font-mono">500 queries/day</span>
-              <span class="font-mono">1,000</span>
+              <span class="font-mono">5,000</span>
             </div>
           </div>
 
@@ -337,7 +337,7 @@
           <div>
             <span class="block text-xs font-bold text-slate-755 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Audit Scenario Presets</span>
             <div class="grid grid-cols-1 gap-2 font-sans">
-              <button onclick="applyAuditPreset('reasoning')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-950 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+              <button onclick="applyAuditPreset('reasoning')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-955 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
                 <span class="font-semibold text-slate-900 dark:text-slate-200 block font-display">🌿 DeepSeek R1 / o1 Reasoning Audit</span>
                 <span class="text-slate-600 dark:text-slate-400 block mt-0.5 font-sans">Evaluate localized grid & aquifer loads for reasoning loop spikes.</span>
               </button>
@@ -500,7 +500,7 @@
           <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
             <span class="block text-xs font-bold text-slate-755 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Bake Key & Create Custom Bundle</span>
             <p class="text-[11px] text-slate-700 dark:text-slate-400 mb-3 leading-relaxed">Enter your key above and click the button below to download a standalone copy of this app with your credentials baked directly inside. You can then host this file privately on your own hosting servers without manually inputting keys again.</p>
-            <button onclick="exportBakedHTML()" class="w-full inline-flex items-center justify-center space-x-2 px-4 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 shadow font-display">
+            <button onclick="exportBakedHTML()" class="w-full inline-flex items-center justify-center space-x-2 px-4 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow font-display">
               <span>📦 Compile & Download Baked Bundle</span>
             </button>
           </div>
@@ -577,16 +577,17 @@
     let previousActiveElement = null;
     let currentRegion = 'UK';
     
-    const baselineInferenceCalls = 20;
-    const baselineWhLoad = 200; 
+    // Baseline Development and Ingestive Footprint metrics setup (27 turns of code gen/compilation @ 10 Wh each)
+    const baselineInferenceCalls = 27;
+    const baselineWhLoad = 270; 
     let querySessionCount = 0;
 
     // Region metrics mapping carbon, water draw, and household usage baselines dynamically
     const regionMetrics = {
       UK: {
         name: "United Kingdom (Sheffield)",
-        carbonIntensity: 135, // g CO2e / kWh
-        householdDailyWh: 8000, // 8.0 kWh daily average for UK home
+        carbonIntensity: 135, // g CO2e / kWh (Up-to-date Decarbonization base)
+        householdDailyWh: 8000, // 8.0 kWh daily average for UK home (W3C/IEA base)
         waterPerWh: 0.13, // Litres per Wh evaporated directly (~130ml/Wh)
         waterUnit: 'L',
         altWaterUnit: 'gal',
@@ -596,7 +597,7 @@
       },
       EU: {
         name: "European Union",
-        carbonIntensity: 215, // g CO2e / kWh
+        carbonIntensity: 215, // g CO2e / kWh (Continental offset baseline)
         householdDailyWh: 9500, // 9.5 kWh daily average
         waterPerWh: 0.12, // Litres per Wh evaporated (~120ml/Wh)
         waterUnit: 'L',
@@ -607,7 +608,7 @@
       },
       US: {
         name: "United States",
-        carbonIntensity: 365, // g CO2e / kWh
+        carbonIntensity: 365, // g CO2e / kWh (US grid average index)
         householdDailyWh: 29500, // 29.5 kWh daily average
         waterPerWh: 0.038, // Gallons per Wh evaporated directly
         waterUnit: 'gal',
@@ -618,7 +619,7 @@
       },
       Asia: {
         name: "Asia",
-        carbonIntensity: 560, // g CO2e / kWh
+        carbonIntensity: 560, // g CO2e / kWh (High fossil fuel dependency index)
         householdDailyWh: 9000, // 9.0 kWh daily average
         waterPerWh: 0.14, // Litres per Wh evaporated (~140ml/Wh)
         waterUnit: 'L',
@@ -1166,7 +1167,7 @@
         },
         highlights: {
           pros: [
-            'Highly secure hosting arrays minimizing crawling abuse.',
+            'Highly secure hosting arrays minimizing programmatic crawling abuse.',
             'Strong accessibility (WCAG) tools baked into visual designer to optimize downstream page output.',
             'Fosters clean code export reducing client-side computational rendering loops.'
           ],
@@ -1191,13 +1192,6 @@
         ]
       }
     ];
-
-    // Pre-sort providers by overall rating (composite score) highest first
-    providers.sort((a, b) => {
-      const scoreA = (a.scores.environmental + a.scores.carbon + a.scores.data + a.scores.labor) / 4;
-      const scoreB = (b.scores.environmental + b.scores.carbon + b.scores.data + b.scores.labor) / 4;
-      return scoreB - scoreA;
-    });
 
     const chartInstances = {};
 
@@ -1765,7 +1759,7 @@
             <div class="flex justify-between text-xs mb-1 font-sans">
               <span class="text-slate-800 dark:text-slate-300 font-medium font-mono">${scoreB}/100</span>
             </div>
-            <div class="w-full bg-slate-200 dark:bg-slate-950 rounded-full h-1.5 border border-slate-300 dark:border-slate-800">
+            <div class="w-full bg-slate-200 dark:bg-slate-950 rounded-full h-1.5 border border-slate-300/60 dark:border-slate-800">
               <div class="${getBg(scoreB)} h-1.5 rounded-full" style="width: ${scoreB}%" role="progressbar" aria-valuenow="${scoreB}" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>
@@ -1956,10 +1950,11 @@ Adopt a rigorous, advisory, and professional style. Divide your report with clea
       }, 1500);
 
       try {
-        querySessionCount++;
-        updateSessionFootprintTracker();
         const auditTextResult = await callGeminiAPI(userQuery, systemInstruction);
         clearInterval(stepInterval);
+        
+        querySessionCount++;
+        updateSessionFootprintTracker();
         
         currentAuditResult = auditTextResult;
         document.getElementById('auditor-text').innerHTML = formatAuditReport(auditTextResult);
