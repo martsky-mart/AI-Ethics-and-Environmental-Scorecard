@@ -372,7 +372,7 @@
             <div id="auditor-loading" class="hidden flex-1 flex-col items-center justify-center space-y-4 py-12">
               <div class="relative w-12 h-12">
                 <div class="absolute inset-0 border-4 border-brand-500/10 rounded-full"></div>
-                <div class="absolute inset-0 border-4 border-t-brand-600 dark:border-t-brand-500 rounded-full animate-spin"></div>
+                <div class="absolute inset-0 border-4 border-t-brand-600 rounded-full animate-spin"></div>
               </div>
               <div class="text-center">
                 <p class="text-sm font-medium text-slate-900 dark:text-slate-300 font-display">Gemini LLM is evaluating lifecycle datasets...</p>
@@ -558,7 +558,7 @@
           </div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200 dark:border-slate-855 flex justify-end font-display">
+        <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end font-display">
           <button onclick="closeDeploymentGuide()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-100 rounded-lg text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
             Close Panel
           </button>
@@ -597,7 +597,7 @@
       },
       EU: {
         name: "European Union",
-        carbonIntensity: 215, // g CO2e / kWh (Continental offset baseline)
+        carbonIntensity: 250, // 250 g CO2e / kWh (EU average mix, EEA 2024-2025 base)
         householdDailyWh: 9500, // 9.5 kWh daily average
         waterPerWh: 0.0010, // 1.0 L/kWh = 0.0010 L/Wh
         waterUnit: 'L',
@@ -968,7 +968,7 @@
         sources: [
           { title: 'Google DeepMind, "Gemini Technical Reports & Performance Analysis" (2024)', url: 'https://arxiv.org/abs/2312.11805' },
           { title: 'JL v. Google Class Action Litigation Filings (N.D. Cal, 2023)', url: 'https://www.courtlistener.com/docket/67584168/jl-v-google-llc/' },
-          { title: 'EU general-purpose AI Code of Practice disclosures & model cards (2025)', url: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai' }
+          { title: 'EU general-purpose AI Code of Practice register', url: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai' }
         ]
       },
       {
@@ -1037,7 +1037,7 @@
           ],
           cons: [
             'Single model training estimated to require 5 GW of local grid capacity by 2027.',
-            'Bartz et5 al. v. Anthropic: Paid a historic $1.5B settlement over piracy-library (PiLiMi/LibGen) ingestion.',
+            'Bartz et al. v. Anthropic: Paid a historic $1.5B settlement over piracy-library (PiLiMi/LibGen) ingestion.',
             'Lacks independent, stand-alone public corporate carbon/water disclosures.'
           ]
         },
@@ -1552,24 +1552,24 @@
             <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-2 font-display">Verified Infrastructure Footprint Data</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
-                <span class="text-slate-700 dark:text-slate-400 block font-display">Reported Energy Load:</span>
+                <span class="text-slate-700 block">Reported Energy Load:</span>
                 <span class="text-slate-900 dark:text-slate-200 font-semibold block mt-0.5 font-mono">${p.metrics.energy}</span>
               </div>
               <div>
-                <span class="text-slate-700 dark:text-slate-400 block font-display">Hydrological Footprint:</span>
+                <span class="text-slate-700 block">Hydrological Footprint:</span>
                 <span class="text-slate-900 dark:text-slate-200 font-semibold block mt-0.5 font-mono">${p.metrics.water}</span>
               </div>
               <div>
-                <span class="text-slate-700 dark:text-slate-400 block font-display">Physical Scope 2 Grid Emissions:</span>
+                <span class="text-slate-700 block">Physical Scope 2 Grid Emissions:</span>
                 <span class="text-slate-900 dark:text-slate-200 font-semibold block mt-0.5 font-mono">${p.metrics.emissionsLocation}</span>
               </div>
               <div>
-                <span class="text-slate-700 dark:text-slate-400 block font-display">Reported Market Offset Emissions:</span>
+                <span class="text-slate-700 block">Reported Market Offset Emissions:</span>
                 <span class="text-slate-900 dark:text-slate-200 font-semibold block mt-0.5 font-mono">${p.metrics.emissionsMarket}</span>
               </div>
             </div>
             <div class="border-t border-slate-200 dark:border-slate-800 pt-3 mt-2 text-xs">
-              <span class="text-red-700 dark:text-red-400 font-semibold block font-display">Carbon Decoupling Gap Analysis:</span>
+              <span class="text-red-700 dark:text-red-400 font-semibold block">Carbon Decoupling Gap Analysis:</span>
               <p class="text-slate-800 dark:text-slate-300 mt-1 leading-relaxed">${p.metrics.accountingGap}</p>
             </div>
           </div>
@@ -1589,7 +1589,7 @@
                 ⚠️ Major Structural Deficits
               </h5>
               <ul class="space-y-2 text-xs text-slate-800 dark:text-slate-300 list-disc list-inside font-sans">
-                ${p.highlights.cons.map(con => `<li>con}</li>`).join('')}
+                ${p.highlights.cons.map(con => `<li>${con}</li>`).join('')}
               </ul>
             </div>
           </div>
@@ -1620,7 +1620,7 @@
         </div>
         
         <div class="px-6 py-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex justify-end">
-          <button onclick="closeModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-100 rounded-lg text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-sm font-display">
+          <button onclick="closeModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 hover:dark:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-lg text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-sm font-display">
             Close Panel
           </button>
         </div>
