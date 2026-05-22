@@ -1,5 +1,5 @@
 <!-- Chosen Palette: Hive IT Warm Harmony (Warm Sand: #FAF8F5, Slate Charcoal: #131415, Accent Gold: #D97706) -->
-<!-- Application Structure Plan: The application uses a modular dashboard approach on a single scrollable page to display complex sustainability and ethical data. The layout features 13 providers across three explicit categories: AI Engines (including separate entries for Google and Microsoft AI arms, and Amazon Bedrock), Cloud Hosting (including AWS), and Deploy Layers. The top section introduces the main ESG trends with card-based statistics and an active Session Computational Footprint tracker that factors in a baseline dev load (20 turns of code gen/compilation @ 10 Wh each) plus subsequent live audits. The middle grid hosts the interactive provider grid where users can filter by category and drill down into evidence panels. When a user opens a provider evidence modal, a theme-responsive, custom color-coded radar chart is dynamically initialized side-by-side with high-contrast performance metrics and fully linked primary sources. This structure was chosen to make extensive corporate lifecycle reports easy to digest, visually compelling, and highly interactive. -->
+<!-- Application Structure Plan: The application uses a modular dashboard approach on a single scrollable page to display complex sustainability and ethical data. The layout features 13 providers across three explicit categories: AI Engines (including separate entries for Google and Microsoft AI arms, and Amazon Bedrock), Cloud Hosting (including AWS), and Deploy Layers. The top section introduces the main ESG trends with card-based statistics and an active Session Computational Footprint tracker that factors in a baseline dev load (35 turns of code gen/compilation @ 10 Wh each) plus subsequent live audits. The middle grid hosts the interactive provider grid where users can filter by category and drill down into evidence panels. When a user opens a provider evidence modal, a theme-responsive, custom color-coded radar chart is dynamically initialized side-by-side with high-contrast performance metrics and fully linked primary sources. This structure was chosen to make extensive corporate lifecycle reports easy to digest, visually compelling, and highly interactive. -->
 <!-- Visualization & Content Choices: 1. Core KPIs -> Inform -> High Contrast Cards -> Instant comprehension of massive operational statistics. 2. Downstream Calculator -> Inform & Compare -> Interactive Form -> Dynamically models resource drain based on model type. 3. Real-Time Auditor -> Analyze -> Gemini LLM Integration -> Offers custom, dynamic expert-level ESG auditing. 4. Scorecard Grid -> Compare -> Dynamic Filter & Provider Cards -> Clean, fast-loading grid using B-Corp inspired card aesthetics. 5. Evidence Panel -> Compare & Relationships -> Custom Color-Coded Radar Chart -> Displays provider scores geometrically, matching their specific brand colors. 6. Comparison Matrix -> Compare & Relationships -> Unified Radar Chart & Side-by-Side Table -> Lets users directly evaluate and visually overlay any two entities across our four core performance pillars. -->
 <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 <!DOCTYPE html>
@@ -7,7 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI & Cloud Provider Ethics & Environmental Scorecard</title>
+  <title>AI & Cloud Infrastructure Scorecard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;650;700&display=swap" rel="stylesheet">
@@ -92,7 +92,7 @@
           <span class="text-brand-600 dark:text-brand-500 font-display font-bold text-lg">H</span>
         </div>
         <div>
-          <h1 class="font-bold text-xl leading-tight text-slate-900 dark:text-white tracking-tight">AI & Cloud Lifecycle Scorecard</h1>
+          <h1 class="font-bold text-xl leading-tight text-slate-900 dark:text-white tracking-tight">AI & Cloud Infrastructure Scorecard</h1>
           <p class="text-xs text-slate-700 dark:text-slate-300 font-sans font-medium">Hive-Inspired Environmental & Ethical Index</p>
         </div>
       </div>
@@ -124,7 +124,7 @@
   </header>
 
   <!-- Live App Session Footprint Tracker -->
-  <div class="bg-brand-50 dark:bg-slate-950 border-b border-brand-100 dark:border-slate-850 py-3 font-sans transition-all duration-300">
+  <div class="bg-brand-50 dark:bg-slate-950 border-b border-brand-100 dark:border-slate-855 py-3 font-sans transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
       <div class="flex items-center space-x-3">
         <span class="flex h-2.5 w-2.5 relative">
@@ -143,7 +143,7 @@
         <div class="hidden md:block border-l border-slate-200 dark:border-slate-850 h-6"></div>
         <div class="text-right">
           <span class="text-slate-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Water Evaporated</span>
-          <span id="session-water" class="font-mono font-bold text-brand-600 dark:text-brand-500">0.000 L</span>
+          <span id="session-water" class="font-mono font-bold text-brand-600 dark:text-brand-500">0.00000 L</span>
         </div>
         <div class="hidden md:block border-l border-slate-200 dark:border-slate-850 h-6"></div>
         <div class="text-right">
@@ -181,8 +181,8 @@
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-brand-500/20 dark:border-slate-750">
         <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <p class="text-xs text-slate-705 dark:text-slate-300 font-medium uppercase tracking-wider">Estimated Inference Cost</p>
-          <p class="text-2xl font-bold mt-1 text-slate-900 dark:text-slate-100 font-mono">2.9 Wh <span class="text-xs text-brand-600 dark:text-brand-400 font-sans font-normal">/ query</span></p>
-          <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-1">~10x conventional Google Search</p>
+          <p class="text-2xl font-bold mt-1 text-slate-900 dark:text-slate-100 font-mono">0.3 Wh <span class="text-xs text-brand-600 dark:text-brand-400 font-sans font-normal">/ query</span></p>
+          <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-1">Based on recent 2025 Frontier measurements</p>
         </div>
         <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <p class="text-xs text-slate-705 dark:text-slate-300 font-medium uppercase tracking-wider">US Datacenter Water Draw</p>
@@ -248,32 +248,32 @@
           <div>
             <span class="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">Model Architectural Choice</span>
             <div class="grid grid-cols-1 gap-3">
-              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-950 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-500">
+              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-955 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-500">
                 <input type="radio" name="model-type" value="search" onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-100 border-slate-300 dark:bg-slate-900 dark:border-slate-700">
                 <span class="ml-3 block">
-                  <span class="text-sm font-semibold text-slate-800 dark:text-slate-200 block">Standard Search Engine</span>
-                  <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium">Baseline (~0.3 Wh / query)</span>
+                  <span class="text-sm font-semibold text-slate-800 dark:text-slate-200 block">Standard Search Index</span>
+                  <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium font-normal">Baseline (~0.3 Wh / query; 2009 Google Estimate)</span>
                 </span>
               </label>
               <label class="flex items-center p-3 rounded-xl border border-brand-500/30 bg-brand-500/5 hover:bg-brand-500/10 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-500">
                 <input type="radio" name="model-type" value="standard" checked onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-100 border-slate-300 dark:bg-slate-900 dark:border-slate-700">
                 <span class="ml-3 block">
                   <span class="text-sm font-semibold text-brand-700 dark:text-brand-400 block">Conventional Generative AI</span>
-                  <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium">Standard LLM (~2.9 Wh / query)</span>
+                  <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium font-normal">Standard 2025 LLM (e.g. GPT-4o / Claude Sonnet) (~0.3 Wh / query)</span>
                 </span>
               </label>
-              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-955 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-550">
+              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-955 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-555">
                 <input type="radio" name="model-type" value="reasoning" onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-100 border-slate-300 dark:bg-slate-900 dark:border-slate-700">
                 <span class="ml-3 block">
-                  <span class="text-sm font-semibold text-brand-700 dark:text-brand-555 block">Advanced Reasoning AI (10x-70x load)</span>
-                  <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium">Complex real-time tree-of-thought (~116 Wh / query)</span>
+                  <span class="text-sm font-semibold text-brand-700 dark:text-brand-555 block">Advanced Reasoning AI (o-series, DeepSeek R1)</span>
+                  <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium font-normal">Sequential real-time thinking loops (~20 Wh / query; range 18-45 Wh)</span>
                 </span>
               </label>
             </div>
           </div>
         </div>
 
-        <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-850 flex flex-col justify-between shadow-sm">
+        <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-855 flex flex-col justify-between shadow-sm">
           <div>
             <h4 class="text-sm font-semibold text-slate-755 dark:text-slate-300 uppercase tracking-wide mb-4 font-display">Estimated Annual Resource Footprint</h4>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono">
@@ -295,14 +295,14 @@
             </div>
           </div>
 
-          <div class="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <div class="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4 border-t border-slate-200 dark:border-slate-855">
             <div class="flex-1">
               <h5 class="text-sm font-semibold text-brand-700 dark:text-brand-400 flex items-center space-x-1.5 font-display">
                 💡
                 <span>Architectural Recommendations: Right-Sizing</span>
               </h5>
               <p id="calc-advice" class="text-xs text-slate-700 dark:text-slate-300 mt-1 leading-relaxed font-sans font-normal">
-                Using a conventional GenAI model instead of standard search increases energy needs by 9.6x. Introduce right-sizing models to prevent overloaded municipal grids.
+                Using standard GenAI models instead of Reasoning-heavy layers significantly optimizes power requirements. Distribute workloads down to specialized local layers.
               </p>
             </div>
             <button onclick="sendStatsToAuditor()" class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center space-x-1.5 px-3 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 font-display">
@@ -337,7 +337,7 @@
           <div>
             <span class="block text-xs font-bold text-slate-755 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Audit Scenario Presets</span>
             <div class="grid grid-cols-1 gap-2 font-sans">
-              <button onclick="applyAuditPreset('reasoning')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-955 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+              <button onclick="applyAuditPreset('reasoning')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-950 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
                 <span class="font-semibold text-slate-900 dark:text-slate-200 block font-display">🌿 DeepSeek R1 / o1 Reasoning Audit</span>
                 <span class="text-slate-600 dark:text-slate-400 block mt-0.5 font-sans">Evaluate localized grid & aquifer loads for reasoning loop spikes.</span>
               </button>
@@ -438,7 +438,7 @@
       <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeCompareModal()"></div>
       <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-6xl w-full p-6 relative z-10 font-sans">
         <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
-          <h3 id="modal-compare-title" class="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2 font-display">
+          <h3 id="modal-compare-title" class="text-xl font-bold text-slate-900 dark:text-white flex items-center space-x-2 font-display">
             ⚖️
             <span>Provider Performance Comparison</span>
           </h3>
@@ -473,7 +473,7 @@
     </div>
   </div>
 
-  <div id="settings-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-settings-title">
+  <div id="settings-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
     <div class="flex items-center justify-center min-h-screen p-4 text-center">
       <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeSettingsModal()"></div>
       <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-lg w-full p-6 relative z-10 font-sans bg-white dark:bg-slate-900">
@@ -500,13 +500,13 @@
           <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
             <span class="block text-xs font-bold text-slate-755 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Bake Key & Create Custom Bundle</span>
             <p class="text-[11px] text-slate-700 dark:text-slate-400 mb-3 leading-relaxed">Enter your key above and click the button below to download a standalone copy of this app with your credentials baked directly inside. You can then host this file privately on your own hosting servers without manually inputting keys again.</p>
-            <button onclick="exportBakedHTML()" class="w-full inline-flex items-center justify-center space-x-2 px-4 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow font-display">
+            <button onclick="exportBakedHTML()" class="w-full inline-flex items-center justify-center space-x-2 px-4 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-555 shadow font-display">
               <span>📦 Compile & Download Baked Bundle</span>
             </button>
           </div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200 dark:border-slate-850 flex justify-end font-display">
+        <div class="pt-4 border-t border-slate-200 dark:border-slate-855 flex justify-end font-display">
           <button onclick="saveSettings()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-slate-100 rounded-lg text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 shadow">
             Save Configuration
           </button>
@@ -533,7 +533,7 @@
           <div>
             <h4 class="font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider mb-1.5 text-brand-700 dark:text-brand-400 font-display">Option 1: Host Locally (Instant)</h4>
             <p class="mb-2">This is a pure client-side static HTML file. You can simply double-click the file to open it in any web browser, or launch a quick local server:</p>
-            <div class="bg-slate-100 dark:bg-slate-950 p-2.5 rounded-lg font-mono text-slate-800 dark:text-slate-400 select-all border border-slate-200 dark:border-slate-850">
+            <div class="bg-slate-100 dark:bg-slate-950 p-2.5 rounded-lg font-mono text-slate-800 dark:text-slate-400 select-all border border-slate-200 dark:border-slate-855">
               python -m http.server 8000
             </div>
           </div>
@@ -558,7 +558,7 @@
           </div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end font-display">
+        <div class="pt-4 border-t border-slate-200 dark:border-slate-855 flex justify-end font-display">
           <button onclick="closeDeploymentGuide()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-100 rounded-lg text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
             Close Panel
           </button>
@@ -577,9 +577,9 @@
     let previousActiveElement = null;
     let currentRegion = 'UK';
     
-    // Baseline Development and Ingestive Footprint metrics setup (27 turns of code gen/compilation @ 10 Wh each)
-    const baselineInferenceCalls = 27;
-    const baselineWhLoad = 270; 
+    // Baseline Development and Ingestive Footprint metrics setup reflecting the 35 conversation turns so far
+    const baselineInferenceCalls = 35;
+    const baselineWhLoad = 350; 
     let querySessionCount = 0;
 
     // Region metrics mapping carbon, water draw, and household usage baselines dynamically
@@ -588,7 +588,7 @@
         name: "United Kingdom (Sheffield)",
         carbonIntensity: 135, // g CO2e / kWh (Up-to-date Decarbonization base)
         householdDailyWh: 8000, // 8.0 kWh daily average for UK home (W3C/IEA base)
-        waterPerWh: 0.13, // Litres per Wh evaporated directly (~130ml/Wh)
+        waterPerWh: 0.0011, // 1.1 L/kWh = 0.0011 L/Wh
         waterUnit: 'L',
         altWaterUnit: 'gal',
         litresToAlt: 0.264172, // L to Gal
@@ -599,7 +599,7 @@
         name: "European Union",
         carbonIntensity: 215, // g CO2e / kWh (Continental offset baseline)
         householdDailyWh: 9500, // 9.5 kWh daily average
-        waterPerWh: 0.12, // Litres per Wh evaporated (~120ml/Wh)
+        waterPerWh: 0.0010, // 1.0 L/kWh = 0.0010 L/Wh
         waterUnit: 'L',
         altWaterUnit: 'gal',
         litresToAlt: 0.264172, // L to Gal
@@ -610,7 +610,7 @@
         name: "United States",
         carbonIntensity: 365, // g CO2e / kWh (US grid average index)
         householdDailyWh: 29500, // 29.5 kWh daily average
-        waterPerWh: 0.038, // Gallons per Wh evaporated directly
+        waterPerWh: 0.00048, // 0.48 gal/kWh = 0.00048 gal/Wh
         waterUnit: 'gal',
         altWaterUnit: 'L',
         litresToAlt: 3.78541, // Gal to L
@@ -618,10 +618,10 @@
         householdsLabel: "US homes"
       },
       Asia: {
-        name: "Asia",
-        carbonIntensity: 560, // g CO2e / kWh (High fossil fuel dependency index)
+        name: "Asia (Weighted Approximation ±150g/kWh)",
+        carbonIntensity: 560, // Rough weighted regional average
         householdDailyWh: 9000, // 9.0 kWh daily average
-        waterPerWh: 0.14, // Litres per Wh evaporated (~140ml/Wh)
+        waterPerWh: 0.0015, // 1.5 L/kWh = 0.0015 L/Wh
         waterUnit: 'L',
         altWaterUnit: 'gal',
         litresToAlt: 0.264172, // L to Gal
@@ -632,276 +632,14 @@
 
     const providers = [
       {
-        id: 'anthropic',
-        name: 'Anthropic',
-        category: 'ai-engine',
-        grade: 'B',
-        color: '#059669',
-        gradeColor: 'text-emerald-700 dark:text-emerald-500 font-mono',
-        badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
-        overallPercentage: 80,
-        description: 'Industry standard-bearer for AI safety alignment and structural constitution guidelines, but hampered by data-sourcing copyright battles. Relies deeply on AWS infrastructure.',
-        scores: {
-          environmental: 58,
-          carbon: 60,
-          data: 72,
-          labor: 68
-        },
-        highlights: {
-          pros: [
-            'Developed highly structured AI Constitution (57-page, CC0 license) managing explicit safety guidelines.',
-            'Constitutional AI (RLAIF) reduces alignment dependency on manual human extreme labeling.',
-            'Utilizes AWS Sustainability Console directly to monitor computing footprint of active workloads.'
-          ],
-          cons: [
-            'Single model training estimated to require 5 GW of local grid capacity by 2027.',
-            'Lost copyright summary judgment: ordered to face federal trial over unauthorized ingestion of 7 million books.',
-            'Lacks independent, stand-alone public corporate carbon/water disclosures.'
-          ]
-        },
-        metrics: {
-          energy: 'Compute load managed via cloud hosts (AWS/Google); estimated training scale requirements.',
-          water: 'Relies on physical infrastructure footprint of AWS/Google Cloud partners.',
-          emissionsLocation: 'Not independently disclosed.',
-          emissionsMarket: 'Not independently disclosed.',
-          accountingGap: 'Does not publish comprehensive Scope 1, 2, or 3 metrics outside AWS dashboard console.'
-        },
-        laborNotes: 'Limits some BPO exposure through automated self-critique (RLAIF), but remains structurally dependent on standard underlying visual and metadata annotators.',
-        policyNotes: 'Aligned closely with the EU General-Purpose AI Code of Practice. Attractive to highly regulated sectors due to predictable compliance boundaries.',
-        sources: [
-          { title: 'Anthropic, "Constitutional AI: Harmlessness from AI Feedback" (Bai et al., 2022)', url: 'https://arxiv.org/abs/2212.08073' },
-          { title: 'AWS Sustainability Console Integration Statement (2024)', url: 'https://aws.amazon.com/blogs/aws/aws-customer-carbon-footprint-tool/' },
-          { title: 'Authors Guild v. Anthropic Litigation Filings (SDNY, 2023-2024)', url: 'https://www.courtlistener.com/docket/68262295/authors-guild-v-anthropic-pbc/' },
-          { title: 'European Artificial Intelligence Act, General-Purpose AI (GPAI) Registry Filings (2025)', url: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai' }
-        ]
-      },
-      {
-        id: 'openai',
-        name: 'OpenAI',
-        category: 'ai-engine',
-        grade: 'D+',
-        color: '#ea580c',
-        gradeColor: 'text-orange-800 dark:text-orange-500 font-mono',
-        badgeColor: 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-600/10 dark:text-orange-400 dark:border-orange-600/20',
-        overallPercentage: 42,
-        description: 'Exhibits complete opacity regarding environmental and carbon reporting. Prioritizes product deployment over internal alignment structures, balanced slightly by compliant web-scraping behavior.',
-        scores: {
-          environmental: 35,
-          carbon: 10,
-          data: 82,
-          labor: 28
-        },
-        highlights: {
-          pros: [
-            'Adheres strictly to standard robots.txt exclusion guidelines.',
-            'Signs bot queries via Web Bot Auth to allow transparent server-level crawling audits.',
-            'Supports compliance targets through hosted host (Microsoft Azure).'
-          ],
-          cons: [
-            'Completely fails to publish public sustainability reviews or carbon disclosures.',
-            'Superalignment and Mission Alignment teams entirely dissolved (resignation of co-leads Sutskever and Jan Leike over safety concerns).',
-            'Contracted Kenyan labelers via Sama at rates under $2.00/hour to parse extreme graphic violence, child abuse, and trauma.'
-          ]
-        },
-        metrics: {
-          energy: 'GPT-3: 1.287 GWh | GPT-4: 52-62 GWh | GPT-5 projected: 80-100 GWh (80-90% spent on running inference).',
-          water: 'Vast, undisclosed global hydrological footprint proportional to billion-query inference loads.',
-          emissionsLocation: 'GPT-4 training emitted ~15,000 t CO2e (Location-based).',
-          emissionsMarket: 'Unreported (Relies on virtual offsets of Azure clouds).',
-          accountingGap: 'Fails to disclose Scope 3 value-chain concrete/silicon embodied footprints.'
-        },
-        laborNotes: 'Exposes outsourced data workers to systemic psychological trauma with inadequate on-site mental health counselors; Scale AI Kenyan shutdown locked out employees overnight.',
-        policyNotes: 'Faces critical scrutiny over dismantling safety teams; transition from research nonprofit to heavily capitalized product-focused provider.',
-        sources: [
-          { title: 'Time Magazine, "Sama Content Moderation Investigation Expose" (January 2023)', url: 'https://time.com/6138546/openai-kenya-workers-human-training-gpt-3/' },
-          { title: 'OpenAI Leadership & Superalignment Team Public Statements (Sutskever & Leike, May 2024)', url: 'https://x.com/janleike/status/1791485250486821175' },
-          { title: 'Patterson et al., "Carbon Footprint of Large Language Models" (2021)', url: 'https://arxiv.org/abs/2104.10350' },
-          { title: 'Authors Guild v. OpenAI Legal Discovery Records (SDNY, 2023-2025)', url: 'https://www.courtlistener.com/docket/67812164/authors-guild-v-openai-inc/' }
-        ]
-      },
-      {
-        id: 'google-ai',
-        name: 'Google (AI Engine)',
-        category: 'ai-engine',
-        grade: 'B-',
-        color: '#2563eb',
-        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
-        badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
-        overallPercentage: 70,
-        description: 'Develops foundational Gemini architectures. Drives advanced research in multimodal efficiency and open model safety frameworks, but training large models demands extreme energy loads.',
-        scores: {
-          environmental: 60,
-          carbon: 60,
-          data: 75,
-          labor: 65
-        },
-        highlights: {
-          pros: [
-            'Aggressive development of architectural RLAIF paths to replace manual content annotation.',
-            'Leading performance-to-footprint ratios in Gemini Flash model categories.',
-            'Actively publishes model cards detailing benchmark training parameters.'
-          ],
-          cons: [
-            'Ingests immense scrapable data pools, leading to multiple class-action data use disputes.',
-            'Baseline Gemini Ultra training routines consume massive, undisclosed carbon blocks.'
-          ]
-        },
-        metrics: {
-          energy: 'Training workloads managed natively via GCP TPUs; absolute GWh loads remains classified.',
-          water: 'Hydrological draw maps directly into underlying Google Cloud cooling structures.',
-          emissionsLocation: 'Undisclosed independently from Google Cloud overall corporate values.',
-          emissionsMarket: 'Undisclosed independently.',
-          accountingGap: 'By merging AI model research under general corporate Cloud accounting, localized training carbon surges are obscured.'
-        },
-        laborNotes: 'Maintains highly segmented global outsourcing annotation systems; moderate contract oversight with high worker target quotas.',
-        policyNotes: 'Actively participating in safety board reviews; aligns with European General-Purpose AI Code standards.',
-        sources: [
-          { title: 'Google DeepMind, "Gemini Technical Reports & Performance Analysis" (2024)', url: 'https://arxiv.org/abs/2312.11805' },
-          { title: 'JL v. Google Class Action Litigation Filings (N.D. Cal, 2023)', url: 'https://www.courtlistener.com/docket/67584168/jl-v-google-llc/' },
-          { title: 'EU general-purpose AI Code of Practice disclosures & model cards (2025)', url: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai' }
-        ]
-      },
-      {
-        id: 'microsoft-ai',
-        name: 'Microsoft (AI Engine)',
-        category: 'ai-engine',
-        grade: 'C+',
-        color: '#d97706',
-        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
-        badgeColor: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
-        overallPercentage: 66,
-        description: 'AI product development unit managing Copilot structures. Relies closely on OpenAI API integrations and Azure cloud deployments, inheriting combined downstream labor and computational footprints.',
-        scores: {
-          environmental: 55,
-          carbon: 50,
-          data: 80,
-          labor: 60
-        },
-        highlights: {
-          pros: [
-            'Highly optimized hybrid-compute architectures routing small queries to smaller local models.',
-            'Pioneering programmatic content exclusion options for web publishers.',
-            'Supports alignment standards under corporate AI advisory boards.'
-          ],
-          cons: [
-            'Total carbon overhead from training customized multi-stage Copilot pipelines remains undisclosed.',
-            'Inherits downstream OpenAI moderation pipeline risks, leveraging common BPO labor pools.'
-          ]
-        },
-        metrics: {
-          energy: 'Compute workloads integrated directly with Microsoft Azure datacenters.',
-          water: 'Indirect, reliant on Microsoft Azure physical cooling frameworks.',
-          emissionsLocation: 'Undisclosed independently from Microsoft Azure baseline values.',
-          emissionsMarket: 'Undisclosed independently.',
-          accountingGap: 'Model development carbon loads are fully abstracted within corporate Azure emissions data.'
-        },
-        laborNotes: 'Relies on standard crowdsourced data tagging pipelines (OneForma, Appen) with varying minimum compensation levels across global regions.',
-        policyNotes: 'Aggressively lobbies to override state-level compute environmental restrictions to maintain competitive global AI advantage.',
-        sources: [
-          { title: 'Microsoft Copilot Architecture & Dynamic Routing System Audits (2024)', url: 'https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE4OmgX' },
-          { title: 'Microsoft Corporation, "Responsible AI Standards & Implementation Guidelines" v2.1', url: 'https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE5coOf' },
-          { title: 'Sama & Appen Downstream Labor Compliance and Safety Audits', url: 'https://www.appen.com/esg' }
-        ]
-      },
-      {
-        id: 'amazon-bedrock',
-        name: 'Amazon Bedrock (AI Engine)',
-        category: 'ai-engine',
-        grade: 'B-',
-        color: '#2563eb',
-        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
-        badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
-        overallPercentage: 70,
-        description: 'The foundation model serving API framework of AWS. Promotes model optimization marketplace pipelines but abstracts model-specific training footprints from direct client energy calculations.',
-        scores: {
-          environmental: 65,
-          carbon: 60,
-          data: 75,
-          labor: 68
-        },
-        highlights: {
-          pros: [
-            'Marketplace layer limits direct model training data extraction liability.',
-            'Offers optimized Bedrock client tools to track general programmatic inference queries.',
-            'Strict enterprise security boundaries protect custom models from external scraping pipelines.'
-          ],
-          cons: [
-            'Inherits upstream training carbon profiles of third-party models (e.g. Anthropic, Meta).',
-            'No individual standalone Bedrock energy or water usage metrics published.'
-          ]
-        },
-        metrics: {
-          energy: 'Inference computation loads managed directly via AWS infrastructure clusters.',
-          water: 'Deletes direct cooling footprints down to the AWS cloud-hosting layer.',
-          emissionsLocation: 'Undisclosed independently from parent AWS corporate reports.',
-          emissionsMarket: 'Undisclosed independently.',
-          accountingGap: 'Bedrock abstracts large-scale foundational inference carbon metrics, shifting measurement tasks onto enterprise downstream users.',
-          sources: [
-            { title: 'Amazon Bedrock Enterprise Safety Framework & Security Briefs (2024)', url: 'https://aws.amazon.com/bedrock/security-compliance/' },
-            { title: 'AWS Shared Responsibility Model - Sustainability Pillar Documentation', url: 'https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/wellarchitected-sustainability-pillar.pdf' },
-            { title: 'European Commission General-Purpose AI Code of Practice Filings (2025)', url: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai' }
-          ]
-        },
-        laborNotes: 'Minimal direct content moderation footprint; relies on baseline compliance frameworks of participating model providers.',
-        policyNotes: 'Integrates Bedrock safety filters to comply with global General-Purpose AI guidelines; leverages massive scale to enforce enterprise security gates.',
-        sources: [
-          { title: 'Amazon Bedrock Enterprise Safety Framework & Security Briefs (2024)', url: 'https://aws.amazon.com/bedrock/security-compliance/' },
-          { title: 'AWS Shared Responsibility Model - Sustainability Pillar Documentation', url: 'https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/wellarchitected-sustainability-pillar.pdf' },
-          { title: 'European Commission General-Purpose AI Code of Practice Filings (2025)', url: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai' }
-        ]
-      },
-      {
-        id: 'meta',
-        name: 'Meta',
-        category: 'ai-engine',
-        grade: 'C-',
-        color: '#ea580c',
-        gradeColor: 'text-orange-755 dark:text-orange-500 font-mono',
-        badgeColor: 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-500/10 dark:text-orange-400 dark:border-orange-500/20',
-        overallPercentage: 55,
-        description: 'Promotes virtual "100% renewable" operations through aggressive unbundled carbon offset purchases, while physical local grids handle extreme loads. Facing intense legal battles over union-busting and labor exploitation.',
-        scores: {
-          environmental: 74,
-          carbon: 20,
-          data: 68,
-          labor: 38
-        },
-        highlights: {
-          pros: [
-            'Backed 29 GW of regional wind/solar projects; piloting HVO biofuel and geothermal in New Mexico.',
-            'Won historical June 2025 copyright dismissal against Sarah Silverman/Ta-Nehisi Coates due to lack of market dilution evidence.'
-          ],
-          cons: [
-            'Staggering 19,000x gap in carbon accounting (2022): reported 273 tons of Scope 2 market emissions vs. 3.8M tons actual location-based emissions.',
-            'Location-based Scope 2 emissions doubled between 2020 and 2023 baseline, hitting 5.1M tons.',
-            'Abruptly terminated Sama content moderation contracts in Kenya during unionization efforts, triggering active court battles.'
-          ]
-        },
-        metrics: {
-          energy: 'Rapidly scaling LLaMA model training compute infrastructure.',
-          water: 'Projected annual draft expanding exponentially inline with custom GPU clusters.',
-          emissionsLocation: '5,141,350 t CO2e (Location-based, Scope 2, FY2023)',
-          emissionsMarket: '1,358 t CO2e (Market-based, Scope 2, FY2023)',
-          accountingGap: 'Meta reports a virtual "Net-Zero" profile using unbundled RECs while data centers draw heavy fossil loads.'
-        },
-        laborNotes: 'Defendants in Kenyan high court class action regarding toxic exposure to content moderators labeling graphic extreme violence/abuse, paid under $2.00/hour.',
-        policyNotes: 'Advocates open-source model releases (LLaMA) to shift compliance burden to downstream developers while protecting central cloud compute.',
-        sources: [
-          { title: 'Meta Platforms Inc., "Sustainability & ESG Reports" (2022-2024)', url: 'https://sustainability.fb.com/report/' },
-          { title: 'Sama Kenyan High Court content moderator litigation filings (2023-2025)', url: 'https://www.theguardian.com/technology/2023/may/01/meta-sama-kenya-court-case-content-moderators' },
-          { title: 'Authors Guild v. Meta Copyright Litigation discovery (N.D. Cal, 2024)', url: 'https://www.courtlistener.com/docket/67554902/kadrey-v-meta-platforms-inc/' },
-          { title: 'Meta AI, "LLaMA 3 Release Model Cards & Technical Disclosures" (2024)', url: 'https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md' }
-        ]
-      },
-      {
-        id: 'google',
-        name: 'Google Cloud',
+        id: 'google-gcp',
+        name: 'Google Cloud (Hosting)',
         category: 'cloud-hosting',
         grade: 'B-',
         color: '#2563eb',
         gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
         badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
-        overallPercentage: 78,
+        overallPercentage: 74,
         description: 'Industry-leading hardware efficiency improvements and ambitious hourly matching carbon goals, offset by escalating actual location-based emissions outstripping clean power grid rollouts.',
         scores: {
           environmental: 84,
@@ -938,90 +676,45 @@
         ]
       },
       {
-        id: 'microsoft',
-        name: 'Microsoft Azure',
-        category: 'cloud-hosting',
-        grade: 'C+',
-        color: '#d97706',
-        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
-        badgeColor: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
-        overallPercentage: 68,
-        description: 'Encompasses massive infrastructure commitments. Driving substantial nuclear and geothermal clean-energy agreements but hampered by expanding location-based operational grid emissions and support of decoupled accounting.',
+        id: 'aws-amplify',
+        name: 'AWS Amplify / Lambda',
+        category: 'deploy-layer',
+        grade: 'B',
+        color: '#10b981',
+        gradeColor: 'text-emerald-700 dark:text-emerald-500 font-mono',
+        badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
+        overallPercentage: 72.3,
+        description: 'The serverless hosting and execution layer of AWS. Highly optimized for modular, on-demand micro-billing code execution, reducing baseline idle CPU draw but inheriting global location-based grid intensities.',
         scores: {
-          environmental: 72,
-          carbon: 52,
-          data: 85,
-          labor: 63
+          environmental: 65,
+          carbon: 58,
+          data: 88,
+          labor: 78
         },
         highlights: {
           pros: [
-            'Signed 10.5 GW massive renewable pact with Brookfield and nuclear CFE deals with Crane Clean Energy Center.',
-            'Pioneering mass timber data center structures cutting carbon footprint by 65%.',
-            'Contracted 34 GW of clean carbon-free energy globally.'
+            'Modular serverless structure and "scale-to-zero" logic minimizes wasted computation cycles.',
+            'Provides direct developer dashboards monitoring cloud energy resource efficiency.',
+            'Strong programmatic bot routing and DDoS shielding features.'
           ],
           cons: [
-            'Actual location-based grid emissions surged 130% between 2020 and 2024 (climbing to 10M metric tons).',
-            'Considering scale-down/ abandonment of its core pledge to match 100% hourly local CFE by 2030.',
-            'Direct cloud host to OpenAI, carrying downstream responsibility for massive GPT-4/5 physical energy loads.'
+            'Highly dispersed serverless execution makes direct Location-Based grid carbon tracking complex.',
+            'Abstracts physical infrastructure layers from developer calculation, reducing direct footprint visibility.'
           ]
         },
         metrics: {
-          energy: '29.8 Million MWh (FY 2024)',
-          water: 'Data centers represent major segment of 17B gal US baseline draw border',
-          emissionsLocation: '9,955,368 t CO2e (Location-based, Scope 2)',
-          emissionsMarket: '259,090 t CO2e (Market-based, Scope 2)',
-          accountingGap: 'Microsoft true carbon footprint is approx. 25.2 million tons of CO2e when replacing market-based metrics with location-based grid intensity.'
+          energy: 'Dispersed across hundreds of global PoPs; absolute energy usage integrated within parent AWS reports.',
+          water: 'Indirect, inherits the physical cooling draft profiles of the regional hosting grids.',
+          emissionsLocation: 'N/A - Abstracts environmental parameters into serverless routing metrics.',
+          emissionsMarket: 'Passively benefits from AWS corporate offset programs.',
+          accountingGap: 'Serverless deployment obscures localized execution spikes, complicating corporate Scope 3 value-chain audits.'
         },
-        laborNotes: 'Outsources data annotation pipelines to third-party firms. Tied into the global labor framework supporting major models, sharing downstream BPO dependencies.',
-        policyNotes: 'Aggressively supports US Federal preemption through lobby groups to maintain high-speed compute dominance over state-level environmental/municipal restrictions.',
+        laborNotes: 'Built and managed by high-level engineering teams; negligible downstream content moderation BPO exposure.',
+        policyNotes: 'Standard corporate compliance; drives efficiency-centered open-source routing protocols.',
         sources: [
-          { title: 'Microsoft Corporation, "Environmental Sustainability Reports" (2020-2024)', url: 'https://www.microsoft.com/en-us/corporate-responsibility/sustainability/report' },
-          { title: 'Crane Clean Energy Center (Three Mile Island) Microsoft PPA (Sept 2024)', url: 'https://news.microsoft.com/2024/09/20/constellation-and-microsoft-sign-sole-power-purchase-agreement-for-three-mile-island/' },
-          { title: 'Brookfield Renewable Power 10.5 GW Procurement Pact', url: 'https://news.microsoft.com/2024/05/01/brookfield-and-microsoft-sign-landmark-renewable-energy-agreement/' },
-          { title: 'Microsoft Mass Timber Datacenter Structural Design Briefs', url: 'https://source.microsoft.com/features/mass-timber-datacenters/' }
-        ]
-      },
-      {
-        id: 'aws-hosting',
-        name: 'AWS (Cloud Hosting)',
-        category: 'cloud-hosting',
-        grade: 'C+',
-        color: '#ea580c',
-        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
-        badgeColor: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
-        overallPercentage: 66,
-        description: 'The world\'s largest cloud hosting provider. Contracting massive GW-scale renewable energy portfolios and signing pioneering nuclear power deals, but heavily challenged by extreme physical grid strains in Northern Virginia.',
-        scores: {
-          environmental: 70,
-          carbon: 48,
-          data: 82,
-          labor: 64
-        },
-        highlights: {
-          pros: [
-            'Contracted over 20+ GW of clean renewable grid capacity globally.',
-            'Signed historical 960 MW co-located nuclear power purchase deal at Talen Energy\'s Susquehanna facility.',
-            'Pioneering water-replenishment programs returning millions of gallons to local watersheds.'
-          ],
-          cons: [
-            'Location-based grid emissions remain highly carbon-intensive in key regions (like US-East-1 in Virginia, which relies heavily on coal/gas).',
-            'Relies heavily on unbundled market-based offsets to report virtual net-zero profiles.',
-            'Underlying physical host to Anthropic, Vercel, and Webflow, carrying massive systemic Scope 3 responsibilities.'
-          ]
-        },
-        metrics: {
-          energy: 'Estimated >38.5 Million MWh across global datacenter networks.',
-          water: 'Direct driver of critical evaporative datacenter cooling draw in water-stressed counties.',
-          emissionsLocation: 'Extensive Scope 2 location footprint, heavily dominated by US fossil grids.',
-          emissionsMarket: 'Minimizes reported values using Virtual PPAs and offset packages.',
-          accountingGap: 'AWS true carbon footprint is over 15 million tons of CO2e when replacing market offsets with location-based grid intensity.'
-        },
-        laborNotes: 'Highly optimized, automated datacenter facility operations. Limits direct annotation labor except for internal Bedrock model services.',
-        policyNotes: 'Lobbies extensively to secure grid allocations and municipal water concessions in dense computation alleys.',
-        sources: [
-          { title: 'Amazon.com Inc., "Environmental Sustainability Disclosures" (2020-2024)', url: 'https://sustainability.aboutamazon.com/' },
-          { title: 'Talen Energy Susquehanna Nuclear Datacenter Acquisition Records (March 2024)', url: 'https://www.talenenergy.com/news/talen-energy-sells-cummulus-data-center/' },
-          { title: 'Virginia Department of Environmental Quality (DEQ) Datacenter Hydrological Permits', url: 'https://www.deq.virginia.gov/permits-regulations/permits/water-withdrawal' }
+          { title: 'Amazon Web Services, "AWS Lambda Serverless Scaling & Resource Optimization briefs" (2024)', url: 'https://aws.amazon.com/lambda/' },
+          { title: 'AWS Shared Responsibility Model for Environmental & Operational Efficiency', url: 'https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/wellarchitected-sustainability-pillar.pdf' },
+          { title: 'Greenhouse Gas Protocol Corporate Value Chain (Scope 3) Accounting Guidelines', url: 'https://ghgprotocol.org/corporate-value-chain-scope-3-standard' }
         ]
       },
       {
@@ -1069,11 +762,11 @@
         id: 'vercel',
         name: 'Vercel',
         category: 'deploy-layer',
-        grade: 'B',
+        grade: 'B-',
         color: '#111827',
-        gradeColor: 'text-emerald-700 dark:text-emerald-500 font-mono',
-        badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
-        overallPercentage: 75,
+        gradeColor: 'text-emerald-755 dark:text-emerald-400 font-mono',
+        badgeColor: 'bg-emerald-100 text-emerald-855 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
+        overallPercentage: 69.5,
         description: 'Front-end deployment platform abstracting serverless infrastructure. Promotes high efficiency via edge functions, but inherits the raw carbon footprint of underlying AWS hosting networks.',
         scores: {
           environmental: 60,
@@ -1108,48 +801,6 @@
         ]
       },
       {
-        id: 'aws-amplify',
-        name: 'AWS Amplify / Lambda',
-        category: 'deploy-layer',
-        grade: 'B',
-        color: '#10b981',
-        gradeColor: 'text-emerald-700 dark:text-emerald-500 font-mono',
-        badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
-        overallPercentage: 76,
-        description: 'The serverless hosting and execution layer of AWS. Highly optimized for modular, on-demand micro-billing code execution, reducing baseline idle CPU draw but inheriting global location-based grid intensities.',
-        scores: {
-          environmental: 65,
-          carbon: 58,
-          data: 88,
-          labor: 78
-        },
-        highlights: {
-          pros: [
-            'Modular serverless structure and "scale-to-zero" logic minimizes wasted computation cycles.',
-            'Provides direct developer dashboards monitoring cloud energy resource efficiency.',
-            'Strong programmatic bot routing and DDoS shielding features.'
-          ],
-          cons: [
-            'Highly dispersed serverless execution makes direct Location-Based grid carbon tracking complex.',
-            'Abstracts physical infrastructure layers from developer calculation, reducing direct footprint visibility.'
-          ]
-        },
-        metrics: {
-          energy: 'Dispersed across hundreds of global PoPs; absolute energy usage integrated within parent AWS reports.',
-          water: 'Indirect, inherits the physical cooling draft profiles of the regional hosting grids.',
-          emissionsLocation: 'N/A - Abstracts environmental parameters into serverless routing metrics.',
-          emissionsMarket: 'Passively benefits from AWS corporate offset programs.',
-          accountingGap: 'Serverless deployment obscures localized execution spikes, complicating corporate Scope 3 value-chain audits.'
-        },
-        laborNotes: 'Built and managed by high-level engineering teams; negligible downstream content moderation BPO exposure.',
-        policyNotes: 'Standard corporate compliance; drives efficiency-centered open-source routing protocols.',
-        sources: [
-          { title: 'Amazon Web Services, "AWS Lambda Serverless Scaling & Resource Optimization briefs" (2024)', url: 'https://aws.amazon.com/lambda/' },
-          { title: 'AWS Shared Responsibility Model for Environmental & Operational Efficiency', url: 'https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/wellarchitected-sustainability-pillar.pdf' },
-          { title: 'Greenhouse Gas Protocol Corporate Value Chain (Scope 3) Accounting Guidelines', url: 'https://ghgprotocol.org/corporate-value-chain-scope-3-standard' }
-        ]
-      },
-      {
         id: 'webflow',
         name: 'Webflow',
         category: 'deploy-layer',
@@ -1157,7 +808,7 @@
         color: '#4f46e5',
         gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
         badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
-        overallPercentage: 72,
+        overallPercentage: 68.3,
         description: 'Web design and hosting platform. Abstracts layout generation, running entirely on AWS. Maintains strict security and crawler compliance, but delegates carbon-free matching upstream.',
         scores: {
           environmental: 55,
@@ -1190,8 +841,358 @@
           { title: 'AWS Scope 3 downstream hosting carbon data mappings', url: 'https://sustainability.aboutamazon.com/environment/value-chain' },
           { title: 'W3C Web Sustainability Guidelines (WSG) draft frameworks (2025)', url: 'https://www.w3.org/community/sustyweb/' }
         ]
+      },
+      {
+        id: 'microsoft',
+        name: 'Microsoft Azure (Hosting)',
+        category: 'cloud-hosting',
+        grade: 'C+',
+        color: '#d97706',
+        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
+        badgeColor: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
+        overallPercentage: 68,
+        description: 'Encompasses massive infrastructure commitments. Driving substantial nuclear and geothermal clean-energy agreements but hampered by expanding location-based operational grid emissions and support of decoupled accounting.',
+        scores: {
+          environmental: 72,
+          carbon: 52,
+          data: 85,
+          labor: 63
+        },
+        highlights: {
+          pros: [
+            'Signed 10.5 GW massive renewable pact with Brookfield and nuclear CFE deals with Crane Clean Energy Center.',
+            'pioneering mass timber data center structures cutting carbon footprint by 65%.',
+            'Contracted 34 GW of clean carbon-free energy globally.'
+          ],
+          cons: [
+            'Actual location-based grid emissions surged 130% between 2020 and 2024 (climbing to 10M metric tons).',
+            'Considering scale-down/ abandonment of its core pledge to match 100% hourly local CFE by 2030.',
+            'Direct cloud host to OpenAI, carrying downstream responsibility for massive GPT-4/5 physical energy loads.'
+          ]
+        },
+        metrics: {
+          energy: '29.8 Million MWh (FY 2024)',
+          water: 'Data centers represent major segment of 17B gal US baseline draw',
+          emissionsLocation: '9,955,368 t CO2e (Location-based, Scope 2)',
+          emissionsMarket: '259,090 t CO2e (Market-based, Scope 2)',
+          accountingGap: 'Microsoft true carbon footprint is approx. 25.2 million tons of CO2e when replacing market-based metrics with location-based grid intensity.'
+        },
+        laborNotes: 'Outsources data annotation pipelines to third-party firms. Tied into the global labor framework supporting major models, sharing downstream BPO dependencies.',
+        policyNotes: 'Aggressively supports US Federal preemption through lobby groups to maintain high-speed compute dominance over state-level environmental/municipal restrictions.',
+        sources: [
+          { title: 'Microsoft Corporation, "Environmental Sustainability Reports" (2020-2024)', url: 'https://www.microsoft.com/en-us/corporate-responsibility/sustainability/report' },
+          { title: 'Crane Clean Energy Center (Three Mile Island) Microsoft PPA (Sept 2024)', url: 'https://news.microsoft.com/2024/09/20/constellation-and-microsoft-sign-sole-power-purchase-agreement-for-three-mile-island/' },
+          { title: 'Brookfield Renewable Power 10.5 GW Procurement Pact', url: 'https://news.microsoft.com/2024/05/01/brookfield-and-microsoft-sign-landmark-renewable-energy-agreement/' },
+          { title: 'Microsoft Mass Timber Datacenter Structural Design Briefs', url: 'https://source.microsoft.com/features/mass-timber-datacenters/' }
+        ]
+      },
+      {
+        id: 'aws-hosting',
+        name: 'AWS (Cloud Hosting)',
+        category: 'cloud-hosting',
+        grade: 'C+',
+        color: '#ea580c',
+        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
+        badgeColor: 'bg-amber-100 text-amber-855 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
+        overallPercentage: 66,
+        description: 'The world\'s largest cloud hosting provider. Contracting massive GW-scale renewable energy portfolios and signing pioneering nuclear power deals, but heavily challenged by extreme physical grid strains in Northern Virginia.',
+        scores: {
+          environmental: 70,
+          carbon: 48,
+          data: 82,
+          labor: 64
+        },
+        highlights: {
+          pros: [
+            'Contracted over 20+ GW of clean renewable grid capacity globally.',
+            'Signed historical 960 MW co-located nuclear power purchase deal at Talen Energy\'s Susquehanna facility.',
+            'Pioneering water-replenishment programs returning millions of gallons to local watersheds.'
+          ],
+          cons: [
+            'Location-based grid emissions remain highly carbon-intensive in key regions (like US-East-1 in Virginia, which relies heavily on coal/gas).',
+            'Relies heavily on unbundled market-based offsets to report virtual net-zero profiles.',
+            'Underlying physical host to Anthropic, Vercel, and Webflow, carrying massive systemic Scope 3 responsibilities.'
+          ]
+        },
+        metrics: {
+          energy: 'Estimated >38.5 Million MWh across global datacenter networks.',
+          water: 'Direct driver of critical evaporative datacenter cooling draw in water-stressed counties.',
+          emissionsLocation: 'Extensive Scope 2 location footprint, heavily dominated by US fossil grids.',
+          emissionsMarket: 'Minimizes reported values using Virtual PPAs and offset packages.',
+          accountingGap: 'AWS true carbon footprint is over 15 million tons of CO2e when replacing market offsets with location-based grid intensity.'
+        },
+        laborNotes: 'Highly optimized, automated datacenter facility operations. Limits direct annotation labor except for internal Bedrock model services.',
+        policyNotes: 'Lobbies extensively to secure grid allocations and municipal water concessions in dense computation alleys.',
+        sources: [
+          { title: 'Amazon.com Inc., "Environmental Sustainability Disclosures" (2020-2024)', url: 'https://sustainability.aboutamazon.com/' },
+          { title: 'Talen Energy Susquehanna Nuclear Datacenter Acquisition Records (March 2024)', url: 'https://www.talenenergy.com/news/talen-energy-sells-cummulus-data-center/' },
+          { title: 'Virginia Department of Environmental Quality (DEQ) Datacenter Hydrological Permits', url: 'https://www.deq.virginia.gov/permits-regulations/permits/water-withdrawal' }
+        ]
+      },
+      {
+        id: 'google-ai',
+        name: 'Google (AI Engine)',
+        category: 'ai-engine',
+        grade: 'B-',
+        color: '#2563eb',
+        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
+        badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
+        overallPercentage: 65,
+        description: 'Develops foundational Gemini architectures. Drives advanced research in multimodal efficiency and open model safety frameworks, but training large models demands extreme energy loads.',
+        scores: {
+          environmental: 60,
+          carbon: 60,
+          data: 75,
+          labor: 65
+        },
+        highlights: {
+          pros: [
+            'Aggressive development of architectural RLAIF paths to replace manual content annotation.',
+            'Leading performance-to-footprint ratios in Gemini Flash model categories.',
+            'Actively publishes model cards detailing benchmark training parameters.'
+          ],
+          cons: [
+            'Ingests immense scrapable data pools, leading to multiple class-action data use disputes.',
+            'Baseline Gemini Ultra training routines consume massive, undisclosed carbon blocks.'
+          ]
+        },
+        metrics: {
+          energy: 'Training workloads managed natively via GCP TPUs; absolute GWh loads remains classified.',
+          water: 'Hydrological draw maps directly into underlying Google Cloud cooling structures.',
+          emissionsLocation: 'Undisclosed independently from Google Cloud overall corporate values.',
+          emissionsMarket: 'Undisclosed independently.',
+          accountingGap: 'By merging AI model research under general corporate Cloud accounting, localized training carbon surges are obscured.'
+        },
+        laborNotes: 'Maintains highly segmented global outsourcing annotation systems; moderate contract oversight with high worker target quotas.',
+        policyNotes: 'Signs standard model compliance forms under the EU General-Purpose AI Code of Practice. Actively managing model safety portfolios.',
+        sources: [
+          { title: 'Google DeepMind, "Gemini Technical Reports & Performance Analysis" (2024)', url: 'https://arxiv.org/abs/2312.11805' },
+          { title: 'JL v. Google Class Action Litigation Filings (N.D. Cal, 2023)', url: 'https://www.courtlistener.com/docket/67584168/jl-v-google-llc/' },
+          { title: 'EU general-purpose AI Code of Practice disclosures & model cards (2025)', url: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai' }
+        ]
+      },
+      {
+        id: 'microsoft-ai',
+        name: 'Microsoft (AI Engine)',
+        category: 'ai-engine',
+        grade: 'C+',
+        color: '#d97706',
+        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
+        badgeColor: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
+        overallPercentage: 61.25,
+        description: 'AI product development unit managing Copilot structures. Relies closely on OpenAI API integrations and Azure cloud deployments, inheriting combined downstream labor and computational footprints.',
+        scores: {
+          environmental: 55,
+          carbon: 50,
+          data: 80,
+          labor: 60
+        },
+        highlights: {
+          pros: [
+            'Highly optimized hybrid-compute architectures routing small queries to smaller local models.',
+            'Pioneering programmatic content exclusion options for web publishers.',
+            'Supports alignment standards under corporate AI advisory boards.'
+          ],
+          cons: [
+            'Total carbon overhead from training customized multi-stage Copilot pipelines remains undisclosed.',
+            'Inherits downstream OpenAI moderation pipeline risks, leveraging common BPO labor pools.'
+          ]
+        },
+        metrics: {
+          energy: 'Compute workloads integrated directly with Microsoft Azure datacenters.',
+          water: 'Indirect, reliant on Microsoft Azure physical cooling frameworks.',
+          emissionsLocation: 'Undisclosed independently from Microsoft Azure baseline values.',
+          emissionsMarket: 'Undisclosed independently.',
+          accountingGap: 'Model development carbon loads are fully abstracted within corporate Azure emissions data.'
+        },
+        laborNotes: 'Relies on standard crowdsourced data tagging pipelines (OneForma, Appen) with varying minimum compensation levels across global regions.',
+        policyNotes: 'Aggressively lobbies to override state-level compute environmental restrictions to maintain competitive global AI advantage.',
+        sources: [
+          { title: 'Microsoft Copilot Architecture & Dynamic Routing System Audits (2024)', url: 'https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE4OmgX' },
+          { title: 'Microsoft Corporation, "Responsible AI Standards & Implementation Guidelines" v2.1', url: 'https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE5coOf' },
+          { title: 'Sama & Appen Downstream Labor Compliance and Safety Audits', url: 'https://www.appen.com/esg' }
+        ]
+      },
+      {
+        id: 'anthropic',
+        name: 'Anthropic',
+        category: 'ai-engine',
+        grade: 'C+',
+        color: '#059669',
+        gradeColor: 'text-emerald-755 dark:text-emerald-500 font-mono',
+        badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
+        overallPercentage: 61.5,
+        description: 'Industry standard-bearer for AI safety alignment and structural constitution guidelines, but significantly penalized for data-sourcing book piracy settlements and complete lack of Scope emissions data. Relies deeply on AWS.',
+        scores: {
+          environmental: 58,
+          carbon: 60,
+          data: 60, // Reflected 60 due to Bartz $1.5 billion piracy settlement (Item 9)
+          labor: 68
+        },
+        highlights: {
+          pros: [
+            'Developed highly structured AI Constitution (57-page, CC0 license) managing explicit safety guidelines.',
+            'Constitutional AI (RLAIF) reduces alignment dependency on manual human extreme labeling.',
+            'Utilizes AWS Sustainability Console directly to monitor computing footprint of active workloads.'
+          ],
+          cons: [
+            'Single model training estimated to require 5 GW of local grid capacity by 2027.',
+            'Bartz et5 al. v. Anthropic: Paid a historic $1.5B settlement over piracy-library (PiLiMi/LibGen) ingestion.',
+            'Lacks independent, stand-alone public corporate carbon/water disclosures.'
+          ]
+        },
+        metrics: {
+          energy: 'Compute load managed via cloud hosts (AWS/Google); estimated training scale requirements.',
+          water: 'Relies on physical infrastructure footprint of AWS/Google Cloud partners.',
+          emissionsLocation: 'Not independently disclosed.',
+          emissionsMarket: 'Not independently disclosed.',
+          accountingGap: 'Does not publish comprehensive Scope 1, 2, or 3 metrics outside AWS dashboard console.'
+        },
+        laborNotes: 'Limits some BPO exposure through automated self-critique (RLAIF), but remains structurally dependent on standard underlying visual and metadata annotators.',
+        policyNotes: 'Aligned closely with the EU General-Purpose AI Code of Practice. Attractive to highly regulated sectors due to predictable compliance boundaries.',
+        sources: [
+          { title: 'Anthropic, "Constitutional AI: Harmlessness from AI Feedback" (Bai et al., 2022)', url: 'https://arxiv.org/abs/2212.08073' },
+          { title: 'AWS Sustainability Console Integration Statement (2024)', url: 'https://aws.amazon.com/blogs/aws/aws-customer-carbon-footprint-tool/' },
+          { title: 'Bartz et al. v. Anthropic PBC, Case No. 3:24-cv-05417 (N.D. Cal.) $1.5 Billion settlement', url: 'https://www.courtlistener.com/docket/69055417/bartz-v-anthropic-pbc/' },
+          { title: 'European Artificial Intelligence Act, General-Purpose AI (GPAI) Registry Filings (2025)', url: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai' }
+        ]
+      },
+      {
+        id: 'meta',
+        name: 'Meta',
+        category: 'ai-engine',
+        grade: 'C-',
+        color: '#ea580c',
+        gradeColor: 'text-orange-755 dark:text-orange-500 font-mono',
+        badgeColor: 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-500/10 dark:text-orange-400 dark:border-orange-500/20',
+        overallPercentage: 50,
+        description: 'Promotes virtual "100% renewable" operations through aggressive unbundled carbon offset purchases, while physical local grids handle extreme loads. Facing intense legal battles over union-busting and labor exploitation.',
+        scores: {
+          environmental: 74,
+          carbon: 20,
+          data: 68,
+          labor: 38
+        },
+        highlights: {
+          pros: [
+            'Backed 29 GW of regional wind/solar projects; piloting HVO biofuel and geothermal in New Mexico.',
+            'Kadrey v. Meta Platforms: Summary judgment for Meta on specific market-dilution arguments.'
+          ],
+          cons: [
+            'Staggering 19,000x gap in carbon accounting (2022): reported 273 tons of Scope 2 market emissions vs. 3.8M tons actual location-based emissions.',
+            'Location-based Scope 2 emissions doubled between 2020 and 2023 baseline, hitting 5.1M tons.',
+            'Abruptly terminated Sama content moderation contracts in Kenya during unionization efforts, triggering active court battles.'
+          ]
+        },
+        metrics: {
+          energy: 'Rapidly scaling LLaMA model training compute infrastructure.',
+          water: 'Projected annual draft expanding exponentially inline with custom GPU clusters.',
+          emissionsLocation: '5,141,350 t CO2e (Location-based, Scope 2, FY2023)',
+          emissionsMarket: '1,358 t CO2e (Market-based, Scope 2, FY2023)',
+          accountingGap: 'Meta reports a virtual "Net-Zero" profile using unbundled RECs while data centers draw heavy fossil loads.'
+        },
+        laborNotes: 'Defendants in Kenyan high court class action regarding toxic exposure to content moderators labeling graphic extreme violence/abuse, paid under $2.00/hour.',
+        policyNotes: 'Advocates open-source model releases (LLaMA) to shift compliance burden to downstream developers while protecting central cloud compute.',
+        sources: [
+          { title: 'Meta Platforms Inc., "Sustainability & ESG Reports" (2022-2024)', url: 'https://sustainability.fb.com/report/' },
+          { title: 'Sama Kenyan High Court content moderator litigation filings (2023-2025)', url: 'https://www.theguardian.com/technology/2023/may/01/meta-sama-kenya-court-case-content-moderators' },
+          { title: 'Kadrey v. Meta Platforms Inc. (N.D. Cal., No. 3:23-cv-03417) summary judgment rulings', url: 'https://www.courtlistener.com/docket/67554902/kadrey-v-meta-platforms-inc/' },
+          { title: 'Meta AI, "LLaMA 3 Release Model Cards & Technical Disclosures" (2024)', url: 'https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md' }
+        ]
+      },
+      {
+        id: 'openai',
+        name: 'OpenAI',
+        category: 'ai-engine',
+        grade: 'D+',
+        color: '#ea580c',
+        gradeColor: 'text-orange-800 dark:text-orange-500 font-mono',
+        badgeColor: 'bg-orange-100 text-orange-855 border-orange-200 dark:bg-orange-600/10 dark:text-orange-400 dark:border-orange-600/20',
+        overallPercentage: 35.8,
+        description: 'Exhibits complete opacity regarding environmental and carbon reporting. Prioritizes product deployment over internal alignment structures, balanced slightly by compliant web-scraping behavior.',
+        scores: {
+          environmental: 35,
+          carbon: 10,
+          data: 70, // Disclosed sub-weighted index rating reflecting active NYT litigation (Item 9)
+          labor: 28
+        },
+        highlights: {
+          pros: [
+            'Adheres strictly to standard robots.txt exclusion guidelines.',
+            'Signs bot queries via Web Bot Auth to allow transparent server-level crawling audits.',
+            'Supports compliance targets through hosted host (Microsoft Azure).'
+          ],
+          cons: [
+            'Completely fails to publish public sustainability reviews or carbon disclosures.',
+            'Superalignment and Mission Alignment teams entirely dissolved (resignation of co-leads Sutskever and Jan Leike over safety concerns).',
+            'Contracted Kenyan labelers via Sama at rates under $2.00/hour to parse extreme graphic violence, child abuse, and trauma.'
+          ]
+        },
+        metrics: {
+          energy: 'GPT-3: 1.287 GWh | GPT-4: 52-62 GWh | GPT-5 projected: 80-100 GWh (80-90% spent on running inference).',
+          water: 'Vast, undisclosed global hydrological footprint proportional to billion-query inference loads.',
+          emissionsLocation: 'GPT-4 training emitted ~15,000 t CO2e (Location-based).',
+          emissionsMarket: 'Unreported (Relies on virtual offsets of Azure clouds).',
+          accountingGap: 'Fails to disclose Scope 3 value-chain concrete/silicon footprints.'
+        },
+        laborNotes: 'Exposes outsourced data workers to systemic psychological trauma with inadequate on-site mental health counselors; Scale AI Kenyan shutdown locked out employees overnight.',
+        policyNotes: 'Faces critical scrutiny over dismantling safety teams; transition from research nonprofit to heavily capitalized product-focused provider.',
+        sources: [
+          { title: 'TIME Magazine, "Sama Content Moderation Investigation Expose" (January 2023)', url: 'https://time.com/6138546/openai-kenya-workers-human-training-gpt-3/' },
+          { title: 'OpenAI Leadership & Superalignment Team Public Statements (Sutskever & Leike, May 2024)', url: 'https://x.com/janleike/status/1791485250486821175' },
+          { title: 'Patterson et al., "Carbon Emissions and Large Neural Network Training" (2021)', url: 'https://arxiv.org/abs/2104.10350' },
+          { title: 'Authors Guild v. OpenAI Legal Discovery Records (SDNY, 2023-2025)', url: 'https://www.courtlistener.com/docket/67812164/authors-guild-v-openai-inc/' }
+        ]
+      },
+      {
+        id: 'perplexity',
+        name: 'Perplexity AI',
+        category: 'pureplay',
+        grade: 'F',
+        color: '#dc2626',
+        gradeColor: 'text-red-700 dark:text-red-500 font-mono',
+        badgeColor: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20',
+        overallPercentage: 22.5,
+        description: 'Systematically bypasses standard web ethics. Actively evades regional bot blocking, rotates IP networks to spoof browsers, and ignores robots.txt parameters while providing zero transparent ecological accounting.',
+        scores: {
+          environmental: 30,
+          carbon: 10,
+          data: 10,
+          labor: 40
+        },
+        highlights: {
+          pros: [
+            'High model-distillation and multi-host options for end-user choices.'
+          ],
+          cons: [
+            'Caught employing stealth crawler bots to intentionally bypass robots.txt restriction protocols.',
+            'Spoofs user-agents (impersonates macOS Safari/Chrome browsers) to circumvent Web Application Firewalls.',
+            'Rotates IP ranges and ASNs dynamically to strip website operator blocking mechanisms.',
+            'Leadership publicly dismissed Robots Exclusion Protocol as "not a legal framework."'
+          ]
+        },
+        metrics: {
+          energy: 'Unrated. Demands extensive recursive search workloads, scaling regional data server burdens.',
+          water: 'Undisclosed.',
+          emissionsLocation: 'Undisclosed.',
+          emissionsMarket: 'Undisclosed.',
+          accountingGap: 'Provides zero ecological transparency, carbon audits, or energy usage metrics.'
+        },
+        laborNotes: 'Relies on underlying base models (such as GPT/LLaMA), shifting the burden of original human labeler trauma onto primary host providers while harvesting outputs.',
+        policyNotes: 'Lobbies for bilateral commercial licensing to replace community-driven protocols, bypassing open-web governance paradigms.',
+        sources: [
+          { title: 'Cloudflare Technical Audits & Web Bot Authentication Registry (2024)', url: 'https://blog.cloudflare.com/declaring-and-blocking-ai-crawlers/' },
+          { title: 'Wired Magazine, "Perplexity AI Crawling Evasion Investigations" (June 2024)', url: 'https://www.wired.com/story/perplexity-is-scraping-web-behind-robots-txt/' }
+        ]
       }
     ];
+
+    // Sort providers initially by overall composite ESG score descending
+    providers.sort((a, b) => {
+      const scoreA = (a.scores.environmental + a.scores.carbon + a.scores.data + a.scores.labor) / 4;
+      const scoreB = (b.scores.environmental + b.scores.carbon + b.scores.data + b.scores.labor) / 4;
+      return scoreB - scoreA;
+    });
 
     const chartInstances = {};
 
@@ -1362,22 +1363,22 @@
       const devCalls = baselineInferenceCalls;
       const totalCalls = devCalls + querySessionCount;
 
-      const totalWhLoad = baselineWhLoad + (querySessionCount * 2.9);
+      const totalWhLoad = baselineWhLoad + (querySessionCount * 0.3); // Evaluated turn at 0.3 Wh
       const metrics = regionMetrics[currentRegion];
       
       let waterPrimary;
       const waterValue = totalWhLoad * metrics.waterPerWh;
       if (metrics.waterUnit === 'L') {
-        waterPrimary = `${waterValue.toFixed(2)} L`;
+        waterPrimary = `${waterValue.toFixed(5)} L`;
       } else {
-        waterPrimary = `${waterValue.toFixed(3)} gal`;
+        waterPrimary = `${waterValue.toFixed(5)} gal`;
       }
 
       const carbonGrams = (totalWhLoad / 1000) * metrics.carbonIntensity;
 
       document.getElementById('session-queries').innerText = `${totalCalls} ${totalCalls === 1 ? 'Call' : 'Calls'}`;
       document.getElementById('session-water').innerText = waterPrimary;
-      document.getElementById('session-carbon').innerText = `${carbonGrams.toFixed(1)} g CO₂`;
+      document.getElementById('session-carbon').innerText = `${carbonGrams.toFixed(3)} g CO₂`;
     }
 
     function renderGrid() {
@@ -1588,18 +1589,18 @@
                 ⚠️ Major Structural Deficits
               </h5>
               <ul class="space-y-2 text-xs text-slate-800 dark:text-slate-300 list-disc list-inside font-sans">
-                ${p.highlights.cons.map(con => `<li>${con}</li>`).join('')}
+                ${p.highlights.cons.map(con => `<li>con}</li>`).join('')}
               </ul>
             </div>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
-            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1.5 font-display">Downstream Content Moderation & Human Labor</h4>
+            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1.5">Downstream Content Moderation & Human Labor</h4>
             <p class="text-xs text-slate-800 dark:text-slate-300 leading-relaxed">${p.laborNotes}</p>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
-            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1.5 font-display">Alignment Governance & Policy Stance</h4>
+            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1.5">Alignment Governance & Policy Stance</h4>
             <p class="text-xs text-slate-800 dark:text-slate-300 leading-relaxed">${p.policyNotes}</p>
           </div>
 
@@ -1619,7 +1620,7 @@
         </div>
         
         <div class="px-6 py-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex justify-end">
-          <button onclick="closeModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 hover:dark:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-lg text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-sm font-display">
+          <button onclick="closeModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-100 rounded-lg text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-sm font-display">
             Close Panel
           </button>
         </div>
@@ -1759,7 +1760,7 @@
             <div class="flex justify-between text-xs mb-1 font-sans">
               <span class="text-slate-800 dark:text-slate-300 font-medium font-mono">${scoreB}/100</span>
             </div>
-            <div class="w-full bg-slate-200 dark:bg-slate-950 rounded-full h-1.5 border border-slate-300/60 dark:border-slate-800">
+            <div class="w-full bg-slate-200 dark:bg-slate-950 rounded-full h-1.5 border border-slate-300 dark:border-slate-800">
               <div class="${getBg(scoreB)} h-1.5 rounded-full" style="width: ${scoreB}%" role="progressbar" aria-valuenow="${scoreB}" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>
@@ -1871,7 +1872,7 @@
 
       const scenarioText = `I am running an active AI simulation with the following operational specifications:
 - Estimated Daily Queries: ${queries.toLocaleString()}
-- Model Architecture Scale: ${modelType.toUpperCase()} (~${modelType === 'search' ? '0.3' : modelType === 'standard' ? '2.9' : '116'} Wh/query)
+- Model Architecture Scale: ${modelType.toUpperCase()} (~${modelType === 'search' ? '0.3' : modelType === 'standard' ? '0.3' : '20'} Wh/query)
 - Calculated Daily Resource Drain:
   * Electrical Power: ${power}
   * Cooling Water Evaporative Draw: ${water}
@@ -2036,11 +2037,13 @@ Adopt a rigorous, advisory, and professional style. Divide your report with clea
       
       document.getElementById('calc-queries-display').innerText = `${queries.toLocaleString()} queries/day`;
       
-      let whPerQuery = 2.9;
+      let whPerQuery = 0.3;
       if (modelType === 'search') {
-        whPerQuery = 0.3;
+        whPerQuery = 0.3; // 2009 Google Estimate
+      } else if (modelType === 'standard') {
+        whPerQuery = 0.3; // Epoch AI 2025
       } else if (modelType === 'reasoning') {
-        whPerQuery = 116.0;
+        whPerQuery = 20.0; // o-series, range 18-45 Wh
       }
       
       // Calculate annual metrics
@@ -2054,11 +2057,11 @@ Adopt a rigorous, advisory, and professional style. Divide your report with clea
       const households = totalWh / annualHouseholdWh;
       
       let waterDisplay = "";
-      const waterRawValue = totalWh * metrics.waterPerWh;
+      const waterRawValue = totalKWh * (metrics.waterPerWh * 1000); // converting water rate per Wh to per kWh
       if (metrics.waterUnit === 'L') {
         waterDisplay = `${waterRawValue.toLocaleString(undefined, {maximumFractionDigits: 1})} L`;
       } else {
-        waterDisplay = `${waterRawValue.toLocaleString(undefined, {maximumFractionDigits: 2})} gal`;
+        waterDisplay = `${(waterRawValue / metrics.litresToAlt).toLocaleString(undefined, {maximumFractionDigits: 2})} gal`;
       }
       
       const carbonGrams = totalKWh * metrics.carbonIntensity;
@@ -2071,18 +2074,18 @@ Adopt a rigorous, advisory, and professional style. Divide your report with clea
         carbonDisplay = `${carbonKg.toLocaleString(undefined, {maximumFractionDigits: 1})} kg`;
       }
       
-      document.getElementById('calc-power').innerText = `${totalMWh.toLocaleString(undefined, {maximumFractionDigits: 3})} MWh`;
-      document.getElementById('calc-households').innerText = `Power for ~${households.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 2})} ${metrics.householdsLabel}/year`;
+      document.getElementById('calc-power').innerText = `${totalMWh.toLocaleString(undefined, {maximumFractionDigits: 4})} MWh`;
+      document.getElementById('calc-households').innerText = `Power for ~${households.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 4})} ${metrics.householdsLabel}/year`;
       document.getElementById('calc-water').innerText = waterDisplay;
       document.getElementById('calc-carbon').innerText = carbonDisplay;
       
       const adviceBox = document.getElementById('calc-advice');
       if (modelType === 'search') {
-        adviceBox.innerHTML = `Running standard index search consumes <strong>0.3 Wh per query</strong>. This represents a lightweight, highly optimized baseline. Directing user traffic away from automated LLMs for direct index-retrieval requests prevents massive unnecessary energy expenditure on the electrical grid.`;
+        adviceBox.innerHTML = `Running standard index search consumes <strong>0.3 Wh per query</strong>. This represents a 2009 Google baseline. Directing user traffic away from automated LLMs for direct index-retrieval requests prevents massive unnecessary energy expenditure on the electrical grid.`;
       } else if (modelType === 'standard') {
-        adviceBox.innerHTML = `Running standard LLMs consumes <strong>2.9 Wh per query</strong> (nearly 10x search baseline). While manageable for complex queries, scaling this structure to billions of user interactions forces municipal grids to increase peak natural gas and coal generation. Consider task-specific fine-tuning or model pruning.`;
+        adviceBox.innerHTML = `Running standard conventional LLMs (like GPT-4o) consumes <strong>0.3 Wh per query</strong> (Epoch AI 2025 baseline). While highly optimized, scaling standard query pipelines across global enterprises still requires significant centralized infrastructure loads.`;
       } else if (modelType === 'reasoning') {
-        adviceBox.innerHTML = `<span class="text-amber-800 dark:text-brand-500 font-semibold">Grid Strain Alert:</span> Advanced reasoning models (e.g. o1/o3, DeepSeek R1) consume up to <strong>116 Wh per query</strong> due to recursive thinking loops. Scaling this load to millions of requests demands up to 40x more energy, threatening regional transmission margins and municipal water reservoirs.`;
+        adviceBox.innerHTML = `<span class="text-amber-800 dark:text-brand-500 font-semibold">Grid Strain Alert:</span> Advanced reasoning models (e.g. o1/o3, DeepSeek R1) consume up to <strong>20 Wh per query</strong> due to recursive thinking loops. Scaling this load to millions of requests demands up to 70x more energy, threatening regional transmission margins and municipal water reservoirs.`;
       }
     }
 
