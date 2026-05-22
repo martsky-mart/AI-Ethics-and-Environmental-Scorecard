@@ -357,7 +357,7 @@
                 <label id="label-c-video" for="c-video">Video Units / Session</label>
                 <span class="text-hiveYellow font-bold"><span id="val-c-video">0</span> /sess</span>
               </div>
-              <input type="range" id="c-video" min="0" max="10" value="0" aria-labelledby="label-c-video" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="c-video" min="0" max="10" value="0" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
           </div>
         </div>
@@ -415,7 +415,7 @@
                 <label id="label-d-video" for="d-video">Video Units / Session</label>
                 <span class="text-hiveYellow font-bold"><span id="val-d-video">0</span> /sess</span>
               </div>
-              <input type="range" id="d-video" min="0" max="10" value="0" aria-labelledby="label-d-video" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="d-video" min="0" max="10" value="0" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
           </div>
         </div>
@@ -510,6 +510,20 @@
               <p class="text-[9px] text-slate-400 mt-1">Cumulative staff size computed inside active operational groups.</p>
             </div>
           </div>
+
+          <!-- New Symmetrical Row containing total annual & average daily queries -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="p-4 bg-hiveDark border border-slate-800">
+              <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wide">Annual Queries Made</span>
+              <p class="text-xl font-extrabold text-white mt-1"><span id="calc-annual-queries">157,664</span></p>
+              <p class="text-[9px] text-slate-400 mt-1">Cumulative text, code, image, and video synthesis queries processed per year.</p>
+            </div>
+            <div class="p-4 bg-hiveDark border border-slate-800">
+              <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wide">Est. Daily Queries</span>
+              <p class="text-xl font-extrabold text-hiveYellow mt-1"><span id="calc-daily-queries">432</span></p>
+              <p class="text-[9px] text-slate-400 mt-1">Averaged query load executed daily over a standard 365-day calendar year.</p>
+            </div>
+          </div>
         </div>
 
         <div class="space-y-4 flex flex-col justify-between">
@@ -534,11 +548,11 @@
             <div class="grid grid-cols-2 gap-2 text-center text-xs pt-1">
               <div class="p-2 bg-hiveCharcoal border border-slate-800">
                 <div id="eq-bottles" class="font-bold text-slate-300">78,624</div>
-                <div class="text-[9px] text-slate-400 mt-0.5">Water Bottles (0.5L)</div>
+                <div class="text-[9px] text-slate-500 mt-0.5">Water Bottles (0.5L)</div>
               </div>
               <div class="p-2 bg-hiveCharcoal border border-slate-800">
                 <div id="eq-hours" class="font-bold text-slate-300">5,616</div>
-                <div class="text-[9px] text-slate-400 mt-0.5">Work Hours / Year</div>
+                <div class="text-[9px] text-slate-500 mt-0.5">Work Hours / Year</div>
               </div>
             </div>
 
@@ -951,6 +965,10 @@
       const totalStaff = c_s + d_s + o_s;
       const totalWorkHours = cAnnualHours + dAnnualHours + oAnnualHours;
 
+      // Dynamic Calculation for Queries
+      const totalAnnualQueries = totalTextQueries + totalCodeLines + totalImageGens + totalVideoGens;
+      const totalDailyQueries = totalAnnualQueries / 365;
+
       const updateText = (id, text) => {
         const el = document.getElementById(id);
         if (el) el.innerText = text;
@@ -960,6 +978,8 @@
       updateText('calc-co2', Math.round(totalCO2).toLocaleString() + " kg");
       updateText('calc-water', Math.round(totalWaterLiters).toLocaleString() + " L");
       updateText('calc-staff-total', totalStaff.toLocaleString());
+      updateText('calc-annual-queries', Math.round(totalAnnualQueries).toLocaleString());
+      updateText('calc-daily-queries', Math.round(totalDailyQueries).toLocaleString());
 
       const carKmFactor = 0.17;
       updateText('eq-car', Math.round(totalCO2 / carKmFactor).toLocaleString() + " km");
