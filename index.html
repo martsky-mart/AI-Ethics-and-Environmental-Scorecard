@@ -1,3 +1,7 @@
+<!-- Chosen Palette: Hive IT Warm Harmony (Warm Sand: #FAF8F5, Slate Charcoal: #131415, Accent Gold: #D97706) -->
+<!-- Application Structure Plan: The application uses a modular dashboard approach on a single scrollable page to display complex sustainability and ethical data. The layout features 13 providers across three explicit categories: AI Engines (including separate entries for Google and Microsoft AI arms, and Amazon Bedrock), Cloud Hosting (including AWS), and Deploy Layers. The top section introduces the main ESG trends with card-based statistics and an active Session Computational Footprint tracker that factors in a baseline dev load (20 turns of code gen/compilation @ 10 Wh each) plus subsequent live audits. The middle grid hosts the interactive provider grid where users can filter by category and drill down into evidence panels. When a user opens a provider evidence modal, a theme-responsive, custom color-coded radar chart is dynamically initialized side-by-side with high-contrast performance metrics and fully linked primary sources. This structure was chosen to make extensive corporate lifecycle reports easy to digest, visually compelling, and highly interactive. -->
+<!-- Visualization & Content Choices: 1. Core KPIs -> Inform -> High Contrast Cards -> Instant comprehension of massive operational statistics. 2. Downstream Calculator -> Inform & Compare -> Interactive Form -> Dynamically models resource drain based on model type. 3. Real-Time Auditor -> Analyze -> Gemini LLM Integration -> Offers custom, dynamic expert-level ESG auditing. 4. Scorecard Grid -> Compare -> Dynamic Filter & Provider Cards -> Clean, fast-loading grid using B-Corp inspired card aesthetics. 5. Evidence Panel -> Compare & Relationships -> Custom Color-Coded Radar Chart -> Displays provider scores geometrically, matching their specific brand colors. 6. Comparison Matrix -> Compare & Relationships -> Unified Radar Chart & Side-by-Side Table -> Lets users directly evaluate and visually overlay any two entities across our four core performance pillars. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +12,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;650;700&display=swap" rel="stylesheet">
   
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     tailwind.config = {
@@ -78,7 +84,8 @@
 </head>
 <body class="bg-[#FAF8F5] text-[#1A1A1A] dark:bg-[#131415] dark:text-[#F3F4F6] min-h-screen transition-colors duration-300 antialiased">
 
-  <header class="border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur sticky top-0 z-40 shadow-sm">
+  <!-- Main Navigation / Header -->
+  <header class="border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur sticky top-0 z-45 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <div class="w-10 h-10 bg-brand-500/10 rounded-lg border border-brand-500/40 dark:border-brand-500/30 flex items-center justify-center">
@@ -91,12 +98,20 @@
       </div>
       
       <div class="flex items-center space-x-3 font-display">
-        <button onclick="openSettingsModal()" class="flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+        <!-- Region calculations switcher -->
+        <select id="global-region-select" onchange="changeRegion(this.value)" class="text-xs font-semibold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500">
+          <option value="UK" selected>🇬🇧 UK (Sheffield)</option>
+          <option value="EU">🇪🇺 Europe</option>
+          <option value="US">🇺🇸 United States</option>
+          <option value="Asia">🌏 Asia</option>
+        </select>
+
+        <button onclick="openSettingsModal()" class="hidden flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
           ⚙️
           <span class="hidden sm:inline">Settings & Keys</span>
         </button>
 
-        <button onclick="openDeploymentGuide()" class="flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" title="Deployment Help">
+        <button onclick="openDeploymentGuide()" class="hidden flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" title="Deployment Help">
           📖
           <span class="hidden sm:inline">How to Deploy</span>
         </button>
@@ -108,6 +123,7 @@
     </div>
   </header>
 
+  <!-- Live App Session Footprint Tracker -->
   <div class="bg-brand-50 dark:bg-slate-950 border-b border-brand-100 dark:border-slate-850 py-3 font-sans transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
       <div class="flex items-center space-x-3">
@@ -127,7 +143,7 @@
         <div class="hidden md:block border-l border-slate-200 dark:border-slate-850 h-6"></div>
         <div class="text-right">
           <span class="text-slate-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Water Evaporated</span>
-          <span id="session-water" class="font-mono font-bold text-brand-600 dark:text-brand-500">0.000 gal (0 L)</span>
+          <span id="session-water" class="font-mono font-bold text-brand-600 dark:text-brand-500">0.000 L</span>
         </div>
         <div class="hidden md:block border-l border-slate-200 dark:border-slate-850 h-6"></div>
         <div class="text-right">
@@ -138,7 +154,7 @@
     </div>
   </div>
 
-  <div id="api-warning-banner" class="bg-[#FFFDF9] dark:bg-slate-900 border-b border-amber-200/60 dark:border-slate-800 py-3 font-sans">
+  <div id="api-warning-banner" class="hidden bg-[#FFFDF9] dark:bg-slate-900 border-b border-amber-200/60 dark:border-slate-800 py-3 font-sans">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between flex-wrap gap-2 text-xs">
       <div class="flex items-center space-x-2 text-slate-800 dark:text-slate-300">
         📢
@@ -150,6 +166,7 @@
     </div>
   </div>
 
+  <!-- Hero Summary Section -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" aria-labelledby="hero-title">
     <div class="bg-gradient-to-br from-[#FFFDF9] to-[#F5ECE2] dark:from-slate-900 dark:to-slate-800 border border-[#F3E2CE] dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-md">
       <div class="max-w-3xl">
@@ -172,12 +189,12 @@
           <p class="text-2xl font-bold mt-1 text-slate-900 dark:text-slate-100 font-mono">17 Billion <span class="text-xs text-brand-600 dark:text-brand-400 font-sans font-normal">gals/yr</span></p>
           <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-1">Projected up to 33B gals by 2028</p>
         </div>
-        <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
+        <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/85 shadow-sm">
           <p class="text-xs text-slate-755 dark:text-slate-300 font-medium uppercase tracking-wider">Decoupled Emissions Gap</p>
           <p class="text-2xl font-bold mt-1 text-red-600 dark:text-red-400 font-mono">Up to 19,000x</p>
           <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-1">Market vs. Location-Based reporting</p>
         </div>
-        <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
+        <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/85 shadow-sm">
           <p class="text-xs text-slate-755 dark:text-slate-300 font-medium uppercase tracking-wider">Global Grid Projection (2030)</p>
           <p class="text-2xl font-bold mt-1 text-brand-600 dark:text-brand-500 font-mono">945 TWh</p>
           <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-1">Expected to double from 2024</p>
@@ -213,18 +230,18 @@
           🧮
           <span>Downstream Query Resource Calculator</span>
         </h3>
-        <p class="text-sm text-slate-700 dark:text-slate-300 font-sans">Simulate physical water and electrical grids under different architecture scales.</p>
+        <p class="text-sm text-slate-700 dark:text-slate-300 font-sans font-normal">Simulate physical water and electrical grids under custom architecture scales.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div class="lg:col-span-5 space-y-6">
           <div>
-            <label for="calc-queries" class="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Estimated Daily Queries</label>
-            <input type="range" id="calc-queries" min="10000" max="10000000" step="10000" value="1000000" oninput="updateCalculator()" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+            <label for="calc-queries" class="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Daily Computational Query Rate</label>
+            <input type="range" id="calc-queries" min="100" max="1000" step="50" value="500" oninput="updateCalculator()" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
             <div class="flex justify-between text-xs text-slate-755 dark:text-slate-300 mt-2">
-              <span class="font-mono">10,000</span>
-              <span id="calc-queries-display" class="text-brand-700 dark:text-brand-400 font-bold font-mono">1,000,000 queries/day</span>
-              <span class="font-mono">10 Million</span>
+              <span class="font-mono">100</span>
+              <span id="calc-queries-display" class="text-brand-700 dark:text-brand-400 font-bold font-mono">500 queries/day</span>
+              <span class="font-mono">1,000</span>
             </div>
           </div>
 
@@ -245,10 +262,10 @@
                   <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium">Standard LLM (~2.9 Wh / query)</span>
                 </span>
               </label>
-              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-950 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-500">
+              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-955 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-550">
                 <input type="radio" name="model-type" value="reasoning" onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-100 border-slate-300 dark:bg-slate-900 dark:border-slate-700">
                 <span class="ml-3 block">
-                  <span class="text-sm font-semibold text-brand-700 dark:text-brand-550 block">Advanced Reasoning AI (10x-70x load)</span>
+                  <span class="text-sm font-semibold text-brand-700 dark:text-brand-555 block">Advanced Reasoning AI (10x-70x load)</span>
                   <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium">Complex real-time tree-of-thought (~116 Wh / query)</span>
                 </span>
               </label>
@@ -258,22 +275,22 @@
 
         <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-850 flex flex-col justify-between shadow-sm">
           <div>
-            <h4 class="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-4 font-display">Estimated Resource Footprint (Daily)</h4>
+            <h4 class="text-sm font-semibold text-slate-755 dark:text-slate-300 uppercase tracking-wide mb-4 font-display">Estimated Annual Resource Footprint</h4>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono">
               <div class="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
                 <span class="text-xs text-slate-700 dark:text-slate-300 block font-sans font-medium">Power Consumed</span>
-                <span id="calc-power" class="text-2xl font-black text-slate-900 dark:text-slate-100 block mt-1">2.9 MWh</span>
-                <span id="calc-households" class="text-[10px] text-slate-600 dark:text-slate-400 block mt-1 font-sans">Power for ~97 US homes/day</span>
+                <span id="calc-power" class="text-2xl font-black text-slate-900 dark:text-slate-100 block mt-1">MWh</span>
+                <span id="calc-households" class="text-[10px] text-slate-600 dark:text-slate-400 block mt-1 font-sans">Power for UK homes/year</span>
               </div>
               <div class="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
                 <span class="text-xs text-slate-700 dark:text-slate-300 block font-sans font-medium">Water Consumed</span>
-                <span id="calc-water" class="text-2xl font-black text-slate-900 dark:text-slate-100 block mt-1">118 Gallons</span>
-                <span class="text-[10px] text-slate-600 dark:text-slate-400 block mt-1 font-sans">Evaporative cooling draft</span>
+                <span id="calc-water" class="text-2xl font-black text-slate-900 dark:text-slate-100 block mt-1">Litres</span>
+                <span id="calc-households-water-hidden" class="hidden"></span>
               </div>
               <div class="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
                 <span class="text-xs text-slate-700 dark:text-slate-300 block font-sans font-medium">Physical Grid Carbon</span>
-                <span id="calc-carbon" class="text-2xl font-black text-slate-900 dark:text-slate-100 block mt-1">1.19 Tons</span>
-                <span class="text-[10px] text-slate-600 dark:text-slate-400 block mt-1 font-sans">Based on location grid index</span>
+                <span id="calc-carbon" class="text-2xl font-black text-slate-900 dark:text-slate-100 block mt-1">kg</span>
+                <span class="text-[10px] text-slate-600 dark:text-slate-400 block mt-1 font-sans">Based on local grid index</span>
               </div>
             </div>
           </div>
@@ -284,11 +301,11 @@
                 💡
                 <span>Architectural Recommendations: Right-Sizing</span>
               </h5>
-              <p id="calc-advice" class="text-xs text-slate-700 dark:text-slate-300 mt-1 leading-relaxed font-sans">
+              <p id="calc-advice" class="text-xs text-slate-700 dark:text-slate-300 mt-1 leading-relaxed font-sans font-normal">
                 Using a conventional GenAI model instead of standard search increases energy needs by 9.6x. Introduce right-sizing models to prevent overloaded municipal grids.
               </p>
             </div>
-            <button onclick="sendStatsToAuditor()" class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center space-x-1.5 px-3 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 font-display">
+            <button onclick="sendStatsToAuditor()" class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center space-x-1.5 px-3 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 font-display">
               <span>✨ Send to ESG Auditor</span>
             </button>
           </div>
@@ -322,15 +339,15 @@
             <div class="grid grid-cols-1 gap-2 font-sans">
               <button onclick="applyAuditPreset('reasoning')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-950 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
                 <span class="font-semibold text-slate-900 dark:text-slate-200 block font-display">🌿 DeepSeek R1 / o1 Reasoning Audit</span>
-                <span class="text-slate-600 dark:text-slate-400 block mt-0.5">Evaluate localized grid & aquifer loads for reasoning loop spikes.</span>
+                <span class="text-slate-600 dark:text-slate-400 block mt-0.5 font-sans">Evaluate localized grid & aquifer loads for reasoning loop spikes.</span>
               </button>
               <button onclick="applyAuditPreset('policy')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-955 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
                 <span class="font-semibold text-slate-900 dark:text-slate-200 block font-display">📜 EU AI Act Governance Plan</span>
-                <span class="text-slate-600 dark:text-slate-400 block mt-0.5">Draft an organizational compliance blueprint for General-Purpose AI models.</span>
+                <span class="text-slate-600 dark:text-slate-400 block mt-0.5 font-sans">Draft an organizational compliance blueprint for General-Purpose AI models.</span>
               </button>
               <button onclick="applyAuditPreset('sourcing')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-955 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
                 <span class="font-semibold text-slate-900 dark:text-slate-200 block font-display">🕵️ Crawl Ethics & Synthetic Data</span>
-                <span class="text-slate-600 dark:text-slate-400 block mt-0.5">Audit the tradeoff of bypassing robots.txt vs synthetic dataset bias.</span>
+                <span class="text-slate-600 dark:text-slate-400 block mt-0.5 font-sans">Audit the tradeoff of bypassing robots.txt vs synthetic dataset bias.</span>
               </button>
             </div>
           </div>
@@ -364,10 +381,10 @@
             </div>
 
             <div id="auditor-empty" class="flex-1 flex flex-col items-center justify-center text-center py-12 space-y-3">
-              🗒️
+              <div class="text-slate-400 text-5xl">🗒️</div>
               <div>
                 <p class="text-sm font-semibold text-slate-800 dark:text-slate-400 font-display">Auditor Status: Ready</p>
-                <p class="text-xs text-slate-600 dark:text-slate-500 mt-1 max-w-sm font-sans">Select an audit scenario preset on the left, or input your own parameters, and press "Execute Live AI Audit" to start.</p>
+                <p class="text-xs text-slate-600 dark:text-slate-500 mt-1 max-w-sm font-sans font-normal">Select an audit scenario preset on the left, or input your own parameters, and press "Execute Live AI Audit" to start.</p>
               </div>
             </div>
 
@@ -377,7 +394,7 @@
               </div>
               <div>
                 <p class="text-sm font-semibold text-slate-900 dark:text-slate-300 font-display">Auditor Connection Alert</p>
-                <p id="auditor-error-text" class="text-xs text-slate-600 dark:text-slate-400 mt-1 max-w-sm font-sans">Unable to reach Google's Gemini servers. Verify your API key is correct and valid.</p>
+                <p id="auditor-error-text" class="text-xs text-slate-600 dark:text-slate-400 mt-1 max-w-sm font-sans font-normal">Unable to reach Google's Gemini servers. Verify your API key is correct and valid.</p>
                 <button onclick="openSettingsModal()" class="mt-3 text-xs bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 font-display">
                   Open Settings Panel
                 </button>
@@ -489,7 +506,7 @@
           </div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end font-display">
+        <div class="pt-4 border-t border-slate-200 dark:border-slate-850 flex justify-end font-display">
           <button onclick="saveSettings()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-slate-100 rounded-lg text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 shadow">
             Save Configuration
           </button>
@@ -498,7 +515,7 @@
     </div>
   </div>
 
-  <div id="deployment-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-deploy-title">
+  <div id="deployment-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
     <div class="flex items-center justify-center min-h-screen p-4 text-center">
       <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeDeploymentGuide()"></div>
       <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-2xl w-full p-6 relative z-10 font-sans">
@@ -512,7 +529,7 @@
           </button>
         </div>
 
-        <div class="my-5 space-y-4 text-xs text-slate-800 dark:text-slate-300 leading-relaxed max-h-[60vh] overflow-y-auto pr-2 bg-white dark:bg-slate-900 font-sans">
+        <div class="my-5 space-y-4 text-xs text-slate-800 dark:text-slate-300 leading-relaxed max-h-[60vh] overflow-y-auto pr-2 bg-white dark:bg-slate-900 font-sans font-normal">
           <div>
             <h4 class="font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider mb-1.5 text-brand-700 dark:text-brand-400 font-display">Option 1: Host Locally (Instant)</h4>
             <p class="mb-2">This is a pure client-side static HTML file. You can simply double-click the file to open it in any web browser, or launch a quick local server:</p>
@@ -558,10 +575,59 @@
     let theme = 'light';
     let currentAuditResult = "";
     let previousActiveElement = null;
+    let currentRegion = 'UK';
     
     const baselineInferenceCalls = 20;
     const baselineWhLoad = 200; 
     let querySessionCount = 0;
+
+    // Region metrics mapping carbon, water draw, and household usage baselines dynamically
+    const regionMetrics = {
+      UK: {
+        name: "United Kingdom (Sheffield)",
+        carbonIntensity: 135, // g CO2e / kWh
+        householdDailyWh: 8000, // 8.0 kWh daily average for UK home
+        waterPerWh: 0.13, // Litres per Wh evaporated directly (~130ml/Wh)
+        waterUnit: 'L',
+        altWaterUnit: 'gal',
+        litresToAlt: 0.264172, // L to Gal
+        carbonLabel: "g CO₂",
+        householdsLabel: "UK homes"
+      },
+      EU: {
+        name: "European Union",
+        carbonIntensity: 215, // g CO2e / kWh
+        householdDailyWh: 9500, // 9.5 kWh daily average
+        waterPerWh: 0.12, // Litres per Wh evaporated (~120ml/Wh)
+        waterUnit: 'L',
+        altWaterUnit: 'gal',
+        litresToAlt: 0.264172, // L to Gal
+        carbonLabel: "g CO₂",
+        householdsLabel: "EU homes"
+      },
+      US: {
+        name: "United States",
+        carbonIntensity: 365, // g CO2e / kWh
+        householdDailyWh: 29500, // 29.5 kWh daily average
+        waterPerWh: 0.038, // Gallons per Wh evaporated directly
+        waterUnit: 'gal',
+        altWaterUnit: 'L',
+        litresToAlt: 3.78541, // Gal to L
+        carbonLabel: "g CO₂",
+        householdsLabel: "US homes"
+      },
+      Asia: {
+        name: "Asia",
+        carbonIntensity: 560, // g CO2e / kWh
+        householdDailyWh: 9000, // 9.0 kWh daily average
+        waterPerWh: 0.14, // Litres per Wh evaporated (~140ml/Wh)
+        waterUnit: 'L',
+        altWaterUnit: 'gal',
+        litresToAlt: 0.264172, // L to Gal
+        carbonLabel: "g CO₂",
+        householdsLabel: "Asian homes"
+      }
+    };
 
     const providers = [
       {
@@ -641,7 +707,7 @@
           water: 'Vast, undisclosed global hydrological footprint proportional to billion-query inference loads.',
           emissionsLocation: 'GPT-4 training emitted ~15,000 t CO2e (Location-based).',
           emissionsMarket: 'Unreported (Relies on virtual offsets of Azure clouds).',
-          accountingGap: 'Fails to disclose Scope 3 value-chain concrete/silicon footprints.'
+          accountingGap: 'Fails to disclose Scope 3 value-chain concrete/silicon embodied footprints.'
         },
         laborNotes: 'Exposes outsourced data workers to systemic psychological trauma with inadequate on-site mental health counselors; Scale AI Kenyan shutdown locked out employees overnight.',
         policyNotes: 'Faces critical scrutiny over dismantling safety teams; transition from research nonprofit to heavily capitalized product-focused provider.',
@@ -768,7 +834,12 @@
           water: 'Deletes direct cooling footprints down to the AWS cloud-hosting layer.',
           emissionsLocation: 'Undisclosed independently from parent AWS corporate reports.',
           emissionsMarket: 'Undisclosed independently.',
-          accountingGap: 'Bedrock abstracts large-scale foundational inference carbon metrics, shifting measurement tasks onto enterprise downstream users.'
+          accountingGap: 'Bedrock abstracts large-scale foundational inference carbon metrics, shifting measurement tasks onto enterprise downstream users.',
+          sources: [
+            { title: 'Amazon Bedrock Enterprise Safety Framework & Security Briefs (2024)', url: 'https://aws.amazon.com/bedrock/security-compliance/' },
+            { title: 'AWS Shared Responsibility Model - Sustainability Pillar Documentation', url: 'https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/wellarchitected-sustainability-pillar.pdf' },
+            { title: 'European Commission General-Purpose AI Code of Practice Filings (2025)', url: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai' }
+          ]
         },
         laborNotes: 'Minimal direct content moderation footprint; relies on baseline compliance frameworks of participating model providers.',
         policyNotes: 'Integrates Bedrock safety filters to comply with global General-Purpose AI guidelines; leverages massive scale to enforce enterprise security gates.',
@@ -895,7 +966,7 @@
         },
         metrics: {
           energy: '29.8 Million MWh (FY 2024)',
-          water: 'Data centers represent major segment of 17B gal US baseline draw',
+          water: 'Data centers represent major segment of 17B gal US baseline draw border',
           emissionsLocation: '9,955,368 t CO2e (Location-based, Scope 2)',
           emissionsMarket: '259,090 t CO2e (Market-based, Scope 2)',
           accountingGap: 'Microsoft true carbon footprint is approx. 25.2 million tons of CO2e when replacing market-based metrics with location-based grid intensity.'
@@ -984,7 +1055,7 @@
           water: 'Indirect, relies on colocation space provider cooling drafts.',
           emissionsLocation: '420,000 t CO2e (Location-based estimate, Scope 2)',
           emissionsMarket: '210,000 t CO2e (Market-based, Scope 2)',
-          accountingGap: 'Maintains clear transparency regarding carbon footprint calculations but delegates real physical grid upgrades to upstream datacenter landlords.'
+          accountingGap: 'Maintains clean transparency regarding carbon footprint calculations but delegates real physical grid upgrades to upstream datacenter landlords.'
         },
         laborNotes: 'Minimal content moderation direct footprint; maintains high ethical engineering and contract compensation standards across operational units.',
         policyNotes: 'Neutral position on copyright lobbying; champions small developer access to open resources and cloud baseline platforms.',
@@ -1095,7 +1166,7 @@
         },
         highlights: {
           pros: [
-            'Highly secure hosting arrays minimizing programmatic crawling abuse.',
+            'Highly secure hosting arrays minimizing crawling abuse.',
             'Strong accessibility (WCAG) tools baked into visual designer to optimize downstream page output.',
             'Fosters clean code export reducing client-side computational rendering loops.'
           ],
@@ -1120,6 +1191,13 @@
         ]
       }
     ];
+
+    // Pre-sort providers by overall rating (composite score) highest first
+    providers.sort((a, b) => {
+      const scoreA = (a.scores.environmental + a.scores.carbon + a.scores.data + a.scores.labor) / 4;
+      const scoreB = (b.scores.environmental + b.scores.carbon + b.scores.data + b.scores.labor) / 4;
+      return scoreB - scoreA;
+    });
 
     const chartInstances = {};
 
@@ -1291,12 +1369,20 @@
       const totalCalls = devCalls + querySessionCount;
 
       const totalWhLoad = baselineWhLoad + (querySessionCount * 2.9);
-      const waterGal = totalWhLoad / 25;
-      const waterMl = waterGal * 3785.41;
-      const carbonGrams = (totalWhLoad / 1000) * 410;
+      const metrics = regionMetrics[currentRegion];
+      
+      let waterPrimary;
+      const waterValue = totalWhLoad * metrics.waterPerWh;
+      if (metrics.waterUnit === 'L') {
+        waterPrimary = `${waterValue.toFixed(2)} L`;
+      } else {
+        waterPrimary = `${waterValue.toFixed(3)} gal`;
+      }
+
+      const carbonGrams = (totalWhLoad / 1000) * metrics.carbonIntensity;
 
       document.getElementById('session-queries').innerText = `${totalCalls} ${totalCalls === 1 ? 'Call' : 'Calls'}`;
-      document.getElementById('session-water').innerText = `${waterGal.toFixed(3)} gal (${Math.round(waterMl / 1000).toLocaleString()} L)`;
+      document.getElementById('session-water').innerText = waterPrimary;
       document.getElementById('session-carbon').innerText = `${carbonGrams.toFixed(1)} g CO₂`;
     }
 
@@ -1307,6 +1393,13 @@
       const filtered = providers.filter(p => {
         if (currentFilter === 'all') return true;
         return p.category === currentFilter;
+      });
+
+      // Recurrent sorting inside render loop to guarantee dynamic filter compatibility
+      filtered.sort((a, b) => {
+        const scoreA = (a.scores.environmental + a.scores.carbon + a.scores.data + a.scores.labor) / 4;
+        const scoreB = (b.scores.environmental + b.scores.carbon + b.scores.data + b.scores.labor) / 4;
+        return scoreB - scoreA;
       });
 
       filtered.forEach(p => {
@@ -1393,6 +1486,26 @@
       renderGrid();
     }
 
+    function captureFocus(modalId) {
+      previousActiveElement = document.activeElement;
+      setTimeout(() => {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          const focusable = modal.querySelectorAll('button, select, input, textarea, a, [tabindex="0"]');
+          if (focusable.length > 0) {
+            focusable[0].focus();
+          }
+        }
+      }, 50);
+    }
+
+    function releaseFocus() {
+      if (previousActiveElement) {
+        previousActiveElement.focus();
+        previousActiveElement = null;
+      }
+    }
+
     function openProviderModal(id) {
       const p = providers.find(item => item.id === id);
       if (!p) return;
@@ -1419,7 +1532,7 @@
           </button>
         </div>
         
-        <div class="p-6 space-y-6 max-h-[75vh] overflow-y-auto bg-white dark:bg-slate-900 font-sans">
+        <div class="p-6 space-y-6 max-h-[75vh] overflow-y-auto bg-white dark:bg-slate-900 font-sans font-normal">
           
           <!-- Split Header with Color-Coded Spider Diagram -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800/80">
@@ -1471,7 +1584,7 @@
               <h5 class="text-sm font-bold text-emerald-800 dark:text-emerald-400 flex items-center mb-3 font-display">
                 🌿 Progressive Best Practices
               </h5>
-              <ul class="space-y-2 text-xs text-slate-800 dark:text-slate-300 list-disc list-inside">
+              <ul class="space-y-2 text-xs text-slate-800 dark:text-slate-300 list-disc list-inside font-sans">
                 ${p.highlights.pros.map(pro => `<li>${pro}</li>`).join('')}
               </ul>
             </div>
@@ -1480,7 +1593,7 @@
               <h5 class="text-sm font-bold text-red-800 dark:text-red-400 flex items-center mb-3 font-display">
                 ⚠️ Major Structural Deficits
               </h5>
-              <ul class="space-y-2 text-xs text-slate-800 dark:text-slate-300 list-disc list-inside">
+              <ul class="space-y-2 text-xs text-slate-800 dark:text-slate-300 list-disc list-inside font-sans">
                 ${p.highlights.cons.map(con => `<li>${con}</li>`).join('')}
               </ul>
             </div>
@@ -1615,7 +1728,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 text-xs font-sans bg-slate-50 dark:bg-slate-950 p-4 rounded-xl">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 text-xs font-sans bg-slate-50 dark:bg-slate-950 p-4 rounded-xl font-normal">
           <div class="font-semibold text-slate-900 dark:text-white font-display">Primary Verification Sources</div>
           <div class="text-slate-700 dark:text-slate-300 font-mono text-[10px] leading-relaxed select-all">
             ${pA.sources.map((src, i) => `${i+1}. <a href="${src.url}" target="_blank" rel="noopener noreferrer" class="text-brand-600 dark:text-brand-500 hover:underline">${src.title}</a>`).join('<br>')}
@@ -1658,6 +1771,12 @@
           </div>
         </div>
       `;
+    }
+
+    function changeRegion(val) {
+      currentRegion = val;
+      updateCalculator();
+      updateSessionFootprintTracker();
     }
 
     function toggleTheme() {
@@ -1916,12 +2035,63 @@ Adopt a rigorous, advisory, and professional style. Divide your report with clea
       document.body.removeChild(tempTextArea);
     }
 
-    const auditPresets = {
-      reasoning: "Analyze the environmental threat of implementing real-time 'tree-of-thought' reasoning loops (e.g., DeepSeek R1 or o1) in a high-volume enterprise deployment (running 5,000,000 queries per day). Focus on localized grid constraints, peak water draw in cooling towers, and recommendations for architectural pruning.",
-      policy: "Draft a comprehensive corporate compliance and model alignment policy aligned with the EU AI Act's rules on general-purpose AI (GPAI). Provide clear guardrails on model auditing, Scope 3 supply-chain carbon tracking, and content moderating labor conditions.",
-      sourcing: "Audit the ethical and compliance trade-offs of using automated stealth crawl bots to bypass robots.txt limits vs. training models with synthetic data. Highlight copyright dilution risks, legal safety compliance, and model collapse scenarios."
-    };
+    function updateCalculator() {
+      const queries = parseInt(document.getElementById('calc-queries').value);
+      const modelType = document.querySelector('input[name="model-type"]:checked').value;
+      
+      document.getElementById('calc-queries-display').innerText = `${queries.toLocaleString()} queries/day`;
+      
+      let whPerQuery = 2.9;
+      if (modelType === 'search') {
+        whPerQuery = 0.3;
+      } else if (modelType === 'reasoning') {
+        whPerQuery = 116.0;
+      }
+      
+      // Calculate annual metrics
+      const annualQueries = queries * 365;
+      const totalWh = annualQueries * whPerQuery;
+      const totalMWh = totalWh / 1000000;
+      const totalKWh = totalWh / 1000;
+      
+      const metrics = regionMetrics[currentRegion];
+      const annualHouseholdWh = metrics.householdDailyWh * 365;
+      const households = totalWh / annualHouseholdWh;
+      
+      let waterDisplay = "";
+      const waterRawValue = totalWh * metrics.waterPerWh;
+      if (metrics.waterUnit === 'L') {
+        waterDisplay = `${waterRawValue.toLocaleString(undefined, {maximumFractionDigits: 1})} L`;
+      } else {
+        waterDisplay = `${waterRawValue.toLocaleString(undefined, {maximumFractionDigits: 2})} gal`;
+      }
+      
+      const carbonGrams = totalKWh * metrics.carbonIntensity;
+      const carbonKg = carbonGrams / 1000;
+      let carbonDisplay = "";
+      if (carbonKg >= 1000) {
+        const tonLabel = (currentRegion === 'US') ? 'Tons' : 'Tonnes';
+        carbonDisplay = `${(carbonKg / 1000).toLocaleString(undefined, {maximumFractionDigits: 2})} ${tonLabel}`;
+      } else {
+        carbonDisplay = `${carbonKg.toLocaleString(undefined, {maximumFractionDigits: 1})} kg`;
+      }
+      
+      document.getElementById('calc-power').innerText = `${totalMWh.toLocaleString(undefined, {maximumFractionDigits: 3})} MWh`;
+      document.getElementById('calc-households').innerText = `Power for ~${households.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 2})} ${metrics.householdsLabel}/year`;
+      document.getElementById('calc-water').innerText = waterDisplay;
+      document.getElementById('calc-carbon').innerText = carbonDisplay;
+      
+      const adviceBox = document.getElementById('calc-advice');
+      if (modelType === 'search') {
+        adviceBox.innerHTML = `Running standard index search consumes <strong>0.3 Wh per query</strong>. This represents a lightweight, highly optimized baseline. Directing user traffic away from automated LLMs for direct index-retrieval requests prevents massive unnecessary energy expenditure on the electrical grid.`;
+      } else if (modelType === 'standard') {
+        adviceBox.innerHTML = `Running standard LLMs consumes <strong>2.9 Wh per query</strong> (nearly 10x search baseline). While manageable for complex queries, scaling this structure to billions of user interactions forces municipal grids to increase peak natural gas and coal generation. Consider task-specific fine-tuning or model pruning.`;
+      } else if (modelType === 'reasoning') {
+        adviceBox.innerHTML = `<span class="text-amber-800 dark:text-brand-500 font-semibold">Grid Strain Alert:</span> Advanced reasoning models (e.g. o1/o3, DeepSeek R1) consume up to <strong>116 Wh per query</strong> due to recursive thinking loops. Scaling this load to millions of requests demands up to 40x more energy, threatening regional transmission margins and municipal water reservoirs.`;
+      }
+    }
 
+    // Fully define missing init function to resolve ReferenceError
     function init() {
       if (userApiKey) {
         document.getElementById('api-key-input').value = userApiKey;
@@ -1932,6 +2102,12 @@ Adopt a rigorous, advisory, and professional style. Divide your report with clea
       updateCalculator();
       updateSessionFootprintTracker();
     }
+
+    const auditPresets = {
+      reasoning: "Analyze the environmental threat of implementing real-time 'tree-of-thought' reasoning loops (e.g., DeepSeek R1 or o1) in a high-volume enterprise deployment (running 5,000,000 queries per day). Focus on localized grid constraints, peak water draw in cooling towers, and recommendations for architectural pruning.",
+      policy: "Draft a comprehensive corporate compliance and model alignment policy aligned with the EU AI Act's rules on general-purpose AI (GPAI). Provide clear guardrails on model auditing, Scope 3 supply-chain carbon tracking, and content moderating labor conditions.",
+      sourcing: "Audit the ethical and compliance trade-offs of using automated stealth crawl bots to bypass robots.txt limits vs. training models with synthetic data. Highlight copyright dilution risks, legal safety compliance, and model collapse scenarios."
+    };
 
     window.addEventListener('DOMContentLoaded', init);
   </script>
