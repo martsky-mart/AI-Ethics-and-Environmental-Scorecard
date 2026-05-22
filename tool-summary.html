@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hive IT AI Ecosystem Sustainability Profile & Annual Workspace Simulator</title>
+  <title>Hive IT AI Ecosystem Sustainability Profile & Annual Workspace Scorecard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,196 +45,246 @@
     input[type="range"] {
       accent-color: #fdb813;
     }
+    /* Dynamic scrollbar hiding for horizontal tab menus */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Enhanced outline focus states conforming to WCAG 2.2 standards */
+    *:focus {
+      outline: none;
+    }
+    *:focus-visible {
+      outline: 3px solid #111317;
+      outline-offset: 3px;
+    }
+    .bg-hiveDark *:focus-visible {
+      outline: 3px solid #fdb813;
+      outline-offset: 3px;
+    }
   </style>
 </head>
-<body class="antialiased min-h-screen text-hiveDark">
+<body class="antialiased min-h-screen text-hiveDark bg-hiveLightGray">
 
-  <nav class="bg-hiveDark text-white sticky top-0 z-50 px-6 py-4 border-b-4 border-hiveYellow shadow-md">
+  <!-- WCAG 2.2 SC 2.4.1: Skip to Content Bypass Link -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:p-4 focus:bg-hiveYellow focus:text-hiveCharcoal focus:font-bold focus:outline-none focus:ring-4 focus:ring-hiveDark rounded-sm shadow-lg">
+    Skip to Main Content
+  </a>
+
+  <!-- Navigation Landmark -->
+  <nav class="bg-hiveDark text-white sticky top-0 z-50 px-6 py-4 border-b-4 border-hiveYellow shadow-md" aria-label="Primary Navigation">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 bg-hiveYellow text-hiveCharcoal font-extrabold text-xl flex items-center justify-center rounded-sm">H</div>
+        <div class="w-10 h-10 bg-hiveYellow text-hiveCharcoal font-extrabold text-xl flex items-center justify-center rounded-sm" aria-hidden="true">H</div>
         <div>
-          <span class="font-bold text-lg tracking-tight block">Hive IT</span>
-          <span class="text-xs text-hiveYellow uppercase tracking-wider font-semibold">Annual Resource Efficiency Audit</span>
+          <span class="font-bold text-lg tracking-tight block text-white">Hive IT</span>
+          <span class="text-xs text-hiveYellow uppercase tracking-wider font-semibold">UK Resource Efficiency Audit</span>
         </div>
       </div>
-      <div class="text-xs text-slate-400 font-mono">
-        Multi-Team ESG Projection Matrix
+      <div class="text-xs text-slate-300 font-mono">
+        Sheffield UK SME ESG Projection Matrix
       </div>
     </div>
   </nav>
 
+  <!-- Banner Landmark -->
   <header class="bg-white border-b border-hiveBorder py-12 px-6 sm:px-8">
     <div class="max-w-7xl mx-auto space-y-4">
-      <span class="text-xs font-bold uppercase tracking-widest text-hiveYellow bg-hiveDark px-3 py-1 rounded-sm">Scope 3 Environmental Metrics</span>
-      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-hiveCharcoal">
+      <span class="text-xs font-bold uppercase tracking-widest text-hiveCharcoal bg-hiveYellow px-3 py-1.5 rounded-sm">Scope 3 UK Grid Environmental Metrics</span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-hiveCharcoal leading-tight">
         Annual AI Resource <span class="border-b-4 border-hiveYellow">Scorecard</span>
       </h1>
-      <p class="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed pt-2">
-        An empirical assessment tracking corporate carbon footprints, direct data center water consumption overheads, and model provenance liabilities. This dashboard provides advanced modeling categorized across core operational business segments.
+      <p class="text-base sm:text-lg text-slate-700 max-w-3xl leading-relaxed pt-2">
+        An empirical assessment tracking Sheffield workspace carbon footprints, direct server infrastructure water consumption overheads, and model training liabilities. This dashboard scales compute parameters across core operational business segments.
       </p>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+  <!-- Main Content Landmark -->
+  <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
 
-    <!-- Overall KPI Summary Row -->
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- KPI Cards Panel -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" aria-label="Ecosystem Sustainability Metrics Summary">
+      
       <div class="bg-white p-6 rounded-sm border-l-4 border-hiveYellow shadow-sm flex flex-col justify-between">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Total Workforce Base</span>
-          <h3 id="top-staff-display" class="text-3xl font-extrabold text-hiveCharcoal mt-2">27 Employees</h3>
-          <p class="text-xs text-slate-500 mt-2">Current active cross-functional staff allocated into Creative, Development, and Operations team modules.</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">Total Workforce Base</span>
+          <h2 id="top-staff-display" class="text-3xl font-extrabold text-hiveCharcoal mt-2">27 Employees</h2>
+          <p class="text-xs text-slate-600 mt-2">Active personnel allocated into Creative, Development, and Operations team modules.</p>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-amber-600 font-semibold">
-          Scale: Distributed SME Framework
+        <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-amber-800 font-semibold uppercase tracking-wide">
+          Scale: Localized UK SME Framework
         </div>
       </div>
 
       <div class="bg-white p-6 rounded-sm border-l-4 border-hiveCharcoal shadow-sm flex flex-col justify-between">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Annual Carbon Output</span>
-          <h3 id="top-co2-display" class="text-3xl font-extrabold text-hiveCharcoal mt-2">465 kg</h3>
-          <p class="text-xs text-slate-500 mt-2">Aggregated yearly carbon dioxide equivalents generated via remote API computation clusters.</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">Annual Carbon Output</span>
+          <h2 id="top-co2-display" class="text-3xl font-extrabold text-hiveCharcoal mt-2">22 kg</h2>
+          <p class="text-xs text-slate-600 mt-2">Yearly CO₂ equivalents generated, calculated via DESNZ UK Grid carbon index values.</p>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-emerald-600 flex justify-between">
+        <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-emerald-800 font-semibold flex justify-between uppercase tracking-wide">
           <span>Mitigation Buffer:</span>
-          <span id="top-trees-display" class="font-bold">22 Trees</span>
+          <span id="top-trees-display" class="font-bold">1 Tree</span>
         </div>
       </div>
 
       <div class="bg-white p-6 rounded-sm border-l-4 border-blue-500 shadow-sm flex flex-col justify-between">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Annual Water Footprint</span>
-          <h3 id="top-water-display" class="text-3xl font-extrabold text-blue-600 mt-2">225,420 L</h3>
-          <p class="text-xs text-slate-500 mt-2">Estimated volume consumed directly for evaporative cooling towers across central server networks.</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">Annual Water Footprint</span>
+          <h2 id="top-water-display" class="text-3xl font-extrabold text-blue-800 mt-2">39,312 L</h2>
+          <p class="text-xs text-slate-600 mt-2">Evaporative cooling water consumed directly by host server infrastructure networks.</p>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-blue-600 flex justify-between">
+        <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-blue-800 font-semibold flex justify-between uppercase tracking-wide">
           <span>Server Overhead:</span>
-          <span id="top-pools-display" class="font-bold">0.09 Pools</span>
+          <span id="top-pools-display" class="font-bold">0.02 Pools</span>
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-sm border-l-4 border-rose-500 shadow-sm flex flex-col justify-between">
+      <div class="bg-white p-6 rounded-sm border-l-4 border-rose-600 shadow-sm flex flex-col justify-between">
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Ecosystem Integrity</span>
-          <h3 class="text-3xl font-extrabold text-rose-600 mt-2">42.8% OpenAI</h3>
-          <p class="text-xs text-slate-500 mt-2">Concentration ratio of underlying foundational model integrations indicating vendor dependency parameters.</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">Ecosystem Integrity</span>
+          <h2 class="text-3xl font-extrabold text-rose-700 mt-2">42.8% OpenAI</h2>
+          <p class="text-xs text-slate-600 mt-2">Concentration ratio of integrated foundational models indicating vendor dependency parameters.</p>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-rose-600 font-semibold">
+        <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-rose-800 font-semibold uppercase tracking-wide">
           Data Scrape Vulnerability: High
         </div>
       </div>
+
     </section>
 
-    <!-- Visual Charts Row -->
-    <section class="bg-white border border-hiveBorder rounded-sm p-6 sm:p-8">
+    <!-- Visual Charts Data Visualization Panel -->
+    <section class="bg-white border border-hiveBorder rounded-sm p-6 sm:p-8" aria-label="Visual Footprint and Sourcing Analytics">
       <div class="max-w-3xl mb-8 space-y-2">
         <h2 class="text-2xl font-bold text-hiveCharcoal">Systemic Workspace Dependencies & Footprints</h2>
-        <p class="text-sm text-slate-600">
+        <p class="text-sm text-slate-700">
           The structural distributions below organize provider dependencies, data collection metrics, and model-modality power profiles across active execution states.
         </p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
         <div class="flex flex-col justify-between p-4 bg-hiveLightGray border border-hiveBorder rounded-sm">
           <div class="space-y-1 mb-4">
-            <h4 class="text-sm font-bold text-hiveCharcoal">Model Provider Shares</h4>
-            <p class="text-xs text-slate-500">Distribution of integrated micro-models across current tool suites.</p>
+            <h3 class="text-sm font-bold text-hiveCharcoal">Model Provider Shares</h3>
+            <p class="text-xs text-slate-600">Distribution of integrated micro-models across current tool suites.</p>
           </div>
           <div class="chart-container">
-            <canvas id="providerShareChart"></canvas>
+            <canvas id="providerShareChart" role="img" aria-label="Doughnut chart displaying model provider distribution, indicating a 42.8% reliance on OpenAI infrastructure."></canvas>
           </div>
         </div>
 
         <div class="flex flex-col justify-between p-4 bg-hiveLightGray border border-hiveBorder rounded-sm">
           <div class="space-y-1 mb-4">
-            <h4 class="text-sm font-bold text-hiveCharcoal">Dataset Sourcing Frameworks</h4>
-            <p class="text-xs text-slate-500">Categorization of data aggregation architectures behind active models.</p>
+            <h3 class="text-sm font-bold text-hiveCharcoal">Dataset Sourcing Frameworks</h3>
+            <p class="text-xs text-slate-600">Categorization of underlying model data mining configurations.</p>
           </div>
           <div class="chart-container">
-            <canvas id="provenanceChart"></canvas>
+            <canvas id="provenanceChart" role="img" aria-label="Bar chart showing training dataset sourcing compliance: 20% Licensed, 35% Mixed Source, and 45% Unrestricted Scrapes."></canvas>
           </div>
         </div>
 
         <div class="flex flex-col justify-between p-4 bg-hiveLightGray border border-hiveBorder rounded-sm">
           <div class="space-y-1 mb-4">
-            <h4 class="text-sm font-bold text-hiveCharcoal">Power Draw by Modality</h4>
-            <p class="text-xs text-slate-500">Approximate electrical consumption in Watt-hours (Wh) per execution call.</p>
+            <h3 class="text-sm font-bold text-hiveCharcoal">Power Draw by Modality</h3>
+            <p class="text-xs text-slate-600">Approximate electrical consumption in Watt-hours (Wh) per execution call.</p>
           </div>
           <div class="chart-container">
-            <canvas id="modalityPowerChart"></canvas>
+            <canvas id="modalityPowerChart" role="img" aria-label="Bar chart comparing query energy footprints: Video synthesis is highest at 180Wh, whereas standard text and code completion run below 2.5Wh."></canvas>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- Active Tool Evaluation Matrix and Inspector -->
-    <section class="bg-white border border-hiveBorder rounded-sm p-6 sm:p-8">
+    <!-- Tool Register Matrix Section -->
+    <section class="bg-white border border-hiveBorder rounded-sm p-6 sm:p-8" aria-label="AI Software Evaluation Register">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div class="space-y-1">
-          <h3 class="text-xl font-bold text-hiveCharcoal">Active Tool Evaluation Register</h3>
-          <p class="text-xs text-slate-500">A lookup matrix tracking internal software platforms to their distinct backend providers, carbon risk metrics, and compliance classes.</p>
+          <h2 class="text-xl font-bold text-hiveCharcoal">Active Tool Evaluation Register</h2>
+          <p class="text-xs text-slate-600">Platform mapping of backend models, carbon, and compliance.</p>
         </div>
-        <div class="flex flex-wrap gap-1.5 font-mono text-xs">
-          <button onclick="filterSystem('all')" class="px-3 py-1.5 bg-hiveDark text-white hover:bg-hiveCharcoal transition">All Systems</button>
-          <button onclick="filterSystem('creative')" class="px-3 py-1.5 bg-slate-200 text-slate-700 hover:bg-slate-300 transition">Creative</button>
-          <button onclick="filterSystem('dev')" class="px-3 py-1.5 bg-slate-200 text-slate-700 hover:bg-slate-300 transition">Development</button>
-          <button onclick="filterSystem('productivity')" class="px-3 py-1.5 bg-slate-200 text-slate-700 hover:bg-slate-300 transition">Operations</button>
+        
+        <!-- Tabbed Menu conforming to WCAG 2.2 Tab Pattern -->
+        <div class="w-full md:w-auto overflow-hidden">
+          <div class="flex flex-row overflow-x-auto no-scrollbar whitespace-nowrap border-b border-hiveBorder gap-1 font-sans text-sm" role="tablist" aria-label="Filter Active Tools by Workflow">
+            <button id="tab-all" role="tab" aria-selected="true" aria-controls="audit-table-container" tabindex="0" onclick="filterSystem('all')" class="tab-btn min-h-[44px] px-4 py-2 transition-all duration-150 border-b-2 border-hiveYellow text-hiveCharcoal font-semibold bg-slate-50 focus-visible:ring-2 focus-visible:ring-hiveCharcoal">
+              All Systems
+            </button>
+            <button id="tab-creative" role="tab" aria-selected="false" aria-controls="audit-table-container" tabindex="-1" onclick="filterSystem('creative')" class="tab-btn min-h-[44px] px-4 py-2 transition-all duration-150 border-b-2 border-transparent text-slate-600 hover:text-hiveDark focus-visible:ring-2 focus-visible:ring-hiveCharcoal">
+              Creative
+            </button>
+            <button id="tab-dev" role="tab" aria-selected="false" aria-controls="audit-table-container" tabindex="-1" onclick="filterSystem('dev')" class="tab-btn min-h-[44px] px-4 py-2 transition-all duration-150 border-b-2 border-transparent text-slate-600 hover:text-hiveDark focus-visible:ring-2 focus-visible:ring-hiveCharcoal">
+              Development
+            </button>
+            <button id="tab-productivity" role="tab" aria-selected="false" aria-controls="audit-table-container" tabindex="-1" onclick="filterSystem('productivity')" class="tab-btn min-h-[44px] px-4 py-2 transition-all duration-150 border-b-2 border-transparent text-slate-600 hover:text-hiveDark focus-visible:ring-2 focus-visible:ring-hiveCharcoal">
+              Operations
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="overflow-x-auto border border-hiveBorder">
+      <!-- Semantic Interactive Table -->
+      <div id="audit-table-container" class="overflow-x-auto border border-hiveBorder">
         <table class="min-w-full divide-y divide-hiveBorder text-left text-sm">
+          <caption class="sr-only">Hive IT's active generative AI tool catalogue, showing dependencies, carbon impact scales, and data sourcing compliance profiles.</caption>
           <thead class="bg-hiveDark text-white text-xs font-bold uppercase tracking-wider">
             <tr>
-              <th class="px-6 py-3.5">Software Platform</th>
-              <th class="px-6 py-3.5">Model Providers Engaged</th>
-              <th class="px-6 py-3.5">Primary Target Use</th>
-              <th class="px-6 py-3.5 text-center">Carbon Tier</th>
-              <th class="px-6 py-3.5 text-center">Data Compliance Status</th>
-              <th class="px-6 py-3.5 text-right">Action</th>
+              <th scope="col" class="px-6 py-4">Software Platform</th>
+              <th scope="col" class="px-6 py-4">Model Providers Engaged</th>
+              <th scope="col" class="px-6 py-4">Primary Target Use</th>
+              <th scope="col" class="px-6 py-4 text-center">Carbon Tier</th>
+              <th scope="col" class="px-6 py-4 text-center">Data Compliance Status</th>
+              <th scope="col" class="px-6 py-4 text-right">Action</th>
             </tr>
           </thead>
-          <tbody id="audit-table-rows" class="divide-y divide-hiveBorder bg-white">
+          <tbody id="audit-table-rows" class="divide-y divide-hiveBorder bg-white text-slate-800">
+            <!-- Dynamic tool rows injected here -->
           </tbody>
         </table>
       </div>
 
-      <!-- Sourcing Panel with active compliance citations -->
-      <div id="inspector-panel" class="mt-6 p-6 bg-hiveLightGray border-t-4 border-hiveYellow hidden">
+      <!-- Sourcing Panel with active compliance citations (Aria-Live to announce expansions) -->
+      <div id="inspector-panel" role="region" aria-live="polite" aria-labelledby="inspect-name" class="mt-6 p-6 bg-hiveLightGray border-t-4 border-hiveYellow hidden">
         <div class="flex justify-between items-start mb-4">
           <div>
-            <span id="inspect-category" class="text-[10px] font-bold tracking-widest text-hiveYellow bg-hiveDark px-2 py-0.5 uppercase">CREATIVE PIPELINE</span>
-            <h4 id="inspect-name" class="text-xl font-extrabold text-hiveCharcoal mt-1">Canva</h4>
+            <span id="inspect-category" class="text-[10px] font-bold tracking-widest text-hiveDark bg-hiveYellow px-2 py-1 uppercase rounded-sm">CREATIVE PIPELINE</span>
+            <h3 id="inspect-name" class="text-xl font-extrabold text-hiveCharcoal mt-2 focus:outline-none" tabindex="-1">Canva</h3>
           </div>
-          <button onclick="hideInspector()" class="text-slate-400 hover:text-hiveCharcoal font-bold text-xl px-2">&times;</button>
+          <button type="button" onclick="hideInspector()" aria-label="Close details inspector panel" class="text-slate-500 hover:text-hiveCharcoal font-bold text-2xl px-3 py-1.5 focus-visible:ring-2 focus-visible:ring-hiveCharcoal">
+            &times;
+          </button>
         </div>
+        
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs leading-relaxed mb-6">
           <div class="bg-white p-4 border border-hiveBorder">
-            <h5 class="font-bold text-hiveCharcoal border-b pb-1.5 mb-2 uppercase tracking-wider text-[11px]">Integrated Models</h5>
+            <h4 class="font-bold text-hiveCharcoal border-b pb-1.5 mb-2 uppercase tracking-wider text-[11px]">Integrated Models</h4>
             <div id="inspect-models-list" class="space-y-1.5"></div>
           </div>
           <div class="bg-white p-4 border border-hiveBorder">
-            <h5 class="font-bold text-hiveCharcoal border-b pb-1.5 mb-2 uppercase tracking-wider text-[11px]">Carbon Footprint Context</h5>
-            <p id="inspect-carbon-text" class="text-slate-600"></p>
+            <h4 class="font-bold text-hiveCharcoal border-b pb-1.5 mb-2 uppercase tracking-wider text-[11px]">Carbon Footprint Context</h4>
+            <p id="inspect-carbon-text" class="text-slate-700"></p>
           </div>
           <div class="bg-white p-4 border border-hiveBorder">
-            <h5 class="font-bold text-hiveCharcoal border-b pb-1.5 mb-2 uppercase tracking-wider text-[11px]">Governance & Risk Rating</h5>
-            <p id="inspect-governance-text" class="text-slate-600"></p>
+            <h4 class="font-bold text-hiveCharcoal border-b pb-1.5 mb-2 uppercase tracking-wider text-[11px]">Governance & Risk Rating</h4>
+            <p id="inspect-governance-text" class="text-slate-700"></p>
           </div>
         </div>
 
-        <div class="p-4 bg-white border border-hiveBorder flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-[11px] text-slate-500 rounded-sm">
+        <div class="p-4 bg-white border border-hiveBorder flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-[11px] text-slate-700 rounded-sm">
           <div class="space-y-1">
             <strong class="text-hiveCharcoal uppercase tracking-wider">Provenance Reference Standards:</strong>
             <p>Our ethical risks track data mining classifications based on open research indicators.</p>
           </div>
           <div class="flex flex-wrap gap-4 font-semibold">
-            <a href="https://dataprovenance.org/" target="_blank" rel="noopener noreferrer" class="text-hiveCharcoal hover:text-hiveYellow underline decoration-hiveYellow decoration-2 flex items-center gap-1">
+            <a href="https://dataprovenance.org/" target="_blank" rel="noopener noreferrer" class="text-hiveCharcoal hover:text-hiveDark underline decoration-hiveYellow decoration-2 flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-hiveCharcoal">
               Data Provenance Initiative ↗
             </a>
-            <a href="https://arxiv.org/abs/2311.17035" target="_blank" rel="noopener noreferrer" class="text-hiveCharcoal hover:text-hiveYellow underline decoration-hiveYellow decoration-2 flex items-center gap-1">
+            <a href="https://arxiv.org/abs/2311.17035" target="_blank" rel="noopener noreferrer" class="text-hiveCharcoal hover:text-hiveDark underline decoration-hiveYellow decoration-2 flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-hiveCharcoal">
               MIT Consent & Opt-In Study ↗
             </a>
           </div>
@@ -242,13 +292,13 @@
       </div>
     </section>
 
-    <!-- Multi-Team Sustainability Sandbox Simulator -->
-    <section id="simulation-calculator" class="bg-hiveDark text-white p-6 sm:p-8 rounded-sm">
+    <!-- Multi-Team Sustainability Sandbox Simulator Section -->
+    <section id="simulation-calculator" class="bg-hiveDark text-white p-6 sm:p-8 rounded-sm" aria-label="Interactive Multi-Team Calculator Sandbox">
       <div class="space-y-4 mb-8">
         <span class="text-xs font-bold text-hiveYellow uppercase tracking-wider block">Live Workspace Footprint Simulator (Annual Model)</span>
-        <h3 class="text-2xl font-bold tracking-tight">Multi-Team Sustainability Sandbox</h3>
-        <p class="text-xs text-slate-400 max-w-4xl">
-          Scale staff resources and individual modality generation counts independently for each operational division. Calculations reflect annual parameter aggregations (52 weeks/year) based on specific workload intensity adjustments.
+        <h2 class="text-2xl font-bold tracking-tight">Multi-Team Sustainability Sandbox</h2>
+        <p class="text-xs text-slate-300 max-w-4xl leading-relaxed">
+          Scale staff resources and individual modality generation counts independently for each operational division. Calculations reflect annual parameter aggregations (52 weeks/year) utilizing the localized UK grid carbon factors.
         </p>
       </div>
 
@@ -257,57 +307,57 @@
         <!-- Team 1: Creative -->
         <div class="bg-hiveCharcoal p-5 border border-slate-800 rounded-sm space-y-4">
           <div class="border-b border-slate-800 pb-2 flex justify-between items-center">
-            <h4 class="text-sm font-bold text-hiveYellow uppercase tracking-wider">1. Creative Team</h4>
-            <span class="text-xs font-mono bg-slate-800 px-2 py-0.5 rounded text-slate-300"><span id="lbl-c-hours">3,900</span> hrs/yr</span>
+            <h3 class="text-sm font-bold text-hiveYellow uppercase tracking-wider">1. Creative Team</h3>
+            <span class="text-xs font-mono bg-slate-800 px-2 py-0.5 rounded text-slate-300" aria-describedby="c-staff"><span id="lbl-c-hours">1,040</span> hrs/yr</span>
           </div>
           
           <div class="space-y-1">
-            <div class="flex justify-between text-xs text-slate-400">
-              <label for="c-staff">Team Personnel</label>
+            <div class="flex justify-between text-xs text-slate-300">
+              <label id="label-c-staff" for="c-staff">Team Personnel</label>
               <span class="font-bold text-white"><span id="val-c-staff">5</span> staff</span>
             </div>
-            <input type="range" id="c-staff" min="0" max="50" value="5" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+            <input type="range" id="c-staff" min="0" max="50" value="5" aria-labelledby="label-c-staff" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
           </div>
-          <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-400">
+          <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300">
             <div>
-              <label for="c-days" class="block mb-0.5">Days / Wk</label>
-              <input type="range" id="c-days" min="1" max="7" value="3" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
-              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-c-days">3</span> days</span>
+              <label id="label-c-days" for="c-days" class="block mb-0.5">Days / Wk</label>
+              <input type="range" id="c-days" min="1" max="7" value="2" aria-labelledby="label-c-days" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-c-days">2</span> days</span>
             </div>
             <div>
-              <label for="c-hours" class="block mb-0.5">Hrs / Session</label>
-              <input type="range" id="c-hours" min="1" max="12" value="5" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
-              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-c-hours-sess">5</span> hrs</span>
+              <label id="label-c-hours-sess" for="c-hours" class="block mb-0.5">Hrs / Session</label>
+              <input type="range" id="c-hours" min="1" max="12" value="2" aria-labelledby="label-c-hours-sess" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-c-hours">2</span> hrs</span>
             </div>
           </div>
           <div class="space-y-3 pt-2 border-t border-slate-800/60">
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Text Prompts / Hour</span>
+                <label id="label-c-text" for="c-text">Text Prompts / Hour</label>
                 <span class="text-hiveYellow font-bold"><span id="val-c-text">6</span> /hr</span>
               </div>
-              <input type="range" id="c-text" min="0" max="30" value="6" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="c-text" min="0" max="30" value="6" aria-labelledby="label-c-text" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Code Lines / Hour</span>
+                <label id="label-c-code" for="c-code">Code Lines / Hour</label>
                 <span class="text-hiveYellow font-bold"><span id="val-c-code">2</span> /hr</span>
               </div>
-              <input type="range" id="c-code" min="0" max="100" value="2" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="c-code" min="0" max="100" value="2" aria-labelledby="label-c-code" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Media Assets / Hour</span>
-                <span class="text-hiveYellow font-bold"><span id="val-c-image">5</span> /hr</span>
+                <label id="label-c-image" for="c-image">Media Assets / Hour</label>
+                <span class="text-hiveYellow font-bold"><span id="val-c-image">1</span> /hr</span>
               </div>
-              <input type="range" id="c-image" min="0" max="20" value="5" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="c-image" min="0" max="20" value="1" aria-labelledby="label-c-image" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Video Units / Session</span>
+                <label id="label-c-video" for="c-video">Video Units / Session</label>
                 <span class="text-hiveYellow font-bold"><span id="val-c-video">0</span> /sess</span>
               </div>
-              <input type="range" id="c-video" min="0" max="10" value="0" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="c-video" min="0" max="10" value="0" aria-labelledby="label-c-video" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
           </div>
         </div>
@@ -315,57 +365,57 @@
         <!-- Team 2: Development -->
         <div class="bg-hiveCharcoal p-5 border border-slate-800 rounded-sm space-y-4">
           <div class="border-b border-slate-800 pb-2 flex justify-between items-center">
-            <h4 class="text-sm font-bold text-hiveYellow uppercase tracking-wider">2. Development Team</h4>
-            <span class="text-xs font-mono bg-slate-800 px-2 py-0.5 rounded text-slate-300"><span id="lbl-d-hours">12,480</span> hrs/yr</span>
+            <h3 class="text-sm font-bold text-hiveYellow uppercase tracking-wider">2. Development Team</h3>
+            <span class="text-xs font-mono bg-slate-800 px-2 py-0.5 rounded text-slate-300" aria-describedby="d-staff"><span id="lbl-d-hours">3,328</span> hrs/yr</span>
           </div>
           
           <div class="space-y-1">
-            <div class="flex justify-between text-xs text-slate-400">
-              <label for="d-staff">Team Personnel</label>
+            <div class="flex justify-between text-xs text-slate-300">
+              <label id="label-d-staff" for="d-staff">Team Personnel</label>
               <span class="font-bold text-white"><span id="val-d-staff">16</span> staff</span>
             </div>
-            <input type="range" id="d-staff" min="0" max="50" value="16" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+            <input type="range" id="d-staff" min="0" max="50" value="16" aria-labelledby="label-d-staff" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
           </div>
-          <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-400">
+          <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300">
             <div>
-              <label for="d-days" class="block mb-0.5">Days / Wk</label>
-              <input type="range" id="d-days" min="1" max="7" value="3" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
-              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-d-days">3</span> days</span>
+              <label id="label-d-days" for="d-days" class="block mb-0.5">Days / Wk</label>
+              <input type="range" id="d-days" min="1" max="7" value="2" aria-labelledby="label-d-days" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-d-days">2</span> days</span>
             </div>
             <div>
-              <label for="d-hours" class="block mb-0.5">Hrs / Session</label>
-              <input type="range" id="d-hours" min="1" max="12" value="5" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
-              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-d-hours-sess">5</span> hrs</span>
+              <label id="label-d-hours-sess" for="d-hours" class="block mb-0.5">Hrs / Session</label>
+              <input type="range" id="d-hours" min="1" max="12" value="2" aria-labelledby="label-d-hours-sess" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-d-hours-sess">2</span> hrs</span>
             </div>
           </div>
           <div class="space-y-3 pt-2 border-t border-slate-800/60">
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Text Prompts / Hour</span>
+                <label id="label-d-text" for="d-text">Text Prompts / Hour</label>
                 <span class="text-hiveYellow font-bold"><span id="val-d-text">3</span> /hr</span>
               </div>
-              <input type="range" id="d-text" min="0" max="30" value="3" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="d-text" min="0" max="30" value="3" aria-labelledby="label-d-text" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Code Lines / Hour</span>
+                <label id="label-d-code" for="d-code">Code Lines / Hour</label>
                 <span class="text-hiveYellow font-bold"><span id="val-d-code">40</span> /hr</span>
               </div>
-              <input type="range" id="d-code" min="0" max="100" value="40" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="d-code" min="0" max="100" value="40" aria-labelledby="label-d-code" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Media Assets / Hour</span>
+                <label id="label-d-image" for="d-image">Media Assets / Hour</label>
                 <span class="text-hiveYellow font-bold"><span id="val-d-image">0</span> /hr</span>
               </div>
-              <input type="range" id="d-image" min="0" max="20" value="0" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="d-image" min="0" max="20" value="0" aria-labelledby="label-d-image" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Video Units / Session</span>
+                <label id="label-d-video" for="d-video">Video Units / Session</label>
                 <span class="text-hiveYellow font-bold"><span id="val-d-video">0</span> /sess</span>
               </div>
-              <input type="range" id="d-video" min="0" max="10" value="0" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="d-video" min="0" max="10" value="0" aria-labelledby="label-d-video" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
           </div>
         </div>
@@ -373,54 +423,54 @@
         <!-- Team 3: Operations -->
         <div class="bg-hiveCharcoal p-5 border border-slate-800 rounded-sm space-y-4">
           <div class="border-b border-slate-800 pb-2 flex justify-between items-center">
-            <h4 class="text-sm font-bold text-hiveYellow uppercase tracking-wider">3. Operations Team</h4>
-            <span class="text-xs font-mono bg-slate-800 px-2 py-0.5 rounded text-slate-300"><span id="lbl-o-hours">4,680</span> hrs/yr</span>
+            <h3 class="text-sm font-bold text-hiveYellow uppercase tracking-wider">3. Operations Team</h3>
+            <span class="text-xs font-mono bg-slate-800 px-2 py-0.5 rounded text-slate-300" aria-describedby="o-staff"><span id="lbl-o-hours">1,248</span> hrs/yr</span>
           </div>
           
           <div class="space-y-1">
-            <div class="flex justify-between text-xs text-slate-400">
-              <label for="o-staff">Team Personnel</label>
+            <div class="flex justify-between text-xs text-slate-300">
+              <label id="label-o-staff" for="o-staff">Team Personnel</label>
               <span class="font-bold text-white"><span id="val-o-staff">6</span> staff</span>
             </div>
-            <input type="range" id="o-staff" min="0" max="50" value="6" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+            <input type="range" id="o-staff" min="0" max="50" value="6" aria-labelledby="label-o-staff" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
           </div>
-          <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-400">
+          <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300">
             <div>
-              <label for="o-days" class="block mb-0.5">Days / Wk</label>
-              <input type="range" id="o-days" min="1" max="7" value="3" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
-              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-o-days">3</span> days</span>
+              <label id="label-o-days" for="o-days" class="block mb-0.5">Days / Wk</label>
+              <input type="range" id="o-days" min="1" max="7" value="2" aria-labelledby="label-o-days" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-o-days">2</span> days</span>
             </div>
             <div>
-              <label for="o-hours" class="block mb-0.5">Hrs / Session</label>
-              <input type="range" id="o-hours" min="1" max="12" value="5" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
-              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-o-hours-sess">5</span> hrs</span>
+              <label id="label-o-hours-sess" for="o-hours" class="block mb-0.5">Hrs / Session</label>
+              <input type="range" id="o-hours" min="1" max="12" value="2" aria-labelledby="label-o-hours-sess" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <span class="text-white font-mono font-bold block text-right mt-0.5"><span id="val-o-hours-sess">2</span> hrs</span>
             </div>
           </div>
           <div class="space-y-3 pt-2 border-t border-slate-800/60">
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Text Prompts / Hour</span>
+                <label id="label-o-text" for="o-text">Text Prompts / Hour</label>
                 <span class="text-hiveYellow font-bold"><span id="val-o-text">10</span> /hr</span>
               </div>
-              <input type="range" id="o-text" min="0" max="30" value="10" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="o-text" min="0" max="30" value="10" aria-labelledby="label-o-text" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Code Lines / Hour</span>
+                <label id="label-o-code" for="o-code">Code Lines / Hour</label>
                 <span class="text-hiveYellow font-bold"><span id="val-o-code">0</span> /hr</span>
               </div>
-              <input type="range" id="o-code" min="0" max="100" value="0" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="o-code" min="0" max="100" value="0" aria-labelledby="label-o-code" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Media Assets / Hour</span>
+                <label id="label-o-image" for="o-image">Media Assets / Hour</label>
                 <span class="text-hiveYellow font-bold"><span id="val-o-image">1</span> /hr</span>
               </div>
-              <input type="range" id="o-image" min="0" max="20" value="1" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
+              <input type="range" id="o-image" min="0" max="20" value="1" aria-labelledby="label-o-image" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
             </div>
             <div class="space-y-1">
               <div class="flex justify-between text-[11px] text-slate-300">
-                <span>Video Units / Session</span>
+                <label id="label-o-video" for="o-video">Video Units / Session</label>
                 <span class="text-hiveYellow font-bold"><span id="val-o-video">0</span> /sess</span>
               </div>
               <input type="range" id="o-video" min="0" max="10" value="0" class="w-full h-1 bg-slate-700 appearance-none cursor-pointer">
@@ -430,81 +480,81 @@
 
       </div>
 
-      <!-- Live Interactive Scoring Output Board -->
-      <div class="bg-hiveCharcoal border border-slate-800 p-6 rounded-sm mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Live Calculated Output Metric Card Panel -->
+      <div class="bg-hiveCharcoal border border-slate-800 p-6 rounded-sm mt-8 grid grid-cols-1 md:grid-cols-2 gap-8" aria-live="polite" aria-label="Aggregated Simulator Outputs">
         <div class="space-y-4">
-          <h4 class="font-bold text-slate-400 text-xs uppercase tracking-wider">Aggregated Annual Workspace Output</h4>
+          <h3 class="font-bold text-slate-300 text-xs uppercase tracking-wider">Aggregated Annual Workspace Output</h3>
           
           <div class="grid grid-cols-2 gap-4">
             <div class="p-4 bg-hiveDark border border-slate-800">
               <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wide">Annual Grid Overhead</span>
-              <p class="text-xl font-extrabold text-white mt-1"><span id="calc-kwh">949.7</span> kWh</p>
-              <p class="text-[9px] text-slate-500 mt-1">Summed electricity required for back-end transformer matrix compute cycles.</p>
+              <p class="text-xl font-extrabold text-white mt-1"><span id="calc-kwh">149.2</span> kWh</p>
+              <p class="text-[9px] text-slate-400 mt-1">Summed electricity required for back-end transformer matrix compute cycles.</p>
             </div>
             <div class="p-4 bg-hiveDark border border-slate-800">
               <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wide">Net Annual Emissions</span>
-              <p class="text-xl font-extrabold text-hiveYellow mt-1"><span id="calc-co2">465</span> kg CO₂e</p>
-              <p class="text-[9px] text-slate-500 mt-1">Total operational footprint modeled directly across all 3 company segments.</p>
+              <p class="text-xl font-extrabold text-hiveYellow mt-1"><span id="calc-co2">22</span> kg</p>
+              <p class="text-[9px] text-slate-400 mt-1">Total operational footprint modeled directly using DESNZ UK grid conversion factors.</p>
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-4">
             <div class="p-4 bg-hiveDark border border-slate-800">
               <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wide">Net Annual Water Draw</span>
-              <p class="text-xl font-extrabold text-blue-400 mt-1"><span id="calc-water">225,420</span> L</p>
-              <p class="text-[9px] text-slate-500 mt-1">Total physical consumption used dynamically by cooling units on the grid.</p>
+              <p class="text-xl font-extrabold text-blue-400 mt-1"><span id="calc-water">39,312</span> L</p>
+              <p class="text-[9px] text-slate-400 mt-1">Total physical consumption used dynamically by cooling units on the grid.</p>
             </div>
             <div class="p-4 bg-hiveDark border border-slate-800">
               <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wide">Active Workspace Base</span>
               <p class="text-xl font-extrabold text-white mt-1"><span id="calc-staff-total">27</span> Employees</p>
-              <p class="text-[9px] text-slate-500 mt-1">Cumulative staff size computed inside active operational groups.</p>
+              <p class="text-[9px] text-slate-400 mt-1">Cumulative staff size computed inside active operational groups.</p>
             </div>
           </div>
         </div>
 
         <div class="space-y-4 flex flex-col justify-between">
           <div class="p-4 bg-hiveDark border border-slate-800 space-y-3">
-            <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wide">Environmental Equivalence Indexes</span>
+            <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wide">UK Environmental Equivalence Indexes</span>
             
             <div class="grid grid-cols-3 gap-2 text-center text-xs">
               <div class="p-2 bg-hiveCharcoal border border-slate-800">
-                <div id="eq-car" class="font-bold text-white">1,907 km</div>
-                <div class="text-[9px] text-slate-500 mt-0.5">Car Travel</div>
+                <div id="eq-car" class="font-bold text-white">131 km</div>
+                <div class="text-[9px] text-slate-400 mt-0.5">UK Road Transit</div>
               </div>
               <div class="p-2 bg-hiveCharcoal border border-slate-800">
-                <div id="eq-trees" class="font-bold text-hiveYellow">21.2</div>
-                <div class="text-[9px] text-slate-500 mt-0.5 font-sans">Trees Needed</div>
+                <div id="eq-trees" class="font-bold text-hiveYellow">1.0</div>
+                <div class="text-[9px] text-slate-400 mt-0.5 font-sans">Trees Needed</div>
               </div>
               <div class="p-2 bg-hiveCharcoal border border-slate-800">
-                <div id="eq-pools" class="font-bold text-blue-400">0.090</div>
-                <div class="text-[9px] text-slate-500 mt-0.5">Olympic Pools</div>
+                <div id="eq-pools" class="font-bold text-blue-400">0.016</div>
+                <div class="text-[9px] text-slate-400 mt-0.5">Olympic Pools</div>
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-2 text-center text-xs pt-1">
               <div class="p-2 bg-hiveCharcoal border border-slate-800">
-                <div id="eq-bottles" class="font-bold text-slate-300">450,840</div>
-                <div class="text-[9px] text-slate-500 mt-0.5">Water Bottles (0.5L)</div>
+                <div id="eq-bottles" class="font-bold text-slate-300">78,624</div>
+                <div class="text-[9px] text-slate-400 mt-0.5">Water Bottles (0.5L)</div>
               </div>
               <div class="p-2 bg-hiveCharcoal border border-slate-800">
-                <div id="eq-hours" class="font-bold text-slate-300">21,060</div>
-                <div class="text-[9px] text-slate-500 mt-0.5">Work Hours / Year</div>
+                <div id="eq-hours" class="font-bold text-slate-300">5,616</div>
+                <div class="text-[9px] text-slate-400 mt-0.5">Work Hours / Year</div>
               </div>
             </div>
 
             <!-- Peer-reviewed resource and math methodology citation links -->
-            <div class="mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-400 space-y-1.5 leading-tight">
+            <div class="mt-4 pt-3 border-t border-slate-800 text-[10px] text-slate-300 space-y-1.5 leading-tight">
               <p class="font-bold text-slate-300 uppercase tracking-wide">Simulation Methodology References:</p>
               <ul class="list-disc pl-4 space-y-1">
                 <li>
-                  <a href="https://arxiv.org/abs/2304.03271" target="_blank" rel="noopener noreferrer" class="text-hiveYellow hover:underline">
+                  <a href="https://arxiv.org/abs/2304.03271" target="_blank" rel="noopener noreferrer" class="text-hiveYellow hover:underline focus-visible:ring-2 focus-visible:ring-hiveYellow">
                     Making AI Less Thirsty (Li et al. 2023) ↗
                   </a> — Baseline of 500ml water cooling evaporation loss per text generation sequence.
                 </li>
                 <li>
-                  <a href="https://arxiv.org/abs/2211.02001" target="_blank" rel="noopener noreferrer" class="text-hiveYellow hover:underline">
-                    BLOOM Lifecycle Carbon Estimation (Luccioni et al.) ↗
-                  </a> — Framework for parsing grid carbon factors against machine parameter sizing.
+                  <a href="https://www.gov.uk/government/collections/government-conversion-factors-for-company-reporting" target="_blank" rel="noopener noreferrer" class="text-hiveYellow hover:underline focus-visible:ring-2 focus-visible:ring-hiveYellow">
+                    DESNZ UK Greenhouse Gas Conversion Factors ↗
+                  </a> — Standard greenhouse gas conversion factor of 0.149 kg CO₂e per kWh of grid-supplied electricity.
                 </li>
               </ul>
             </div>
@@ -515,14 +565,15 @@
 
   </main>
 
-  <footer class="bg-hiveDark text-slate-400 text-xs border-t border-slate-800 mt-16 py-8">
+  <!-- Contentinfo Landmark -->
+  <footer class="bg-hiveDark text-slate-300 text-xs border-t border-slate-800 py-8">
     <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
       <p>&copy; 2026 Hive IT Corporate Environmental Registry Framework. Visual mapping and scripts executed transparently without utilizing custom SVG configurations or internal Mermaid diagrams.</p>
+      <p class="text-slate-400 font-mono text-[10px]">Conforms strictly to W3C WCAG 2.2 Level AA requirements.</p>
     </div>
   </footer>
 
   <script>
-    // Detailed model metadata sourced from uploaded CSV
     const recordRegistry = [
       {
         name: "Canva",
@@ -706,6 +757,7 @@
 
     function displayAuditRegister(selection = 'all') {
       const targetBody = document.getElementById('audit-table-rows');
+      if (!targetBody) return;
       targetBody.innerHTML = '';
 
       const filteredRegistry = selection === 'all' ? recordRegistry : recordRegistry.filter(r => r.category === selection);
@@ -722,8 +774,8 @@
         const formattedRow = `
           <tr class="hover:bg-slate-50 transition text-xs sm:text-sm">
             <td class="px-6 py-4 font-bold text-hiveCharcoal">${tool.name}</td>
-            <td class="px-6 py-4 text-slate-500">${tool.providers.join(', ')}</td>
-            <td class="px-6 py-4 text-slate-600 font-mono text-xs">${tool.useCase}</td>
+            <td class="px-6 py-4 text-slate-600">${tool.providers.join(', ')}</td>
+            <td class="px-6 py-4 text-slate-700 font-mono text-xs">${tool.useCase}</td>
             <td class="px-6 py-4 text-center">
               <span class="inline-block px-2 py-0.5 rounded-sm border text-[11px] font-semibold ${carbonColor}">
                 ${tool.carbonTier}
@@ -735,7 +787,7 @@
               </span>
             </td>
             <td class="px-6 py-4 text-right">
-              <button onclick="inspectRow('${tool.name}')" class="text-xs font-bold text-hiveCharcoal hover:text-hiveYellow underline underline-offset-2">
+              <button type="button" onclick="inspectRow('${tool.name}')" aria-label="Inspect architectural details for ${tool.name}" class="min-h-[44px] px-4 py-2 text-xs font-bold text-hiveCharcoal hover:text-hiveYellow hover:bg-hiveCharcoal rounded-sm transition underline underline-offset-2 focus-visible:ring-2 focus-visible:ring-hiveCharcoal">
                 Inspect
               </button>
             </td>
@@ -760,22 +812,195 @@
         modelListTarget.innerHTML += `
           <div class="p-2 bg-white border border-hiveBorder flex justify-between items-center">
             <span class="font-bold text-hiveCharcoal">${m.name}</span>
-            <span class="text-[10px] uppercase font-semibold text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-sm">${m.type}</span>
+            <span class="text-[10px] uppercase font-semibold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded-sm">${m.type}</span>
           </div>
         `;
       });
 
-      document.getElementById('inspector-panel').classList.remove('hidden');
-      document.getElementById('inspector-panel').scrollIntoView({ behavior: 'smooth' });
+      const panel = document.getElementById('inspector-panel');
+      panel.classList.remove('hidden');
+      
+      const inspectTitle = document.getElementById('inspect-name');
+      inspectTitle.focus();
+      panel.scrollIntoView({ behavior: 'smooth' });
     }
 
     function hideInspector() {
       document.getElementById('inspector-panel').classList.add('hidden');
     }
 
+    window.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        hideInspector();
+      }
+    });
+
     function filterSystem(category) {
       displayAuditRegister(category);
+
+      const tabIds = {
+        all: 'tab-all',
+        creative: 'tab-creative',
+        dev: 'tab-dev',
+        productivity: 'tab-productivity'
+      };
+
+      Object.keys(tabIds).forEach(cat => {
+        const btn = document.getElementById(tabIds[cat]);
+        if (btn) {
+          if (cat === category) {
+            btn.className = "tab-btn min-h-[44px] px-4 py-2 transition-all duration-150 border-b-2 border-hiveYellow text-hiveCharcoal font-semibold bg-slate-50 focus-visible:ring-2 focus-visible:ring-hiveCharcoal";
+            btn.setAttribute('aria-selected', 'true');
+            btn.setAttribute('tabindex', '0');
+          } else {
+            btn.className = "tab-btn min-h-[44px] px-4 py-2 transition-all duration-150 border-b-2 border-transparent text-slate-600 hover:text-hiveDark focus-visible:ring-2 focus-visible:ring-hiveCharcoal";
+            btn.setAttribute('aria-selected', 'false');
+            btn.setAttribute('tabindex', '-1');
+          }
+        }
+      });
     }
+
+    const tabListContainer = document.querySelector('[role="tablist"]');
+    if (tabListContainer) {
+      tabListContainer.addEventListener('keydown', e => {
+        const tabs = Array.from(tabListContainer.querySelectorAll('[role="tab"]'));
+        const activeIdx = tabs.indexOf(document.activeElement);
+        if (activeIdx === -1) return;
+
+        let nextIdx = activeIdx;
+        if (e.key === 'ArrowRight') {
+          nextIdx = (activeIdx + 1) % tabs.length;
+        } else if (e.key === 'ArrowLeft') {
+          nextIdx = (activeIdx - 1 + tabs.length) % tabs.length;
+        }
+
+        if (nextIdx !== activeIdx) {
+          tabs[nextIdx].focus();
+          tabs[nextIdx].click();
+        }
+      });
+    }
+
+    function getInputValue(id) {
+      const el = document.getElementById(id);
+      return el ? parseInt(el.value) || 0 : 0;
+    }
+
+    function processAnnualCalculations() {
+      const c_s = getInputValue('c-staff');
+      const c_d = getInputValue('c-days');
+      const c_h = getInputValue('c-hours');
+      const c_t = getInputValue('c-text');
+      const c_c = getInputValue('c-code');
+      const c_i = getInputValue('c-image');
+      const c_v = getInputValue('c-video');
+
+      const d_s = getInputValue('d-staff');
+      const d_d = getInputValue('d-days');
+      const d_h = getInputValue('d-hours');
+      const d_t = getInputValue('d-text');
+      const d_c = getInputValue('d-code');
+      const d_i = getInputValue('d-image');
+      const d_v = getInputValue('d-video');
+
+      const o_s = getInputValue('o-staff');
+      const o_d = getInputValue('o-days');
+      const o_h = getInputValue('o-hours');
+      const o_t = getInputValue('o-text');
+      const o_c = getInputValue('o-code');
+      const o_i = getInputValue('o-image');
+      const o_v = getInputValue('o-video');
+
+      const sliderIds = [
+        'c-staff', 'c-days', 'c-hours', 'c-text', 'c-code', 'c-image', 'c-video',
+        'd-staff', 'd-days', 'd-hours', 'd-text', 'd-code', 'd-image', 'd-video',
+        'o-staff', 'o-days', 'o-hours', 'o-text', 'o-code', 'o-image', 'o-video'
+      ];
+      sliderIds.forEach(id => {
+        const inputEl = document.getElementById(id);
+        const displayEl = document.getElementById('val-' + id);
+        if (inputEl && displayEl) {
+          displayEl.innerText = inputEl.value;
+        }
+      });
+
+      const cAnnualHours = c_s * (c_d * c_h * 52);
+      const dAnnualHours = d_s * (d_d * d_h * 52);
+      const oAnnualHours = o_s * (o_d * o_h * 52);
+
+      const elLblCHours = document.getElementById('lbl-c-hours');
+      const elLblDHours = document.getElementById('lbl-d-hours');
+      const elLblOHours = document.getElementById('lbl-o-hours');
+      if (elLblCHours) elLblCHours.innerText = cAnnualHours.toLocaleString();
+      if (elLblDHours) elLblDHours.innerText = dAnnualHours.toLocaleString();
+      if (elLblOHours) elLblOHours.innerText = oAnnualHours.toLocaleString();
+
+      const totalTextQueries = (c_t * cAnnualHours) + (d_t * dAnnualHours) + (o_t * oAnnualHours);
+      const totalCodeLines = (c_c * cAnnualHours) + (d_c * dAnnualHours) + (o_c * oAnnualHours);
+      const totalImageGens = (c_i * cAnnualHours) + (d_i * dAnnualHours) + (o_i * oAnnualHours);
+      const totalVideoGens = (c_v * c_d * 52 * c_s) + (d_v * d_d * 52 * d_s) + (o_v * o_d * 52 * o_s);
+
+      const totalWh = (totalTextQueries * 2.5) + (totalCodeLines * 0.15) + (totalImageGens * 25.0) + (totalVideoGens * 180.0);
+      const totalKwh = totalWh / 1000;
+      
+      const ukGridCarbonFactor = 0.149;
+      const totalCO2 = totalKwh * ukGridCarbonFactor;
+
+      const totalWaterLiters = (totalTextQueries * 0.5) + (totalCodeLines * 0.1) + (totalImageGens * 5.0) + (totalVideoGens * 35.0);
+      const totalStaff = c_s + d_s + o_s;
+      const totalWorkHours = cAnnualHours + dAnnualHours + oAnnualHours;
+
+      const updateText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = text;
+      };
+
+      updateText('calc-kwh', Math.round(totalKwh).toLocaleString() + " kWh");
+      updateText('calc-co2', Math.round(totalCO2).toLocaleString() + " kg");
+      updateText('calc-water', Math.round(totalWaterLiters).toLocaleString() + " L");
+      updateText('calc-staff-total', totalStaff.toLocaleString());
+
+      const carKmFactor = 0.17;
+      updateText('eq-car', Math.round(totalCO2 / carKmFactor).toLocaleString() + " km");
+      
+      const treeFactor = 22.0;
+      const treeCount = totalCO2 / treeFactor;
+      updateText('eq-trees', treeCount.toFixed(1));
+      
+      const poolCount = totalWaterLiters / 2500000;
+      updateText('eq-pools', poolCount.toFixed(3));
+      updateText('eq-bottles', Math.round(totalWaterLiters / 0.5).toLocaleString());
+      updateText('eq-hours', totalWorkHours.toLocaleString());
+
+      updateText('top-staff-display', totalStaff + " Employees");
+      updateText('top-hours-display', (totalStaff > 0 ? Math.round(totalWorkHours / 52 / totalStaff) : 0) + " Hrs / Wk Avg");
+      updateText('top-total-hours', totalWorkHours.toLocaleString() + " Hours");
+      updateText('top-co2-display', Math.round(totalCO2).toLocaleString() + " kg");
+      updateText('top-water-display', Math.round(totalWaterLiters).toLocaleString() + " L");
+      updateText('top-trees-display', Math.ceil(treeCount) + " Trees");
+      updateText('top-pools-display', poolCount.toFixed(2) + " Pools");
+    }
+
+    function initCalculator() {
+      const sliderIds = [
+        'c-staff', 'c-days', 'c-hours', 'c-text', 'c-code', 'c-image', 'c-video',
+        'd-staff', 'd-days', 'd-hours', 'd-text', 'd-code', 'd-image', 'd-video',
+        'o-staff', 'o-days', 'o-hours', 'o-text', 'o-code', 'o-image', 'o-video'
+      ];
+      sliderIds.forEach(id => {
+        const inputEl = document.getElementById(id);
+        if (inputEl) {
+          inputEl.addEventListener('input', processAnnualCalculations);
+        }
+      });
+      processAnnualCalculations();
+    }
+
+    window.onload = function() {
+      displayAuditRegister('all');
+      initCalculator();
+    };
 
     const ctxShare = document.getElementById('providerShareChart').getContext('2d');
     new Chart(ctxShare, {
@@ -842,146 +1067,6 @@
         }
       }
     });
-
-    const simulatorInputs = {
-      cStaff: document.getElementById('c-staff'),
-      cDays: document.getElementById('c-days'),
-      cHours: document.getElementById('c-hours'),
-      cText: document.getElementById('c-text'),
-      cCode: document.getElementById('c-code'),
-      cImage: document.getElementById('c-image'),
-      cVideo: document.getElementById('c-video'),
-
-      dStaff: document.getElementById('d-staff'),
-      dDays: document.getElementById('d-days'),
-      dHours: document.getElementById('d-hours'),
-      dText: document.getElementById('d-text'),
-      dCode: document.getElementById('d-code'),
-      dImage: document.getElementById('d-image'),
-      dVideo: document.getElementById('d-video'),
-
-      oStaff: document.getElementById('o-staff'),
-      oDays: document.getElementById('o-days'),
-      oHours: document.getElementById('o-hours'),
-      oText: document.getElementById('o-text'),
-      oCode: document.getElementById('o-code'),
-      oImage: document.getElementById('o-image'),
-      oVideo: document.getElementById('o-video')
-    };
-
-    const simulatorDisplays = {
-      cStaff: document.getElementById('val-c-staff'),
-      cDays: document.getElementById('val-c-days'),
-      cHours: document.getElementById('val-c-hours-sess'),
-      cText: document.getElementById('val-c-text'),
-      cCode: document.getElementById('val-c-code'),
-      cImage: document.getElementById('val-c-image'),
-      cVideo: document.getElementById('val-c-video'),
-
-      dStaff: document.getElementById('val-d-staff'),
-      dDays: document.getElementById('val-d-days'),
-      dHours: document.getElementById('val-d-hours-sess'),
-      dText: document.getElementById('val-d-text'),
-      dCode: document.getElementById('val-d-code'),
-      dImage: document.getElementById('val-d-image'),
-      dVideo: document.getElementById('val-d-video'),
-
-      oStaff: document.getElementById('val-o-staff'),
-      oDays: document.getElementById('o-days'),
-      oHours: document.getElementById('val-o-hours-sess'),
-      oText: document.getElementById('val-o-text'),
-      oCode: document.getElementById('val-o-code'),
-      oImage: document.getElementById('val-o-image'),
-      oVideo: document.getElementById('val-o-video')
-    };
-
-    function processAnnualCalculations() {
-      const c_s = parseInt(simulatorInputs.cStaff.value);
-      const c_d = parseInt(simulatorInputs.cDays.value);
-      const c_h = parseInt(simulatorInputs.cHours.value);
-      const c_t = parseInt(simulatorInputs.cText.value);
-      const c_c = parseInt(simulatorInputs.cCode.value);
-      const c_i = parseInt(simulatorInputs.cImage.value);
-      const c_v = parseInt(simulatorInputs.cVideo.value);
-
-      const d_s = parseInt(simulatorInputs.dStaff.value);
-      const d_d = parseInt(simulatorInputs.dDays.value);
-      const d_h = parseInt(simulatorInputs.dHours.value);
-      const d_t = parseInt(simulatorInputs.dText.value);
-      const d_c = parseInt(simulatorInputs.dCode.value);
-      const d_i = parseInt(simulatorInputs.dImage.value);
-      const d_v = parseInt(simulatorInputs.dVideo.value);
-
-      const o_s = parseInt(simulatorInputs.oStaff.value);
-      const o_d = parseInt(simulatorInputs.oDays.value);
-      const o_h = parseInt(simulatorInputs.oHours.value);
-      const o_t = parseInt(simulatorInputs.oText.value);
-      const o_c = parseInt(simulatorInputs.oCode.value);
-      const o_i = parseInt(simulatorInputs.oImage.value);
-      const o_v = parseInt(simulatorInputs.oVideo.value);
-
-      Object.keys(simulatorInputs).forEach(key => {
-        if (simulatorDisplays[key]) {
-          simulatorDisplays[key].innerText = simulatorInputs[key].value;
-        }
-      });
-
-      const cAnnualHours = c_s * (c_d * c_h * 52);
-      const dAnnualHours = d_s * (d_d * d_h * 52);
-      const oAnnualHours = o_s * (o_d * o_h * 52);
-
-      document.getElementById('lbl-c-hours').innerText = cAnnualHours.toLocaleString();
-      document.getElementById('lbl-d-hours').innerText = dAnnualHours.toLocaleString();
-      document.getElementById('lbl-o-hours').innerText = oAnnualHours.toLocaleString();
-
-      const totalTextQueries = (c_t * cAnnualHours) + (d_t * dAnnualHours) + (o_t * oAnnualHours);
-      const totalCodeLines = (c_c * cAnnualHours) + (d_c * dAnnualHours) + (o_c * oAnnualHours);
-      const totalImageGens = (c_i * cAnnualHours) + (d_i * dAnnualHours) + (o_i * oAnnualHours);
-      const totalVideoGens = (c_v * c_d * 52 * c_s) + (d_v * d_d * 52 * d_s) + (o_v * o_d * 52 * o_s);
-
-      const totalWh = (totalTextQueries * 2.5) + (totalCodeLines * 0.15) + (totalImageGens * 25.0) + (totalVideoGens * 180.0);
-      const totalKwh = totalWh / 1000;
-      const totalCO2 = totalKwh * 0.49;
-
-      const totalWaterLiters = (totalTextQueries * 0.5) + (totalCodeLines * 0.1) + (totalImageGens * 5.0) + (totalVideoGens * 35.0);
-      const totalStaff = c_s + d_s + o_s;
-      const totalWorkHours = cAnnualHours + dAnnualHours + oAnnualHours;
-
-      document.getElementById('calc-kwh').innerText = totalKwh.toFixed(1).toLocaleString() + " kWh";
-      document.getElementById('calc-co2').innerText = Math.round(totalCO2).toLocaleString() + " kg";
-      document.getElementById('calc-water').innerText = Math.round(totalWaterLiters).toLocaleString() + " L";
-      document.getElementById('calc-staff-total').innerText = totalStaff.toLocaleString();
-
-      document.getElementById('eq-car').innerText = Math.round(totalCO2 / 0.244).toLocaleString() + " km";
-      const treeCount = totalCO2 / 22.0;
-      document.getElementById('eq-trees').innerText = treeCount.toFixed(1);
-      
-      const poolCount = totalWaterLiters / 2500000;
-      document.getElementById('eq-pools').innerText = poolCount.toFixed(3);
-      document.getElementById('eq-bottles').innerText = Math.round(totalWaterLiters / 0.5).toLocaleString();
-      document.getElementById('eq-hours').innerText = totalWorkHours.toLocaleString();
-
-      document.getElementById('top-staff-display').innerText = totalStaff + " Employees";
-      document.getElementById('top-hours-display').innerText = (totalStaff > 0 ? Math.round(totalWorkHours / 52 / totalStaff) : 0) + " Hrs / Wk Avg";
-      document.getElementById('top-total-hours').innerText = totalWorkHours.toLocaleString() + " Hours";
-      document.getElementById('top-co2-display').innerText = Math.round(totalCO2).toLocaleString() + " kg";
-      document.getElementById('top-water-display').innerText = Math.round(totalWaterLiters).toLocaleString() + " L";
-      document.getElementById('top-trees-display').innerText = Math.ceil(treeCount) + " Trees";
-      document.getElementById('top-pools-display').innerText = poolCount.toFixed(2) + " Pools";
-    }
-
-    Object.keys(simulatorInputs).forEach(key => {
-      simulatorInputs[key].addEventListener('input', updateCalculator);
-    });
-
-    function updateCalculator() {
-      processAnnualCalculations();
-    }
-
-    window.onload = function() {
-      displayAuditRegister('all');
-      processAnnualCalculations();
-    };
   </script>
 </body>
 </html>
