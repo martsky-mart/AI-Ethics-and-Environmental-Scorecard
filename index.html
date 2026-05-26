@@ -1,7 +1,7 @@
-<!-- Chosen Palette: Hive IT Warm Harmony (Warm Sand: #FAF8F5, Slate Charcoal: #131415, Accent Gold: #D97706) -->
+<!-- Chosen Palette: Hive IT Warm Harmony (Warm Sand: #FAF8F5, Slate Charcoal: #111317, Accent Gold: #fdb813, Dark Base: #1e2229) -->
 <!-- Application Structure Plan: The application uses a modular dashboard approach on a single scrollable page to display complex sustainability and ethical data. The layout features 13 providers across three explicit categories: AI Engines (including separate entries for Google and Microsoft AI arms, and Amazon Bedrock), Cloud Hosting (including AWS), and Deploy Layers. The top section introduces the main ESG trends with card-based statistics and an active Session Computational Footprint tracker that factors in a baseline dev load (35 turns of code gen/compilation @ 10 Wh each) plus subsequent live audits. The middle grid hosts the interactive provider grid where users can filter by category and drill down into evidence panels. When a user opens a provider evidence modal, a theme-responsive, custom color-coded radar chart is dynamically initialized side-by-side with high-contrast performance metrics and fully linked primary sources. This structure was chosen to make extensive corporate lifecycle reports easy to digest, visually compelling, and highly interactive. -->
 <!-- Visualization & Content Choices: 1. Core KPIs -> Inform -> High Contrast Cards -> Instant comprehension of massive operational statistics. 2. Downstream Calculator -> Inform & Compare -> Interactive Form -> Dynamically models resource drain based on model type. 3. Real-Time Auditor -> Analyze -> Gemini LLM Integration -> Offers custom, dynamic expert-level ESG auditing. 4. Scorecard Grid -> Compare -> Dynamic Filter & Provider Cards -> Clean, fast-loading grid using B-Corp inspired card aesthetics. 5. Evidence Panel -> Compare & Relationships -> Custom Color-Coded Radar Chart -> Displays provider scores geometrically, matching their specific brand colors. 6. Comparison Matrix -> Compare & Relationships -> Unified Radar Chart & Side-by-Side Table -> Lets users directly evaluate and visually overlay any two entities across our four core performance pillars. -->
-<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. FLAT DESIGN: Rounded corners replaced with rounded-none. Drop shadows replaced with shadow-none. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
   <title>AI & Cloud Infrastructure Scorecard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;650;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -22,19 +22,15 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Geist', 'sans-serif'],
-            display: ['Space Grotesk', 'sans-serif'],
+            sans: ['Poppins', 'sans-serif'],
             mono: ['Geist Mono', 'monospace'],
           },
           colors: {
-            brand: {
-              50: '#fffbeb',
-              100: '#fef3c7',
-              500: '#f59e0b',
-              600: '#d97706',
-              700: '#b45309',
-              900: '#78350f',
-            },
+            hiveYellow: '#fdb813',
+            hiveDark: '#1e2229',
+            hiveCharcoal: '#111317',
+            hiveLightGray: '#f7f9fa',
+            hiveBorder: '#e2e8f0',
             grade: {
               A: '#059669',
               B: '#2563eb',
@@ -49,13 +45,15 @@
   </script>
   <style>
     body {
-      font-family: 'Geist', sans-serif;
-    }
-    h1, h2, h3, h4, .font-display {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f9fa;
+      color: #1e2229;
     }
     code, pre, .font-mono {
       font-family: 'Geist Mono', monospace;
+    }
+    input[type="range"] {
+      accent-color: #fdb813;
     }
     ::-webkit-scrollbar {
       width: 8px;
@@ -65,11 +63,11 @@
       background: #f1f5f9;
     }
     .dark ::-webkit-scrollbar-track {
-      background: #131415;
+      background: #111317;
     }
     ::-webkit-scrollbar-thumb {
       background: #cbd5e1;
-      border-radius: 4px;
+      border-radius: 0px;
     }
     .dark ::-webkit-scrollbar-thumb {
       background: #334155;
@@ -80,141 +78,97 @@
     .dark ::-webkit-scrollbar-thumb:hover {
       background: #475569;
     }
+    *:focus { outline: none; }
+    *:focus-visible { outline: 3px solid #111317; outline-offset: 3px; }
+    .bg-hiveDark *:focus-visible { outline: 3px solid #fdb813; outline-offset: 3px; }
   </style>
 </head>
-<body class="bg-[#FAF8F5] text-[#1A1A1A] dark:bg-[#131415] dark:text-[#F3F4F6] min-h-screen transition-colors duration-300 antialiased">
+<body class="bg-[#FAF8F5] text-[#111317] dark:bg-[#111317] dark:text-[#f7f9fa] min-h-screen transition-colors duration-300 antialiased font-sans">
 
-  <!-- Main Navigation / Header -->
-  <header class="border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur sticky top-0 z-45 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:p-4 focus:bg-hiveYellow focus:text-hiveCharcoal focus:font-bold focus:outline-none focus:ring-4 focus:ring-hiveDark rounded-none">
+    Skip to Main Content
+  </a>
+
+  <!-- Real-Time Session Cumulative Footprint Banner -->
+  <div class="bg-hiveLightGray dark:bg-[#1e2229] border-b border-hiveBorder dark:border-slate-800 text-slate-700 dark:text-slate-300 text-[10px] sm:text-xs py-2.5 px-6 flex flex-col xl:flex-row justify-between items-center z-[44] relative gap-4 xl:gap-0 font-sans font-semibold shadow-none rounded-none">
+    <div class="flex items-center gap-2 text-left w-full xl:w-auto">
+      <span class="flex h-2.5 w-2.5 relative shrink-0">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-none bg-hiveYellow opacity-75"></span>
+        <span class="relative inline-flex rounded-none h-2.5 w-2.5 bg-hiveYellow"></span>
+      </span>
+      <span class="font-mono tracking-wider font-bold uppercase shrink-0 text-hiveCharcoal dark:text-hiveYellow">Session Cumulative Footprint:</span>
+      <span class="hidden md:inline text-slate-600 dark:text-slate-400 font-sans normal-case ml-1 truncate">Real-time computing costs factoring in development turns (baseline creation load) + live auditing.</span>
+    </div>
+    <div class="flex gap-4 sm:gap-8 font-mono font-bold tracking-wide w-full xl:w-auto justify-between xl:justify-end">
+      <div class="flex flex-col text-right"><span class="text-[8px] uppercase text-slate-500 dark:text-slate-400 leading-none">Total Operations</span><span class="text-slate-700 dark:text-slate-200 mt-0.5"><span id="session-queries">0</span> Calls</span></div>
+      <div class="h-6 w-px bg-slate-300 dark:bg-slate-700"></div>
+      <div class="flex flex-col text-right"><span class="text-[8px] uppercase text-slate-500 dark:text-slate-400 leading-none">Water Evaporated</span><span class="text-blue-600 dark:text-blue-400 mt-0.5"><span id="session-water">0.00000 L</span></span></div>
+      <div class="h-6 w-px bg-slate-300 dark:bg-slate-700"></div>
+      <div class="flex flex-col text-right"><span class="text-[8px] uppercase text-slate-500 dark:text-slate-400 leading-none">Grid Carbon</span><span class="text-amber-800 dark:text-amber-500 mt-0.5"><span id="session-carbon">0.00 g CO₂</span></span></div>
+    </div>
+  </div>
+
+  <nav class="bg-[#1e2229] text-white sticky top-0 z-40 px-6 py-4 border-b-4 border-[#fdb813] shadow-none rounded-none" aria-label="Primary Navigation">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 bg-brand-500/10 rounded-lg border border-brand-500/40 dark:border-brand-500/30 flex items-center justify-center">
-          <span class="text-brand-600 dark:text-brand-500 font-display font-bold text-lg">H</span>
-        </div>
+        <div class="w-10 h-10 bg-hiveYellow text-hiveCharcoal font-extrabold text-xl flex items-center justify-center rounded-none" aria-hidden="true">H</div>
         <div>
-          <h1 class="font-bold text-xl leading-tight text-slate-900 dark:text-white tracking-tight">AI & Cloud Infrastructure Scorecard</h1>
-          <p class="text-xs text-slate-700 dark:text-slate-300 font-sans font-medium">Hive-Inspired Environmental & Ethical Index</p>
+          <span class="font-bold text-lg tracking-tight block text-white font-display">Hive IT</span>
+          <span class="text-xs text-hiveYellow uppercase tracking-wider font-semibold font-sans">UK AI & Cloud Scorecard</span>
         </div>
       </div>
       
-      <div class="flex items-center space-x-3 font-display">
+      <div class="flex items-center space-x-4">
         <!-- Region calculations switcher -->
-        <select id="global-region-select" onchange="changeRegion(this.value)" class="text-xs font-semibold bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg p-2 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand-500">
+        <select id="global-region-select" onchange="changeRegion(this.value)" class="text-xs font-semibold bg-[#111317] border border-slate-750 rounded-none p-2 text-slate-200 focus:outline-none focus:ring-1 focus:ring-hiveYellow focus:border-hiveYellow">
           <option value="UK" selected>🇬🇧 UK (Sheffield)</option>
           <option value="EU">🇪🇺 Europe</option>
           <option value="US">🇺🇸 United States</option>
           <option value="Asia">🌏 Asia</option>
         </select>
 
-        <button onclick="openSettingsModal()" class="hidden flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+        <button onclick="openSettingsModal()" class="hidden flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-none border border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 transition shadow-none">
           ⚙️
           <span class="hidden sm:inline">Settings & Keys</span>
         </button>
 
-        <button onclick="openDeploymentGuide()" class="hidden flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-lg border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" title="Deployment Help">
+        <button onclick="openDeploymentGuide()" class="hidden flex items-center space-x-1.5 px-3.5 py-2 text-sm font-semibold rounded-none border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition shadow-none" title="Deployment Help">
           📖
           <span class="hidden sm:inline">How to Deploy</span>
         </button>
 
-        <button id="theme-btn" onclick="toggleTheme()" class="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white hover:bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" aria-label="Toggle dark mode">
+        <button id="theme-btn" onclick="toggleTheme()" class="p-2 rounded-none bg-slate-800 hover:bg-slate-700 text-slate-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-hiveYellow" aria-label="Toggle dark mode">
           <span id="theme-icon-text">🌑</span>
         </button>
       </div>
     </div>
-  </header>
-
-  <!-- Live App Session Footprint Tracker -->
-  <div class="bg-brand-50 dark:bg-slate-950 border-b border-brand-100 dark:border-slate-855 py-3 font-sans transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
-      <div class="flex items-center space-x-3">
-        <span class="flex h-2.5 w-2.5 relative">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-600"></span>
-        </span>
-        <span class="text-slate-800 dark:text-slate-200 font-medium">
-          <strong>Session Cumulative Footprint:</strong> Real-time computing costs factoring in development turns (baseline creation load) + live auditing.
-        </span>
-      </div>
-      <div class="grid grid-cols-3 gap-6 md:flex md:items-center md:space-x-6">
-        <div class="text-right">
-          <span class="text-slate-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Total Operations</span>
-          <span id="session-queries" class="font-mono font-bold text-slate-900 dark:text-white">0 Calls</span>
-        </div>
-        <div class="hidden md:block border-l border-slate-200 dark:border-slate-850 h-6"></div>
-        <div class="text-right">
-          <span class="text-slate-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Water Evaporated</span>
-          <span id="session-water" class="font-mono font-bold text-brand-600 dark:text-brand-500">0.00000 L</span>
-        </div>
-        <div class="hidden md:block border-l border-slate-200 dark:border-slate-850 h-6"></div>
-        <div class="text-right">
-          <span class="text-slate-500 dark:text-slate-400 block text-[10px] uppercase font-bold">Grid Carbon</span>
-          <span id="session-carbon" class="font-mono font-bold text-brand-700 dark:text-brand-500">0.00 g CO₂</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="api-warning-banner" class="hidden bg-[#FFFDF9] dark:bg-slate-900 border-b border-amber-200/60 dark:border-slate-800 py-3 font-sans">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between flex-wrap gap-2 text-xs">
-      <div class="flex items-center space-x-2 text-slate-800 dark:text-slate-300">
-        📢
-        <span><strong>Integration Status:</strong> Sandbox environment key auto-injection is supported. For custom external self-hosting, configure your personal key.</span>
-      </div>
-      <button onclick="openSettingsModal()" class="px-2.5 py-1 rounded bg-brand-100 hover:bg-brand-100/80 dark:bg-slate-800 dark:hover:bg-slate-700 text-brand-900 dark:text-slate-300 font-semibold border border-brand-200 dark:border-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
-        Configure Custom Key
-      </button>
-    </div>
-  </div>
+  </nav>
 
   <!-- Hero Summary Section -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" aria-labelledby="hero-title">
-    <div class="bg-gradient-to-br from-[#FFFDF9] to-[#F5ECE2] dark:from-slate-900 dark:to-slate-800 border border-[#F3E2CE] dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-md">
-      <div class="max-w-3xl">
-        <h2 id="hero-title" class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">
-          The Hidden Cost of Artificial Intelligence
-        </h2>
-        <p class="mt-4 text-slate-700 dark:text-slate-300 leading-relaxed text-base sm:text-lg font-sans">
-          This interactive dashboard tracks, evaluates, and ranks major providers split into three core categories: AI Engines (including separate entries for Google, Microsoft, and Amazon Bedrock), Cloud Hosting infrastructure platforms (including AWS), and Front-End Abstraction/Deploy Networks.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-brand-500/20 dark:border-slate-750">
-        <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
-          <p class="text-xs text-slate-705 dark:text-slate-300 font-medium uppercase tracking-wider">Estimated Inference Cost</p>
-          <p class="text-2xl font-bold mt-1 text-slate-900 dark:text-slate-100 font-mono">0.3 Wh <span class="text-xs text-brand-600 dark:text-brand-400 font-sans font-normal">/ query</span></p>
-          <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-1">Based on recent 2025 Frontier measurements</p>
-        </div>
-        <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
-          <p class="text-xs text-slate-705 dark:text-slate-300 font-medium uppercase tracking-wider">US Datacenter Water Draw</p>
-          <p class="text-2xl font-bold mt-1 text-slate-900 dark:text-slate-100 font-mono">17 Billion <span class="text-xs text-brand-600 dark:text-brand-400 font-sans font-normal">gals/yr</span></p>
-          <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-1">Projected up to 33B gals by 2028</p>
-        </div>
-        <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/85 shadow-sm">
-          <p class="text-xs text-slate-755 dark:text-slate-300 font-medium uppercase tracking-wider">Decoupled Emissions Gap</p>
-          <p class="text-2xl font-bold mt-1 text-red-600 dark:text-red-400 font-mono">Up to 19,000x</p>
-          <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-1">Market vs. Location-Based reporting</p>
-        </div>
-        <div class="p-4 bg-white dark:bg-slate-950/50 rounded-xl border border-slate-200 dark:border-slate-800/85 shadow-sm">
-          <p class="text-xs text-slate-755 dark:text-slate-300 font-medium uppercase tracking-wider">Global Grid Projection (2030)</p>
-          <p class="text-2xl font-bold mt-1 text-brand-600 dark:text-brand-500 font-mono">945 TWh</p>
-          <p class="text-[10px] text-slate-600 dark:text-slate-400 mt-1">Expected to double from 2024</p>
-        </div>
-      </div>
+  <header id="main-content" class="bg-white dark:bg-[#1e2229] border-b border-hiveBorder dark:border-slate-800 py-12 px-6 sm:px-8 shadow-none rounded-none">
+    <div class="max-w-7xl mx-auto space-y-4">
+      <span class="text-xs font-bold uppercase tracking-widest text-[#111317] bg-hiveYellow px-3 py-1.5 rounded-none font-display">Scope 3 UK Grid Environmental Metrics</span>
+      <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-hiveCharcoal dark:text-white leading-tight font-display">
+        UK AI & Cloud Infrastructure <span class="border-b-4 border-hiveYellow">Scorecard</span>
+      </h2>
+      <p class="text-base sm:text-lg text-slate-700 dark:text-slate-300 max-w-4xl leading-relaxed pt-2">
+        An empirical assessment tracking Sheffield workspace carbon footprints, direct server infrastructure water consumption, and model training liabilities. Calculations utilize DESNZ 2024 Grid factors and verified inference benchmarks.
+      </p>
     </div>
-  </section>
+  </header>
 
   <!-- Interactive Scorecard Hub -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
     
-    <nav class="flex flex-col md:flex-row md:items-center justify-between pb-6 gap-4 border-b border-slate-200 dark:border-slate-800 font-display" aria-label="Provider filters">
+    <nav class="flex flex-col md:flex-row md:items-center justify-between pb-6 gap-4 border-b border-slate-200 dark:border-slate-855 font-sans" aria-label="Provider filters">
       <div class="flex flex-wrap gap-2" id="filter-buttons">
-        <button onclick="setFilter('all')" id="btn-all" class="px-4 py-2 text-sm font-semibold rounded-lg bg-brand-600 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">All Providers</button>
-        <button onclick="setFilter('ai-engine')" id="btn-ai-engine" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">AI Engines</button>
-        <button onclick="setFilter('cloud-hosting')" id="btn-cloud-hosting" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">Cloud Hosting</button>
-        <button onclick="setFilter('deploy-layer')" id="btn-deploy-layer" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">Deploy Layers</button>
+        <button onclick="setFilter('all')" id="btn-all" class="px-4 py-2 text-sm font-semibold rounded-none bg-hiveCharcoal dark:bg-hiveYellow text-white dark:text-hiveCharcoal transition shadow-none">All Providers</button>
+        <button onclick="setFilter('ai-engine')" id="btn-ai-engine" class="px-4 py-2 text-sm font-semibold rounded-none bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition shadow-none">AI Engines</button>
+        <button onclick="setFilter('cloud-hosting')" id="btn-cloud-hosting" class="px-4 py-2 text-sm font-semibold rounded-none bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition shadow-none">Cloud Hosting</button>
+        <button onclick="setFilter('deploy-layer')" id="btn-deploy-layer" class="px-4 py-2 text-sm font-semibold rounded-none bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition shadow-none">Deploy Layers</button>
       </div>
       <div class="flex items-center space-x-3">
-        <button onclick="openCompareModal()" class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold rounded-lg border border-brand-500/30 bg-brand-500/10 text-brand-700 dark:text-brand-400 hover:bg-brand-500/20 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+        <button onclick="openCompareModal()" class="flex items-center space-x-2 px-4 py-2 text-sm font-semibold rounded-none border border-hiveYellow bg-hiveYellow/10 text-[#111317] dark:text-hiveYellow hover:bg-hiveYellow/20 transition shadow-none">
           ⚖️ Compare Providers
         </button>
       </div>
@@ -224,88 +178,88 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8" id="provider-grid"></div>
 
     <!-- Operational Footprint Calculator -->
-    <section class="mt-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-md" aria-labelledby="calc-title">
-      <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
-        <h3 id="calc-title" class="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2">
+    <section class="bg-white dark:bg-[#1e2229] border border-hiveBorder dark:border-slate-800 rounded-none p-6 sm:p-8 shadow-none">
+      <div class="border-b border-hiveBorder dark:border-slate-800 pb-4 mb-6">
+        <h3 class="text-xl font-bold text-hiveCharcoal dark:text-white flex items-center space-x-2 font-display">
           🧮
           <span>Downstream Query Resource Calculator</span>
         </h3>
-        <p class="text-sm text-slate-700 dark:text-slate-300 font-sans font-normal">Simulate physical water and electrical grids under custom architecture scales.</p>
+        <p class="text-sm text-slate-600 dark:text-slate-400">Simulate physical water and electrical grids under custom architecture scales.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div class="lg:col-span-5 space-y-6">
           <div>
-            <label for="calc-queries" class="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-2">Daily Computational Query Rate</label>
-            <input type="range" id="calc-queries" min="100" max="5000" step="50" value="500" oninput="updateCalculator()" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
-            <div class="flex justify-between text-xs text-slate-755 dark:text-slate-300 mt-2">
+            <label for="calc-queries" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 font-sans">Daily Computational Query Rate</label>
+            <input type="range" id="calc-queries" min="100" max="5000" step="50" value="500" oninput="updateCalculator()" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-none appearance-none cursor-pointer">
+            <div class="flex justify-between text-xs text-slate-600 dark:text-slate-300 mt-2">
               <span class="font-mono">100</span>
-              <span id="calc-queries-display" class="text-brand-700 dark:text-brand-400 font-bold font-mono">500 queries/day</span>
+              <span id="calc-queries-display" class="text-[#b45309] dark:text-hiveYellow font-bold font-mono">500 queries/day</span>
               <span class="font-mono">5,000</span>
             </div>
           </div>
 
           <div>
-            <span class="block text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3">Model Architectural Choice</span>
+            <span class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 font-sans">Model Architectural Choice</span>
             <div class="grid grid-cols-1 gap-3">
-              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-955 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-500">
+              <label class="flex items-center p-3 rounded-none border border-hiveBorder dark:border-slate-800 bg-slate-50 dark:bg-slate-955/50 hover:bg-slate-100 dark:hover:bg-slate-955 cursor-pointer transition">
                 <input type="radio" name="model-type" value="search" onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-100 border-slate-300 dark:bg-slate-900 dark:border-slate-700">
                 <span class="ml-3 block">
-                  <span class="text-sm font-semibold text-slate-800 dark:text-slate-200 block">Standard Search Index</span>
+                  <span class="text-sm font-semibold text-[#111317] dark:text-white block">Standard Search Index</span>
                   <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium font-normal">Baseline (~0.3 Wh / query; 2009 Google Estimate)</span>
                 </span>
               </label>
-              <label class="flex items-center p-3 rounded-xl border border-brand-500/30 bg-brand-500/5 hover:bg-brand-500/10 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-500">
+              <label class="flex items-center p-3 rounded-none border border-[#fdb813]/30 bg-[#fdb813]/5 hover:bg-[#fdb813]/10 cursor-pointer transition">
                 <input type="radio" name="model-type" value="standard" checked onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-100 border-slate-300 dark:bg-slate-900 dark:border-slate-700">
                 <span class="ml-3 block">
-                  <span class="text-sm font-semibold text-brand-700 dark:text-brand-400 block">Conventional Generative AI</span>
-                  <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium font-normal">Standard 2025 LLM (e.g. GPT-4o / Claude Sonnet) (~0.3 Wh / query)</span>
+                  <span class="text-sm font-semibold text-hiveCharcoal dark:text-hiveYellow block">Conventional Generative AI</span>
+                  <span class="text-xs text-slate-500 dark:text-slate-400 block font-mono font-medium font-normal">Standard 2025 LLM (e.g. GPT-4o / Claude Sonnet) (~0.3 Wh / query)</span>
                 </span>
               </label>
-              <label class="flex items-center p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 hover:bg-slate-100 dark:hover:bg-slate-955 cursor-pointer transition focus-within:ring-2 focus-within:ring-brand-555">
+              <label class="flex items-center p-3 rounded-none border border-hiveBorder dark:border-slate-800 bg-slate-50 dark:bg-slate-955/50 hover:bg-slate-100 dark:hover:bg-slate-955 cursor-pointer transition">
                 <input type="radio" name="model-type" value="reasoning" onchange="updateCalculator()" class="text-brand-500 focus:ring-brand-500 h-4 w-4 bg-slate-100 border-slate-300 dark:bg-slate-900 dark:border-slate-700">
                 <span class="ml-3 block">
-                  <span class="text-sm font-semibold text-brand-700 dark:text-brand-555 block">Advanced Reasoning AI (o-series, DeepSeek R1)</span>
-                  <span class="text-xs text-slate-600 dark:text-slate-400 block font-mono font-medium font-normal">Sequential real-time thinking loops (~20 Wh / query; range 18-45 Wh)</span>
+                  <span class="text-sm font-semibold text-rose-700 dark:text-rose-400 block font-display">Advanced Reasoning AI (o-series, DeepSeek R1)</span>
+                  <span class="text-xs text-slate-600 dark:text-slate-300 block font-mono font-medium font-normal">Sequential real-time thinking loops (~20 Wh / query; range 18-45 Wh)</span>
                 </span>
               </label>
             </div>
           </div>
         </div>
 
-        <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-855 flex flex-col justify-between shadow-sm">
+        <div class="lg:col-span-7 bg-[#FAF8F5] dark:bg-slate-955 p-6 border border-hiveBorder dark:border-slate-800 flex flex-col justify-between rounded-none shadow-none">
           <div>
-            <h4 class="text-sm font-semibold text-slate-755 dark:text-slate-300 uppercase tracking-wide mb-4 font-display">Estimated Annual Resource Footprint</h4>
+            <h4 class="text-sm font-semibold text-slate-755 dark:text-slate-300 uppercase tracking-wide mb-4">Estimated Annual Resource Footprint</h4>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono">
-              <div class="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
-                <span class="text-xs text-slate-700 dark:text-slate-300 block font-sans font-medium">Power Consumed</span>
-                <span id="calc-power" class="text-2xl font-black text-slate-900 dark:text-slate-100 block mt-1">MWh</span>
+              <div class="p-4 bg-white dark:bg-[#1e2229] border border-hiveBorder dark:border-slate-800 rounded-none shadow-none">
+                <span class="text-xs text-slate-600 dark:text-slate-400 block font-sans font-medium">Power Consumed</span>
+                <span id="calc-power" class="text-2xl font-black text-slate-900 dark:text-white block mt-1">MWh</span>
                 <span id="calc-households" class="text-[10px] text-slate-600 dark:text-slate-400 block mt-1 font-sans">Power for UK homes/year</span>
               </div>
-              <div class="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div class="p-4 bg-white dark:bg-[#1e2229] border border-hiveBorder dark:border-slate-800 rounded-none shadow-none">
                 <span class="text-xs text-slate-700 dark:text-slate-300 block font-sans font-medium">Water Consumed</span>
                 <span id="calc-water" class="text-2xl font-black text-slate-900 dark:text-slate-100 block mt-1">Litres</span>
                 <span id="calc-households-water-hidden" class="hidden"></span>
               </div>
-              <div class="p-4 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
-                <span class="text-xs text-slate-700 dark:text-slate-300 block font-sans font-medium">Physical Grid Carbon</span>
-                <span id="calc-carbon" class="text-2xl font-black text-slate-900 dark:text-slate-100 block mt-1">kg</span>
+              <div class="p-4 bg-white dark:bg-[#1e2229] border border-hiveBorder dark:border-slate-800 rounded-none shadow-none">
+                <span class="text-xs text-slate-600 dark:text-slate-300 block font-sans font-medium">Physical Grid Carbon</span>
+                <span id="calc-carbon" class="text-2xl font-black text-slate-900 dark:text-white block mt-1">kg</span>
                 <span class="text-[10px] text-slate-600 dark:text-slate-400 block mt-1 font-sans">Based on local grid index</span>
               </div>
             </div>
           </div>
 
-          <div class="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4 border-t border-slate-200 dark:border-slate-855">
+          <div class="mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4 border-t border-hiveBorder dark:border-slate-800 shadow-none rounded-none">
             <div class="flex-1">
-              <h5 class="text-sm font-semibold text-brand-700 dark:text-brand-400 flex items-center space-x-1.5 font-display">
-                💡
+              <h5 class="text-sm font-semibold text-hiveYellow flex items-center space-x-1.5 font-display">
+                <span>💡</span>
                 <span>Architectural Recommendations: Right-Sizing</span>
               </h5>
               <p id="calc-advice" class="text-xs text-slate-700 dark:text-slate-300 mt-1 leading-relaxed font-sans font-normal">
                 Using standard GenAI models instead of Reasoning-heavy layers significantly optimizes power requirements. Distribute workloads down to specialized local layers.
               </p>
             </div>
-            <button onclick="sendStatsToAuditor()" class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center space-x-1.5 px-3 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 font-display">
+            <button onclick="sendStatsToAuditor()" class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center space-x-1.5 px-3 py-2.5 text-xs font-semibold bg-[#111317] dark:bg-hiveYellow text-white dark:text-hiveCharcoal transition font-display rounded-none shadow-none">
               <span>✨ Send to ESG Auditor</span>
             </button>
           </div>
@@ -314,103 +268,103 @@
     </section>
 
     <!-- Section: ✨ Real-Time AI ESG Auditor & Policy Advisor -->
-    <section id="auditor-panel" class="mt-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-md relative overflow-hidden" aria-labelledby="audit-title">
-      <div class="absolute -right-16 -top-16 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <section id="auditor-panel" class="mt-16 bg-white dark:bg-[#1e2229] border border-hiveBorder dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-none border border-slate-800 relative overflow-hidden">
+      <div class="absolute -right-16 -top-16 w-48 h-48 bg-brand-500/10 rounded-none blur-3xl pointer-events-none"></div>
       
-      <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+      <div class="border-b border-slate-855 pb-4 mb-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h3 id="audit-title" class="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2">
-              <span class="text-xl" aria-hidden="true">✨</span>
+            <h3 class="text-xl font-bold text-hiveCharcoal dark:text-white flex items-center space-x-2 font-display">
+              <span class="text-xl">✨</span>
               <span>Real-Time AI ESG Auditor & Policy Advisor</span>
             </h3>
-            <p class="text-sm text-slate-700 dark:text-slate-300 font-sans font-medium">Audit your infrastructure or draft compliant AI policies utilizing the Gemini 2.5 API.</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Ask Gemini to audit your custom infrastructure, evaluate regional grid options, or draft compliant AI policies.</p>
           </div>
-          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-brand-500/10 text-brand-700 dark:text-brand-400 border border-brand-500/20 font-display">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-none text-xs font-medium bg-[#fdb813]/10 text-hiveYellow border border-[#fdb813]/20 font-display">
             Self-Hosted Connector
           </span>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 font-sans">
         <div class="lg:col-span-5 space-y-4">
           <div>
-            <span class="block text-xs font-bold text-slate-755 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Audit Scenario Presets</span>
-            <div class="grid grid-cols-1 gap-2 font-sans">
-              <button onclick="applyAuditPreset('reasoning')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-950 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
-                <span class="font-semibold text-slate-900 dark:text-slate-200 block font-display">🌿 DeepSeek R1 / o1 Reasoning Audit</span>
-                <span class="text-slate-600 dark:text-slate-400 block mt-0.5 font-sans">Evaluate localized grid & aquifer loads for reasoning loop spikes.</span>
+            <span class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 font-display">Audit Scenario Presets</span>
+            <div class="grid grid-cols-1 gap-2">
+              <button onclick="applyAuditPreset('reasoning')" class="w-full text-left p-3 rounded-none bg-[#111317]/60 border border-slate-800 hover:border-[#fdb813]/40 hover:bg-[#111317] transition text-xs">
+                <span class="font-semibold text-white block font-display">🌿 DeepSeek R1 / o1 Reasoning Audit</span>
+                <span class="text-slate-400 block mt-0.5">Evaluate localized grid & aquifer loads for reasoning loop spikes.</span>
               </button>
-              <button onclick="applyAuditPreset('policy')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-955 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
-                <span class="font-semibold text-slate-900 dark:text-slate-200 block font-display">📜 EU AI Act Governance Plan</span>
-                <span class="text-slate-600 dark:text-slate-400 block mt-0.5 font-sans">Draft an organizational compliance blueprint for General-Purpose AI models.</span>
+              <button onclick="applyAuditPreset('policy')" class="w-full text-left p-3 rounded-none bg-[#111317]/60 border border-slate-800 hover:border-[#fdb813]/40 hover:bg-[#111317] transition text-xs">
+                <span class="font-semibold text-white block font-display">📜 EU AI Act Governance Plan</span>
+                <span class="text-slate-400 block mt-0.5 font-sans">Draft an organizational compliance blueprint for General-Purpose AI models.</span>
               </button>
-              <button onclick="applyAuditPreset('sourcing')" class="w-full text-left p-3 rounded-lg bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 hover:border-brand-500/40 dark:hover:border-slate-700 hover:bg-brand-5/20 dark:hover:bg-slate-955 transition text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
-                <span class="font-semibold text-slate-900 dark:text-slate-200 block font-display">🕵️ Crawl Ethics & Synthetic Data</span>
-                <span class="text-slate-600 dark:text-slate-400 block mt-0.5 font-sans">Audit the tradeoff of bypassing robots.txt vs synthetic dataset bias.</span>
+              <button onclick="applyAuditPreset('sourcing')" class="w-full text-left p-3 rounded-none bg-[#111317]/60 border border-slate-800 hover:border-[#fdb813]/40 hover:bg-[#111317] transition text-xs">
+                <span class="font-semibold text-white block font-display">🕵️ Crawl Ethics & Synthetic Data</span>
+                <span class="text-slate-300 block mt-0.5 font-sans">Audit the tradeoff of bypassing robots.txt vs synthetic dataset bias.</span>
               </button>
             </div>
           </div>
 
           <div>
-            <label for="auditor-input" class="block text-xs font-bold text-slate-755 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Custom Audit Context or Question</label>
-            <textarea id="auditor-input" rows="4" class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg p-3 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 font-sans" placeholder="Type a custom scenario (e.g. 'We plan to host LLaMA-3-70B on Google Cloud...')."></textarea>
+            <label for="auditor-input" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 font-display">Custom Audit Context or Question</label>
+            <textarea id="auditor-input" rows="4" class="w-full bg-[#FAF8F5] dark:bg-[#111317] border border-slate-300 dark:border-slate-800 rounded-none p-3 text-xs text-[#111317] dark:text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-hiveYellow focus:border-hiveYellow" placeholder="Type a custom scenario (e.g. 'We plan to host LLaMA-3-70B on Google Cloud...')."></textarea>
           </div>
 
           <div class="flex space-x-2 font-display">
-            <button onclick="runAudit()" class="flex-1 inline-flex items-center justify-center space-x-2 px-4 py-2.5 text-sm font-semibold rounded-lg bg-brand-600 hover:bg-brand-500 text-white transition shadow-lg shadow-brand-500/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+            <button onclick="runAudit()" class="flex-1 inline-flex items-center justify-center space-x-2 px-4 py-2.5 text-sm font-semibold rounded-none bg-hiveYellow hover:bg-[#e09e0a] text-hiveCharcoal transition">
               <span>✨ Execute Live AI Audit</span>
             </button>
-            <button onclick="clearAudit()" class="px-3 py-2.5 text-xs font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" title="Clear input">
+            <button onclick="clearAudit()" class="px-3 py-2.5 text-xs font-semibold rounded-none bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 transition" title="Clear input">
               Clear
             </button>
           </div>
         </div>
 
         <div class="lg:col-span-7 flex flex-col min-h-[340px]">
-          <div class="flex-1 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex flex-col justify-between overflow-hidden shadow-sm">
+          <div class="flex-1 bg-[#FAF8F5] dark:bg-[#111317] rounded-none border border-slate-200 dark:border-slate-800 p-5 flex flex-col justify-between overflow-hidden">
             <div id="auditor-loading" class="hidden flex-1 flex-col items-center justify-center space-y-4 py-12">
               <div class="relative w-12 h-12">
-                <div class="absolute inset-0 border-4 border-brand-500/10 rounded-full"></div>
-                <div class="absolute inset-0 border-4 border-t-brand-600 rounded-full animate-spin"></div>
+                <div class="absolute inset-0 border-4 border-[#fdb813]/10 rounded-none"></div>
+                <div class="absolute inset-0 border-4 border-t-hiveYellow rounded-none animate-spin"></div>
               </div>
-              <div class="text-center">
-                <p class="text-sm font-medium text-slate-900 dark:text-slate-300 font-display">Gemini LLM is evaluating lifecycle datasets...</p>
-                <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-sans" id="loading-step">Evaluating localized grid metrics...</p>
+              <div class="text-center font-display">
+                <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Gemini LLM is evaluating lifecycle datasets...</p>
+                <p class="text-xs text-slate-500 mt-1" id="loading-step">Evaluating localized grid metrics...</p>
               </div>
             </div>
 
             <div id="auditor-empty" class="flex-1 flex flex-col items-center justify-center text-center py-12 space-y-3">
               <div class="text-slate-400 text-5xl">🗒️</div>
-              <div>
+              <div class="font-sans">
                 <p class="text-sm font-semibold text-slate-800 dark:text-slate-400 font-display">Auditor Status: Ready</p>
-                <p class="text-xs text-slate-600 dark:text-slate-500 mt-1 max-w-sm font-sans font-normal">Select an audit scenario preset on the left, or input your own parameters, and press "Execute Live AI Audit" to start.</p>
+                <p class="text-xs text-slate-500 mt-1 max-w-sm">Select an audit scenario preset on the left, or input your own parameters, and press "Execute Live AI Audit" to start.</p>
               </div>
             </div>
 
             <div id="auditor-error" class="hidden flex-1 flex-col items-center justify-center text-center py-12 space-y-3">
-              <div class="p-2.5 bg-red-100 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 rounded-xl text-red-700 dark:text-red-400">
+              <div class="p-2.5 bg-red-100 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 rounded-none text-red-700 dark:text-red-400">
                 ⚠️
               </div>
-              <div>
-                <p class="text-sm font-semibold text-slate-900 dark:text-slate-300 font-display">Auditor Connection Alert</p>
-                <p id="auditor-error-text" class="text-xs text-slate-600 dark:text-slate-400 mt-1 max-w-sm font-sans font-normal">Unable to reach Google's Gemini servers. Verify your API key is correct and valid.</p>
-                <button onclick="openSettingsModal()" class="mt-3 text-xs bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 font-display">
+              <div class="font-display">
+                <p class="text-sm font-semibold text-slate-300">Auditor Connection Alert</p>
+                <p id="auditor-error-text" class="text-xs text-slate-500 mt-1 max-w-sm font-sans">Unable to reach Google's Gemini servers. Verify your API key is correct and valid.</p>
+                <button onclick="openSettingsModal()" class="mt-3 text-xs bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-250 px-3 py-1.5 rounded-none border border-slate-305 dark:border-slate-700 transition">
                   Open Settings Panel
                 </button>
               </div>
             </div>
 
-            <div id="auditor-content" class="hidden flex-1 overflow-y-auto max-h-[380px] pr-2">
-              <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 mb-4 sticky top-0 bg-slate-50 dark:bg-slate-950">
-                <span class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider flex items-center space-x-1 font-display">
+            <div id="auditor-content" class="hidden flex-1 overflow-y-auto max-h-[380px] pr-2 font-sans">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 mb-4 sticky top-0 bg-[#FAF8F5] dark:bg-[#111317]">
+                <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center space-x-1 font-display">
                   <span>✨ Verified ESG Impact Report</span>
                 </span>
-                <button onclick="copyAuditToClipboard()" class="text-[10px] bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 px-2 py-1 rounded transition flex items-center space-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 font-display">
+                <button onclick="copyAuditToClipboard()" class="text-[10px] bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-300 px-2 py-1 rounded-none transition flex items-center space-x-1 font-display">
                   <span id="copy-btn-text">Copy Audit Text</span>
                 </button>
               </div>
-              <div id="auditor-text" class="text-xs text-slate-800 dark:text-slate-300 leading-relaxed space-y-3 prose prose-invert max-w-none font-sans">
+              <div id="auditor-text" class="text-xs text-slate-800 dark:text-slate-300 leading-relaxed space-y-3 prose prose-invert max-w-none">
                 <!-- Dynamically populated -->
               </div>
             </div>
@@ -422,92 +376,92 @@
 
   </main>
 
-  <div id="provider-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-provider-title">
+  <div id="provider-modal" class="hidden fixed inset-0 z-50 overflow-y-auto rounded-none shadow-none" role="dialog" aria-modal="true" aria-labelledby="modal-provider-title">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
       <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeModal()"></div>
       <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
       
-      <div class="inline-block align-bottom bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+      <div class="inline-block align-bottom bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-855 rounded-none text-left overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
         <div id="modal-content"></div>
       </div>
     </div>
   </div>
 
-  <div id="compare-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-compare-title">
+  <div id="compare-modal" class="hidden fixed inset-0 z-50 overflow-y-auto rounded-none shadow-none" role="dialog" aria-modal="true" aria-labelledby="modal-compare-title">
     <div class="flex items-center justify-center min-h-screen p-4 text-center">
-      <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeCompareModal()"></div>
-      <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-6xl w-full p-6 relative z-10 font-sans">
+      <div class="fixed inset-0 bg-[#111317]/80 backdrop-blur transition-opacity" onclick="closeCompareModal()"></div>
+      <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-none text-left overflow-hidden shadow-none transform transition-all max-w-6xl w-full p-6 relative z-10">
         <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
-          <h3 id="modal-compare-title" class="text-xl font-bold text-slate-900 dark:text-white flex items-center space-x-2 font-display">
+          <h3 id="modal-compare-title" class="text-xl font-bold text-hiveCharcoal dark:text-white flex items-center space-x-2 font-display">
             ⚖️
             <span>Provider Performance Comparison</span>
           </h3>
-          <button onclick="closeCompareModal()" class="text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-slate-200 p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600" aria-label="Close comparison panel">
+          <button onclick="closeCompareModal()" class="text-slate-400 hover:text-hiveCharcoal focus:outline-none">
             ✖️
           </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6 font-display">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6 font-display rounded-none shadow-none">
           <div class="col-span-1 hidden sm:block"></div>
           <div>
-            <label for="compare-select-a" class="block text-xs font-semibold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1">Provider A</label>
-            <select id="compare-select-a" onchange="runComparison()" class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg p-2.5 text-sm text-slate-900 dark:text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"></select>
+            <label for="compare-select-a" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Provider A</label>
+            <select id="compare-select-a" onchange="runComparison()" class="w-full bg-[#FAF8F5] dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-none p-2.5 text-sm text-[#111317] dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-hiveYellow focus:border-hiveYellow"></select>
           </div>
           <div>
-            <label for="compare-select-b" class="block text-xs font-semibold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1">Provider B</label>
-            <select id="compare-select-b" onchange="runComparison()" class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg p-2.5 text-sm text-slate-900 dark:text-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"></select>
+            <label for="compare-select-b" class="block text-xs font-semibold text-slate-505 uppercase tracking-wider mb-1">Provider B</label>
+            <select id="compare-select-b" onchange="runComparison()" class="w-full bg-[#FAF8F5] dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-none p-2.5 text-sm text-[#111317] dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-hiveYellow focus:border-hiveYellow"></select>
           </div>
         </div>
 
         <!-- Side-by-Side Comparison Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          <div class="lg:col-span-2 flex flex-col justify-center bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-2 font-display text-center">Visual Overlay</h4>
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 rounded-none shadow-none">
+          <div class="lg:col-span-2 flex flex-col justify-center bg-[#FAF8F5] dark:bg-[#111317] p-4 rounded-none border border-hiveBorder dark:border-slate-800">
+            <h4 class="text-xs font-bold text-[#111317] dark:text-slate-300 uppercase tracking-wider mb-2 text-center font-display">Visual Overlay</h4>
             <div class="w-full h-64 md:h-80 relative">
               <canvas id="compare-radar-chart-canvas"></canvas>
             </div>
           </div>
-          <div class="lg:col-span-3 space-y-4 max-h-[60vh] overflow-y-auto pr-2" id="comparison-results"></div>
+          <div class="lg:col-span-3 space-y-4 max-h-[60vh] overflow-y-auto pr-2 shadow-none rounded-none" id="comparison-results"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="settings-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+  <div id="settings-modal" class="hidden fixed inset-0 z-50 overflow-y-auto rounded-none shadow-none" role="dialog" aria-modal="true">
     <div class="flex items-center justify-center min-h-screen p-4 text-center">
-      <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeSettingsModal()"></div>
-      <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-lg w-full p-6 relative z-10 font-sans bg-white dark:bg-slate-900">
+      <div class="fixed inset-0 bg-[#111317]/80 backdrop-blur transition-opacity" onclick="closeSettingsModal()"></div>
+      <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-none text-left overflow-hidden shadow-none transform transition-all max-w-lg w-full p-6 relative z-10 bg-white dark:bg-slate-900">
         <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
-          <h3 id="modal-settings-title" class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2 font-display">
+          <h3 id="modal-settings-title" class="text-lg font-bold text-slate-955 dark:text-white flex items-center space-x-2 font-display">
             ⚙️
             <span>API & Environment Configuration</span>
           </h3>
-          <button onclick="closeSettingsModal()" class="text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-slate-200 p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" aria-label="Close configuration panel">
+          <button onclick="closeSettingsModal()" class="text-slate-500 hover:text-slate-700">
             ✖️
           </button>
         </div>
 
-        <div class="my-5 space-y-4">
+        <div class="my-5 space-y-4 font-sans rounded-none shadow-none">
           <div>
-            <label for="api-key-input" class="block text-xs font-bold text-slate-755 dark:text-slate-300 uppercase tracking-wider mb-1.5 font-display">Google Gemini API Key</label>
-            <input type="password" id="api-key-input" class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-lg p-2.5 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 font-mono" placeholder="AIzaSy...">
+            <label for="api-key-input" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Google Gemini API Key</label>
+            <input type="password" id="api-key-input" class="w-full bg-[#FAF8F5] dark:bg-slate-950 border border-slate-300 dark:border-slate-800 rounded-none p-2.5 text-xs text-[#111317] dark:text-white placeholder-slate-400 focus:outline-none font-mono" placeholder="AIzaSy...">
             <div class="flex justify-between items-center mt-2 flex-wrap gap-1">
-              <p class="text-[10px] text-slate-600 dark:text-slate-400 leading-normal">Your key remains entirely in-memory inside your local web browser session.</p>
-              <a href="https://aistudio.google.com/" target="_blank" class="text-[10px] text-brand-700 dark:text-brand-400 hover:underline shrink-0 font-display">Get Free Key from AI Studio &rarr;</a>
+              <p class="text-[10px] text-slate-500 leading-normal">Your key remains entirely in-memory inside your local web browser session.</p>
+              <a href="https://aistudio.google.com/" target="_blank" class="text-[10px] text-hiveYellow hover:underline shrink-0 font-display">Get Free Key from AI Studio &rarr;</a>
             </div>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
-            <span class="block text-xs font-bold text-slate-755 dark:text-slate-300 uppercase tracking-wider mb-2 font-display">Bake Key & Create Custom Bundle</span>
-            <p class="text-[11px] text-slate-700 dark:text-slate-400 mb-3 leading-relaxed">Enter your key above and click the button below to download a standalone copy of this app with your credentials baked directly inside. You can then host this file privately on your own hosting servers without manually inputting keys again.</p>
-            <button onclick="exportBakedHTML()" class="w-full inline-flex items-center justify-center space-x-2 px-4 py-2.5 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-555 shadow font-display">
+            <span class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Bake Key & Create Custom Bundle</span>
+            <p class="text-[11px] text-slate-500 mb-3 leading-relaxed">Enter your key above and click the button below to download a standalone copy of this app with your credentials baked directly inside. You can then host this file privately on your own hosting servers without manually inputting keys again.</p>
+            <button onclick="exportBakedHTML()" class="w-full inline-flex items-center justify-center space-x-2 px-4 py-2.5 text-xs font-semibold rounded-none border border-slate-700 bg-slate-800 text-slate-200 hover:bg-slate-700 transition shadow-none">
               <span>📦 Compile & Download Baked Bundle</span>
             </button>
           </div>
         </div>
 
         <div class="pt-4 border-t border-slate-200 dark:border-slate-855 flex justify-end font-display">
-          <button onclick="saveSettings()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-slate-100 rounded-lg text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 shadow">
+          <button onclick="saveSettings()" class="px-4 py-2 bg-hiveYellow hover:bg-amber-500 text-hiveCharcoal rounded-none text-xs font-semibold transition">
             Save Configuration
           </button>
         </div>
@@ -515,41 +469,41 @@
     </div>
   </div>
 
-  <div id="deployment-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+  <div id="deployment-modal" class="hidden fixed inset-0 z-50 overflow-y-auto rounded-none shadow-none" role="dialog" aria-modal="true">
     <div class="flex items-center justify-center min-h-screen p-4 text-center">
-      <div class="fixed inset-0 bg-slate-950/80 backdrop-blur transition-opacity" onclick="closeDeploymentGuide()"></div>
-      <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all max-w-2xl w-full p-6 relative z-10 font-sans">
+      <div class="fixed inset-0 bg-[#111317]/80 backdrop-blur transition-opacity" onclick="closeDeploymentGuide()"></div>
+      <div class="inline-block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-none text-left overflow-hidden shadow-none transform transition-all max-w-2xl w-full p-6 relative z-10">
         <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800">
-          <h3 id="modal-deploy-title" class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2 font-display">
+          <h3 id="modal-deploy-title" class="text-lg font-bold text-slate-955 dark:text-white flex items-center space-x-2 font-display">
             📖
             <span>How to Host & Deploy This Web App</span>
           </h3>
-          <button onclick="closeDeploymentGuide()" class="text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-slate-200 p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" aria-label="Close deployment guide panel">
+          <button onclick="closeDeploymentGuide()" class="text-slate-400 hover:text-hiveCharcoal focus:outline-none">
             ✖️
           </button>
         </div>
 
-        <div class="my-5 space-y-4 text-xs text-slate-800 dark:text-slate-300 leading-relaxed max-h-[60vh] overflow-y-auto pr-2 bg-white dark:bg-slate-900 font-sans font-normal">
+        <div class="my-5 space-y-4 text-xs text-slate-600 leading-relaxed max-h-[60vh] overflow-y-auto pr-2 bg-white dark:bg-[#111317] font-sans rounded-none shadow-none">
           <div>
-            <h4 class="font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider mb-1.5 text-brand-700 dark:text-brand-400 font-display">Option 1: Host Locally (Instant)</h4>
+            <h4 class="font-bold text-slate-955 dark:text-white uppercase tracking-wider mb-1.5 font-display">Option 1: Host Locally (Instant)</h4>
             <p class="mb-2">This is a pure client-side static HTML file. You can simply double-click the file to open it in any web browser, or launch a quick local server:</p>
-            <div class="bg-slate-100 dark:bg-slate-950 p-2.5 rounded-lg font-mono text-slate-800 dark:text-slate-400 select-all border border-slate-200 dark:border-slate-855">
+            <div class="bg-slate-100 dark:bg-slate-950 p-2.5 rounded-none font-mono text-slate-800 dark:text-slate-400 select-all border border-slate-200 dark:border-slate-855">
               python -m http.server 8000
             </div>
           </div>
 
           <div>
-            <h4 class="font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider mb-1.5 text-brand-700 dark:text-brand-400 font-display">Option 2: Deploy to Free Static Hosting</h4>
+            <h4 class="font-bold text-slate-955 dark:text-white uppercase tracking-wider mb-1.5 font-display">Option 2: Deploy to Free Static Hosting</h4>
             <p class="mb-2">Since the app runs completely on the front-end, you can deploy it to any modern serverless/static platform for free:</p>
             <ul class="list-disc list-inside space-y-1.5 pl-2">
-              <li><strong>GitHub Pages:</strong> Upload this single file named as <code class="bg-slate-100 dark:bg-slate-950 px-1 py-0.5 rounded text-brand-700 dark:text-brand-300 font-mono">index.html</code> to a repository and enable Pages in settings.</li>
+              <li><strong>GitHub Pages:</strong> Upload this single file named as <code class="bg-slate-100 dark:bg-slate-950 px-1 py-0.5 rounded-none text-brand-700 dark:text-brand-300 font-mono">index.html</code> to a repository and enable Pages in settings.</li>
               <li><strong>Vercel / Netlify:</strong> Simply drag and drop the single HTML file directly into their dashboards.</li>
               <li><strong>Cloudflare Pages:</strong> Upload to Cloudflare dashboard or deploy via CLI with a simple static output rule.</li>
             </ul>
           </div>
 
           <div>
-            <h4 class="font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider mb-1.5 text-brand-700 dark:text-brand-400 font-display">Security Architecture</h4>
+            <h4 class="font-bold text-[#111317] dark:text-white uppercase tracking-wider mb-1.5 font-display">Security Architecture</h4>
             <p class="mb-2">Your API keys are completely safe:</p>
             <ul class="list-disc list-inside space-y-1 pl-2">
               <li>The key is only sent directly to Google's official server-side endpoints over secure HTTPS connections.</li>
@@ -558,8 +512,8 @@
           </div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end font-display">
-          <button onclick="closeDeploymentGuide()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-100 rounded-lg text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+        <div class="pt-4 border-t border-slate-200 dark:border-slate-855 flex justify-end font-display">
+          <button onclick="closeDeploymentGuide()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-100 rounded-none text-xs font-semibold transition focus:outline-none">
             Close Panel
           </button>
         </div>
@@ -637,8 +591,8 @@
         category: 'cloud-hosting',
         grade: 'B-',
         color: '#2563eb',
-        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
         badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
+        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
         overallPercentage: 74,
         description: 'Industry-leading hardware efficiency improvements and ambitious hourly matching carbon goals, offset by escalating actual location-based emissions outstripping clean power grid rollouts.',
         scores: {
@@ -650,7 +604,7 @@
         highlights: {
           pros: [
             'Targeting full local net-zero operations by 2030, currently matching 64% of hourly demand with local CFE (2024).',
-            'World\'s first corporate agreement to buy nuclear energy from multiple Small Modular Reactors (SMRs).',
+            'World\'s first corporate agreement to purchase nuclear energy from multiple Small Modular Reactors (SMRs).',
             'Ironwood TPU custom AI chip offers a 30x energy efficiency increase relative to original 2018 chip.'
           ],
           cons: [
@@ -681,8 +635,8 @@
         category: 'deploy-layer',
         grade: 'B',
         color: '#10b981',
-        gradeColor: 'text-emerald-700 dark:text-emerald-500 font-mono',
         badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
+        gradeColor: 'text-emerald-700 dark:text-emerald-500 font-mono',
         overallPercentage: 72.3,
         description: 'The serverless hosting and execution layer of AWS. Highly optimized for modular, on-demand micro-billing code execution, reducing baseline idle CPU draw but inheriting global location-based grid intensities.',
         scores: {
@@ -710,7 +664,7 @@
           accountingGap: 'Serverless deployment obscures localized execution spikes, complicating corporate Scope 3 value-chain audits.'
         },
         laborNotes: 'Built and managed by high-level engineering teams; negligible downstream content moderation BPO exposure.',
-        policyNotes: 'Standard corporate compliance; drives efficiency-centered open-source routing protocols.',
+        policyNotes: 'Standard corporate compliance; drives_efficiency-centered open-source routing protocols.',
         sources: [
           { title: 'Amazon Web Services, "AWS Lambda Serverless Scaling & Resource Optimization briefs" (2024)', url: 'https://aws.amazon.com/lambda/' },
           { title: 'AWS Shared Responsibility Model for Environmental & Operational Efficiency', url: 'https://docs.aws.amazon.com/wellarchitected/latest/sustainability-pillar/wellarchitected-sustainability-pillar.pdf' },
@@ -723,8 +677,8 @@
         category: 'cloud-hosting',
         grade: 'B-',
         color: '#0ea5e9',
-        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
         badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
+        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
         overallPercentage: 70,
         description: 'Developer-focused cloud platform. Standardized carbon footprint data available via a client carbon calculator, but relies significantly on third-party leased spaces with varying physical grid parameters.',
         scores: {
@@ -751,7 +705,7 @@
           emissionsMarket: '210,000 t CO2e (Market-based, Scope 2)',
           accountingGap: 'Maintains clean transparency regarding carbon footprint calculations but delegates real physical grid upgrades to upstream datacenter landlords.'
         },
-        laborNotes: 'Minimal content moderation direct footprint; maintains high ethical engineering and contract compensation standards across operational units.',
+        laborNotes: 'Minimal content moderation direct footprint; maintains high ethical engineering and contract compensation standards across global regions.',
         policyNotes: 'Neutral position on copyright lobbying; champions small developer access to open resources and cloud baseline platforms.',
         sources: [
           { title: 'DigitalOcean Holdings Inc., "ESG Reports & Carbon Calculator release briefs" (2022-2024)', url: 'https://www.digitalocean.com/blog/esg-report-sustainability-commitment' },
@@ -764,8 +718,8 @@
         category: 'deploy-layer',
         grade: 'B-',
         color: '#111827',
-        gradeColor: 'text-emerald-755 dark:text-emerald-400 font-mono',
         badgeColor: 'bg-emerald-100 text-emerald-855 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
+        gradeColor: 'text-emerald-755 dark:text-emerald-400 font-mono',
         overallPercentage: 69.5,
         description: 'Front-end deployment platform abstracting serverless infrastructure. Promotes high efficiency via edge functions, but inherits the raw carbon footprint of underlying AWS hosting networks.',
         scores: {
@@ -806,8 +760,8 @@
         category: 'deploy-layer',
         grade: 'B-',
         color: '#4f46e5',
-        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
         badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
+        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
         overallPercentage: 68.3,
         description: 'Web design and hosting platform. Abstracts layout generation, running entirely on AWS. Maintains strict security and crawler compliance, but delegates carbon-free matching upstream.',
         scores: {
@@ -848,8 +802,8 @@
         category: 'cloud-hosting',
         grade: 'C+',
         color: '#d97706',
-        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
         badgeColor: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
+        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
         overallPercentage: 68,
         description: 'Encompasses massive infrastructure commitments. Driving substantial nuclear and geothermal clean-energy agreements but hampered by expanding location-based operational grid emissions and support of decoupled accounting.',
         scores: {
@@ -892,8 +846,8 @@
         category: 'cloud-hosting',
         grade: 'C+',
         color: '#ea580c',
-        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
         badgeColor: 'bg-amber-100 text-amber-855 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
+        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
         overallPercentage: 66,
         description: 'The world\'s largest cloud hosting provider. Contracting massive GW-scale renewable energy portfolios and signing pioneering nuclear power deals, but heavily challenged by extreme physical grid strains in Northern Virginia.',
         scores: {
@@ -933,10 +887,10 @@
         id: 'google-ai',
         name: 'Google (AI Engine)',
         category: 'ai-engine',
-        grade: 'B-',
+        grade: 'C+',
         color: '#2563eb',
-        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
         badgeColor: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20',
+        gradeColor: 'text-blue-700 dark:text-blue-400 font-mono',
         overallPercentage: 65,
         description: 'Develops foundational Gemini architectures. Drives advanced research in multimodal efficiency and open model safety frameworks, but training large models demands extreme energy loads.',
         scores: {
@@ -963,12 +917,12 @@
           emissionsMarket: 'Undisclosed independently.',
           accountingGap: 'By merging AI model research under general corporate Cloud accounting, localized training carbon surges are obscured.'
         },
-        laborNotes: 'Maintains highly segmented global outsourcing annotation systems; moderate contract oversight with high worker target quotas.',
+        laborNotes: 'Maintains highly segmented global outsourcing workforce via regional contract hubs, operating under high volume quotas and precarious arrangements.',
         policyNotes: 'Signs standard model compliance forms under the EU General-Purpose AI Code of Practice. Actively managing model safety portfolios.',
         sources: [
           { title: 'Google DeepMind, "Gemini Technical Reports & Performance Analysis" (2024)', url: 'https://arxiv.org/abs/2312.11805' },
           { title: 'JL v. Google Class Action Litigation Filings (N.D. Cal, 2023)', url: 'https://www.courtlistener.com/docket/67584168/jl-v-google-llc/' },
-          { title: 'EU general-purpose AI Code of Practice register', url: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai' }
+          { title: 'EU General-Purpose AI Code of Practice register', url: 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai' }
         ]
       },
       {
@@ -977,8 +931,8 @@
         category: 'ai-engine',
         grade: 'C+',
         color: '#d97706',
-        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
         badgeColor: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20',
+        gradeColor: 'text-amber-700 dark:text-yellow-500 font-mono',
         overallPercentage: 61.25,
         description: 'AI product development unit managing Copilot structures. Relies closely on OpenAI API integrations and Azure cloud deployments, inheriting combined downstream labor and computational footprints.',
         scores: {
@@ -1019,8 +973,8 @@
         category: 'ai-engine',
         grade: 'C+',
         color: '#059669',
-        gradeColor: 'text-emerald-755 dark:text-emerald-500 font-mono',
         badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20',
+        gradeColor: 'text-emerald-755 dark:text-emerald-500 font-mono',
         overallPercentage: 61.5,
         description: 'Industry standard-bearer for AI safety alignment and structural constitution guidelines, but significantly penalized for data-sourcing book piracy settlements and complete lack of Scope emissions data. Relies deeply on AWS.',
         scores: {
@@ -1063,8 +1017,8 @@
         category: 'ai-engine',
         grade: 'C-',
         color: '#ea580c',
-        gradeColor: 'text-orange-755 dark:text-orange-500 font-mono',
         badgeColor: 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-500/10 dark:text-orange-400 dark:border-orange-500/20',
+        gradeColor: 'text-orange-755 dark:text-orange-500 font-mono',
         overallPercentage: 50,
         description: 'Promotes virtual "100% renewable" operations through aggressive unbundled carbon offset purchases, while physical local grids handle extreme loads. Facing intense legal battles over union-busting and labor exploitation.',
         scores: {
@@ -1095,7 +1049,7 @@
         policyNotes: 'Advocates open-source model releases (LLaMA) to shift compliance burden to downstream developers while protecting central cloud compute.',
         sources: [
           { title: 'Meta Platforms Inc., "Sustainability & ESG Reports" (2022-2024)', url: 'https://sustainability.fb.com/report/' },
-          { title: 'Sama Kenyan High Court content moderator litigation filings (2023-2025)', url: 'https://www.theguardian.com/technology/2023/may/01/meta-sama-kenya-court-case-content-moderators' },
+          { title: 'Sama Kenyan High Court content moderation litigation filings (2023-2025)', url: 'https://www.theguardian.com/technology/2023/may/01/meta-sama-kenya-court-case-content-moderators' },
           { title: 'Kadrey v. Meta Platforms Inc. (N.D. Cal., No. 3:23-cv-03417) summary judgment rulings', url: 'https://www.courtlistener.com/docket/67554902/kadrey-v-meta-platforms-inc/' },
           { title: 'Meta AI, "LLaMA 3 Release Model Cards & Technical Disclosures" (2024)', url: 'https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md' }
         ]
@@ -1106,8 +1060,8 @@
         category: 'ai-engine',
         grade: 'D+',
         color: '#ea580c',
-        gradeColor: 'text-orange-800 dark:text-orange-500 font-mono',
         badgeColor: 'bg-orange-100 text-orange-855 border-orange-200 dark:bg-orange-600/10 dark:text-orange-400 dark:border-orange-600/20',
+        gradeColor: 'text-orange-800 dark:text-orange-500 font-mono',
         overallPercentage: 35.8,
         description: 'Exhibits complete opacity regarding environmental and carbon reporting. Prioritizes product deployment over internal alignment structures, balanced slightly by compliant web-scraping behavior.',
         scores: {
@@ -1150,8 +1104,8 @@
         category: 'pureplay',
         grade: 'F',
         color: '#dc2626',
-        gradeColor: 'text-red-700 dark:text-red-500 font-mono',
         badgeColor: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20',
+        gradeColor: 'text-red-700 dark:text-red-500 font-mono',
         overallPercentage: 22.5,
         description: 'Systematically bypasses standard web ethics. Actively evades regional bot blocking, rotates IP networks to spoof browsers, and ignores robots.txt parameters while providing zero transparent ecological accounting.',
         scores: {
@@ -1179,7 +1133,7 @@
           accountingGap: 'Provides zero ecological transparency, carbon audits, or energy usage metrics.'
         },
         laborNotes: 'Relies on underlying base models (such as GPT/LLaMA), shifting the burden of original human labeler trauma onto primary host providers while harvesting outputs.',
-        policyNotes: 'Lobbies for bilateral commercial licensing to replace community-driven protocols, bypassing open-web governance paradigms.',
+        policyNotes: 'Lobbies for data contracts rather than respecting public access; dismisses standard web governance models.',
         sources: [
           { title: 'Cloudflare Technical Audits & Web Bot Authentication Registry (2024)', url: 'https://blog.cloudflare.com/declaring-and-blocking-ai-crawlers/' },
           { title: 'Wired Magazine, "Perplexity AI Crawling Evasion Investigations" (June 2024)', url: 'https://www.wired.com/story/perplexity-is-scraping-web-behind-robots-txt/' }
@@ -1201,7 +1155,7 @@
       return {
         gridColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(19, 20, 21, 0.1)',
         angleLineColor: isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(19, 20, 21, 0.15)',
-        textColor: isDark ? '#F3F4F6' : '#1A1A1A'
+        textColor: isDark ? '#F3F4F6' : '#111317'
       };
     }
 
@@ -1255,7 +1209,7 @@
               grid: { color: themeColors.gridColor },
               angleLines: { color: themeColors.angleLineColor },
               pointLabels: {
-                font: { family: 'Space Grotesk', size: 10, weight: 'bold' },
+                font: { family: 'Poppins', size: 10, weight: 'bold' },
                 color: themeColors.textColor
               }
             }
@@ -1323,7 +1277,7 @@
             legend: {
               display: true,
               labels: {
-                font: { family: 'Space Grotesk', size: 10, weight: 'bold' },
+                font: { family: 'Poppins', size: 10, weight: 'bold' },
                 color: themeColors.textColor
               }
             },
@@ -1337,7 +1291,7 @@
               grid: { color: themeColors.gridColor },
               angleLines: { color: themeColors.angleLineColor },
               pointLabels: {
-                font: { family: 'Space Grotesk', size: 9, weight: 'bold' },
+                font: { family: 'Poppins', size: 9, weight: 'bold' },
                 color: themeColors.textColor
               }
             }
@@ -1399,7 +1353,7 @@
 
       filtered.forEach(p => {
         const card = document.createElement('div');
-        card.className = 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-brand-500/40 dark:hover:border-slate-700 transition shadow-lg hover:shadow-xl group focus-within:ring-2 focus-within:ring-brand-600';
+        card.className = 'bg-white dark:bg-[#1e2229] border border-hiveBorder dark:border-slate-800 rounded-none p-6 flex flex-col justify-between hover:border-[#fdb813]/40 dark:hover:border-slate-700 transition group focus-within:ring-2 focus-within:ring-hiveCharcoal dark:focus-within:ring-[#fdb813]';
         
         const avgScore = Math.round((p.scores.environmental + p.scores.carbon + p.scores.data + p.scores.labor) / 4);
         
@@ -1410,16 +1364,16 @@
         card.innerHTML = `
           <div>
             <div class="flex items-center justify-between mb-4">
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase border ${p.badgeColor} font-display">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-none text-xs font-semibold uppercase border ${p.badgeColor} font-display">
                 ${friendlyCategory}
               </span>
               <div class="flex items-center space-x-2 font-display">
-                <span class="text-xs text-slate-700 dark:text-slate-400">Overall</span>
+                <span class="text-xs text-slate-505 dark:text-slate-400 font-semibold">Overall</span>
                 <span class="text-2xl font-black ${p.gradeColor}">${p.grade}</span>
               </div>
             </div>
             
-            <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition mb-2 tracking-tight">${p.name}</h3>
+            <h3 class="text-xl font-bold text-hiveCharcoal dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition mb-2 tracking-tight">${p.name}</h3>
             <p class="text-sm text-slate-700 dark:text-slate-300 line-clamp-3 mb-6 font-sans">${p.description}</p>
             
             <div class="space-y-3 border-t border-slate-200 dark:border-slate-800/80 pt-4 mb-6">
@@ -1431,10 +1385,10 @@
           </div>
           
           <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800/80">
-            <div class="text-xs text-slate-700 dark:text-slate-400 font-sans">
-              Composite: <span class="font-bold text-slate-900 dark:text-slate-200 font-mono">${avgScore}%</span>
+            <div class="text-xs text-slate-500">
+              Composite Index: <span class="font-bold text-[#111317] dark:text-hiveYellow font-mono">${avgScore}%</span>
             </div>
-            <button onclick="openProviderModal('${p.id}')" class="text-xs font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 flex items-center space-x-1 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 rounded p-1 font-display" aria-label="View full evidence for ${p.name}">
+            <button onclick="openProviderModal('${p.id}')" class="text-xs font-bold text-[#111317] dark:text-hiveYellow hover:underline flex items-center space-x-1 transition font-display" aria-label="View full evidence for ${p.name}">
               <span>View Evidence &rarr;</span>
             </button>
           </div>
@@ -1443,6 +1397,7 @@
       });
     }
 
+    // High contrast score bars for better readability
     function renderScoreBar(label, score) {
       let color = 'bg-red-600 dark:bg-red-500';
       if (score >= 80) color = 'bg-emerald-600 dark:bg-emerald-500';
@@ -1453,11 +1408,11 @@
       return `
         <div>
           <div class="flex justify-between text-xs mb-1 font-sans">
-            <span class="text-slate-700 dark:text-slate-300 font-medium">${label}</span>
-            <span class="font-bold text-slate-900 dark:text-slate-100 font-mono">${score}/100</span>
+            <span class="text-slate-500 dark:text-slate-400 font-medium">${label}</span>
+            <span class="font-bold text-slate-900 dark:text-slate-200 font-mono">${score}/100</span>
           </div>
-          <div class="w-full bg-slate-200 dark:bg-slate-950 rounded-full h-2 border border-slate-300/60 dark:border-slate-800/50">
-            <div class="${color} h-2 rounded-full" style="width: ${score}%" role="progressbar" aria-valuenow="${score}" aria-valuemin="0" aria-valuemax="100" aria-label="${label} score: ${score} percent"></div>
+          <div class="w-full bg-slate-200 dark:bg-slate-955 rounded-none h-1.5 border border-slate-300/60 dark:border-slate-800/50">
+            <div class="${color} h-1.5 rounded-none" style="width: ${score}%" role="progressbar" aria-valuenow="${score}" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
       `;
@@ -1471,9 +1426,9 @@
         const el = document.getElementById(`btn-${b}`);
         if (el) {
           if (b === type) {
-            el.className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-brand-600 text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600';
+            el.className = 'px-4 py-2 text-sm font-semibold rounded-none bg-hiveCharcoal dark:bg-[#fdb813] text-white dark:text-[#111317] transition';
           } else {
-            el.className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-600';
+            el.className = 'px-4 py-2 text-sm font-semibold rounded-none bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition';
           }
         }
       });
@@ -1517,7 +1472,7 @@
       container.innerHTML = `
         <div class="px-6 py-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-950/40 font-display">
           <div class="flex items-center space-x-3">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase border ${p.badgeColor}">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-none text-xs font-semibold uppercase border ${p.badgeColor}">
               ${friendlyCategory}
             </span>
             <h3 id="modal-provider-title" class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">${p.name}</h3>
@@ -1530,7 +1485,7 @@
         <div class="p-6 space-y-6 max-h-[75vh] overflow-y-auto bg-white dark:bg-slate-900 font-sans font-normal">
           
           <!-- Split Header with Color-Coded Spider Diagram -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800/80">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center bg-slate-50 dark:bg-slate-950 p-4 rounded-none border border-slate-200 dark:border-slate-800/80">
             <div class="w-full h-60 relative">
               <canvas id="${canvasId}"></canvas>
             </div>
@@ -1548,68 +1503,68 @@
             <p class="text-sm text-slate-800 dark:text-slate-300 leading-relaxed">${p.description}</p>
           </div>
 
-          <div class="bg-slate-50 dark:bg-slate-950/40 p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
+          <div class="bg-slate-50 dark:bg-slate-950/40 p-5 rounded-none border border-slate-200 dark:border-slate-800 space-y-3">
             <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-2 font-display">Verified Infrastructure Footprint Data</h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
-                <span class="text-slate-700 block">Reported Energy Load:</span>
+                <span class="text-slate-705 dark:text-slate-400 block font-display">Reported Energy Load:</span>
                 <span class="text-slate-900 dark:text-slate-200 font-semibold block mt-0.5 font-mono">${p.metrics.energy}</span>
               </div>
               <div>
-                <span class="text-slate-700 block">Hydrological Footprint:</span>
+                <span class="text-slate-705 dark:text-slate-400 block font-display">Hydrological Footprint:</span>
                 <span class="text-slate-900 dark:text-slate-200 font-semibold block mt-0.5 font-mono">${p.metrics.water}</span>
               </div>
               <div>
-                <span class="text-slate-700 block">Physical Scope 2 Grid Emissions:</span>
+                <span class="text-slate-705 dark:text-slate-400 block font-display">Physical Scope 2 Grid Emissions:</span>
                 <span class="text-slate-900 dark:text-slate-200 font-semibold block mt-0.5 font-mono">${p.metrics.emissionsLocation}</span>
               </div>
               <div>
-                <span class="text-slate-700 block">Reported Market Offset Emissions:</span>
+                <span class="text-slate-705 dark:text-slate-400 block font-display">Reported Market Offset Emissions:</span>
                 <span class="text-slate-900 dark:text-slate-200 font-semibold block mt-0.5 font-mono">${p.metrics.emissionsMarket}</span>
               </div>
             </div>
             <div class="border-t border-slate-200 dark:border-slate-800 pt-3 mt-2 text-xs">
-              <span class="text-red-700 dark:text-red-400 font-semibold block">Carbon Decoupling Gap Analysis:</span>
+              <span class="text-red-700 dark:text-red-400 font-semibold block font-display">Carbon Decoupling Gap Analysis:</span>
               <p class="text-slate-800 dark:text-slate-300 mt-1 leading-relaxed">${p.metrics.accountingGap}</p>
             </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-emerald-50 dark:bg-emerald-950/15 border border-emerald-200 dark:border-emerald-500/20 p-4 rounded-xl">
+            <div class="bg-emerald-50 dark:bg-emerald-950/15 border border-emerald-200 dark:border-emerald-500/20 p-4 rounded-none">
               <h5 class="text-sm font-bold text-emerald-800 dark:text-emerald-400 flex items-center mb-3 font-display">
                 🌿 Progressive Best Practices
               </h5>
               <ul class="space-y-2 text-xs text-slate-800 dark:text-slate-300 list-disc list-inside font-sans">
-                ${p.highlights.pros.map(pro => `<li>${pro}</li>`).join('')}
+                ${p.highlights.pros.map(pro => '<li>' + pro + '</li>').join('')}
               </ul>
             </div>
 
-            <div class="bg-red-50 dark:bg-red-950/15 border border-red-200 dark:border-red-500/20 p-4 rounded-xl">
+            <div class="bg-red-50 dark:bg-red-950/15 border border-red-200 dark:border-red-500/20 p-4 rounded-none">
               <h5 class="text-sm font-bold text-red-800 dark:text-red-400 flex items-center mb-3 font-display">
                 ⚠️ Major Structural Deficits
               </h5>
               <ul class="space-y-2 text-xs text-slate-800 dark:text-slate-300 list-disc list-inside font-sans">
-                ${p.highlights.cons.map(con => `<li>${con}</li>`).join('')}
+                ${p.highlights.cons.map(con => '<li>' + con + '</li>').join('')}
               </ul>
             </div>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
-            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1.5">Downstream Content Moderation & Human Labor</h4>
+            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1.5 font-display">Downstream Content Moderation & Human Labor</h4>
             <p class="text-xs text-slate-800 dark:text-slate-300 leading-relaxed">${p.laborNotes}</p>
           </div>
 
           <div class="border-t border-slate-200 dark:border-slate-800 pt-4">
-            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1.5">Alignment Governance & Policy Stance</h4>
+            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-1.5 font-display">Alignment Governance & Policy Stance</h4>
             <p class="text-xs text-slate-800 dark:text-slate-300 leading-relaxed">${p.policyNotes}</p>
           </div>
 
-          <div class="border-t border-slate-200 dark:border-slate-800 pt-4 bg-slate-50 dark:bg-slate-950/40 p-4 rounded-xl">
-            <h4 class="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 font-display">Cited Scientific & Disclosure Sources</h4>
+          <div class="border-t border-slate-200 dark:border-slate-800 pt-4 bg-slate-50 dark:bg-slate-950/40 p-4 rounded-none">
+            <h4 class="text-xs font-bold text-[#111317] dark:text-white uppercase tracking-wider mb-2 font-display">Cited Scientific & Disclosure Sources</h4>
             <ul class="space-y-1.5 text-[11px] text-slate-700 dark:text-slate-300 list-decimal list-inside leading-relaxed font-mono">
               ${p.sources.map(source => `
                 <li>
-                  <a href="${source.url}" target="_blank" rel="noopener noreferrer" class="text-brand-600 dark:text-brand-500 hover:underline">
+                  <a href="${source.url}" target="_blank" rel="noopener noreferrer" class="text-[#0369a1] dark:text-[#38bdf8] hover:underline">
                     ${source.title} &rarr;
                   </a>
                 </li>
@@ -1620,7 +1575,7 @@
         </div>
         
         <div class="px-6 py-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex justify-end">
-          <button onclick="closeModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 hover:dark:bg-slate-700 text-slate-800 dark:text-slate-100 rounded-lg text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-sm font-display">
+          <button onclick="closeModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-100 rounded-none text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 shadow-none font-display">
             Close Panel
           </button>
         </div>
@@ -1685,7 +1640,7 @@
       
       container.innerHTML = `
         <div class="grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 font-display">
-          <div class="text-sm font-semibold text-slate-700 dark:text-slate-400">Pillar Grade</div>
+          <div class="text-sm font-semibold text-slate-600 dark:text-slate-400">Pillar Grade</div>
           <div class="text-lg font-black ${pA.gradeColor}">${pA.name} (${pA.grade})</div>
           <div class="text-lg font-black ${pB.gradeColor}">${pB.name} (${pB.grade})</div>
         </div>
@@ -1695,27 +1650,27 @@
         ${renderCompareRow('Web Sourcing Protocols', pA.scores.data, pB.scores.data)}
         ${renderCompareRow('Labor Standards', pA.scores.labor, pB.scores.labor)}
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 text-xs font-sans">
-          <div class="font-semibold text-slate-755 dark:text-slate-400 font-display">Carbon Integrity Context</div>
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 text-xs font-sans">
+          <div class="font-semibold text-slate-700 dark:text-slate-300 font-display">Carbon Integrity Context</div>
           <div class="text-slate-800 dark:text-slate-300 leading-relaxed">${pA.metrics.accountingGap}</div>
           <div class="text-slate-800 dark:text-slate-300 leading-relaxed">${pB.metrics.accountingGap}</div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 text-xs font-sans">
-          <div class="font-semibold text-slate-755 dark:text-slate-400 font-display">Human Labor Framework</div>
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 text-xs font-sans">
+          <div class="font-semibold text-slate-700 dark:text-slate-300 font-display">Human Labor Framework</div>
           <div class="text-slate-800 dark:text-slate-300 leading-relaxed">${pA.laborNotes}</div>
           <div class="text-slate-800 dark:text-slate-300 leading-relaxed">${pB.laborNotes}</div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 text-xs font-sans">
-          <div class="font-semibold text-slate-755 dark:text-slate-400 font-display">Strategic Position & Pro-Cons</div>
-          <div class="space-y-1">
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 text-xs font-sans">
+          <div class="font-semibold text-slate-700 dark:text-slate-300 font-display">Strategic Position & Pro-Cons</div>
+          <div class="space-y-1 font-sans">
             <span class="text-emerald-700 dark:text-emerald-400 font-bold font-display">Pro:</span>
             <p class="text-slate-800 dark:text-slate-300 mb-2">${pA.highlights.pros[0] || 'N/A'}</p>
             <span class="text-red-700 dark:text-red-400 font-bold font-display">Con:</span>
             <p class="text-slate-800 dark:text-slate-300">${pA.highlights.cons[0] || 'N/A'}</p>
           </div>
-          <div class="space-y-1">
+          <div class="space-y-1 font-sans">
             <span class="text-emerald-700 dark:text-emerald-400 font-bold font-display">Pro:</span>
             <p class="text-slate-800 dark:text-slate-300 mb-2">${pB.highlights.pros[0] || 'N/A'}</p>
             <span class="text-red-700 dark:text-red-400 font-bold font-display">Con:</span>
@@ -1723,13 +1678,17 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 text-xs font-sans bg-slate-50 dark:bg-slate-950 p-4 rounded-xl font-normal">
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-4 text-xs font-sans bg-slate-50 dark:bg-slate-950 p-4 rounded-none font-normal">
           <div class="font-semibold text-slate-900 dark:text-white font-display">Primary Verification Sources</div>
-          <div class="text-slate-700 dark:text-slate-300 font-mono text-[10px] leading-relaxed select-all">
-            ${pA.sources.map((src, i) => `${i+1}. <a href="${src.url}" target="_blank" rel="noopener noreferrer" class="text-brand-600 dark:text-brand-500 hover:underline">${src.title}</a>`).join('<br>')}
-          </div>
-          <div class="text-slate-700 dark:text-slate-300 font-mono text-[10px] leading-relaxed select-all">
-            ${pB.sources.map((src, i) => `${i+1}. <a href="${src.url}" target="_blank" rel="noopener noreferrer" class="text-brand-600 dark:text-brand-500 hover:underline">${src.title}</a>`).join('<br>')}
+          <div class="text-slate-700 dark:text-slate-300 font-mono text-[10px] leading-relaxed select-all col-span-2 space-y-1">
+            <div class="border-b pb-2 mb-2">
+              <strong class="text-[#111317] dark:text-white block font-display mb-1">${pA.name}:</strong>
+              ${pA.sources.map((src, i) => `${i+1}. <a href="${src.url}" target="_blank" rel="noopener noreferrer" class="text-[#0369a1] dark:text-[#38bdf8] hover:underline">${src.title}</a>`).join('<br>')}
+            </div>
+            <div>
+              <strong class="text-[#111317] dark:text-white block font-display mb-1">${pB.name}:</strong>
+              ${pB.sources.map((src, i) => `${i+1}. <a href="${src.url}" target="_blank" rel="noopener noreferrer" class="text-[#0369a1] dark:text-[#38bdf8] hover:underline">${src.title}</a>`).join('<br>')}
+            </div>
           </div>
         </div>
       `;
@@ -1746,22 +1705,22 @@
       };
 
       return `
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800/60 py-2.5 items-center">
-          <div class="text-xs font-semibold text-slate-700 dark:text-slate-400 font-display">${label}</div>
+        <div class="grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800/60 py-2.5 items-center font-sans">
+          <div class="text-xs font-semibold text-slate-600 dark:text-slate-400 font-display">${label}</div>
           <div>
-            <div class="flex justify-between text-xs mb-1 font-sans">
+            <div class="flex justify-between text-xs mb-1">
               <span class="text-slate-800 dark:text-slate-300 font-medium font-mono">${scoreA}/100</span>
             </div>
-            <div class="w-full bg-slate-200 dark:bg-slate-950 rounded-full h-1.5 border border-slate-300 dark:border-slate-800">
-              <div class="${getBg(scoreA)} h-1.5 rounded-full" style="width: ${scoreA}%" role="progressbar" aria-valuenow="${scoreA}" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="w-full bg-slate-200 dark:bg-slate-950 rounded-none h-1.5 border border-slate-300 dark:border-slate-800">
+              <div class="${getBg(scoreA)} h-1.5 rounded-none" style="width: ${scoreA}%" role="progressbar" aria-valuenow="${scoreA}" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>
           <div>
-            <div class="flex justify-between text-xs mb-1 font-sans">
+            <div class="flex justify-between text-xs mb-1">
               <span class="text-slate-800 dark:text-slate-300 font-medium font-mono">${scoreB}/100</span>
             </div>
-            <div class="w-full bg-slate-200 dark:bg-slate-950 rounded-full h-1.5 border border-slate-300 dark:border-slate-800">
-              <div class="${getBg(scoreB)} h-1.5 rounded-full" style="width: ${scoreB}%" role="progressbar" aria-valuenow="${scoreB}" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="w-full bg-slate-200 dark:bg-slate-950 rounded-none h-1.5 border border-slate-300 dark:border-slate-800">
+              <div class="${getBg(scoreB)} h-1.5 rounded-none" style="width: ${scoreB}%" role="progressbar" aria-valuenow="${scoreB}" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>
         </div>
@@ -1819,6 +1778,7 @@
       captureFocus('deployment-modal');
     }
 
+    // Fully define missing closeDeploymentGuide function to resolve potential ReferenceError
     function closeDeploymentGuide() {
       document.getElementById('deployment-modal').classList.add('hidden');
       releaseFocus();
@@ -1834,7 +1794,7 @@
       const inputVal = document.getElementById('api-key-input').value.trim();
       if (!inputVal) {
         const initialBorder = document.getElementById('api-key-input').className;
-        document.getElementById('api-key-input').className = "w-full bg-slate-50 dark:bg-slate-950 border border-red-500 rounded-lg p-2.5 text-xs text-slate-100 placeholder-slate-700";
+        document.getElementById('api-key-input').className = "w-full bg-[#FAF8F5] dark:bg-slate-955 border border-red-500 rounded-none p-2.5 text-xs text-white placeholder-slate-400 focus:outline-none font-mono";
         setTimeout(() => {
           document.getElementById('api-key-input').className = initialBorder;
         }, 2000);
@@ -1914,10 +1874,10 @@ Based on this simulated footprint, conduct a rigorous ESG lifecycle audit. What 
     function formatAuditReport(text) {
       let formatted = text;
       formatted = formatted.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      formatted = formatted.replace(/^### (.*)$/gm, '<h5 class="text-sm font-bold text-slate-900 dark:text-slate-100 mt-4 mb-2 border-b border-slate-200 dark:border-slate-800 pb-1 flex items-center font-display"><span class="w-1.5 h-1.5 bg-brand-600 dark:bg-brand-500 rounded-full mr-2"></span>$1</h5>');
-      formatted = formatted.replace(/^## (.*)$/gm, '<h4 class="text-base font-extrabold text-brand-700 dark:text-brand-400 mt-5 mb-2.5 font-display">$1</h4>');
-      formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 dark:text-slate-100 font-semibold">$1</strong>');
-      formatted = formatted.replace(/^\s*[\-\*]\s+(.*)$/gm, '<li class="ml-4 list-disc text-slate-800 dark:text-slate-300 pl-1 py-0.5">$1</li>');
+      formatted = formatted.replace(/^### (.*)$/gm, '<h5 class="text-sm font-bold text-slate-900 dark:text-slate-100 mt-4 mb-2 border-b border-slate-200 dark:border-slate-800 pb-1 flex items-center font-display"><span class="w-1.5 h-1.5 bg-hiveYellow mr-2"></span>$1</h5>');
+      formatted = formatted.replace(/^## (.*)$/gm, '<h4 class="text-base font-extrabold text-[#fdb813] mt-5 mb-2.5 font-display">$1</h4>');
+      formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong class="text-[#fdb813] font-semibold">$1</strong>');
+      formatted = formatted.replace(/^\s*[\-\*]\s+(.*)$/gm, '<li class="ml-4 list-disc text-slate-300 pl-1 py-0.5">$1</li>');
       formatted = formatted.replace(/\n/g, '<br>');
       formatted = formatted.replace(/(<li.*<\/li>)/gs, '<ul class="space-y-1 my-2">$1</ul>');
       return formatted;
@@ -2061,7 +2021,7 @@ Adopt a rigorous, advisory, and professional style. Divide your report with clea
       if (metrics.waterUnit === 'L') {
         waterDisplay = `${waterRawValue.toLocaleString(undefined, {maximumFractionDigits: 1})} L`;
       } else {
-        waterDisplay = `${(waterRawValue / metrics.litresToAlt).toLocaleString(undefined, {maximumFractionDigits: 2})} gal`;
+        waterDisplay = `${(waterRawValue / metrics.litresToAlt).toLocaleString(undefined, {maximumFractionDigits: 3})} gal`;
       }
       
       const carbonGrams = totalKWh * metrics.carbonIntensity;
@@ -2069,7 +2029,7 @@ Adopt a rigorous, advisory, and professional style. Divide your report with clea
       let carbonDisplay = "";
       if (carbonKg >= 1000) {
         const tonLabel = (currentRegion === 'US') ? 'Tons' : 'Tonnes';
-        carbonDisplay = `${(carbonKg / 1000).toLocaleString(undefined, {maximumFractionDigits: 2})} ${tonLabel}`;
+        carbonDisplay = `${(carbonKg / 1000).toLocaleString(undefined, {maximumFractionDigits: 3})} ${tonLabel}`;
       } else {
         carbonDisplay = `${carbonKg.toLocaleString(undefined, {maximumFractionDigits: 1})} kg`;
       }
@@ -2085,7 +2045,7 @@ Adopt a rigorous, advisory, and professional style. Divide your report with clea
       } else if (modelType === 'standard') {
         adviceBox.innerHTML = `Running standard conventional LLMs (like GPT-4o) consumes <strong>0.3 Wh per query</strong> (Epoch AI 2025 baseline). While highly optimized, scaling standard query pipelines across global enterprises still requires significant centralized infrastructure loads.`;
       } else if (modelType === 'reasoning') {
-        adviceBox.innerHTML = `<span class="text-amber-800 dark:text-brand-500 font-semibold">Grid Strain Alert:</span> Advanced reasoning models (e.g. o1/o3, DeepSeek R1) consume up to <strong>20 Wh per query</strong> due to recursive thinking loops. Scaling this load to millions of requests demands up to 70x more energy, threatening regional transmission margins and municipal water reservoirs.`;
+        adviceBox.innerHTML = `<span class="text-amber-805 dark:text-brand-500 font-semibold font-display">Grid Strain Alert:</span> Advanced reasoning models (e.g. o1/o3, DeepSeek R1) consume up to <strong>20 Wh per query</strong> due to recursive thinking loops. Scaling this load to millions of requests demands up to 70x more energy, threatening regional transmission margins and municipal water reservoirs.`;
       }
     }
 
