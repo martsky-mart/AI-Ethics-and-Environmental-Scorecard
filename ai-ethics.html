@@ -181,6 +181,82 @@
     font-variation-settings: "opsz" 14;
   }
 
+  /* ===== Ranking selector ===== */
+  .rank-by {
+    margin: 8px 0 28px;
+    padding: 16px 18px;
+    background: var(--paper);
+    border: 1.5px solid var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .rank-by .lbl {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .rank-by-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 1;
+  }
+  .rank-pill {
+    background: transparent;
+    border: 1.5px solid var(--rule);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 8px 14px;
+    min-height: 36px;
+    cursor: pointer;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    transition: all .15s ease;
+    font-weight: 500;
+  }
+  .rank-pill:hover {
+    background: var(--paper-2);
+    border-color: var(--ink);
+  }
+  .rank-pill:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .rank-pill[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .rank-pill[aria-pressed="true"]:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* Highlight the active category on the bar list when filtered */
+  .bar-row.active-category {
+    background: rgba(183, 53, 18, 0.08);
+    box-shadow: inset 3px 0 0 var(--hot);
+  }
+  .bar-row.active-category:hover,
+  .bar-row.active-category:focus-visible {
+    background: rgba(183, 53, 18, 0.14);
+  }
+
+  /* Pulse the card score when re-ranked */
+  @keyframes flashRank {
+    0%   { background: var(--paper); }
+    25%  { background: rgba(183, 53, 18, 0.10); }
+    100% { background: var(--paper); }
+  }
+  .card.re-rank { animation: flashRank .8s ease; }
+
   /* ===== Masthead ===== */
   header.masthead {
     border-bottom: 2px solid var(--rule);
@@ -801,28 +877,28 @@
     <div class="fp-stat">
       <dt class="lbl">Energy</dt>
       <dd>
-        <span class="num">~90<span class="unit">Wh</span></span>
-        <p class="eq">About 70% of a kettle boil.</p>
+        <span class="num">~100<span class="unit">Wh</span></span>
+        <p class="eq">About 80% of a kettle boil.</p>
       </dd>
     </div>
     <div class="fp-stat">
       <dt class="lbl">CO&#8322; equivalent</dt>
       <dd>
-        <span class="num">~35<span class="unit">g</span></span>
-        <p class="eq">Driving a petrol car for ~85&nbsp;metres.</p>
+        <span class="num">~39<span class="unit">g</span></span>
+        <p class="eq">Driving a petrol car for ~95&nbsp;metres.</p>
       </dd>
     </div>
     <div class="fp-stat">
       <dt class="lbl">Water (on-site only)</dt>
       <dd>
-        <span class="num">~97<span class="unit">mL</span></span>
+        <span class="num">~108<span class="unit">mL</span></span>
         <p class="eq">About a third of a glass of water.</p>
       </dd>
     </div>
     <div class="fp-stat">
       <dt class="lbl">Water (full lifecycle)</dt>
       <dd>
-        <span class="num">~387<span class="unit">mL</span></span>
+        <span class="num">~432<span class="unit">mL</span></span>
         <p class="eq">Including indirect water at power plants.</p>
       </dd>
     </div>
@@ -843,10 +919,21 @@
 
 <!-- ========== MAIN ========== -->
 <main id="main-content" tabindex="-1">
-  <p class="section-label">Ranked, best to worst, on weighted total</p>
+  <p class="section-label" id="rank-label">Ranked, best to worst, on weighted total</p>
   <h2 class="section-h">The Field, Audited.</h2>
 
-  <div class="cards" id="cards" role="list" aria-label="Provider scorecards"></div>
+  <div class="rank-by" role="group" aria-labelledby="rank-by-lbl">
+    <span class="lbl" id="rank-by-lbl">Rank by</span>
+    <div class="rank-by-group">
+      <button type="button" class="rank-pill" data-rank="overall"   aria-pressed="true">Overall</button>
+      <button type="button" class="rank-pill" data-rank="military"  aria-pressed="false">Military restraint</button>
+      <button type="button" class="rank-pill" data-rank="environment" aria-pressed="false">Carbon &amp; water</button>
+      <button type="button" class="rank-pill" data-rank="community" aria-pressed="false">Community impact</button>
+      <button type="button" class="rank-pill" data-rank="privacy"   aria-pressed="false">Privacy &amp; data</button>
+    </div>
+  </div>
+
+  <div class="cards" id="cards" role="list" aria-label="Provider scorecards" aria-live="polite"></div>
 </main>
 
 <!-- ========== SOURCES ========== -->
@@ -1102,66 +1189,171 @@ function esc(str) {
 }
 
 /* ============================================================
-   RENDER CARDS
+   RENDER CARDS — re-rankable
    ============================================================ */
 const cardsEl = document.getElementById('cards');
-const sorted = [...PROVIDERS].sort((a, b) => totalScore(b) - totalScore(a));
+const rankLabelEl = document.getElementById('rank-label');
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Render each card as a div containing a primary "open dossier" button followed by per-category buttons.
-// Buttons cannot be nested inside one another, so the card itself is a styled div.
-sorted.forEach((p, idx) => {
-  const total = totalScore(p);
-  const band = totalBand(total);
-  const bandLbl = bandLabel(band);
+// Ranking modes: define each mode's category set, max possible score,
+// label text, and the noun used in the score-display label.
+const RANK_MODES = {
+  overall: {
+    cats:  CATEGORIES.map(c => c.id),
+    max:   70,
+    label: "Ranked, best to worst, on weighted total",
+    noun:  "Overall posture",
+    nounSr: "overall score"
+  },
+  military: {
+    cats:  ["military"],
+    max:   10,
+    label: "Ranked, best to worst, on military restraint",
+    noun:  "Military restraint",
+    nounSr: "military restraint score"
+  },
+  environment: {
+    cats:  ["carbon", "efficiency", "water"],
+    max:   30,
+    label: "Ranked, best to worst, on carbon &amp; water impact",
+    noun:  "Environmental score",
+    nounSr: "environmental score"
+  },
+  community: {
+    cats:  ["community"],
+    max:   10,
+    label: "Ranked, best to worst, on community impact",
+    noun:  "Community impact",
+    nounSr: "community impact score"
+  },
+  privacy: {
+    cats:  ["privacy"],
+    max:   10,
+    label: "Ranked, best to worst, on privacy &amp; data practice",
+    noun:  "Privacy & data",
+    nounSr: "privacy score"
+  },
+};
 
-  const card = document.createElement('div');
-  card.className = 'card reveal';
-  card.style.animationDelay = (idx * 0.06) + 's';
-  card.dataset.id = p.id;
-  card.setAttribute('role', 'listitem');
+// Score under a given ranking mode = sum of the relevant category scores
+function rankScore(p, mode) {
+  return RANK_MODES[mode].cats.reduce((sum, catId) => sum + p.scores[catId], 0);
+}
 
-  // Header is a real button (opens whole-provider panel)
-  const openBtnLabel = `Open full dossier for ${p.org} ${p.product}, overall score ${total} out of 70, ${bandLbl}`;
+// Band thresholds scale with max
+function rankBand(score, max) {
+  const pct = score / max;
+  if (pct >= 0.65) return 'hi';
+  if (pct >= 0.5) return 'mid';
+  return 'lo';
+}
 
-  const barRowsHTML = CATEGORIES.map(cat => {
-    const s = p.scores[cat.id];
-    const b = scoreBand(s);
-    const bLbl = bandLabel(b);
-    return `
-      <li>
-        <button type="button" class="bar-row" data-cat="${esc(cat.id)}" data-provider="${esc(p.id)}"
-                aria-label="${esc(cat.name)}: score ${s} of 10, ${bLbl}. Activate to read reasoning.">
-          <span class="lbl"><span class="dot" aria-hidden="true"></span>${esc(cat.name)}</span>
-          <span class="val" aria-hidden="true">${s}<span class="pts">/10</span></span>
-          <span class="bar-wrap" aria-hidden="true"><span class="bar-fill s-${b}" style="width: 0%" data-width="${s*10}"></span></span>
-        </button>
-      </li>
+let currentRank = 'overall';
+
+function renderCards(rankBy) {
+  currentRank = rankBy;
+  const mode = RANK_MODES[rankBy];
+
+  // Update section label
+  rankLabelEl.innerHTML = mode.label;
+
+  // Sort providers by current rank-score (desc); stable-sort ties alphabetically
+  // so layout doesn't randomly reshuffle within a tier.
+  const sorted = [...PROVIDERS]
+    .map(p => ({ p, s: rankScore(p, rankBy) }))
+    .sort((a, b) => b.s - a.s || a.p.org.localeCompare(b.p.org))
+    .map(x => x.p);
+
+  // Clear and rebuild
+  cardsEl.innerHTML = '';
+
+  sorted.forEach((p, idx) => {
+    const score = rankScore(p, rankBy);
+    const band = rankBand(score, mode.max);
+    const bandLbl = bandLabel(band);
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.id = p.id;
+    card.setAttribute('role', 'listitem');
+
+    const openBtnLabel = `Open full dossier for ${p.org} ${p.product}: ${mode.nounSr} ${score} out of ${mode.max}, ${bandLbl}`;
+
+    // Mark category bars as "active" if they're the basis of current ranking
+    const activeCats = new Set(mode.cats);
+    const isMultiCatRank = mode.cats.length > 1;
+    const isOverall = rankBy === 'overall';
+
+    const barRowsHTML = CATEGORIES.map(cat => {
+      const s = p.scores[cat.id];
+      const b = scoreBand(s);
+      const bLbl = bandLabel(b);
+      // Highlight bars that contribute to current rank — but not for overall
+      // (would highlight everything, defeating the purpose).
+      const activeCls = !isOverall && activeCats.has(cat.id) ? ' active-category' : '';
+      return `
+        <li>
+          <button type="button" class="bar-row${activeCls}" data-cat="${esc(cat.id)}" data-provider="${esc(p.id)}"
+                  aria-label="${esc(cat.name)}: score ${s} of 10, ${bLbl}${activeCls ? ', currently ranking by this' : ''}. Activate to read reasoning.">
+            <span class="lbl"><span class="dot" aria-hidden="true"></span>${esc(cat.name)}</span>
+            <span class="val" aria-hidden="true">${s}<span class="pts">/10</span></span>
+            <span class="bar-wrap" aria-hidden="true"><span class="bar-fill s-${b}" style="width: 0%" data-width="${s*10}"></span></span>
+          </button>
+        </li>
+      `;
+    }).join('');
+
+    card.innerHTML = `
+      <button type="button" class="card-open" aria-label="${esc(openBtnLabel)}"
+              data-provider="${esc(p.id)}">
+        <span class="rank" aria-hidden="true">&#8470;${String(idx + 1).padStart(2, '0')} / ${String(sorted.length).padStart(2, '0')}</span>
+        <span class="org" style="display:block;">${esc(p.org)}</span>
+        <span class="name" style="display:block;">${esc(p.product.split(' ')[0])}${p.product.includes(' ') ? `<span class="product">${esc(p.product.split(' ').slice(1).join(' '))}</span>` : ''}</span>
+        <span class="score-display">
+          <span class="num" aria-hidden="true">${score}</span>
+          <span class="denom" aria-hidden="true">/ ${mode.max}</span>
+          <span class="sr-only">${mode.nounSr} ${score} out of ${mode.max}, banded as ${bandLbl}.</span>
+          <span class="label"><strong>${bandLbl}</strong>${esc(mode.noun)}</span>
+        </span>
+      </button>
+      <ul class="bar-list" aria-label="Category breakdown for ${esc(p.org)} ${esc(p.product)}">
+        ${barRowsHTML}
+      </ul>
+      <p class="verdict">${esc(p.verdict)}</p>
     `;
-  }).join('');
 
-  card.innerHTML = `
-    <button type="button" class="card-open" aria-label="${esc(openBtnLabel)}"
-            data-provider="${esc(p.id)}">
-      <span class="rank" aria-hidden="true">&#8470;${String(idx + 1).padStart(2, '0')} / ${String(sorted.length).padStart(2, '0')}</span>
-      <span class="org" style="display:block;">${esc(p.org)}</span>
-      <span class="name" style="display:block;">${esc(p.product.split(' ')[0])}${p.product.includes(' ') ? `<span class="product">${esc(p.product.split(' ').slice(1).join(' '))}</span>` : ''}</span>
-      <span class="score-display">
-        <span class="num" aria-hidden="true">${total}</span>
-        <span class="denom" aria-hidden="true">/ 70</span>
-        <span class="sr-only">Overall score ${total} out of 70, banded as ${bandLbl}.</span>
-        <span class="label"><strong>${bandLbl}</strong>Overall posture</span>
-      </span>
-    </button>
-    <ul class="bar-list" aria-label="Category breakdown for ${esc(p.org)} ${esc(p.product)}">
-      ${barRowsHTML}
-    </ul>
-    <p class="verdict">${esc(p.verdict)}</p>
-  `;
+    cardsEl.appendChild(card);
+  });
 
-  cardsEl.appendChild(card);
-});
+  // Animate bars (skip if reduced motion). For re-rank, also pulse the cards.
+  if (prefersReduced) {
+    document.querySelectorAll('.bar-fill').forEach(el => {
+      el.style.width = el.dataset.width + '%';
+    });
+  } else {
+    // Stagger the bar fills
+    setTimeout(() => {
+      document.querySelectorAll('.bar-fill').forEach((el, i) => {
+        setTimeout(() => { el.style.width = el.dataset.width + '%'; }, i * 12);
+      });
+    }, 50);
+    // Flash cards to signal re-rank (only after initial render)
+    if (initialRenderDone) {
+      document.querySelectorAll('.card').forEach((el, i) => {
+        setTimeout(() => {
+          el.classList.add('re-rank');
+          setTimeout(() => el.classList.remove('re-rank'), 800);
+        }, i * 30);
+      });
+    }
+  }
+}
 
-// Wire up clicks now that DOM is rebuilt
+let initialRenderDone = false;
+renderCards('overall');
+initialRenderDone = true;
+
+// Wire up clicks (delegation — works across re-renders)
 cardsEl.addEventListener('click', (e) => {
   const barBtn = e.target.closest('.bar-row');
   if (barBtn) {
@@ -1174,17 +1366,18 @@ cardsEl.addEventListener('click', (e) => {
   }
 });
 
-// Animate bars in after initial render (skip if reduced motion)
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-setTimeout(() => {
-  document.querySelectorAll('.bar-fill').forEach((el, i) => {
-    if (prefersReduced) {
-      el.style.width = el.dataset.width + '%';
-    } else {
-      setTimeout(() => { el.style.width = el.dataset.width + '%'; }, i * 18);
-    }
+// Wire up ranking pills
+document.querySelectorAll('.rank-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const newRank = pill.dataset.rank;
+    if (newRank === currentRank) return;
+    // Update pressed state
+    document.querySelectorAll('.rank-pill').forEach(p => {
+      p.setAttribute('aria-pressed', p === pill ? 'true' : 'false');
+    });
+    renderCards(newRank);
   });
-}, prefersReduced ? 0 : 400);
+});
 
 /* ============================================================
    PANEL — with focus management for WCAG 2.4.3 / 2.4.11
@@ -1346,13 +1539,13 @@ document.getElementById('open-footprint').addEventListener('click', () => {
       A report on AI's environmental impact is itself produced by an AI. Honesty requires we count the cost. These are <strong>order-of-magnitude estimates</strong>, not precise measurements &mdash; Anthropic publishes no per-prompt energy data, so the figures are triangulated from peer disclosures and grid averages.
     </div>
     <div class="calc" role="region" aria-label="Footprint calculation">
-      <div class="row"><span class="lbl">Substantive generation turns</span><span class="val">~18 &times; 4 Wh</span></div>
-      <div class="row"><span class="lbl">Lighter tool-call turns</span><span class="val">~18 &times; 0.8 Wh</span></div>
+      <div class="row"><span class="lbl">Substantive generation turns</span><span class="val">~20 &times; 4 Wh</span></div>
+      <div class="row"><span class="lbl">Lighter tool-call turns</span><span class="val">~20 &times; 0.8 Wh</span></div>
       <div class="row"><span class="lbl">Web searches</span><span class="val">15 &times; 0.4 Wh</span></div>
-      <div class="row tot"><span class="lbl">TOTAL ENERGY</span><span class="val">~90 Wh</span></div>
-      <div class="row" style="margin-top:6px;"><span class="lbl">&times; US grid avg (385 g CO\u2082e/kWh)</span><span class="val">~35 g CO\u2082e</span></div>
-      <div class="row"><span class="lbl">&times; Gemini's on-site water ratio (1.08 mL/Wh)</span><span class="val">~97 mL</span></div>
-      <div class="row"><span class="lbl">&times; 4 for indirect/thermal water (Ren midpoint)</span><span class="val">~387 mL</span></div>
+      <div class="row tot"><span class="lbl">TOTAL ENERGY</span><span class="val">~100 Wh</span></div>
+      <div class="row" style="margin-top:6px;"><span class="lbl">&times; US grid avg (385 g CO\u2082e/kWh)</span><span class="val">~39 g CO\u2082e</span></div>
+      <div class="row"><span class="lbl">&times; Gemini's on-site water ratio (1.08 mL/Wh)</span><span class="val">~108 mL</span></div>
+      <div class="row"><span class="lbl">&times; 4 for indirect/thermal water (Ren midpoint)</span><span class="val">~432 mL</span></div>
     </div>
     <section class="category-block">
       <header class="head"><h3 class="name">Per-turn energy assumptions</h3></header>
