@@ -1,0 +1,1058 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Provider Ethics Scorecard — A Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,800&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:        #0e0d0b;
+    --paper:      #f4efe6;
+    --paper-2:    #ebe4d6;
+    --rule:       #1a1816;
+    --muted:      #6b6357;
+    --hot:        #c93f1a;
+    --warn:       #d99216;
+    --ok:         #3a6b3a;
+    --shadow:     0 1px 0 rgba(14,13,11,.06), 0 8px 24px -12px rgba(14,13,11,.18);
+    --serif:      "Fraunces", "Times New Roman", serif;
+    --mono:       "JetBrains Mono", ui-monospace, monospace;
+    --sans:       "Inter Tight", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(rgba(14,13,11,.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* ===== Masthead ===== */
+  header.masthead {
+    border-bottom: 2px solid var(--rule);
+    padding: 28px 40px 18px;
+    position: relative;
+  }
+  .masthead-top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted);
+    border-bottom: 1px solid var(--rule); padding-bottom: 10px; margin-bottom: 24px;
+  }
+  .masthead-top .left { display: flex; gap: 24px; }
+  .masthead-top .left span:first-child { color: var(--hot); font-weight: 700; }
+
+  h1.title {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(48px, 8vw, 112px);
+    line-height: .92;
+    letter-spacing: -0.035em;
+    font-variation-settings: "opsz" 144;
+  }
+  h1.title .em { font-style: italic; font-weight: 400; color: var(--hot); }
+  .subtitle {
+    margin-top: 18px;
+    font-family: var(--serif);
+    font-size: clamp(16px, 1.5vw, 20px);
+    font-style: italic;
+    color: var(--muted);
+    max-width: 760px;
+    font-variation-settings: "opsz" 14;
+  }
+  .deck {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .deck > div {
+    padding: 14px 16px;
+    border-right: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  .deck > div:last-child { border-right: none; }
+  .deck .k { color: var(--muted); display: block; margin-bottom: 4px; }
+  .deck .v { font-family: var(--serif); font-size: 22px; font-weight: 600; text-transform: none; letter-spacing: -0.02em; }
+  .deck .v.hot { color: var(--hot); }
+
+  /* ===== Methodology bar ===== */
+  .meta-bar {
+    padding: 16px 40px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--mono); font-size: 12px;
+    display: flex; gap: 32px; flex-wrap: wrap;
+    align-items: center;
+    border-bottom: 2px solid var(--rule);
+  }
+  .meta-bar strong { color: var(--paper); letter-spacing: .05em; text-transform: uppercase; font-size: 10px; }
+  .meta-bar .legend { display: flex; gap: 16px; align-items: center; }
+  .meta-bar .swatch { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: middle; }
+  .meta-bar button {
+    background: transparent; border: 1px solid var(--paper);
+    color: var(--paper); font-family: var(--mono); font-size: 11px;
+    padding: 6px 14px; cursor: pointer; letter-spacing: .05em; text-transform: uppercase;
+    transition: all .15s ease;
+  }
+  .meta-bar button:hover { background: var(--paper); color: var(--ink); }
+  .meta-bar .spacer { flex: 1; }
+
+  /* ===== Main grid ===== */
+  main {
+    padding: 48px 40px 80px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--hot);
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before {
+    content: ""; display: inline-block; width: 24px; height: 1px; background: var(--hot);
+  }
+  .section-h {
+    font-family: var(--serif);
+    font-size: 40px; font-weight: 600;
+    letter-spacing: -0.025em;
+    margin-bottom: 32px;
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* ===== Provider cards ===== */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 0;
+    border-top: 2px solid var(--rule);
+    border-left: 1px solid var(--rule);
+  }
+  .card {
+    background: var(--paper);
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 28px;
+    position: relative;
+    cursor: pointer;
+    transition: background .2s ease;
+    display: flex; flex-direction: column;
+  }
+  .card:hover { background: var(--paper-2); }
+  .card .rank {
+    position: absolute;
+    top: 16px; right: 20px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); letter-spacing: .08em;
+  }
+  .card .org {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--muted); text-transform: uppercase; letter-spacing: .1em;
+    margin-bottom: 8px;
+  }
+  .card .name {
+    font-family: var(--serif);
+    font-size: 38px; font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    margin-bottom: 24px;
+    font-variation-settings: "opsz" 60;
+  }
+  .card .name .product {
+    font-style: italic; font-weight: 400; color: var(--muted); font-size: 22px; display: block;
+  }
+  .score-display {
+    display: flex; align-items: baseline; gap: 10px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 16px 0;
+    margin-bottom: 20px;
+  }
+  .score-display .num {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 80px; line-height: .85;
+    letter-spacing: -0.05em;
+    font-variation-settings: "opsz" 144;
+  }
+  .score-display .denom {
+    font-family: var(--mono); font-size: 14px; color: var(--muted);
+  }
+  .score-display .label {
+    flex: 1; text-align: right;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .score-display .label strong { display: block; color: var(--ink); font-size: 13px; margin-bottom: 2px; }
+
+  .bar-list { display: grid; gap: 9px; margin-bottom: 18px; }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 8px 10px;
+    margin: 0 -10px;
+    border-radius: 2px;
+    transition: background .12s ease;
+  }
+  .bar-row:hover { background: rgba(14,13,11,.05); }
+  .bar-row .lbl {
+    font-family: var(--sans); font-size: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .bar-row .lbl .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--muted); flex-shrink: 0;
+  }
+  .bar-row .bar-wrap {
+    height: 6px; background: rgba(14,13,11,.08);
+    position: relative; overflow: hidden; margin-top: 4px;
+    grid-column: 1 / -1;
+  }
+  .bar-row .bar-fill {
+    position: absolute; top: 0; left: 0; height: 100%;
+    background: var(--ink);
+    transition: width 1s cubic-bezier(.22,.61,.36,1);
+  }
+  .bar-row .bar-fill.s-hi { background: var(--ok); }
+  .bar-row .bar-fill.s-mid { background: var(--warn); }
+  .bar-row .bar-fill.s-lo { background: var(--hot); }
+  .bar-row .val {
+    font-family: var(--mono); font-size: 12px; font-weight: 500;
+  }
+  .bar-row .val .pts { color: var(--muted); margin-left: 4px; font-size: 10px; }
+
+  .verdict {
+    font-family: var(--serif); font-style: italic;
+    font-size: 15px; line-height: 1.45;
+    color: var(--ink);
+    padding-top: 14px;
+    border-top: 1px solid rgba(14,13,11,.15);
+    font-variation-settings: "opsz" 14;
+    margin-top: auto;
+  }
+  .verdict::before {
+    content: "“"; font-size: 30px; line-height: 0; vertical-align: -10px;
+    color: var(--hot); margin-right: 4px; font-weight: 800;
+  }
+
+  /* ===== Detail panel (modal) ===== */
+  .scrim {
+    position: fixed; inset: 0;
+    background: rgba(14,13,11,.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 100;
+    opacity: 0; pointer-events: none;
+    transition: opacity .2s ease;
+  }
+  .scrim.open { opacity: 1; pointer-events: auto; }
+  .panel {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(720px, 100vw);
+    background: var(--paper);
+    z-index: 101;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform .35s cubic-bezier(.22,.61,.36,1);
+    box-shadow: -20px 0 60px rgba(14,13,11,.3);
+  }
+  .panel.open { transform: translateX(0); }
+  .panel-head {
+    position: sticky; top: 0; z-index: 2;
+    background: var(--ink); color: var(--paper);
+    padding: 20px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(244,239,230,.15);
+  }
+  .panel-head .lbl {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: .15em; text-transform: uppercase;
+    color: rgba(244,239,230,.5);
+  }
+  .panel-head .ttl {
+    font-family: var(--serif); font-size: 22px;
+    font-weight: 600; letter-spacing: -0.02em;
+    margin-top: 2px;
+  }
+  .panel-head button {
+    background: transparent; border: 1px solid var(--paper);
+    color: var(--paper); width: 36px; height: 36px;
+    font-size: 20px; cursor: pointer; transition: all .15s ease;
+    line-height: 1;
+  }
+  .panel-head button:hover { background: var(--paper); color: var(--ink); }
+
+  .panel-body { padding: 32px 28px 60px; }
+  .panel-body .summary {
+    font-family: var(--serif); font-size: 18px; line-height: 1.5;
+    margin-bottom: 28px;
+    font-variation-settings: "opsz" 18;
+  }
+  .panel-body .summary .lead {
+    font-weight: 600; color: var(--hot);
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase;
+    display: block; margin-bottom: 8px;
+    font-style: normal;
+  }
+  .category-block {
+    border-top: 1px solid var(--rule);
+    padding: 22px 0;
+  }
+  .category-block:last-child { border-bottom: 1px solid var(--rule); }
+  .category-block .head {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+    margin-bottom: 14px;
+  }
+  .category-block .name {
+    font-family: var(--serif); font-size: 22px; font-weight: 600;
+    letter-spacing: -0.015em;
+    font-variation-settings: "opsz" 30;
+  }
+  .category-block .score-pill {
+    font-family: var(--mono); font-size: 14px; font-weight: 700;
+    padding: 4px 12px;
+    border: 1.5px solid var(--ink);
+    flex-shrink: 0;
+  }
+  .category-block .score-pill.s-hi { color: var(--ok); border-color: var(--ok); }
+  .category-block .score-pill.s-mid { color: var(--warn); border-color: var(--warn); }
+  .category-block .score-pill.s-lo { color: var(--hot); border-color: var(--hot); }
+
+  .category-block .reasoning {
+    font-size: 14px; line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .category-block .reasoning p { margin-bottom: 10px; }
+  .category-block .reasoning strong { font-weight: 600; }
+
+  .calc {
+    background: var(--ink); color: var(--paper);
+    padding: 16px 18px;
+    font-family: var(--mono); font-size: 12px; line-height: 1.6;
+    margin: 14px 0;
+    position: relative;
+  }
+  .calc::before {
+    content: "calculation";
+    position: absolute; top: -9px; left: 14px;
+    background: var(--hot); color: var(--paper);
+    padding: 2px 8px; font-size: 9px;
+    letter-spacing: .12em; text-transform: uppercase;
+  }
+  .calc .row { display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+  .calc .row.tot {
+    border-top: 1px solid rgba(244,239,230,.3);
+    padding-top: 8px; margin-top: 8px;
+    font-weight: 700; color: var(--paper);
+  }
+  .calc .row.tot .val { color: var(--hot); }
+  .calc .lbl { color: rgba(244,239,230,.7); }
+  .calc .val { color: var(--paper); text-align: right; }
+
+  .ref-list {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 12px;
+  }
+  .ref-list .ref {
+    font-family: var(--mono); font-size: 11px;
+    background: rgba(14,13,11,.06);
+    padding: 4px 10px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all .15s ease;
+  }
+  .ref-list .ref:hover { border-color: var(--ink); background: rgba(14,13,11,.1); }
+  .ref-list .ref .num { color: var(--hot); font-weight: 700; margin-right: 4px; }
+
+  /* ===== Sources Section ===== */
+  .sources-wrap {
+    margin-top: 80px;
+    padding: 48px 40px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .sources-wrap .section-label { color: var(--paper-2); }
+  .sources-wrap .section-label::before { background: var(--paper-2); }
+  .sources-wrap .section-h { color: var(--paper); }
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 0;
+    border-top: 1px solid rgba(244,239,230,.2);
+  }
+  .source {
+    padding: 18px 20px 18px 0;
+    border-bottom: 1px solid rgba(244,239,230,.12);
+    padding-right: 20px;
+    margin-right: 20px;
+  }
+  .source-num {
+    font-family: var(--serif); font-size: 32px; font-weight: 800;
+    color: var(--hot); display: inline-block; margin-right: 12px;
+    font-variation-settings: "opsz" 60;
+    line-height: 1; vertical-align: top;
+  }
+  .source-text { display: inline-block; width: calc(100% - 60px); }
+  .source-text .title {
+    font-family: var(--serif); font-size: 14px; line-height: 1.4;
+    margin-bottom: 4px; color: var(--paper);
+  }
+  .source-text a {
+    font-family: var(--mono); font-size: 10px;
+    color: rgba(244,239,230,.6);
+    text-decoration: none; word-break: break-all;
+    border-bottom: 1px solid rgba(244,239,230,.2);
+  }
+  .source-text a:hover { color: var(--paper); border-color: var(--paper); }
+
+  /* ===== Foot ===== */
+  footer.foot {
+    padding: 40px;
+    border-top: 2px solid var(--rule);
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    text-align: center; letter-spacing: .08em; text-transform: uppercase;
+    background: var(--paper);
+  }
+  footer.foot .em { font-family: var(--serif); font-style: italic; text-transform: none; color: var(--ink); letter-spacing: 0; font-size: 14px; }
+
+  /* ===== Reveal animation ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: revealIn .6s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  @keyframes revealIn {
+    to { opacity: 1; transform: none; }
+  }
+
+  /* ===== Mobile ===== */
+  @media (max-width: 720px) {
+    header.masthead { padding: 20px 20px 14px; }
+    .meta-bar { padding: 14px 20px; gap: 14px; }
+    .meta-bar .spacer { display: none; }
+    main { padding: 32px 20px 60px; }
+    .section-h { font-size: 28px; }
+    .cards { grid-template-columns: 1fr; }
+    .card { padding: 22px; }
+    .card .name { font-size: 30px; }
+    .score-display .num { font-size: 60px; }
+    .panel { width: 100vw; }
+    .panel-body { padding: 24px 20px 40px; }
+    .sources-wrap { padding: 40px 20px; }
+    .sources-grid { grid-template-columns: 1fr; }
+    .deck { grid-template-columns: 1fr 1fr; }
+    .deck > div:nth-child(2) { border-right: none; }
+    .deck > div:nth-child(3) { border-top: 1px solid var(--rule); }
+    .deck > div:nth-child(4) { border-top: 1px solid var(--rule); border-right: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== MASTHEAD ========== -->
+<header class="masthead">
+  <div class="masthead-top">
+    <div class="left">
+      <span>● LIVE</span>
+      <span>VOL. I / DOSSIER №1</span>
+      <span>MAY 2026</span>
+    </div>
+    <div>An interactive companion to the Ethics of AI report</div>
+  </div>
+
+  <h1 class="title">The Ethics<br>of AI: <span class="em">a scorecard</span></h1>
+  <p class="subtitle">Six frontier AI providers, scored on military restraint, environmental disclosure, water use, community impact, bias mitigation, and transparency. Click any score to interrogate the reasoning, see the calculation, and trace the references.</p>
+
+  <div class="deck">
+    <div>
+      <span class="k">Providers assessed</span>
+      <span class="v">06</span>
+    </div>
+    <div>
+      <span class="k">Scoring categories</span>
+      <span class="v">07</span>
+    </div>
+    <div>
+      <span class="k">Max possible score</span>
+      <span class="v">70</span>
+    </div>
+    <div>
+      <span class="k">Cited references</span>
+      <span class="v hot">23</span>
+    </div>
+  </div>
+</header>
+
+<!-- ========== METHODOLOGY BAR ========== -->
+<div class="meta-bar">
+  <strong>Methodology</strong>
+  <div class="legend">
+    <span><span class="swatch" style="background:#3a6b3a"></span>STRONG (8–10)</span>
+    <span><span class="swatch" style="background:#d99216"></span>MIXED (5–7)</span>
+    <span><span class="swatch" style="background:#c93f1a"></span>WEAK (0–4)</span>
+  </div>
+  <div class="spacer"></div>
+  <button id="open-methodology">How scoring works →</button>
+</div>
+
+<!-- ========== MAIN ========== -->
+<main>
+  <div class="section-label">Ranked, worst to best, on weighted total</div>
+  <h2 class="section-h">The Field, Audited.</h2>
+
+  <div class="cards" id="cards"></div>
+</main>
+
+<!-- ========== SOURCES ========== -->
+<section class="sources-wrap">
+  <div class="section-label">The receipts</div>
+  <h2 class="section-h">References &amp; Sources</h2>
+  <div class="sources-grid" id="sources"></div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="foot">
+  <p class="em">Built from primary investigative journalism, NGO reporting, and industry disclosures. Synthesis and scoring are editorial.</p>
+  <p style="margin-top:12px;">DATA · MAY 2026 · ALL SCORES SUBJECT TO REVISION AS PROVIDERS UPDATE POLICY</p>
+</footer>
+
+<!-- ========== PANEL ========== -->
+<div class="scrim" id="scrim"></div>
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="panel-head">
+    <div>
+      <div class="lbl">Provider dossier</div>
+      <div class="ttl" id="panel-ttl">—</div>
+    </div>
+    <button id="panel-close" aria-label="Close panel">×</button>
+  </div>
+  <div class="panel-body" id="panel-body"></div>
+</aside>
+
+<script>
+/* ============================================================
+   REFERENCES — keyed to the report's numbered citations [1]–[23]
+   ============================================================ */
+const REFS = {
+  1:  ["Winbuzzer: Pentagon Demands Unrestricted AI for Classified Military Networks (Feb 2026)", "https://winbuzzer.com/2026/02/14/pentagon-demands-unrestricted-ai-classified-networks-xcxwbn/"],
+  2:  ["Finviz / Benzinga: Dario Amodei statement on Anthropic refusal (26 Feb 2026)", "https://finviz.com/news/324662/dario-amodei-is-a-liar-with-god-complex-says-trump-official-as-anthropic-refuses-to-comply-with-pentagons-request-for-unrestricted-ai"],
+  3:  ["Psychology Today: The Clash Over the Use of AI in Military Decision-Making", "https://www.psychologytoday.com/us/blog/psychology-through-technology/202603/the-clash-over-the-use-of-ai-in-military-decision-making"],
+  4:  ["CNN: The Pentagon keeps promising to follow the law when using AI (May 2026)", "https://www.cnn.com/2026/05/07/politics/us-military-ai-law-iran"],
+  5:  ["Law Journal for Social Justice: Algorithms at War — AI Targeting and Civilian Harm in Gaza", "https://ljsj.wordpress.com/2026/05/13/algorithms-at-war-ai-targeting-and-civilian-harm-in-gaza/"],
+  6:  ["Center for International Policy: AI and Israel's Dystopian Promise of War without Responsibility", "https://internationalpolicy.org/publications/ai-and-israels-dystopian-promise-of-war-without-responsibility/"],
+  7:  ["The Independent: Israel reportedly used 'Lavender' AI to ID thousands of dubious targets", "https://aol.com/news/israel-reportedly-used-lavender-ai-005212482.html"],
+  8:  ["+972 Magazine (Yuval Abraham): 'Lavender' — The AI machine directing Israel's bombing spree in Gaza", "https://www.972mag.com/lavender-ai-israeli-army-gaza/"],
+  9:  ["Human Rights Watch: Q&A on Israeli Military's Use of Digital Tools in Gaza", "https://www.hrw.org/news/2024/09/10/questions-and-answers-israeli-militarys-use-of-digital-tools-in-gaza"],
+  10: ["Taylor Wessing (Interface): Ethics and regulation of AI in defence technology", "https://www.taylorwessing.com/en/interface/2025/defence-tech/ethics-and-regulation-of-ai-in-defence-technology"],
+  11: ["K&L Gates: AI Provisions in the FY2026 House and Senate NDAA", "https://www.klgates.com/Artificial-Intelligence-Provisions-in-the-Fiscal-Year-2026-House-and-Senate-National-Defense-Authorization-Acts-9-11-2025"],
+  12: ["IEA: Energy and AI (2025)", "https://www.iea.org/reports/energy-and-ai"],
+  13: ["Lawrence Berkeley National Laboratory: 2024 US Data Center Energy Usage Report", "https://eta.lbl.gov/publications/2024-united-states-data-center-energy"],
+  14: ["Consumer Reports: AI Data Centers — Big Tech's Impact on Electric Bills, Water, and More", "https://www.consumerreports.org/data-centers/ai-data-centers-impact-on-electric-bills-water-and-more-a1040338678/"],
+  15: ["Google Cloud Blog: Measuring the environmental impact of AI inference (Aug 2025)", "https://cloud.google.com/blog/products/infrastructure/measuring-the-environmental-impact-of-ai-inference/"],
+  16: ["Digital Watch: Critique of Google's Gemini environmental disclosure (Aug 2025)", "https://dig.watch/updates/google-claims-gemini-uses-less-water-and-energy-per-text-prompt"],
+  17: ["Wikipedia: Environmental impact of Big Tech (compiled IEA / Goldman Sachs data)", "https://en.wikipedia.org/wiki/Environmental_impact_of_Big_Tech"],
+  18: ["Wikipedia: AI data center (Project Rainier, Stargate)", "https://en.wikipedia.org/wiki/AI_data_center"],
+  19: ["EESI: Data Center Power Demands Are Contributing to Higher Energy Bills (Feb 2026)", "https://www.eesi.org/articles/view/data-center-power-demands-are-contributing-to-higher-energy-bills"],
+  20: ["US Senate (Reed, Whitehouse et al.): Letter on data centre-driven energy costs (Jan 2026)", "https://www.whitehouse.senate.gov/news/release/reed-whitehouse-seek-answers-about-how-new-regional-data-centers-could-drive-up-energy-health-environmental-costs-for-consumers/"],
+  21: ["About Amazon: Data Centers don't raise your electricity bills (E3 study, Dec 2025)", "https://www.aboutamazon.com/news/sustainability/data-centers-electricity-bills-grid-power-amazon"],
+  22: ["World Resources Institute: How Data Centers Affect US Communities", "https://www.wri.org/insights/us-data-center-growth-impacts"],
+  23: ["Wikipedia: Opposition to AI data centers (compiled community-led campaigns)", "https://en.wikipedia.org/wiki/Opposition_to_AI_data_centers"],
+};
+
+/* ============================================================
+   SCORING — each provider scored 0–10 in each of 7 categories
+   Scores reflect publicly reported positions/data as of May 2026
+   ============================================================ */
+const CATEGORIES = [
+  { id: "military",    name: "Military Restraint",          desc: "Resistance to unrestricted military deployment; published red lines on autonomous weapons and mass surveillance." },
+  { id: "carbon",      name: "Carbon Transparency",         desc: "Quality and granularity of disclosed emissions data; per-prompt and aggregate reporting." },
+  { id: "efficiency",  name: "Per-Prompt Efficiency",       desc: "Energy consumed per inference, weighted to penalise high-watt reasoning models." },
+  { id: "water",       name: "Water Disclosure",            desc: "Quality of water-use reporting (direct + indirect) and replenishment commitments." },
+  { id: "community",   name: "Community Impact",            desc: "Footprint of associated data-centre buildouts on local grids, water tables, and bills." },
+  { id: "bias",        name: "Bias & Safety Research",      desc: "Investment in published bias / safety work and willingness to refuse harmful queries." },
+  { id: "privacy",     name: "Privacy & Data Practice",     desc: "Training-data sourcing transparency, opt-outs, and deepfake / scraping protections." },
+];
+
+const PROVIDERS = [
+  {
+    id: "anthropic",
+    org: "Anthropic",
+    product: "Claude",
+    scores: { military: 9, carbon: 5, efficiency: 6, water: 4, community: 4, bias: 9, privacy: 7 },
+    verdict: "The lone holdout against Pentagon ultimatums. Strong on safety research, weaker on environmental disclosure — and reliant on Amazon's Project Rainier.",
+    reasoning: {
+      military: {
+        text: "<p>In February 2026 Anthropic CEO Dario Amodei publicly refused to remove safeguards from Claude that prevent its use for <strong>autonomous weapons control or mass surveillance of Americans</strong>, even after the Pentagon threatened to invoke the Defense Production Act and label the company a 'supply chain risk'.</p><p>Anthropic is the only frontier lab to have published red lines and held them under direct executive-branch pressure. Claude is available on classified networks via third-party providers but with restrictions intact.</p>",
+        refs: [1, 2]
+      },
+      carbon: {
+        text: "<p>Anthropic publishes no per-prompt energy or emissions data. Its primary inference partner is Amazon Web Services, whose Project Rainier facility in Indiana is purpose-built for Claude training and inference.</p><p>Rainier alone will consume <strong>2.2 GW</strong> (equivalent to ~1 million households) at full build-out. Anthropic has no published net-zero target with binding milestones.</p>",
+        refs: [18]
+      },
+      efficiency: {
+        text: "<p>No first-party per-prompt energy data published. Claude's reasoning models (Opus 4.x) are believed to consume meaningfully more energy per query than non-reasoning models, similar to GPT-5 (~18 Wh per response on average).</p><p>Estimated score reflects the lack of disclosure rather than confirmed inefficiency.</p>",
+        refs: [15]
+      },
+      water: {
+        text: "<p>No first-party water reporting. Project Rainier's construction phase pumped <strong>millions of gallons of groundwater</strong> out of the Indiana site, with state regulators receiving complaints from neighbouring farms.</p>",
+        refs: [18, 14]
+      },
+      community: {
+        text: "<p>Rainier sits on 1,200 acres of former farmland. Local impacts include groundwater drawdown, construction traffic, and grid-capacity tensions in Indiana — though direct retail-rate effects are mitigated by Indiana's industrial tariff structure.</p>",
+        refs: [18, 22]
+      },
+      bias: {
+        text: "<p>Anthropic publishes extensive safety research (Constitutional AI, alignment papers, Responsible Scaling Policy). The company's safety researchers regularly publish red-team findings and the company maintains the only public 'usage policy' that is enforced against military contract terms.</p>",
+        refs: [1, 2]
+      },
+      privacy: {
+        text: "<p>Anthropic's training data sources are partially disclosed. The company offers commercial customers data-handling commitments stronger than industry baseline but has been involved in copyright litigation over web-scraped training data, like all peers.</p>",
+        refs: []
+      },
+    }
+  },
+  {
+    id: "google",
+    org: "Alphabet / Google DeepMind",
+    product: "Gemini",
+    scores: { military: 4, carbon: 8, efficiency: 9, water: 7, community: 5, bias: 7, privacy: 6 },
+    verdict: "The only lab publishing peer-comparable per-prompt environmental data. Less restrictive on military use; emissions up 51% vs 2019 baseline despite renewables.",
+    reasoning: {
+      military: {
+        text: "<p>Google has not publicly resisted the Pentagon's February 2026 demand for unrestricted lawful military use. The company holds active DoD contracts and dropped its earlier 'no AI for weapons' pledge during the Trump administration's pressure campaign.</p><p>Score reflects active military integration without published refusal of autonomous weapons use cases.</p>",
+        refs: [1, 3]
+      },
+      carbon: {
+        text: "<p>Google is the <strong>first major lab to publish a per-prompt environmental methodology</strong> (August 2025), disclosing 0.24 Wh, 0.03 g CO₂e, and 0.26 mL water per median Gemini text prompt.</p><p>However: Google's 2024 environmental report shows total emissions up 13% YoY and <strong>51% above 2019 baseline</strong>, driven by AI data-centre buildout. Disclosure quality is high; emissions trajectory is poor.</p>",
+        refs: [15, 16]
+      },
+      efficiency: {
+        text: "<p>Per Google's published methodology, median Gemini text prompt = <strong>0.24 Wh</strong>. That is equivalent to running a microwave for ~1 second, or watching TV for ~9 seconds.</p><p>Per-prompt energy reportedly fell <strong>33× in 12 months</strong>; carbon footprint per prompt fell 44×. Highest score in the field; caveat that 'median' excludes long-context and multimodal queries.</p>",
+        refs: [15]
+      },
+      water: {
+        text: "<p>Google reports 0.26 mL per prompt on an <strong>on-site basis only</strong>. Independent researcher Shaolei Ren has shown this excludes the larger <em>indirect</em> water consumed at thermal power plants supplying the grid; comprehensive figure is several times higher.</p><p>Google has pledged to <strong>replenish 120% of freshwater consumed</strong> by 2030, though verification is voluntary.</p>",
+        refs: [15, 16]
+      },
+      community: {
+        text: "<p>Google operates dozens of hyperscale data centres globally. Local opposition is documented in The Dalles (Oregon), Mesa (Arizona), and elsewhere. Google's PPAs for renewables have improved grid carbon intensity in some markets but contributed to capacity-auction price spikes.</p>",
+        refs: [19, 22, 23]
+      },
+      bias: {
+        text: "<p>Google publishes ML fairness research and operates Responsible AI teams. Gemini's image-generation function was paused in early 2024 after well-publicised bias issues (the 'historically diverse' image controversy); recovery has been gradual.</p>",
+        refs: []
+      },
+      privacy: {
+        text: "<p>Google integrates Gemini with Search, Workspace, and Android, raising distinct privacy questions about training-data sourcing from user-generated content. Workspace customers have data-handling protections; consumer users have weaker ones.</p>",
+        refs: []
+      },
+    }
+  },
+  {
+    id: "openai",
+    org: "OpenAI",
+    product: "ChatGPT / GPT-5",
+    scores: { military: 3, carbon: 4, efficiency: 4, water: 4, community: 4, bias: 6, privacy: 5 },
+    verdict: "Market leader by users (~900M weekly), partnership with Anduril, OpenAI for Government launched mid-2025. Per-query energy reportedly an order of magnitude higher than Gemini.",
+    reasoning: {
+      military: {
+        text: "<p>OpenAI launched <strong>OpenAI for Government</strong> in June 2025 with a Pentagon CDAO contract. The company partnered with defence firm <strong>Anduril</strong> in 2024 for military drone defence initiatives.</p><p>OpenAI has not publicly resisted the Feb 2026 Pentagon demand for unrestricted lawful use; the company is reportedly negotiating for broader access. Score reflects active military commercialisation without published red lines comparable to Anthropic's.</p>",
+        refs: [1, 3]
+      },
+      carbon: {
+        text: "<p>OpenAI publishes no comprehensive per-prompt environmental data. Sam Altman stated in a blog post that average ChatGPT query uses ~0.34 Wh and ~0.000085 gallons of water — but this is one self-reported figure without methodology.</p><p>OpenAI's Stargate project (with SoftBank and Oracle) involves <strong>six built or proposed AI data centres</strong> in the US with multi-gigawatt capacity.</p>",
+        refs: [15, 18]
+      },
+      efficiency: {
+        text: "<p>GPT-5 reportedly uses <strong>over 18 Wh per response on average, with some responses reaching 40 Wh</strong> — roughly two orders of magnitude higher than Gemini's median.</p><p>Reasoning-heavy queries (GPT-5 with extended thinking) are significantly more energy-intensive than chat-only models. Score reflects this and the lack of independent verification.</p>",
+        refs: [15]
+      },
+      water: {
+        text: "<p>Altman's blog claim of 0.000085 gallons (~0.39 mL) per query is unverified by methodology. Stargate facilities are sited in Texas (Abilene) — a region facing serious water stress.</p>",
+        refs: [15, 18]
+      },
+      community: {
+        text: "<p>Stargate's first Abilene, Texas site has drawn opposition over groundwater drawdown and rapid grid build-out. OpenAI is a key driver of <strong>$650 billion projected industry data-centre spend in 2026</strong>.</p>",
+        refs: [18, 22]
+      },
+      bias: {
+        text: "<p>OpenAI has published safety and alignment research and operates a Safety Advisory Group. The company has been criticised for departures of safety-focused staff (Jan Leike, Ilya Sutskever) and the dissolution of the Superalignment team in 2024.</p>",
+        refs: []
+      },
+      privacy: {
+        text: "<p>ChatGPT's training data is partially undisclosed; the company faces multiple copyright suits (NYT, authors). Consumer ChatGPT data is used to train models by default; enterprise tier offers opt-outs.</p>",
+        refs: []
+      },
+    }
+  },
+  {
+    id: "xai",
+    org: "xAI",
+    product: "Grok",
+    scores: { military: 2, carbon: 2, efficiency: 4, water: 2, community: 3, bias: 3, privacy: 3 },
+    verdict: "Lowest restrictions across the board. EU privacy investigation over sexualised deepfakes; Memphis 'Colossus' data centre on unpermitted gas turbines.",
+    reasoning: {
+      military: {
+        text: "<p>xAI has cooperated with the Pentagon's drive for unrestricted lawful military use. The company's posture is the most permissive among major US labs, consistent with founder Elon Musk's stated views on AI competition with China.</p>",
+        refs: [1, 3]
+      },
+      carbon: {
+        text: "<p>xAI's Memphis 'Colossus' supercluster has been operating on <strong>roughly 35 unpermitted methane gas turbines</strong>, drawing regulatory complaints from the Southern Environmental Law Center over Clean Air Act violations.</p><p>No per-prompt energy disclosure published.</p>",
+        refs: [12, 17]
+      },
+      efficiency: {
+        text: "<p>No published per-prompt energy data. Grok is trained on the Colossus cluster (100,000+ H100 GPUs at launch, scaling to 200,000+).</p>",
+        refs: []
+      },
+      water: {
+        text: "<p>No water disclosure. The Colossus site uses millions of gallons per day in a region with documented aquifer-depletion concerns (Memphis Sand Aquifer).</p>",
+        refs: [14, 17]
+      },
+      community: {
+        text: "<p>The Memphis facility has drawn organised opposition from majority-Black neighbourhoods in South Memphis over air quality from unpermitted gas turbines, plus concerns about grid capacity and the Memphis Sand Aquifer drawdown.</p>",
+        refs: [22, 23]
+      },
+      bias: {
+        text: "<p>Grok was deliberately tuned for <strong>fewer content restrictions</strong> than peers. The model has produced antisemitic outputs and was the subject of a July 2025 incident involving 'MechaHitler' persona generation, requiring xAI to roll back changes.</p>",
+        refs: []
+      },
+      privacy: {
+        text: "<p>Grok is subject to an <strong>EU privacy investigation over sexualised deepfake images</strong> of identifiable individuals. The model trains on X (formerly Twitter) public posts; opt-out mechanisms have been criticised as inadequate.</p>",
+        refs: []
+      },
+    }
+  },
+  {
+    id: "meta",
+    org: "Meta",
+    product: "Llama (open weights)",
+    scores: { military: 4, carbon: 5, efficiency: 6, water: 3, community: 2, bias: 5, privacy: 4 },
+    verdict: "Open weights enable transparency and audit, but also unrestricted downstream military use. Hyperion data centre construction tied to a 600% rise in local road accidents.",
+    reasoning: {
+      military: {
+        text: "<p>Meta's Llama models are released under permissive open weights. In November 2024 Meta announced it would make Llama available to <strong>US government and defence contractors</strong>. Once weights are released, downstream military use cannot be restricted.</p>",
+        refs: [1]
+      },
+      carbon: {
+        text: "<p>Meta publishes annual sustainability reports with aggregated emissions data but no per-prompt methodology. The company's <strong>Hyperion data centre</strong> in Louisiana is a $10B facility with planned hundreds-of-billions in long-term spend.</p>",
+        refs: [14, 18]
+      },
+      efficiency: {
+        text: "<p>Open-weight models can be deployed efficiently by downstream users on right-sized hardware, which raises real-world efficiency. Meta itself runs Llama at scale on its own data centres without published per-prompt figures.</p>",
+        refs: []
+      },
+      water: {
+        text: "<p>Hyperion's water draw in Richland Parish (Louisiana) has drawn local concerns. Meta's broader water replenishment programs are below Google's commitment level.</p>",
+        refs: [14]
+      },
+      community: {
+        text: "<p>The Hyperion construction site in Richland Parish, Louisiana saw <strong>vehicular accidents rise more than 600%</strong> in the first nine months of 2025 vs the prior year, per police records analysed by Louisiana Illuminator. Meta says it is funding new roads to divert traffic.</p>",
+        refs: [14, 22]
+      },
+      bias: {
+        text: "<p>Meta's Responsible AI team was significantly reduced in 2023. Bias research is published but at lower volume than peers. Open weights mean downstream fine-tuning can remove safety guardrails entirely.</p>",
+        refs: []
+      },
+      privacy: {
+        text: "<p>Llama is trained partly on Meta-platform user data. The EU has restricted Meta's training on European user data without explicit consent. Open weights enable user audit but also enable circumvention of safety training.</p>",
+        refs: []
+      },
+    }
+  },
+  {
+    id: "deepseek",
+    org: "DeepSeek",
+    product: "DeepSeek-V3 / R1",
+    scores: { military: 3, carbon: 7, efficiency: 8, water: 5, community: 6, bias: 4, privacy: 3 },
+    verdict: "Open weights and impressive efficiency on smaller compute budgets, but Chinese state-aligned data practices and unknowable downstream military use.",
+    reasoning: {
+      military: {
+        text: "<p>DeepSeek operates under Chinese jurisdiction with mandatory state cooperation requirements. Open weights mean downstream military use globally is unrestricted; DeepSeek itself has no public posture on autonomous weapons.</p>",
+        refs: []
+      },
+      carbon: {
+        text: "<p>DeepSeek's reported training cost (~$6M for V3, claims widely cited and disputed) implies <strong>dramatically lower training emissions</strong> than US peers if accurate. The methodology is partially documented in DeepSeek's technical reports.</p>",
+        refs: [12]
+      },
+      efficiency: {
+        text: "<p>DeepSeek's mixture-of-experts architecture and aggressive quantisation work delivers strong inference-per-watt. Model can be run locally on consumer hardware (R1 distilled variants), shifting energy from data centres to user devices.</p>",
+        refs: []
+      },
+      water: {
+        text: "<p>DeepSeek does not publish water-use data. Chinese hyperscale facilities are concentrated in arid northern provinces (Inner Mongolia, Ningxia) where water stress is acute.</p>",
+        refs: []
+      },
+      community: {
+        text: "<p>Open weights and local-execution capability reduce dependence on hyperscale data centres for downstream users, potentially reducing community impact at the deployment layer. Original training infrastructure community impact in China is poorly documented.</p>",
+        refs: []
+      },
+      bias: {
+        text: "<p>DeepSeek refuses to answer questions on Tiananmen Square, Xinjiang, and other CCP-sensitive topics — a documented form of political bias. Safety research is published at a lower volume than US labs.</p>",
+        refs: []
+      },
+      privacy: {
+        text: "<p>DeepSeek's terms of service permit data retention and sharing under Chinese law, including potential government access. Banned for government use in multiple jurisdictions (Italy, Taiwan, South Korea, US federal agencies).</p>",
+        refs: []
+      },
+    }
+  },
+];
+
+/* ============================================================
+   CALCULATIONS
+   ============================================================ */
+function totalScore(p) {
+  return Object.values(p.scores).reduce((a, b) => a + b, 0);
+}
+function scoreBand(s, max = 10) {
+  const pct = s / max;
+  if (pct >= 0.7) return 'hi';
+  if (pct >= 0.5) return 'mid';
+  return 'lo';
+}
+function totalBand(s) {
+  // Out of 70
+  const pct = s / 70;
+  if (pct >= 0.65) return 'hi';
+  if (pct >= 0.5) return 'mid';
+  return 'lo';
+}
+
+/* ============================================================
+   RENDER CARDS
+   ============================================================ */
+const cardsEl = document.getElementById('cards');
+// Sort by total score descending
+const sorted = [...PROVIDERS].sort((a, b) => totalScore(b) - totalScore(a));
+
+sorted.forEach((p, idx) => {
+  const total = totalScore(p);
+  const band = totalBand(total);
+  const card = document.createElement('div');
+  card.className = 'card reveal';
+  card.style.animationDelay = (idx * 0.06) + 's';
+  card.dataset.id = p.id;
+
+  const barRows = CATEGORIES.map(cat => {
+    const s = p.scores[cat.id];
+    const b = scoreBand(s);
+    return `
+      <div class="bar-row" data-cat="${cat.id}" title="Click to see reasoning">
+        <div class="lbl"><span class="dot"></span>${cat.name}</div>
+        <div class="val">${s}<span class="pts">/10</span></div>
+        <div class="bar-wrap"><div class="bar-fill s-${b}" style="width: 0%" data-width="${s*10}"></div></div>
+      </div>
+    `;
+  }).join('');
+
+  card.innerHTML = `
+    <div class="rank">№ ${String(idx + 1).padStart(2, '0')} / 06</div>
+    <div class="org">${p.org}</div>
+    <div class="name">${p.product.split(' ')[0]}<span class="product">${p.product.includes(' ') ? p.product.split(' ').slice(1).join(' ') : ''}</span></div>
+    <div class="score-display">
+      <div class="num">${total}</div>
+      <div class="denom">/ 70</div>
+      <div class="label"><strong>${band === 'hi' ? 'STRONG' : band === 'mid' ? 'MIXED' : 'WEAK'}</strong>Overall posture</div>
+    </div>
+    <div class="bar-list">${barRows}</div>
+    <div class="verdict">${p.verdict}</div>
+  `;
+
+  // Click card → open panel
+  card.addEventListener('click', (e) => {
+    const catRow = e.target.closest('.bar-row');
+    openPanel(p.id, catRow ? catRow.dataset.cat : null);
+  });
+
+  cardsEl.appendChild(card);
+});
+
+// Animate bars in after initial render
+setTimeout(() => {
+  document.querySelectorAll('.bar-fill').forEach((el, i) => {
+    setTimeout(() => { el.style.width = el.dataset.width + '%'; }, i * 18);
+  });
+}, 400);
+
+/* ============================================================
+   PANEL
+   ============================================================ */
+const panel  = document.getElementById('panel');
+const scrim  = document.getElementById('scrim');
+const pTtl   = document.getElementById('panel-ttl');
+const pBody  = document.getElementById('panel-body');
+const pClose = document.getElementById('panel-close');
+
+function openPanel(providerId, focusCatId = null) {
+  const p = PROVIDERS.find(x => x.id === providerId);
+  if (!p) return;
+  const total = totalScore(p);
+
+  pTtl.textContent = `${p.org} — ${p.product}`;
+
+  const calcRows = CATEGORIES.map(cat =>
+    `<div class="row"><span class="lbl">${cat.name}</span><span class="val">${p.scores[cat.id]} / 10</span></div>`
+  ).join('');
+
+  const blocks = CATEGORIES.map(cat => {
+    const s = p.scores[cat.id];
+    const b = scoreBand(s);
+    const reason = p.reasoning[cat.id];
+    const refs = (reason.refs || []).map(n => {
+      const [title, url] = REFS[n];
+      return `<a class="ref" href="${url}" target="_blank" rel="noopener"><span class="num">[${n}]</span>${title.split(':')[0].slice(0, 38)}${title.length > 38 ? '…' : ''}</a>`;
+    }).join('');
+    return `
+      <div class="category-block" data-cat="${cat.id}">
+        <div class="head">
+          <div>
+            <div class="name">${cat.name}</div>
+            <div style="font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-top:4px;">${cat.desc}</div>
+          </div>
+          <div class="score-pill s-${b}">${s} / 10</div>
+        </div>
+        <div class="reasoning">${reason.text}</div>
+        ${refs ? `<div style="font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:6px;">References →</div><div class="ref-list">${refs}</div>` : '<div style="font-family:var(--mono); font-size:11px; color:var(--muted); font-style:italic;">No external references for this score — based on company posture / direct disclosure.</div>'}
+      </div>
+    `;
+  }).join('');
+
+  const band = totalBand(total);
+
+  pBody.innerHTML = `
+    <div class="summary">
+      <span class="lead">Verdict</span>
+      ${p.verdict}
+    </div>
+    <div class="calc">
+      ${calcRows}
+      <div class="row tot">
+        <span class="lbl">TOTAL (sum of category scores)</span>
+        <span class="val">${total} / 70</span>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <span class="lbl">Band</span>
+        <span class="val" style="color: ${band==='hi'?'#a8d6a8':band==='mid'?'#e8b95a':'#ff8268'}">${band === 'hi' ? 'STRONG' : band === 'mid' ? 'MIXED' : 'WEAK'}</span>
+      </div>
+    </div>
+    ${blocks}
+  `;
+
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden', 'false');
+  scrim.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Scroll to category if specified
+  if (focusCatId) {
+    setTimeout(() => {
+      const target = pBody.querySelector(`[data-cat="${focusCatId}"]`);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 380);
+  } else {
+    pBody.scrollTop = 0;
+  }
+}
+
+function closePanel() {
+  panel.classList.remove('open');
+  panel.setAttribute('aria-hidden', 'true');
+  scrim.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+pClose.addEventListener('click', closePanel);
+scrim.addEventListener('click', closePanel);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
+
+/* ============================================================
+   METHODOLOGY BUTTON
+   ============================================================ */
+document.getElementById('open-methodology').addEventListener('click', () => {
+  pTtl.textContent = 'Methodology';
+  pBody.innerHTML = `
+    <div class="summary">
+      <span class="lead">How the scoring works</span>
+      Six providers were each scored 0–10 across seven ethical categories drawn from the underlying report. Categories were weighted equally; the headline figure is a simple sum out of 70.
+    </div>
+    <div class="calc">
+      <div class="row"><span class="lbl">Providers</span><span class="val">6</span></div>
+      <div class="row"><span class="lbl">Categories</span><span class="val">7</span></div>
+      <div class="row"><span class="lbl">Max score per category</span><span class="val">10</span></div>
+      <div class="row tot"><span class="lbl">MAX POSSIBLE TOTAL</span><span class="val">70</span></div>
+    </div>
+    <div class="category-block">
+      <div class="head"><div class="name">Banding</div></div>
+      <div class="reasoning">
+        <p><strong>STRONG (≥ 45/70 overall or ≥ 7/10 per category)</strong> — published red lines, peer-reviewed or third-party-verified data, demonstrated willingness to incur commercial cost for ethical reasons.</p>
+        <p><strong>MIXED (35–44 overall or 5–6/10 per category)</strong> — partial disclosure, some commitments without enforcement, mixed track record across categories.</p>
+        <p><strong>WEAK (&lt; 35 overall or ≤ 4/10 per category)</strong> — no published policy, active resistance to regulation, or documented harms attributable to the provider's choices.</p>
+      </div>
+    </div>
+    <div class="category-block">
+      <div class="head"><div class="name">Categories explained</div></div>
+      <div class="reasoning">
+        ${CATEGORIES.map(c => `<p><strong>${c.name}</strong> — ${c.desc}</p>`).join('')}
+      </div>
+    </div>
+    <div class="category-block">
+      <div class="head"><div class="name">Limitations</div></div>
+      <div class="reasoning">
+        <p>Scores reflect publicly reported positions as of May 2026 and are necessarily a snapshot. Providers may update policies; new disclosures or reporting may shift scores up or down.</p>
+        <p>Where two equally credible sources disagree (e.g. industry vs. independent analysis of data-centre rate impact), both perspectives inform the score and are linked in the relevant category.</p>
+        <p>Equal weighting is a deliberate editorial choice. A reader who weights military restraint twice as heavily as efficiency will get different rankings — the underlying scores are intended to support that kind of re-weighting.</p>
+      </div>
+    </div>
+  `;
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden', 'false');
+  scrim.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  pBody.scrollTop = 0;
+});
+
+/* ============================================================
+   SOURCES SECTION
+   ============================================================ */
+const sourcesEl = document.getElementById('sources');
+Object.entries(REFS).forEach(([n, [title, url]]) => {
+  const div = document.createElement('div');
+  div.className = 'source';
+  div.innerHTML = `
+    <span class="source-num">${String(n).padStart(2, '0')}</span>
+    <div class="source-text">
+      <div class="title">${title}</div>
+      <a href="${url}" target="_blank" rel="noopener">${url}</a>
+    </div>
+  `;
+  sourcesEl.appendChild(div);
+});
+</script>
+</body>
+</html>
