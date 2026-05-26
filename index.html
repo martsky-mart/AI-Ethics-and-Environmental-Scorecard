@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hive IT — AI & Cloud Sustainability Launchpad</title>
+  
+  <!-- Poppins Font & Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            mono: ['Geist Mono', 'monospace'],
+          },
+          colors: {
+            hiveYellow: '#fdb813',
+            hiveDark: '#1e2229',
+            hiveCharcoal: '#111317',
+            hiveWarmSand: '#FAF8F5',
+            hiveBorder: '#cbd5e1',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    *:focus-visible {
+      outline: 3px solid #fdb813;
+      outline-offset: 3px;
+    }
+    /* Grid Pattern Overlay */
+    .grid-bg {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(17, 19, 23, 0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(17, 19, 23, 0.03) 1px, transparent 1px);
+    }
+    .dark .grid-bg {
+      background-image: linear-gradient(to right, rgba(250, 248, 245, 0.02) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(250, 248, 245, 0.02) 1px, transparent 1px);
+    }
+  </style>
+</head>
+<body class="bg-hiveWarmSand text-hiveCharcoal dark:bg-hiveCharcoal dark:text-hiveWarmSand min-h-screen transition-colors duration-300 antialiased grid-bg flex flex-col justify-between">
+
+  <!-- Skip links for screen readers -->
+  <a href="#main-gateways" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:p-4 focus:bg-hiveYellow focus:text-hiveCharcoal focus:font-bold focus:outline-none">
+    Skip to Main Content
+  </a>
+
+  <!-- Global Sheffield Grid Notice Banner -->
+  <div class="bg-hiveDark border-b border-hiveCharcoal text-slate-300 text-[11px] sm:text-xs py-3 px-6 flex justify-between items-center z-50 font-sans">
+    <div class="flex items-center gap-2.5 max-w-7xl mx-auto w-full">
+      <span class="flex h-2.5 w-2.5 relative">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-none bg-hiveYellow opacity-75"></span>
+        <span class="relative inline-flex rounded-none h-2.5 w-2.5 bg-hiveYellow"></span>
+      </span>
+      <span class="font-mono tracking-wider font-semibold text-hiveYellow uppercase">Sheffield UK Regional Standard:</span>
+      <span class="hidden md:inline text-slate-400">Carbon conversions integrated with updated DESNZ 2024 grid factor (0.22154 kg CO₂e / kWh) including complete T&D value chain offsets.</span>
+      <span class="inline md:hidden text-slate-400">DESNZ 2024 Standard Active</span>
+    </div>
+  </div>
+
+  <!-- Header Section -->
+  <nav class="bg-hiveCharcoal text-white border-b-4 border-hiveYellow sticky top-0 z-40 px-6 py-4 shadow-xl">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center space-x-3">
+        <!-- Built-in representation of Logo -->
+        <div class="w-11 h-11 bg-hiveYellow text-hiveCharcoal font-extrabold text-2xl flex items-center justify-center rounded-none select-none shadow-md" aria-hidden="true">
+          H
+        </div>
+        <div>
+          <span class="font-extrabold text-xl tracking-tight block text-white font-sans">Hive IT</span>
+          <span class="text-[10px] text-hiveYellow uppercase tracking-widest font-bold">Environmental AI & Cloud Portal</span>
+        </div>
+      </div>
+      
+      <div class="flex items-center space-x-4">
+        <span class="hidden lg:inline-flex items-center px-2.5 py-1 text-xs font-semibold bg-hiveDark border border-slate-700 text-slate-300 tracking-wide font-mono rounded-none">
+          SYSTEM ENVIRONMENT: ACTIVE 2026
+        </span>
+        <button id="theme-btn" onclick="toggleTheme()" class="p-2.5 rounded-none bg-hiveDark hover:bg-slate-800 text-slate-300 border border-slate-800 focus:outline-none focus:ring-2 focus:ring-hiveYellow transition-all" aria-label="Toggle visual theme">
+          <span id="theme-icon">🌑</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Branding Summary -->
+  <header class="bg-white dark:bg-hiveDark/40 border-b border-slate-200 dark:border-slate-800/80 py-12 px-6 sm:px-8">
+    <div class="max-w-7xl mx-auto space-y-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-hiveCharcoal bg-hiveYellow px-3.5 py-2 inline-block rounded-none font-mono">
+        Executive Overview & Lifecycle Gateway
+      </span>
+      <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-none text-hiveCharcoal dark:text-white">
+        Sustainable AI &amp; Cloud Infrastructure Hub
+      </h1>
+      <p class="text-base sm:text-lg text-slate-700 dark:text-slate-300 max-w-4xl leading-relaxed">
+        We analyze and model the physical ecological liabilities of artificial intelligence and hosting. 
+        Select one of our specialized portals below to audit cloud-scale server systems, simulate workplace software consumption vectors, or explore deep ethical scores.
+      </p>
+    </div>
+  </header>
+
+  <!-- Main Content Space -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12 flex-1 w-full">
+
+    <!-- Main Gateway Portal Triple Split -->
+    <section id="main-gateways" class="grid grid-cols-1 lg:grid-cols-3 gap-8" aria-label="Available Dashboards and Calculators">
+      
+      <!-- Card Panel 1: Cloud & Engine Scorecard -->
+      <div class="bg-white dark:bg-hiveDark border-2 border-slate-200 dark:border-slate-800 hover:border-hiveYellow dark:hover:border-slate-700 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 rounded-none shadow-md group relative focus-within:ring-4 focus-within:ring-hiveYellow focus-within:ring-offset-2 dark:focus-within:ring-offset-hiveCharcoal">
+        <div class="absolute top-0 left-0 bg-hiveYellow h-1.5 w-0 group-hover:w-full transition-all duration-300"></div>
+        
+        <div class="space-y-6">
+          <div class="flex justify-between items-center gap-2">
+            <span class="text-slate-700 dark:text-slate-300 font-mono text-xs font-bold">13 Providers Audited</span>
+            <span class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#1557b0] bg-[#e8f0fe] border border-[#c2e7ff] dark:text-[#8ab4f8] dark:bg-[#1a3b5c]/50 dark:border-[#1a4b7c]/40 px-2.5 py-1 rounded-none font-mono">
+              <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C12 7.52285 7.52285 12 2 12C7.52285 12 12 16.4771 12 22C12 16.4771 16.4771 12 22 12C16.4771 12 12 7.52285 12 2Z"/>
+              </svg>
+              Created by Gemini
+            </span>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl sm:text-2xl font-black text-hiveCharcoal dark:text-white tracking-tight leading-snug">
+              AI &amp; Cloud Infrastructure Scorecard
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+              Comprehensive empirical evaluation assessing major global datacenter operations, model host engines, and deploy wrappers. Includes dynamic comparative radar charts, geographic grid parameters, and a live AI ESG Auditor.
+            </p>
+          </div>
+
+          <div class="border-t border-slate-100 dark:border-slate-800/60 pt-4 space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">Core Capabilities:</h3>
+            <ul class="space-y-2 text-xs text-slate-700 dark:text-slate-300">
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>Four-pillar corporate metrics</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>In-memory comparative radar maps</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>DeepSeek R1/o1 load modeling</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>Self-contained Gemini ESG Auditor</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80 flex justify-end">
+          <a href="scorecards.html" class="w-full sm:w-auto text-center inline-block px-5 py-3 bg-hiveCharcoal hover:bg-hiveDark dark:bg-hiveYellow dark:text-hiveCharcoal dark:hover:bg-amber-500 text-white font-extrabold tracking-wider uppercase text-xs transition duration-200 focus:outline-none after:absolute after:inset-0 after:z-10" aria-label="Launch AI and Cloud Infrastructure Scorecard Portal">
+            Launch Portal &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Card Panel 2: SME Workspace Sandbox -->
+      <div class="bg-white dark:bg-hiveDark border-2 border-slate-200 dark:border-slate-800 hover:border-hiveYellow dark:hover:border-slate-700 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 rounded-none shadow-md group relative focus-within:ring-4 focus-within:ring-hiveYellow focus-within:ring-offset-2 dark:focus-within:ring-offset-hiveCharcoal">
+        <div class="absolute top-0 left-0 bg-hiveYellow h-1.5 w-0 group-hover:w-full transition-all duration-300"></div>
+        
+        <div class="space-y-6">
+          <div class="flex justify-between items-center gap-2">
+            <span class="text-slate-700 dark:text-slate-300 font-mono text-xs font-bold">14 SaaS Tools Mapped</span>
+            <span class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#1557b0] bg-[#e8f0fe] border border-[#c2e7ff] dark:text-[#8ab4f8] dark:bg-[#1a3b5c]/50 dark:border-[#1a4b7c]/40 px-2.5 py-1 rounded-none font-mono">
+              <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C12 7.52285 7.52285 12 2 12C7.52285 12 12 16.4771 12 22C12 16.4771 16.4771 12 22 12C16.4771 12 12 7.52285 12 2Z"/>
+              </svg>
+              Created by Gemini
+            </span>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl sm:text-2xl font-black text-hiveCharcoal dark:text-white tracking-tight leading-snug">
+              Workspace Profile &amp; Sandbox Simulator
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+              Localised SME workflow modeller examining day-to-day operations. Simulate different team-by-team parameters (Creative, Development, Client Services) to instantly graph annual grid water draw and carbon offsets using DESNZ indexes.
+            </p>
+          </div>
+
+          <div class="border-t border-slate-100 dark:border-slate-800/60 pt-4 space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">Core Capabilities:</h3>
+            <ul class="space-y-2 text-xs text-slate-700 dark:text-slate-300">
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>Active 14 SaaS catalog mapping</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>Real-time multi-team sliders</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>UK equivalency conversion engines</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>Visual tool-dependence analytics</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80 flex justify-end">
+          <a href="tool-summary.html" class="w-full sm:w-auto text-center inline-block px-5 py-3 bg-hiveCharcoal hover:bg-hiveDark dark:bg-hiveYellow dark:text-hiveCharcoal dark:hover:bg-amber-500 text-white font-extrabold tracking-wider uppercase text-xs transition duration-200 focus:outline-none after:absolute after:inset-0 after:z-10" aria-label="Launch Workspace Profile and Sandbox Simulator Portal">
+            Launch Portal &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Card Panel 3: Investigative Ethics Dossier -->
+      <div class="bg-white dark:bg-hiveDark border-2 border-slate-200 dark:border-slate-800 hover:border-hiveYellow dark:hover:border-slate-700 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 rounded-none shadow-md group relative focus-within:ring-4 focus-within:ring-hiveYellow focus-within:ring-offset-2 dark:focus-within:ring-offset-hiveCharcoal">
+        <div class="absolute top-0 left-0 bg-hiveYellow h-1.5 w-0 group-hover:w-full transition-all duration-300"></div>
+        
+        <div class="space-y-6">
+          <div class="flex justify-between items-center gap-2">
+            <span class="text-slate-700 dark:text-slate-300 font-mono text-xs font-bold">AI providers scored</span>
+            <span class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#9e3b20] bg-[#faf1ec] border border-[#f3d9c9] dark:text-[#eca183] dark:bg-[#2c1a12]/60 dark:border-[#522f1e]/80 px-2.5 py-1 rounded-none font-mono">
+              <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2a1 1 0 0 1 1 1v5.18l3.66-3.66a1 1 0 1 1 1.41 1.41L14.41 10H19.6a1 1 0 1 1 0 2h-5.19l3.66 3.66a1 1 0 0 1-1.41 1.41L13 13.41V18.6a1 1 0 1 1-2 0v-5.19l-3.66 3.66a1 1 0 0 1-1.41-1.41L9.59 12H4.4a1 1 0 1 1 0-2h5.19L5.93 6.34a1 1 0 0 1 1.41-1.41L11 8.59V3a1 1 0 0 1 1-1Z"/>
+              </svg>
+              Created by Claude
+            </span>
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-xl sm:text-2xl font-black text-hiveCharcoal dark:text-white tracking-tight leading-snug">
+              AI Provider Ethics Scorecard
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+              Investigative dossier ranking frontier laboratories across geopolitical &amp; environmental parameters. Interrogate detailed findings on military restraint, bias mitigation, on-site/indirect water consumption, and unpermitted gas turbines.
+            </p>
+          </div>
+
+          <div class="border-t border-slate-100 dark:border-slate-800/60 pt-4 space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">Core Capabilities:</h3>
+            <ul class="space-y-2 text-xs text-slate-700 dark:text-slate-300">
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>Seven-pillar ethical scorecards</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>Polished focus-trapped dossiers</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>23 cited references and live sources</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span class="text-hiveYellow" aria-hidden="true">✔</span>
+                <span>Honest self-cost calculator details</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80 flex justify-end">
+          <a href="ai-ethics.html" class="w-full sm:w-auto text-center inline-block px-5 py-3 bg-hiveCharcoal hover:bg-hiveDark dark:bg-hiveYellow dark:text-hiveCharcoal dark:hover:bg-amber-500 text-white font-extrabold tracking-wider uppercase text-xs transition duration-200 focus:outline-none after:absolute after:inset-0 after:z-10" aria-label="Launch AI Provider Ethics Scorecard Dossier Portal">
+            Launch Portal &rarr;
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="bg-hiveCharcoal text-slate-400 text-xs border-t-4 border-hiveYellow py-10 px-6 mt-12" role="contentinfo">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="space-y-1">
+        <p class="font-bold text-white uppercase tracking-wider">&copy; 2026 Hive IT Environmental Portal Framework</p>
+        <p class="text-[11px] text-slate-300 dark:text-slate-400 font-mono">Formulated to maintain maximum compliance with WCAG 2.2 Level AA guidelines. No external SVGs used.</p>
+      </div>
+      <div class="flex flex-wrap gap-4 sm:gap-6 text-[11px] font-semibold tracking-wider font-mono">
+        <a href="AI & Cloud Lifecycle Scorecard.html" class="hover:text-hiveYellow underline transition text-slate-300 dark:text-slate-400">PORTAL ONE</a>
+        <a href="Hive AI tool analysis and calculator.html" class="hover:text-hiveYellow underline transition text-slate-300 dark:text-slate-400">PORTAL TWO</a>
+        <a href="ai_ethics_scorecard.html" class="hover:text-hiveYellow underline transition text-slate-300 dark:text-slate-400">PORTAL THREE</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let theme = 'light';
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        theme = 'light';
+        icon.innerText = '🌑';
+      } else {
+        html.classList.add('dark');
+        theme = 'dark';
+        icon.innerText = '☀️';
+      }
+    }
+
+    // Set theme on initial load matching browser preferences
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        toggleTheme();
+      }
+    });
+  </script>
+</body>
+</html>
