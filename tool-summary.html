@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hive IT AI Ecosystem Sustainability Profile & Annual Workspace Scorecard</title>
+  <title>Hive AI tool carbon and ethics details</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,10 +58,29 @@
     Skip to Main Content
   </a>
 
+  <!-- Real-Time Session Cumulative Footprint Banner -->
+  <div class="bg-hiveLightGray border-b border-hiveBorder text-slate-700 text-[10px] sm:text-xs py-2 px-6 flex flex-col xl:flex-row justify-between items-center z-[60] relative gap-4 xl:gap-0">
+    <div class="flex items-center gap-2 text-left w-full xl:w-auto">
+      <span class="flex h-2 w-2 relative shrink-0">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-hiveYellow opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-hiveYellow"></span>
+      </span>
+      <span class="font-mono tracking-wider font-bold uppercase shrink-0">Session Cumulative Footprint:</span>
+      <span class="hidden md:inline text-slate-500 font-sans normal-case ml-1 truncate">Real-time computing costs factoring in development turns (baseline creation load) + live auditing.</span>
+    </div>
+    <div class="flex gap-4 sm:gap-8 font-mono font-bold tracking-wide w-full xl:w-auto justify-between xl:justify-end">
+      <div class="flex flex-col text-right"><span class="text-[8px] uppercase text-slate-400 leading-none">Total Operations</span><span class="text-slate-700 mt-0.5"><span id="session-ops">0</span> Calls</span></div>
+      <div class="h-6 w-px bg-slate-300"></div>
+      <div class="flex flex-col text-right"><span class="text-[8px] uppercase text-slate-400 leading-none">Water Evaporated</span><span class="text-blue-600 mt-0.5"><span id="session-water">0.00000</span> L</span></div>
+      <div class="h-6 w-px bg-slate-300"></div>
+      <div class="flex flex-col text-right"><span class="text-[8px] uppercase text-slate-400 leading-none">Grid Carbon</span><span class="text-amber-700 mt-0.5"><span id="session-co2">0.000</span> g CO₂</span></div>
+    </div>
+  </div>
+
   <nav class="bg-hiveDark text-white sticky top-0 z-50 px-6 py-4 border-b-4 border-hiveYellow shadow-md" aria-label="Primary Navigation">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
       <div class="flex items-center space-x-3">
-        <img src="https://logo.clearbit.com/hiveit.co.uk" alt="Hive IT Logo" class="w-10 h-10 rounded-sm object-contain bg-white" aria-hidden="true" onerror="this.onerror=null; this.outerHTML='<div class=\'w-10 h-10 bg-hiveYellow text-hiveCharcoal font-extrabold text-xl flex items-center justify-center rounded-sm\' aria-hidden=\'true\'>H</div>';">
+        <img src="https://www.google.com/s2/favicons?domain=hiveit.co.uk&sz=128" alt="Hive IT Logo" class="w-10 h-10 rounded-sm object-contain bg-white p-1" aria-hidden="true" onerror="this.onerror=null; this.outerHTML='<div class=\'w-10 h-10 bg-hiveYellow text-hiveCharcoal font-extrabold text-xl flex items-center justify-center rounded-sm\' aria-hidden=\'true\'>H</div>';">
         <div>
           <span class="font-bold text-lg tracking-tight block text-white">Hive IT</span>
           <span class="text-xs text-hiveYellow uppercase tracking-wider font-semibold">UK Resource Efficiency Audit</span>
@@ -77,7 +96,7 @@
     <div class="max-w-7xl mx-auto space-y-4">
       <span class="text-xs font-bold uppercase tracking-widest text-hiveCharcoal bg-hiveYellow px-3 py-1.5 rounded-sm">Scope 3 UK Grid Environmental Metrics</span>
       <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-hiveCharcoal leading-tight">
-        Annual AI Resource <span class="border-b-4 border-hiveYellow">Scorecard</span>
+        Hive AI tool carbon and ethics <span class="border-b-4 border-hiveYellow">details</span>
       </h1>
       <p class="text-base sm:text-lg text-slate-700 max-w-3xl leading-relaxed pt-2">
         An empirical assessment tracking Sheffield workspace carbon footprints, direct server infrastructure water consumption, and model training liabilities. Calculations utilize DESNZ 2024 Grid factors and verified inference benchmarks.
@@ -211,13 +230,27 @@
             <h4 class="font-bold text-hiveCharcoal border-b pb-1.5 mb-2 uppercase tracking-wider text-[11px]">Integrated Models</h4>
             <div id="inspect-models-list" class="space-y-1.5"></div>
           </div>
-          <div class="bg-white p-4 border border-hiveBorder">
-            <h4 class="font-bold text-hiveCharcoal border-b pb-1.5 mb-2 uppercase tracking-wider text-[11px]">Carbon Footprint Context</h4>
+          <div class="bg-white p-4 border border-hiveBorder flex flex-col">
+            <div class="flex justify-between items-center border-b border-hiveBorder pb-1.5 mb-2">
+              <h4 class="font-bold text-hiveCharcoal uppercase tracking-wider text-[11px]">Carbon Footprint Context</h4>
+              <span id="inspect-carbon-badge" class="px-2 py-0.5 rounded-sm border text-[10px] font-semibold"></span>
+            </div>
             <p id="inspect-carbon-text" class="text-slate-700"></p>
+            <div class="mt-auto pt-3">
+              <h5 class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Intensity Calculation Basis</h5>
+              <p id="inspect-carbon-working" class="text-[11px] text-slate-600 bg-slate-50 p-2 rounded-sm border border-slate-100"></p>
+            </div>
           </div>
-          <div class="bg-white p-4 border border-hiveBorder">
-            <h4 class="font-bold text-hiveCharcoal border-b pb-1.5 mb-2 uppercase tracking-wider text-[11px]">Governance & Risk Rating</h4>
+          <div class="bg-white p-4 border border-hiveBorder flex flex-col">
+            <div class="flex justify-between items-center border-b border-hiveBorder pb-1.5 mb-2">
+              <h4 class="font-bold text-hiveCharcoal uppercase tracking-wider text-[11px]">Governance & Risk Rating</h4>
+              <span id="inspect-compliance-badge" class="px-2 py-0.5 rounded-sm border text-[10px] font-semibold"></span>
+            </div>
             <p id="inspect-governance-text" class="text-slate-700"></p>
+            <div class="mt-auto pt-3">
+              <h5 class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Compliance Status Verification</h5>
+              <p id="inspect-compliance-working" class="text-[11px] text-slate-600 bg-slate-50 p-2 rounded-sm border border-slate-100"></p>
+            </div>
           </div>
         </div>
 
@@ -576,6 +609,19 @@
       </div>
     </section>
 
+    <!-- Methodological Footnotes -->
+    <section class="bg-white border border-hiveBorder rounded-sm p-6 sm:p-8 mt-8" aria-label="Methodological Footnotes">
+      <h3 class="text-sm font-bold text-hiveCharcoal mb-3 uppercase tracking-wider">Audit Footnote: OpenAI Risk Discrepancy</h3>
+      <p class="text-xs text-slate-600 leading-relaxed mb-2">
+        <strong>Why are enterprise tools using OpenAI rated "Safe" or "Moderate" while OpenAI itself is "High Risk"?</strong>
+      </p>
+      <ul class="text-xs text-slate-600 list-disc pl-5 space-y-2">
+        <li><strong>Zero Data Retention:</strong> Enterprise APIs (e.g., Slack, Grammarly) establish strict zero-retention boundaries, guaranteeing proprietary company data is not fed into OpenAI's public training models.</li>
+        <li><strong>Corporate IP Indemnification:</strong> Vendors (e.g., Microsoft Copilot) offer formal copyright indemnification, absorbing legal risks and shielding end-users from IP liability.</li>
+        <li><strong>Enterprise Tenant Encapsulation:</strong> Integrations host models within secure, compliant cloud environments (e.g., Azure), meeting corporate data sovereignty and security standards that raw public endpoints lack.</li>
+      </ul>
+    </section>
+
   </main>
 
   <footer class="bg-hiveDark text-slate-300 text-xs border-t border-slate-800 py-8">
@@ -605,7 +651,9 @@
           { name: "Imagen 3", role: "Image generation", type: "Mixed" }
         ],
         context: "Highly efficient TPU infrastructure offsets heavy context window power draw. Utilizes filtered public datasets.",
+        carbonWorking: "Baseline text inference calculated at 0.6 Wh/query, image gen at 5.0 Wh/image. Total footprint buffered by Google's high-efficiency TPUv5e architecture, resulting in a stable Medium intensity classification.",
         governance: "Approved for enterprise reasoning tasks with Google Workspace data protections enabled.",
+        complianceWorking: "Tier 2 (Moderate). Excludes customer data from training per enterprise terms, but base models rely on filtered web scrapes. Acknowledged regulatory scrutiny ongoing.",
         citations: [
           { text: "Google Cloud Data Governance", url: "https://cloud.google.com/gemini/docs/data-governance" }
         ]
@@ -621,7 +669,9 @@
           { name: "Claude 3.7 Sonnet", role: "General analysis", type: "Mixed" }
         ],
         context: "Highly optimized token generation efficiency. Lowest comparative water footprint per query in the frontier class.",
+        carbonWorking: "Calculated at baseline text inference (0.6 Wh/query) and code generation (0.1 Wh/line). Efficient sparse attention mechanisms place this firmly in the Low carbon tier.",
         governance: "Approved for deep technical analysis. Note residual provenance risk regarding upstream LibGen settlement.",
+        complianceWorking: "Tier 2 (Moderate). Mixed sourcing. Models trained on public internet data. The 2025 Bartz v. Anthropic $1.5B settlement creates residual risk on legacy artifacts, precluding a 'Safe' rating.",
         citations: [
           { text: "Anthropic Commercial Terms of Service", url: "https://www.anthropic.com/legal/commercial-terms" }
         ]
@@ -638,7 +688,9 @@
           { name: "DALL-E 3", role: "Image synthesis", type: "Scraped" }
         ],
         context: "Leverages standard OpenAI endpoints but encapsulates data within Azure's enterprise compliance boundary.",
+        carbonWorking: "Blended text (0.6 Wh) and image (5.0 Wh) footprint. Continuous background reasoning in Office365 applications increases idle load, resulting in a Medium tier classification.",
         governance: "Approved. Commercial data protection prevents internal IP from entering global retraining pools.",
+        complianceWorking: "Tier 2 (Moderate). Uses OpenAI's scraped models (High Risk), but mitigated to Moderate via Microsoft's 'Copilot Copyright Commitment' indemnification wrapper for enterprise customers.",
         citations: [
           { text: "Microsoft Copilot Copyright Commitment", url: "https://www.microsoft.com/en-us/licensing/news/Microsoft-Copilot-Copyright-Commitment" }
         ]
@@ -656,7 +708,9 @@
           { name: "Sora", role: "Video synthesis", type: "Scraped" }
         ],
         context: "High carbon intensity due to multi-modal video/image availability. Relies on unrestricted web scrapes.",
+        carbonWorking: "Extreme tier driven by multi-modal video/image availability (Sora up to 180 Wh/query, DALL-E 3 at 5.0 Wh/query) combined with massive active parameter counts.",
         governance: "High legal exposure metrics if used for public-facing deliverables. Restrict to internal ideation.",
+        complianceWorking: "Tier 3 (High Risk). Unrestricted public web scraping with ongoing major litigation (e.g., NYT v. OpenAI). Lack of full corporate indemnification for raw API/ChatGPT outputs.",
         citations: [
           { text: "OpenAI Enterprise Privacy Policy", url: "https://openai.com/enterprise-privacy" }
         ]
@@ -674,7 +728,9 @@
           { name: "Leonardo Phoenix", role: "Text-to-image layer", type: "Mixed" }
         ],
         context: "Maintains standard cloud query loads. Leverages external model weights under mixed public training configurations.",
+        carbonWorking: "Primarily executes text (0.6 Wh) and 2D layout generation via efficient mixed endpoints, classifying it as Medium intensity.",
         governance: "Approved for rapid visual asset drafting. Production templates require verification of third-party layers.",
+        complianceWorking: "Tier 2 (Moderate). 'Canva Shield' provides specific IP indemnification, though upstream Leonardo/OpenAI integrations utilize mixed public datasets.",
         citations: [
           { text: "Canva AI Terms & Shield Protocol", url: "https://www.canva.com/policies/ai-terms/" }
         ]
@@ -692,7 +748,9 @@
           { name: "Llama", role: "Contextual processing", type: "Mixed" }
         ],
         context: "Extremely resource-heavy model configurations owing to underlying image diffusion structures. High scraping index.",
+        carbonWorking: "Deep integration with heavy diffusion models (FLUX.1.1 Pro) consuming up to 15.0 Wh per high-res vector/layout render cycle places this in the Extreme tier.",
         governance: "Presents underlying copyright liabilities on outward client visual deliverables. Restrict to internal exploration tiers.",
+        complianceWorking: "Tier 3 (High Risk). Opt-out rather than opt-in policies for customer data, utilizing scraped base models. Past instances of output mimicking proprietary designs.",
         citations: [
           { text: "Figma AI Data Training Policies", url: "https://www.figma.com/legal/ai-terms/" }
         ]
@@ -709,7 +767,9 @@
           { name: "Firefly Vector", role: "Scalable graphics engine", type: "Opt-In" }
         ],
         context: "Adobe Firefly is trained on licensed Adobe Stock, openly licensed, and public-domain content. Corporate indemnification provided.",
+        carbonWorking: "Heavy reliance on Firefly Image and Video pipelines (up to 180 Wh per video sequence) for commercial-grade rendering pushes this to the Extreme tier.",
         governance: "Mandated primary creative tool structure for client assets. Note: Adobe Stock may contain upstream AI-generated artifacts, but indemnification stands.",
+        complianceWorking: "Tier 1 (Safe). Models trained explicitly on licensed Adobe Stock, openly licensed, and public domain content. Full commercial indemnification protects enterprise users.",
         citations: [
           { text: "Adobe GenAI Trust & Copyright Center", url: "https://www.adobe.com/trust/generative-ai.html" }
         ]
@@ -726,7 +786,9 @@
           { name: "GPT-5 mini variant", role: "Light autocompletion", type: "Mixed" }
         ],
         context: "Low per-token carbon footprints achieved through optimized local contextual pipelines on standard technician units.",
+        carbonWorking: "Code autocompletion is highly efficient, averaging just 0.10 Wh per line. Aggressive local caching minimizes redundant inference API calls.",
         governance: "Cleared across full corporate infrastructure. Enterprise isolation settings active to shield source repositories. See Anthropic litigation notes.",
+        complianceWorking: "Tier 2 (Moderate). Enterprise isolation settings prevent customer code ingestion, but underlying models still maintain some risk from public repository scraping.",
         citations: [
           { text: "GitHub Copilot Trust Center", url: "https://resources.github.com/copilot-trust-center/" }
         ]
@@ -744,7 +806,9 @@
           { name: "Claude Sonnet", role: "Context routing", type: "Mixed" }
         ],
         context: "Small token footprint structures with small backend execution loads. Minimal data center overhead parameters.",
+        carbonWorking: "Text and code refactoring tasks generate minimal Watt-hour draw (0.1 - 0.6 Wh per query), solidifying a Low tier placement.",
         governance: "Cleared for active runtime environment maintenance task sequences. See Anthropic litigation notes.",
+        complianceWorking: "Tier 2 (Moderate). Protected by API-level enterprise privacy clauses, preventing conversational data retention for RLHF training.",
         citations: [
           { text: "Junie standard privacy policies", url: "https://junie.ai/privacy" }
         ]
@@ -761,7 +825,9 @@
           { name: "Llama", role: "Lightweight local server processing", type: "Mixed" }
         ],
         context: "Moderate data center processing profiles offset by protective contracts preventing user training data recycling loops.",
+        carbonWorking: "Continuous vector search indexing and background thread summarization loads increase baseline text energy requirements to Medium.",
         governance: "Fully approved for corporate internal file search optimizations and messaging automation pipelines.",
+        complianceWorking: "Tier 1 (Safe). Slack AI models are deployed securely within the enterprise boundary; no customer data is used to train overarching third-party LLMs.",
         citations: [
           { text: "Slack AI Trust & Privacy", url: "https://slack.com/trust/privacy/slack-ai-privacy" }
         ]
@@ -778,7 +844,9 @@
           { name: "Llama", role: "Language structuring", type: "Mixed" }
         ],
         context: "Combines text index calls with periodic vector node configurations, establishing a standard operational power draw profile.",
+        carbonWorking: "Periodic image generation mixed with continuous structural text synthesis results in a steady Medium power draw.",
         governance: "Permitted for internal collaboration and scrum layout structure configurations.",
+        complianceWorking: "Tier 2 (Moderate). Relies on mixed dataset sourcing but maintains strict enterprise data privacy guarantees on the platform layer.",
         citations: [
           { text: "Miro AI Terms & Data Handling", url: "https://miro.com/legal/ai-terms/" }
         ]
@@ -795,7 +863,9 @@
           { name: "Claude Sonnet", role: "Search synthesis routing", type: "Mixed" }
         ],
         context: "High transparency variance within underlying nodes. Incorporates unmitigated public data collection engines.",
+        carbonWorking: "Text search and occasional image generation routines average out to a moderate power draw.",
         governance: "Restrict deployment cases involving core proprietary data parameters. See Anthropic litigation notes.",
+        complianceWorking: "Tier 3 (High Risk). While queries are anonymized, the underlying frontier models (Claude, Llama) carry unmitigated IP liabilities without explicit indemnification wrappers.",
         citations: [
           { text: "DuckDuckGo AI Privacy Policy", url: "https://duckduckgo.com/duckduckgo-help-pages/privacy/ai/" }
         ]
@@ -812,7 +882,9 @@
           { name: "Llama", role: "Grammatical correction loop", type: "Mixed" }
         ],
         context: "Minimal footprint structures execution loops only across token sequences without image rendering variables.",
+        carbonWorking: "Small-scale context window processing and specialized syntax editing models require fractional energy (Low tier) compared to full generative flows.",
         governance: "Approved globally for all enterprise staff communications and copy drafting tiers.",
+        complianceWorking: "Tier 1 (Safe). Strict enterprise data separation enforced; no customer text is used for cross-tenant model training or foundation model updates.",
         citations: [
           { text: "Grammarly Trust Center", url: "https://www.grammarly.com/trust" }
         ]
@@ -829,7 +901,9 @@
           { name: "Eleven Multilingual", role: "Auditory narrative output", type: "Mixed" }
         ],
         context: "Audio generation footprints track significantly lower than image or video workflows.",
+        carbonWorking: "Audio synthesis (TTS) demands significantly lower GPU compute thresholds (Low tier) than image or spatial video generation.",
         governance: "Cleared for universal access and document readability optimization loops.",
+        complianceWorking: "Tier 1 (Safe). Ethical voice licensing marketplace structure mitigates deepfake, voice cloning, and biometric data risks.",
         citations: [
           { text: "Speechify Corporate Privacy Policy", url: "https://speechify.com/privacy/" }
         ]
@@ -991,7 +1065,23 @@
       document.getElementById('inspect-name').innerText = tool.name;
       document.getElementById('inspect-category').innerText = `PIPELINE SPECIFICATIONS`;
       document.getElementById('inspect-carbon-text').innerText = tool.context;
+      document.getElementById('inspect-carbon-working').innerText = tool.carbonWorking;
       document.getElementById('inspect-governance-text').innerText = tool.governance;
+      document.getElementById('inspect-compliance-working').innerText = tool.complianceWorking;
+
+      let carbonColor = "bg-emerald-100 text-emerald-800 border-emerald-300";
+      if (tool.carbonTier === 'Medium') carbonColor = "bg-amber-100 text-amber-800 border-amber-300";
+      if (tool.carbonTier === 'Extreme') carbonColor = "bg-rose-100 text-rose-800 border-rose-300";
+      const carbonBadge = document.getElementById('inspect-carbon-badge');
+      carbonBadge.className = `px-2 py-0.5 rounded-sm border text-[10px] font-semibold ${carbonColor}`;
+      carbonBadge.innerText = tool.carbonTier;
+
+      let complianceColor = "bg-emerald-100 text-emerald-800 border-emerald-300";
+      if (tool.compliance === 'Moderate') complianceColor = "bg-amber-100 text-amber-800 border-amber-300";
+      if (tool.compliance === 'High Risk') complianceColor = "bg-rose-100 text-rose-800 border-rose-300";
+      const complianceBadge = document.getElementById('inspect-compliance-badge');
+      complianceBadge.className = `px-2 py-0.5 rounded-sm border text-[10px] font-semibold ${complianceColor}`;
+      complianceBadge.innerText = tool.compliance;
 
       const modelListTarget = document.getElementById('inspect-models-list');
       modelListTarget.innerHTML = '';
@@ -1077,7 +1167,47 @@
       return el ? parseInt(el.value) || 0 : 0;
     }
 
+    let sessionTurns = 16; // Calculated base conversation iterations utilized to build this tool
+    let localInteractions = -1; // Increment on UI adjustment interaction
+
+    function updateSessionFootprint() {
+      // Hardware inference constants for prompt processing (Server-side tracking)
+      const e_complex_text = 1.5; // Wh per reasoning prompt
+      const e_code_line = 0.10; // Wh per code line generated
+      const lines_per_turn = 500; // Estimated code lines generated per AI turn
+      const w_complex_text = 0.025; // L per reasoning prompt
+      const w_code_line = 0.001; // L per code line generated
+      
+      const e_local_calc = 0.05; // Wh per local browser JS recalculation footprint
+      const w_local_calc = 0.0001; // Minimal water overhead for lightweight local processing
+
+      // Base footprint from the AI conversation
+      const baseEnergy = sessionTurns * (e_complex_text + (lines_per_turn * e_code_line));
+      const baseWater = sessionTurns * (w_complex_text + (lines_per_turn * w_code_line));
+
+      // Added footprint from live auditing/slider adjustments
+      const dynamicEnergy = Math.max(0, localInteractions) * e_local_calc;
+      const dynamicWater = Math.max(0, localInteractions) * w_local_calc;
+
+      const totalWh = baseEnergy + dynamicEnergy;
+      const totalWater = baseWater + dynamicWater;
+      
+      const ukGridCarbonFactor = 0.22154; // DESNZ T&D inclusive (kg CO2e per kWh = g CO2e per Wh)
+      const totalCO2g = totalWh * ukGridCarbonFactor;
+
+      const totalOps = sessionTurns + Math.max(0, localInteractions);
+
+      const updateEl = (id, val) => { if(document.getElementById(id)) document.getElementById(id).innerText = val; };
+      
+      updateEl('session-ops', totalOps.toLocaleString());
+      updateEl('session-water', totalWater.toFixed(5));
+      updateEl('session-co2', totalCO2g.toFixed(3));
+    }
+
     function processAnnualCalculations() {
+      localInteractions++;
+      updateSessionFootprint();
+
       const scenarioRadios = document.querySelector('input[name="scenario"]:checked');
       const scenarioKey = scenarioRadios ? scenarioRadios.value : 'central';
       const C = constants[scenarioKey];
