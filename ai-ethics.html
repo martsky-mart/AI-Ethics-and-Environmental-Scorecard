@@ -520,6 +520,138 @@
     color: var(--hot); margin-right: 4px; font-weight: 800;
   }
 
+  /* ===== Card actions row ===== */
+  .card-actions {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ===== Card compare toggle ===== */
+  .card-compare {
+    width: 100%;
+    background: transparent;
+    border: 1.5px solid var(--rule);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 10px 14px;
+    min-height: 40px;
+    cursor: pointer;
+    transition: all .15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .card-compare:hover {
+    background: var(--paper-2);
+    border-color: var(--ink);
+  }
+  .card-compare:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .card-compare .ico {
+    width: 14px; height: 14px;
+    border: 1.5px solid currentColor;
+    flex-shrink: 0;
+    position: relative;
+    transition: background .15s ease;
+  }
+  /* Plus sign inside the box when not selected */
+  .card-compare .ico::before,
+  .card-compare .ico::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+    transition: opacity .15s ease;
+  }
+  .card-compare .ico::before {
+    top: 50%; left: 3px; right: 3px; height: 1.5px;
+    transform: translateY(-50%);
+  }
+  .card-compare .ico::after {
+    left: 50%; top: 3px; bottom: 3px; width: 1.5px;
+    transform: translateX(-50%);
+  }
+  .card-compare[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .card-compare[aria-pressed="true"]:hover {
+    background: var(--ink);
+  }
+  .card-compare[aria-pressed="true"] .ico {
+    background: var(--compare-colour, var(--paper));
+    border-color: var(--compare-colour, var(--paper));
+  }
+  /* Hide the plus, show a tick when selected */
+  .card-compare[aria-pressed="true"] .ico::before {
+    top: 55%; left: 2px; right: 5px; height: 1.5px;
+    transform: rotate(45deg);
+    background: #ffffff;
+  }
+  .card-compare[aria-pressed="true"] .ico::after {
+    left: 4px; top: 2px; bottom: 4px; width: 1.5px;
+    transform: rotate(45deg);
+    background: #ffffff;
+  }
+  .card-compare[aria-disabled="true"] {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .card-compare[aria-disabled="true"]:hover {
+    background: transparent;
+    border-color: var(--rule);
+  }
+
+  /* ===== Card "view comparison" button ===== */
+  .card-view-compare {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--hot);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 6px 14px;
+    min-height: 32px;
+    cursor: pointer;
+    transition: all .15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(183, 53, 18, 0.4);
+  }
+  .card-view-compare:hover {
+    color: var(--hot);
+    text-decoration-color: var(--hot);
+  }
+  .card-view-compare:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+  .card-view-compare[hidden] { display: none; }
+
+  /* Brief highlight on the comparison section when jumped to */
+  @keyframes compareFlash {
+    0%   { box-shadow: 0 0 0 0 rgba(183, 53, 18, 0); }
+    20%  { box-shadow: 0 0 0 4px rgba(183, 53, 18, 0.35); }
+    100% { box-shadow: 0 0 0 0 rgba(183, 53, 18, 0); }
+  }
+  .compare-chart.flash { animation: compareFlash 1.2s ease; }
+
   /* ===== Detail panel (modal) ===== */
   .scrim {
     position: fixed; inset: 0;
@@ -1124,28 +1256,28 @@
     <div class="fp-stat">
       <dt class="lbl">Energy</dt>
       <dd>
-        <span class="num">~115<span class="unit">Wh</span></span>
-        <p class="eq">Just under one kettle boil.</p>
+        <span class="num">~140<span class="unit">Wh</span></span>
+        <p class="eq">About 1.1 kettle boils.</p>
       </dd>
     </div>
     <div class="fp-stat">
       <dt class="lbl">CO&#8322; equivalent</dt>
       <dd>
-        <span class="num">~44<span class="unit">g</span></span>
-        <p class="eq">Driving a petrol car for ~110&nbsp;metres.</p>
+        <span class="num">~54<span class="unit">g</span></span>
+        <p class="eq">Driving a petrol car for ~135&nbsp;metres.</p>
       </dd>
     </div>
     <div class="fp-stat">
       <dt class="lbl">Water (on-site only)</dt>
       <dd>
-        <span class="num">~124<span class="unit">mL</span></span>
+        <span class="num">~152<span class="unit">mL</span></span>
         <p class="eq">About half a glass of water.</p>
       </dd>
     </div>
     <div class="fp-stat">
       <dt class="lbl">Water (full lifecycle)</dt>
       <dd>
-        <span class="num">~496<span class="unit">mL</span></span>
+        <span class="num">~607<span class="unit">mL</span></span>
         <p class="eq">Including indirect water at power plants.</p>
       </dd>
     </div>
@@ -1187,7 +1319,7 @@
 <section class="sources-wrap" style="background: var(--paper); color: var(--ink); border-top: 2px solid var(--rule); margin-top: 0;" aria-labelledby="compare-heading">
   <p class="section-label">Side by side</p>
   <h2 class="section-h" id="compare-heading">Compare the Field.</h2>
-  <p style="font-family: var(--serif); font-size: 17px; line-height: 1.55; max-width: 720px; margin-bottom: 8px; font-variation-settings: 'opsz' 17; color: var(--ink); font-style: italic;">Select up to four providers to overlay their scores on a radar chart. Useful for spotting where strengths and weaknesses actually line up &mdash; or don&rsquo;t.</p>
+  <p style="font-family: var(--serif); font-size: 17px; line-height: 1.55; max-width: 720px; margin-bottom: 8px; font-variation-settings: 'opsz' 17; color: var(--ink); font-style: italic;">Select up to four providers to overlay their scores on a radar chart &mdash; either from the list below, or with the &ldquo;Add to compare&rdquo; button on any card above. Useful for spotting where strengths and weaknesses actually line up &mdash; or don&rsquo;t.</p>
 
   <div class="compare-wrap">
     <div class="compare-picker" role="region" aria-labelledby="picker-title-id">
@@ -1447,6 +1579,12 @@ const PROVIDERS = [
 /* ============================================================
    HELPERS
    ============================================================ */
+/* Shared comparison state — declared early so both the cards and the
+   comparison picker can read and mutate the same selection. */
+const COMPARE_COLOURS = ["#b73512", "#1f4d8b", "#3a6b3a", "#7d3c98"];
+const MAX_SELECT = 4;
+const selected = [];   // array of provider ids, in selection order
+
 function totalScore(p) { return Object.values(p.scores).reduce((a, b) => a + b, 0); }
 function scoreBand(s) {
   const pct = s / 10;
@@ -1599,6 +1737,16 @@ function renderCards(rankBy) {
         ${barRowsHTML}
       </ul>
       <p class="verdict">${esc(p.verdict)}</p>
+      <div class="card-actions">
+        <button type="button" class="card-compare" data-compare="${esc(p.id)}" aria-pressed="false">
+          <span class="ico" aria-hidden="true"></span>
+          <span class="card-compare-text">Add to compare</span>
+        </button>
+        <button type="button" class="card-view-compare" data-view-compare="${esc(p.id)}" hidden
+                aria-label="View ${esc(p.org)} ${esc(p.product)} in the comparison chart">
+          View comparison <span aria-hidden="true">&darr;</span>
+        </button>
+      </div>
     `;
 
     cardsEl.appendChild(card);
@@ -1626,7 +1774,13 @@ function renderCards(rankBy) {
       });
     }
   }
+
+  // Card markup is rebuilt on every render, so re-apply compare-button state.
+  // Guarded by a flag because the comparison UI is initialised later in the script.
+  if (compareReady) syncCompareUI();
 }
+
+let compareReady = false;
 
 let initialRenderDone = false;
 renderCards('overall');
@@ -1818,13 +1972,13 @@ document.getElementById('open-footprint').addEventListener('click', () => {
       A report on AI's environmental impact is itself produced by an AI. Honesty requires we count the cost. These are <strong>order-of-magnitude estimates</strong>, not precise measurements &mdash; Anthropic publishes no per-prompt energy data, so the figures are triangulated from peer disclosures and grid averages.
     </div>
     <div class="calc" role="region" aria-label="Footprint calculation">
-      <div class="row"><span class="lbl">Substantive generation turns</span><span class="val">~23 &times; 4 Wh</span></div>
-      <div class="row"><span class="lbl">Lighter tool-call turns</span><span class="val">~23 &times; 0.8 Wh</span></div>
+      <div class="row"><span class="lbl">Substantive generation turns</span><span class="val">~28 &times; 4 Wh</span></div>
+      <div class="row"><span class="lbl">Lighter tool-call turns</span><span class="val">~29 &times; 0.8 Wh</span></div>
       <div class="row"><span class="lbl">Web searches</span><span class="val">16 &times; 0.4 Wh</span></div>
-      <div class="row tot"><span class="lbl">TOTAL ENERGY</span><span class="val">~115 Wh</span></div>
-      <div class="row" style="margin-top:6px;"><span class="lbl">&times; US grid avg (385 g CO\u2082e/kWh)</span><span class="val">~44 g CO\u2082e</span></div>
-      <div class="row"><span class="lbl">&times; Gemini's on-site water ratio (1.08 mL/Wh)</span><span class="val">~124 mL</span></div>
-      <div class="row"><span class="lbl">&times; 4 for indirect/thermal water (Ren midpoint)</span><span class="val">~496 mL</span></div>
+      <div class="row tot"><span class="lbl">TOTAL ENERGY</span><span class="val">~140 Wh</span></div>
+      <div class="row" style="margin-top:6px;"><span class="lbl">&times; US grid avg (385 g CO\u2082e/kWh)</span><span class="val">~54 g CO\u2082e</span></div>
+      <div class="row"><span class="lbl">&times; Gemini's on-site water ratio (1.08 mL/Wh)</span><span class="val">~152 mL</span></div>
+      <div class="row"><span class="lbl">&times; 4 for indirect/thermal water (Ren midpoint)</span><span class="val">~607 mL</span></div>
     </div>
     <section class="category-block">
       <header class="head"><h3 class="name">Per-turn energy assumptions</h3></header>
@@ -1948,10 +2102,6 @@ Object.entries(REFS).forEach(([n, [title, url]]) => {
 /* ============================================================
    COMPARISON RADAR CHART
    ============================================================ */
-const COMPARE_COLOURS = ["#b73512", "#1f4d8b", "#3a6b3a", "#7d3c98"];
-const MAX_SELECT = 4;
-const selected = [];   // array of provider ids in selection order
-
 const pickerListEl = document.getElementById('picker-list');
 const pickerCounterEl = document.getElementById('picker-counter');
 const chartContentEl = document.getElementById('chart-content');
@@ -1978,49 +2128,113 @@ pickerProviders.forEach(p => {
   pickerListEl.appendChild(li);
 });
 
-pickerListEl.addEventListener('click', (e) => {
-  const btn = e.target.closest('.picker-row');
-  if (!btn) return;
-  const id = btn.dataset.id;
+/* Unified toggle — called from BOTH the picker rows and the card buttons.
+   Returns true if the selection changed, false if it was blocked (at cap). */
+function toggleCompare(id) {
   const idx = selected.indexOf(id);
-
   if (idx >= 0) {
-    // Deselect
     selected.splice(idx, 1);
   } else {
-    // Select if under cap
-    if (selected.length >= MAX_SELECT) return;
+    if (selected.length >= MAX_SELECT) return false;
     selected.push(id);
   }
-
-  updatePickerState();
+  syncCompareUI();
   renderCompare();
-});
+  return true;
+}
 
-function updatePickerState() {
+/* Keep picker rows AND card buttons visually in sync with `selected`. */
+function syncCompareUI() {
   const atCap = selected.length >= MAX_SELECT;
   pickerCounterEl.textContent = `${selected.length} / ${MAX_SELECT}`;
   pickerCounterEl.classList.toggle('full', atCap);
 
+  // Picker rows
   pickerListEl.querySelectorAll('.picker-row').forEach(btn => {
     const id = btn.dataset.id;
     const selIdx = selected.indexOf(id);
     const isSelected = selIdx >= 0;
     btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
-
-    // Colour the swatch based on selection order
     if (isSelected) {
       btn.style.setProperty('--swatch-color', COMPARE_COLOURS[selIdx]);
       btn.removeAttribute('aria-disabled');
     } else {
       btn.style.removeProperty('--swatch-color');
-      if (atCap) {
-        btn.setAttribute('aria-disabled', 'true');
-      } else {
-        btn.removeAttribute('aria-disabled');
-      }
+      if (atCap) btn.setAttribute('aria-disabled', 'true');
+      else btn.removeAttribute('aria-disabled');
     }
   });
+
+  // Card buttons (these are re-created on every renderCards, so query live)
+  document.querySelectorAll('.card-compare').forEach(btn => {
+    const id = btn.dataset.compare;
+    const selIdx = selected.indexOf(id);
+    const isSelected = selIdx >= 0;
+    btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+    const txt = btn.querySelector('.card-compare-text');
+    if (isSelected) {
+      btn.style.setProperty('--compare-colour', COMPARE_COLOURS[selIdx]);
+      btn.removeAttribute('aria-disabled');
+      if (txt) txt.textContent = 'Added to compare';
+    } else {
+      btn.style.removeProperty('--compare-colour');
+      if (atCap) btn.setAttribute('aria-disabled', 'true');
+      else btn.removeAttribute('aria-disabled');
+      if (txt) txt.textContent = 'Add to compare';
+    }
+  });
+
+  // "View comparison" button: visible only once a card is in the comparison,
+  // and only when there are enough selections for the chart to actually render.
+  const chartActive = selected.length >= 2;
+  document.querySelectorAll('.card-view-compare').forEach(btn => {
+    const id = btn.dataset.viewCompare;
+    const isSelected = selected.includes(id);
+    btn.hidden = !(isSelected && chartActive);
+  });
+}
+
+pickerListEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('.picker-row');
+  if (!btn) return;
+  toggleCompare(btn.dataset.id);
+});
+
+// Card compare buttons (event delegation on the cards container, which already
+// exists; this listener is separate from the open/bar-row listener).
+cardsEl.addEventListener('click', (e) => {
+  const cmpBtn = e.target.closest('.card-compare');
+  if (cmpBtn) {
+    // Block if at cap and this card isn't already selected
+    const id = cmpBtn.dataset.compare;
+    if (!selected.includes(id) && selected.length >= MAX_SELECT) return;
+    toggleCompare(id);
+    return;
+  }
+  const viewBtn = e.target.closest('.card-view-compare');
+  if (viewBtn) {
+    scrollToComparison();
+  }
+});
+
+// Smooth-scroll to the comparison chart and briefly highlight it.
+function scrollToComparison() {
+  const section = document.getElementById('compare-heading');
+  const chart = document.getElementById('compare-chart');
+  if (!section) return;
+  section.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+  if (chart) {
+    // Move focus to the chart region for keyboard/screen-reader users
+    chart.setAttribute('tabindex', '-1');
+    // Delay focus until the scroll settles so it isn't interrupted
+    setTimeout(() => {
+      chart.focus({ preventScroll: true });
+      if (!prefersReduced) {
+        chart.classList.add('flash');
+        setTimeout(() => chart.classList.remove('flash'), 1200);
+      }
+    }, prefersReduced ? 0 : 420);
+  }
 }
 
 function renderCompare() {
@@ -2161,7 +2375,8 @@ function renderCompare() {
 }
 
 // Initialise state
-updatePickerState();
+compareReady = true;
+syncCompareUI();
 renderCompare();
 </script>
 </body>
