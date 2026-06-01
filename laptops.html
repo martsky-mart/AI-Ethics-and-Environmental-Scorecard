@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laptop Ethical Sourcing Decision Matrix</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN for Radar Graphs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            hiveYellow: '#FFC803',
+            hiveYellowHover: '#E5B402',
+            hiveCharcoal: '#1E2229',
+            hiveLightBg: '#FAF9F5',
+            hiveBorder: '#D9D7CE',
+            hiveSuccess: '#1B4332',
+            hiveSuccessBg: '#D8F3DC',
+            hiveWarning: '#B07D11',
+            hiveWarningBg: '#FEF3C7',
+            hiveDanger: '#800F2F',
+            hiveDangerBg: '#FFCCD5',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *:focus-visible {
+      outline: 4px solid #1E2229 !important;
+      outline-offset: 2px !important;
+    }
+    .hive-shadow {
+      box-shadow: 4px 4px 0px 0px #1E2229;
+    }
+    .hive-shadow-sm {
+      box-shadow: 2px 2px 0px 0px #1E2229;
+    }
+    .hive-shadow-active {
+      box-shadow: 1px 1px 0px 0px #1E2229;
+      transform: translate(2px, 2px);
+    }
+    .contrast-double {
+      background-color: #FFFFFF !important;
+      color: #000000 !important;
+    }
+    .contrast-double * {
+      border-color: #000000 !important;
+    }
+  </style>
+</head>
+<body class="bg-hiveLightBg text-hiveCharcoal font-sans min-h-screen">
+
+  <!-- ACCESSIBILITY SKIP LINK -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-hiveYellow focus:text-hiveCharcoal focus:p-4 focus:font-bold focus:z-50 focus:rounded hive-shadow">
+    Skip to Main Content
+  </a>
+
+  <!-- HEADER -->
+  <header class="border-b-4 border-hiveCharcoal bg-white py-6 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-4">
+        <div class="bg-hiveYellow p-3 rounded-lg border-2 border-hiveCharcoal hive-shadow-sm flex-shrink-0" aria-hidden="true">
+          <svg class="w-8 h-8 text-hiveCharcoal" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 .587l3.668 2.118v4.234L12 11.057 8.332 8.939V4.705zM22.002 6.36l1.998 1.154v4.234l-3.668 2.118-3.668-2.118V7.514zm-13.67 7.89l3.668 2.117v4.235l-3.668 2.117-3.668-2.117v-4.235zm11.67 0l3.668 2.117v4.235l-3.668 2.117-3.668-2.117v-4.235zM3.668 6.36L5.666 7.514v4.234l-3.668 2.118L0 11.748V7.514z" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-3xl font-black tracking-tight">HIVE IT • SUSTAINABILITY PORTAL</h1>
+          <p class="text-sm font-semibold tracking-wide text-gray-600">Dynamic Procurement Matrix with Radar Map Visualizations</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <div class="px-4 py-2 bg-hiveYellow text-hiveCharcoal font-bold border-2 border-hiveCharcoal rounded hive-shadow-sm text-sm" aria-live="polite">
+          WCAG 2.2 AA Compliant
+        </div>
+        <button id="toggle-contrast" class="px-4 py-2 bg-hiveCharcoal text-white font-bold rounded hover:bg-gray-800 text-sm focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-hiveYellow transition-colors" aria-label="Toggle High Contrast Mode">
+          High Contrast View
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- INTRO SECTION -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-8 mt-8" aria-labelledby="intro-title">
+    <div class="bg-white border-4 border-hiveCharcoal p-6 rounded-lg hive-shadow">
+      <h2 id="intro-title" class="text-xl font-bold mb-2">Dynamic Sourcing Scoring Engine</h2>
+      <p class="text-gray-700 leading-relaxed max-w-4xl">
+        Adjust weights below to configure this index for your organization. Toggle the **Compare** checkbox on individual manufacturers to activate side-by-side matrices highlighting scoring variances, specific structural merits, and regulatory dockets.
+      </p>
+    </div>
+  </section>
+
+  <!-- STICKY COMPARISON FLOATING TRIGGER -->
+  <div id="sticky-compare-bar" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white border-4 border-hiveCharcoal rounded-lg p-4 hive-shadow z-30 hidden flex items-center gap-6 max-w-lg w-[90%]">
+    <div>
+      <p class="font-extrabold text-sm text-hiveCharcoal" id="compare-count-text">0 Brands Selected</p>
+      <p class="text-xs text-gray-500">Compare their ethical credentials side-by-side.</p>
+    </div>
+    <div class="ml-auto flex gap-2">
+      <button id="clear-compare-btn" class="px-3 py-1 text-xs border-2 border-hiveCharcoal rounded hover:bg-gray-100 font-bold focus:outline-none">Clear</button>
+      <button id="trigger-compare-modal-btn" class="px-4 py-2 bg-hiveYellow text-hiveCharcoal font-bold border-2 border-hiveCharcoal rounded hover:bg-hiveYellowHover text-sm focus:outline-none focus:ring-2 focus:ring-hiveCharcoal">Compare Now</button>
+    </div>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- CONTROLLERS SIDEBAR -->
+    <section class="lg:col-span-5 bg-white border-4 border-hiveCharcoal p-6 rounded-lg hive-shadow self-start" aria-labelledby="weight-controls-title">
+      <div class="flex items-center justify-between mb-6 border-b-2 border-hiveCharcoal pb-4">
+        <h2 id="weight-controls-title" class="text-lg font-black tracking-wider uppercase">1. Weight Criteria</h2>
+        <button id="reset-weights" class="text-xs font-bold text-hiveCharcoal bg-hiveYellow px-3 py-1.5 border-2 border-hiveCharcoal rounded hover:bg-hiveYellowHover focus:outline-none transition-transform active:translate-y-0.5" aria-label="Reset all criteria weights to default">
+          Reset Defaults
+        </button>
+      </div>
+
+      <!-- WEIGHT CONTROLLERS -->
+      <form id="weight-form" class="space-y-4" onsubmit="event.preventDefault();">
+        <!-- Climate Impact -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="weight-climate" class="text-sm font-bold flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-600" aria-hidden="true"></span>
+              Climate Impact
+            </label>
+            <span id="val-climate" class="text-xs font-black bg-gray-100 px-2 py-0.5 border border-hiveCharcoal rounded" aria-live="polite">5/10</span>
+          </div>
+          <input type="range" id="weight-climate" name="climate" min="0" max="10" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-hiveCharcoal focus:outline-none" aria-describedby="desc-climate">
+          <p id="desc-climate" class="sr-only">Slide to change the importance of Climate Impact from 0 to 10.</p>
+        </div>
+
+        <!-- Company Ethos -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="weight-ethos" class="text-sm font-bold flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-blue-600" aria-hidden="true"></span>
+              Company Ethos
+            </label>
+            <span id="val-ethos" class="text-xs font-black bg-gray-100 px-2 py-0.5 border border-hiveCharcoal rounded" aria-live="polite">5/10</span>
+          </div>
+          <input type="range" id="weight-ethos" name="ethos" min="0" max="10" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-hiveCharcoal focus:outline-none" aria-describedby="desc-ethos">
+          <p id="desc-ethos" class="sr-only">Slide to change the importance of Company Ethos.</p>
+        </div>
+
+        <!-- Conflict Mineral Use -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="weight-minerals" class="text-sm font-bold flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-yellow-600" aria-hidden="true"></span>
+              Conflict Mineral Use
+            </label>
+            <span id="val-minerals" class="text-xs font-black bg-gray-100 px-2 py-0.5 border border-hiveCharcoal rounded" aria-live="polite">5/10</span>
+          </div>
+          <input type="range" id="weight-minerals" name="minerals" min="0" max="10" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-hiveCharcoal focus:outline-none" aria-describedby="desc-minerals">
+          <p id="desc-minerals" class="sr-only">Slide to change the importance of Conflict Minerals.</p>
+        </div>
+
+        <!-- Responsible Tax Conduct -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="weight-tax" class="text-sm font-bold flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-purple-600" aria-hidden="true"></span>
+              Responsible Tax Conduct
+            </label>
+            <span id="val-tax" class="text-xs font-black bg-gray-100 px-2 py-0.5 border border-hiveCharcoal rounded" aria-live="polite">5/10</span>
+          </div>
+          <input type="range" id="weight-tax" name="tax" min="0" max="10" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-hiveCharcoal focus:outline-none" aria-describedby="desc-tax">
+          <p id="desc-tax" class="sr-only">Slide to change the importance of Responsible Tax Conduct.</p>
+        </div>
+
+        <!-- Tech Sustainability -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="weight-sustainability" class="text-sm font-bold flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-teal-600" aria-hidden="true"></span>
+              Tech Sustainability
+            </label>
+            <span id="val-sustainability" class="text-xs font-black bg-gray-100 px-2 py-0.5 border border-hiveCharcoal rounded" aria-live="polite">5/10</span>
+          </div>
+          <input type="range" id="weight-sustainability" name="sustainability" min="0" max="10" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-hiveCharcoal focus:outline-none" aria-describedby="desc-sustainability">
+          <p id="desc-sustainability" class="sr-only">Slide to change the importance of Tech Sustainability.</p>
+        </div>
+
+        <!-- Workers -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="weight-workers" class="text-sm font-bold flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-orange-600" aria-hidden="true"></span>
+              Workers
+            </label>
+            <span id="val-workers" class="text-xs font-black bg-gray-100 px-2 py-0.5 border border-hiveCharcoal rounded" aria-live="polite">5/10</span>
+          </div>
+          <input type="range" id="weight-workers" name="workers" min="0" max="10" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-hiveCharcoal focus:outline-none" aria-describedby="desc-workers">
+          <p id="desc-workers" class="sr-only">Slide to change the importance of Workers' rights.</p>
+        </div>
+
+        <!-- Community -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="weight-community" class="text-sm font-bold flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-pink-600" aria-hidden="true"></span>
+              Community
+            </label>
+            <span id="val-community" class="text-xs font-black bg-gray-100 px-2 py-0.5 border border-hiveCharcoal rounded" aria-live="polite">5/10</span>
+          </div>
+          <input type="range" id="weight-community" name="community" min="0" max="10" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-hiveCharcoal focus:outline-none" aria-describedby="desc-community">
+          <p id="desc-community" class="sr-only">Slide to change the importance of Community impact.</p>
+        </div>
+
+        <!-- Repairability -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label for="weight-repairability" class="text-sm font-bold flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-cyan-600" aria-hidden="true"></span>
+              Repairability
+            </label>
+            <span id="val-repairability" class="text-xs font-black bg-gray-100 px-2 py-0.5 border border-hiveCharcoal rounded" aria-live="polite">5/10</span>
+          </div>
+          <input type="range" id="weight-repairability" name="repairability" min="0" max="10" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-hiveCharcoal focus:outline-none" aria-describedby="desc-repairability">
+          <p id="desc-repairability" class="sr-only">Slide to change the importance of Repairability.</p>
+        </div>
+      </form>
+    </section>
+
+    <!-- BRAND RESULTS DISPLAY LIST -->
+    <section class="lg:col-span-7 flex flex-col gap-6" aria-labelledby="results-title">
+      
+      <!-- DYNAMIC SORT PANEL (NEW) -->
+      <div class="bg-white border-4 border-hiveCharcoal p-4 rounded-lg hive-shadow flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
+        <div class="w-full md:w-auto flex flex-col sm:flex-row sm:items-center gap-2">
+          <label for="sort-criteria" class="text-xs font-black uppercase tracking-wider text-gray-700">Sort Standings By:</label>
+          <select id="sort-criteria" class="bg-hiveLightBg border-2 border-hiveCharcoal rounded px-3 py-1.5 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-hiveYellow cursor-pointer">
+            <option value="weighted">Weighted Sourcing Index (Overall)</option>
+            <option value="name">Brand Name (Alphabetical)</option>
+            <option value="climate">Climate Impact</option>
+            <option value="ethos">Company Ethos</option>
+            <option value="minerals">Conflict Minerals</option>
+            <option value="tax">Responsible Tax Conduct</option>
+            <option value="sustainability">Tech Sustainability</option>
+            <option value="workers">Workers' Rights</option>
+            <option value="community">Community Engagement</option>
+            <option value="repairability">Repairability</option>
+          </select>
+        </div>
+        <button id="toggle-sort-order" class="w-full md:w-auto px-4 py-2 bg-hiveCharcoal text-white font-extrabold rounded hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-hiveYellow flex items-center justify-center gap-2 text-sm" aria-label="Toggle sort order descending">
+          <span id="sort-order-text">Descending Order</span>
+          <svg class="w-4 h-4 transition-transform duration-200" id="sort-order-icon" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="flex items-center justify-between border-b-2 border-hiveCharcoal pb-2">
+        <h2 id="results-title" class="text-lg font-black tracking-wider uppercase">2. Standings Matrix</h2>
+        <span class="text-xs font-semibold text-gray-600" id="sorting-announcer" aria-live="polite">Sorted by overall score</span>
+      </div>
+
+      <div id="results-container" class="space-y-4" aria-live="polite" aria-relevant="all">
+        <!-- Renders dynamically -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- COMPARISON TABLE & RADAR MODAL -->
+  <div id="compare-modal" class="fixed inset-0 bg-black/60 hidden z-50 flex items-center justify-center p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="compare-modal-title">
+    <div class="bg-hiveLightBg border-4 border-hiveCharcoal rounded-lg hive-shadow w-full max-w-6xl max-h-[90vh] overflow-y-auto flex flex-col focus:outline-none" id="compare-modal-content" tabindex="-1">
+      
+      <!-- Modal Header -->
+      <div class="border-b-4 border-hiveCharcoal bg-white p-6 sticky top-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 z-10">
+        <div>
+          <span class="text-xs font-bold tracking-widest text-gray-500 uppercase">Interactive Sourcing Matrix</span>
+          <h2 id="compare-modal-title" class="text-2xl font-black text-hiveCharcoal mt-1">Multi-Brand Side-by-Side Assessment</h2>
+        </div>
+        <div class="flex gap-2">
+          <button id="toggle-compare-view-scores" class="px-3 py-1.5 bg-hiveYellow text-hiveCharcoal border-2 border-hiveCharcoal font-extrabold text-xs rounded hover:bg-hiveYellowHover focus:outline-none">Show Raw Ratings</button>
+          <button id="toggle-compare-view-details" class="px-3 py-1.5 bg-white text-hiveCharcoal border-2 border-hiveCharcoal font-bold text-xs rounded hover:bg-gray-100 focus:outline-none">Show Merits & Deficits</button>
+        </div>
+      </div>
+
+      <!-- Comparative Map and Table body -->
+      <div class="p-6 space-y-8">
+        
+        <!-- Radar Overlay Graph Card -->
+        <div class="bg-white border-2 border-hiveCharcoal rounded p-4 hive-shadow-sm">
+          <h3 class="font-extrabold text-base mb-4 text-hiveCharcoal uppercase tracking-tight">Comparative Ethical Profiles</h3>
+          <!-- Responsive canvas container -->
+          <div class="relative h-[300px] md:h-[400px] w-full" aria-label="Ethical profile radar overlay comparing selected laptop manufacturers" role="img">
+            <canvas id="compareRadarChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Comparison Dynamic Table Content -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[700px] border-2 border-hiveCharcoal bg-white rounded-lg overflow-hidden">
+            <thead>
+              <tr class="bg-gray-100 border-b-2 border-hiveCharcoal" id="compare-table-header">
+                <!-- Dynamically populated -->
+              </tr>
+            </thead>
+            <tbody id="compare-table-body" class="divide-y divide-hiveBorder">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="border-t-4 border-hiveCharcoal bg-white p-4 flex justify-end gap-3">
+        <button id="dismiss-compare-bottom" class="px-6 py-2 bg-hiveCharcoal text-white font-bold rounded hover:bg-gray-800 focus:outline-none transition-colors">
+          Dismiss Table
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INDIVIDUAL BRAND DETAIL VIEW MODAL -->
+  <div id="modal-overlay" class="fixed inset-0 bg-black/50 hidden z-40 flex items-center justify-center p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="bg-hiveLightBg border-4 border-hiveCharcoal rounded-lg hive-shadow w-full max-w-6xl max-h-[90vh] overflow-y-auto flex flex-col focus:outline-none" id="modal-content" tabindex="-1">
+      
+      <!-- Modal Header -->
+      <div class="border-b-4 border-hiveCharcoal bg-white p-6 sticky top-0 flex items-center justify-between z-10">
+        <div>
+          <span class="text-xs font-bold tracking-widest text-gray-500 uppercase">Analysis Matrix & Sourcing Trails</span>
+          <h2 id="modal-title" class="text-3xl font-black text-hiveCharcoal mt-1">Brand Name</h2>
+        </div>
+        <button id="close-modal" class="p-2 border-2 border-hiveCharcoal bg-hiveYellow hover:bg-hiveYellowHover rounded focus:outline-none transition-transform active:translate-y-0.5" aria-label="Close detailed report dialog">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 md:p-8 space-y-8 flex-grow">
+        <!-- Quick Indicators Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-white p-4 border-2 border-hiveCharcoal rounded hive-shadow-sm flex flex-col items-center justify-center">
+            <span class="text-xs font-semibold text-gray-500 uppercase">Dynamic Weight Index</span>
+            <span id="modal-stat-score" class="text-2xl font-black text-hiveCharcoal mt-1">--</span>
+          </div>
+          <div class="bg-white p-4 border-2 border-hiveCharcoal rounded hive-shadow-sm flex flex-col items-center justify-center">
+            <span class="text-xs font-semibold text-gray-500 uppercase">Market Index Rank</span>
+            <span id="modal-stat-rank" class="text-2xl font-black text-hiveCharcoal mt-1">--</span>
+          </div>
+          <div class="bg-white p-4 border-2 border-hiveCharcoal rounded hive-shadow-sm flex flex-col items-center justify-center">
+            <span class="text-xs font-semibold text-gray-500 uppercase">Carbon Action Target</span>
+            <span id="modal-stat-carbon" class="text-sm font-black text-hiveSuccess mt-2 text-center">--</span>
+          </div>
+          <div class="bg-white p-4 border-2 border-hiveCharcoal rounded hive-shadow-sm flex flex-col items-center justify-center">
+            <span class="text-xs font-semibold text-gray-500 uppercase">Hardware Assembly Strategy</span>
+            <span id="modal-stat-repair" class="text-sm font-black text-hiveCharcoal mt-2 text-center">--</span>
+          </div>
+        </div>
+
+        <!-- TWO-COLUMN LAYOUT: Left (Visual Chart) | Right (Accordions and Metrics) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Visual Radar Graph Column -->
+          <div class="lg:col-span-5 bg-white border-2 border-hiveCharcoal p-4 rounded hive-shadow-sm sticky top-28">
+            <h3 class="font-extrabold text-base mb-4 text-hiveCharcoal uppercase tracking-tight">Ethical Profile Radar Map</h3>
+            <div class="relative h-[280px] md:h-[350px] w-full" aria-label="Ethical profile radar graph displaying raw metric footprints" role="img">
+              <canvas id="deepDiveChart"></canvas>
+            </div>
+            <p class="text-xs text-gray-500 mt-4 leading-relaxed text-center">Plots raw 10-point scale scores across all dimensions before custom criteria weight adjustments.</p>
+          </div>
+
+          <!-- Explanatory text & accordion lists -->
+          <div class="lg:col-span-7 space-y-6">
+            <h3 class="text-xl font-bold border-b-2 border-hiveCharcoal pb-2">Granular Sourcing Evaluations</h3>
+            <div id="modal-granular-explorer" class="space-y-4">
+              <!-- Dynamic Category Assessment Accordions -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="border-t-4 border-hiveCharcoal bg-white p-4 flex justify-end">
+        <button id="modal-close-bottom" class="px-6 py-2 bg-hiveCharcoal text-white font-bold rounded hover:bg-gray-800 focus:outline-none transition-colors">
+          Dismiss Analysis
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t-4 border-hiveCharcoal bg-white py-12 px-4 mt-16 text-center">
+    <div class="max-w-7xl mx-auto space-y-4">
+      <p class="font-bold text-sm">Design structured to align with Hive IT design guidelines and WCAG requirements.</p>
+      <div class="text-xs text-gray-500 space-y-1">
+        <p>Adaptive calculations utilize normalized real-time mathematical operations.</p>
+        <p>Primary documentation sourced from state tax courts, SEC filings, independent laboratories, and EPEAT databases.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTING ENGINE & RAW BRAND DATABASE -->
+  <script>
+    const BRAND_DATABASE = [
+      {
+        id: "framework",
+        name: "Framework Computer",
+        highlights: {
+          carbonTarget: "Zero Carbon Priority",
+          repairClass: "Full Modularity"
+        },
+        metrics: {
+          climate: {
+            score: 9.0,
+            plus: "Ultra-low Scope 3 carbon profile due to modular sub-assembly upgrade paths, verified by extensive lifecycle assessments.",
+            minus: "Direct assembly plants still scaling, limiting absolute Scope 1 offsets compared to global conglomerates.",
+            source: "https://frame.work/gb/en/sustainability",
+            source_title: "Framework Sustainability Report"
+          },
+          ethos: {
+            score: 10.0,
+            plus: "Complete transparency: open sources firmware and shares full hardware CAD blueprints to allow third-party components creation.",
+            minus: "Niche market dominance restricts regulatory leverage when bargaining for global component access.",
+            source: "https://github.com/FrameworkComputer",
+            source_title: "Framework GitHub Open Space"
+          },
+          minerals: {
+            score: 9.0,
+            plus: "Fully auditable mineral chains, with prioritised fairtrade gold and post-consumer recycled tin.",
+            minus: "Smaller sourcing footprint reduces physical influence over Tier-2 refining smelters directly.",
+            source: "https://frame.work/gb/en/sustainability",
+            source_title: "Framework Material Audits"
+          },
+          tax: {
+            score: 9.0,
+            plus: "Clean, direct tax structures. Does not exploit complex offshore intellectual property tax loopholes.",
+            minus: "Higher local tax exposure translates to narrower profit margins compared to optimized competitors.",
+            source: "https://taxjustice.net/",
+            source_title: "Tax Justice Network Guidelines"
+          },
+          sustainability: {
+            score: 10.0,
+            plus: "Enclosures built using 75% PCR aluminum, keypads utilizing 30% recycled plastics. Zero hazardous fire retardants.",
+            minus: "Smaller packaging batches slightly increase shipping carbon-per-unit weights compared to mega-freight shipments.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT Global Registry"
+          },
+          workers: {
+            score: 8.0,
+            plus: "Manufacturing located in high-grade facilities in Taiwan, with clear direct communication channels and fair wages.",
+            minus: "Relies on a centralized assembly location, leaving limited alternate manufacturing pathways.",
+            source: "https://www.ilo.org/",
+            source_title: "ILO Labor Framework"
+          },
+          community: {
+            score: 9.0,
+            plus: "Strong global community framework, actively providing mainboard upcycling grants for educational initiatives.",
+            minus: "Limited regional CSR budget for localized projects outside digital sustainability initiatives.",
+            source: "https://community.frame.work/",
+            source_title: "Framework Community Hub"
+          },
+          repairability: {
+            score: 10.0,
+            plus: "Awarded a perfect 10/10 by teardown technicians. Completely interchangeable ports and zero adhesives inside.",
+            minus: "Modular components can easily be damaged by untrained end-users if disassembly instructions are ignored.",
+            source: "https://www.ifixit.com/Device/Framework_Laptop",
+            source_title: "iFixit Framework Teardowns"
+          }
+        }
+      },
+      {
+        id: "hp",
+        name: "HP (Hewlett-Packard)",
+        highlights: {
+          carbonTarget: "Net-Zero by 2040",
+          repairClass: "Moderate-High Service"
+        },
+        metrics: {
+          climate: {
+            score: 8.0,
+            plus: "Validated Science Based Targets initiative (SBTi) plans, tracking a verified 50% absolute emission decrease.",
+            minus: "Significant scope-3 emissions from global retail and freight networks.",
+            source: "https://sciencebasedtargets.org/target-dashboard",
+            source_title: "SBTi Corporate Target List"
+          },
+          ethos: {
+            score: 7.0,
+            plus: "Highly responsive governance frameworks for institutional procurement and digital support trails.",
+            minus: "Highly controversial printer DRM and firmware updates that block third-party inks, reducing corporate integrity points.",
+            source: "https://www.eff.org/",
+            source_title: "EFF Sourcing Review"
+          },
+          minerals: {
+            score: 8.0,
+            plus: "Nearly 100% of smelting suppliers are certified under conflict-free tracking guidelines.",
+            minus: "Relies heavily on external third-party mineral audits, introducing potential reporting latency.",
+            source: "https://www.hp.com/us-en/hp-information/sustainable-impact/human-rights.html",
+            source_title: "HP Conflict Minerals Report"
+          },
+          tax: {
+            score: 6.0,
+            plus: "Maintains transparency in geographic revenue reporting.",
+            minus: "Utilizes standard global tax-minimization models through European and Asian operations.",
+            source: "https://fairtaxmark.net/",
+            source_title: "Fair Tax Sourcing Review"
+          },
+          sustainability: {
+            score: 7.5,
+            plus: "Successful program utilizing ocean-bound plastics inside high-end commercial Dragonfly notebook casings.",
+            minus: "Lower-tier consumer lines continue to rely on virgin-grade plastics for chassis structural components.",
+            source: "https://www.hp.com/us-en/hp-information/sustainable-impact/climate-action.html",
+            source_title: "HP Sustainable Impact Portal"
+          },
+          workers: {
+            score: 7.0,
+            plus: "Active leading auditor in the Responsible Business Alliance (RBA) with consistent supplier compliance reporting.",
+            minus: "Occasional overtime violations reported in partner tier-2 supply chains in Southeast Asia.",
+            source: "https://www.responsiblebusiness.org/",
+            source_title: "RBA Audit Metrics"
+          },
+          community: {
+            score: 7.5,
+            plus: "Dedicated digital equity programs aimed at educating millions of underserved individuals by 2030.",
+            minus: "CSR initiatives are often structured around brand marketing rather than local community agency.",
+            source: "https://www.hp.com/us-en/hp-information/sustainable-impact/digital-equity.html",
+            source_title: "HP Digital Equity Index"
+          },
+          repairability: {
+            score: 7.0,
+            plus: "Enterprise EliteBooks feature standardized fasteners and easily accessible parts catalogues.",
+            minus: "Consumer-grade configurations utilize fragile plastic latches and high structural adhesives.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Teardown Archives"
+          }
+        }
+      },
+      {
+        id: "dell",
+        name: "Dell Technologies",
+        highlights: {
+          carbonTarget: "Net-Zero by 2050",
+          repairClass: "Standard Business Repair"
+        },
+        metrics: {
+          climate: {
+            score: 7.5,
+            plus: "Clearly targeted pathways for net-zero operations, with active energy conservation inside offices.",
+            minus: "Heavy corporate dependency on fossil-fueled grids in outsourced production regions.",
+            source: "https://www.dell.com/en-us/dt/corporate/social-impact/advancing-sustainability/climate-and-energy.htm",
+            source_title: "Dell Climate Progress"
+          },
+          ethos: {
+            score: 6.5,
+            plus: "Highly organized corporate risk mitigation structures.",
+            minus: "Maintains active memberships in lobbyist groups that resist local electronics recycling mandates.",
+            source: "https://corporate.delltechnologies.com/en-us/social-impact/reporting/esg-reporting.htm",
+            source_title: "Dell Governance Center"
+          },
+          minerals: {
+            score: 7.5,
+            plus: "Excellent auditing for gold and cobalt extraction pipelines, with active RMAP participation.",
+            minus: "Vulnerable to high-level smelting gaps across tier-2 component subcontractors.",
+            source: "https://www.dell.com/en-us/dt/corporate/social-impact/advancing-sustainability/sustainable-sourcing/materials.htm",
+            source_title: "Dell Materials Tracing"
+          },
+          tax: {
+            score: 6.0,
+            plus: "Accurately details tax contributions inside parent operating states.",
+            minus: "Aggressive profit shifting historically routed through offshore hubs to lower global tax liability.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Secrecy Indexes"
+          },
+          sustainability: {
+            score: 7.0,
+            plus: "Leading closed-loop recycling program, reusing plastic sourced from returned e-waste inside new systems.",
+            minus: "Concept Luna remains an R&D prototype; standard systems still contain high amounts of glue.",
+            source: "https://www.dell.com/en-us/blog/pushing-the-boundaries-of-sustainable-design-concept-luna/",
+            source_title: "Dell Concept Luna Specs"
+          },
+          workers: {
+            score: 6.5,
+            plus: "Supplier code of conduct aligned directly with standard international covenants.",
+            minus: "Periodic labor disputes at sub-contracted assembly factories regarding forced overtime.",
+            source: "https://www.responsiblebusiness.org/",
+            source_title: "RBA Compliance Portal"
+          },
+          community: {
+            score: 7.0,
+            plus: "Substantial direct financial investment into local youth science, technology, engineering, and math programs.",
+            minus: "Community investments are highly concentrated in areas adjacent to major corporate HQs.",
+            source: "https://www.dell.com/en-us/dt/corporate/social-impact/transforming-lives.htm",
+            source_title: "Dell Sourcing Impact"
+          },
+          repairability: {
+            score: 7.0,
+            plus: "Excellent service manuals and replacement parts catalogs available for corporate Latitude lines.",
+            minus: "Vast consumer hardware inventory continues to favor integrated, soldered memory boards.",
+            source: "https://www.ifixit.com/Device/Dell_Latitude",
+            source_title: "iFixit Latitude Archives"
+          }
+        }
+      },
+      {
+        id: "apple",
+        name: "Apple Inc.",
+        highlights: {
+          carbonTarget: "Carbon Neutral by 2030",
+          repairClass: "Highly Serialized"
+        },
+        metrics: {
+          climate: {
+            score: 8.5,
+            plus: "Ambitious decarbonisation goals, actively financing transition grids for offshore manufacturers.",
+            minus: "Substantial indirect carbon footprint due to high customer shipping demand.",
+            source: "https://www.apple.com/environment/",
+            source_title: "Apple Environment Index"
+          },
+          ethos: {
+            score: 4.0,
+            plus: "Industry-leading consumer-facing privacy structures built into device operating systems.",
+            minus: "Aggressive lobbying efforts against local Right to Repair legislation, maintaining a closed hardware ecosystem.",
+            source: "https://appfairness.org/",
+            source_title: "App Fairness Coalition"
+          },
+          minerals: {
+            score: 8.0,
+            plus: "First-class tracing; 100% of smelters are audited, with zero tolerance for conflict-financing.",
+            minus: "Massive production volume means their absolute resource demand remains a strain on local regions.",
+            source: "https://www.apple.com/supplier-responsibility/",
+            source_title: "Apple Supplier Portal"
+          },
+          tax: {
+            score: 2.0,
+            plus: "Complies with legal parameters set inside active operating countries.",
+            minus: "Historically involved in a landmark €13 billion Irish tax evasion dispute with European regulators.",
+            source: "https://curia.europa.eu/juris/liste.jsf?num=C-465/20",
+            source_title: "EC Ireland State Aid Docket"
+          },
+          sustainability: {
+            score: 8.0,
+            plus: "Pioneered high-quality recycled aluminum alloys, transitioning toward 100% recycled cobalt batteries.",
+            minus: "Highly integrated, un-upgradable designs limit the circular lifespan of perfectly functional chassis.",
+            source: "https://www.apple.com/newsroom/2019/04/apple-expands-global-recycling-programs/",
+            source_title: "Apple Recycling Labs"
+          },
+          workers: {
+            score: 4.0,
+            plus: "Maintains detailed supplier audit reports that are made public annually.",
+            minus: "Persistent, severe labor violations reported in major supplier networks, including forced labor risks and excessive overtime.",
+            source: "https://chinalaborwatch.org/",
+            source_title: "China Labor Watch Database"
+          },
+          community: {
+            score: 6.0,
+            plus: "Substantial monetary backing for environmental justice education through the REJI Initiative.",
+            minus: "Often criticized for ignoring high-risk mining community voices near material-extraction zones.",
+            source: "https://www.apple.com/newsroom/2020/06/apple-announces-one-hundred-million-dollar-racial-equity-and-justice-initiative/",
+            source_title: "Apple REJI Sourcing"
+          },
+          repairability: {
+            score: 3.0,
+            plus: "Recently launched a Self Service Repair program, providing official tools to the public.",
+            minus: "Heavy parts serialization prevents component replacement without proprietary software authentication.",
+            source: "https://www.ifixit.com/news/parts-pairing",
+            source_title: "iFixit Serialization Review"
+          }
+        }
+      },
+      {
+        id: "microsoft",
+        name: "Microsoft",
+        highlights: {
+          carbonTarget: "Carbon Negative by 2030",
+          repairClass: "Improving Modular"
+        },
+        metrics: {
+          climate: {
+            score: 8.0,
+            plus: "Industry-leading goal to reach negative carbon emissions by 2030 and eliminate all historical emissions by 2050.",
+            minus: "Data-center and AI development energy demands threaten overall carbon goals.",
+            source: "https://blogs.microsoft.com/blog/2020/01/16/microsoft-will-be-carbon-negative-by-2030/",
+            source_title: "Microsoft Climate Pledge"
+          },
+          ethos: {
+            score: 5.0,
+            plus: "Strong commitment to accessibility features built into operating software and dedicated adaptive controller designs.",
+            minus: "Windows 11 hardware limits orphaned millions of older, operational machines, creating high volumes of e-waste.",
+            source: "https://www.fsf.org/",
+            source_title: "Free Software Foundation"
+          },
+          minerals: {
+            score: 7.0,
+            plus: "Clear transparency standards for raw materials sourcing, published annually.",
+            minus: "Relies on joint-venture minerals consortiums with limited direct operational visibility.",
+            source: "https://www.microsoft.com/en-us/corporate-responsibility/devices-sourcing",
+            source_title: "Microsoft Sourcing Policy"
+          },
+          tax: {
+            score: 3.0,
+            plus: "Accurately details tax allocations under current statutory guidelines.",
+            minus: "Currently disputing a $28.9 billion back-tax claim with the US IRS regarding transfer pricing structures.",
+            source: "https://www.sec.gov/ix?doc=/Archives/edgar/data/789019/000156459023016629/msft-8k_20231011.htm",
+            source_title: "Microsoft SEC IRS Dispute"
+          },
+          sustainability: {
+            score: 6.0,
+            plus: "Integrates clean materials across newer Surface Laptop and tablet models.",
+            minus: "Shorter hardware operational lifecycle compared to modular and upgradeable options.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT Surface Registry"
+          },
+          workers: {
+            score: 6.0,
+            plus: "Requires suppliers to sign a robust code of conduct with set labor standards.",
+            minus: "Relies heavily on non-employee contract workers with fewer labor benefits and protections.",
+            source: "https://www.microsoft.com/en-us/procurement/supplier-code-of-conduct",
+            source_title: "Microsoft Supplier Code"
+          },
+          community: {
+            score: 8.0,
+            plus: "Substantial hardware grants and philanthropic software donations for non-profits.",
+            minus: "Significant regional digital disparities persist across their cloud service pricing structures.",
+            source: "https://www.microsoft.com/en-us/philanthropies/",
+            source_title: "Microsoft Philanthropies"
+          },
+          repairability: {
+            score: 5.0,
+            plus: "Redesigned Surface Laptops to be modular, now selling official replacement parts via iFixit.",
+            minus: "Older Surface series laptops were notoriously glued shut and practically unrepairable.",
+            source: "https://www.ifixit.com/Device/Microsoft_Surface_Laptop",
+            source_title: "iFixit Surface Reviews"
+          }
+        }
+      },
+      {
+        id: "lenovo",
+        name: "Lenovo Group",
+        highlights: {
+          carbonTarget: "Net-Zero by 2050",
+          repairClass: "Standard Business Design"
+        },
+        metrics: {
+          climate: {
+            score: 6.5,
+            plus: "Fully validated Net-Zero plans in line with SBTi targets.",
+            minus: "Heavy reliance on unbundled Renewable Energy Certificates (RECs) rather than direct grid investments.",
+            source: "https://www.lenovo.com/us/en/about/sustainability-reporting/",
+            source_title: "Lenovo Carbon Profile"
+          },
+          ethos: {
+            score: 5.0,
+            plus: "Maintains highly accessible and standardized digital support platforms.",
+            minus: "Settled a major FTC lawsuit over pre-installing spyware that compromised browser privacy.",
+            source: "https://www.ftc.gov/news-events/news/press-releases/2017/09/lenovo-settles-ftc-state-charges-it-compromised-consumers-privacy-pre-installing-software-could",
+            source_title: "FTC Adware Docket"
+          },
+          minerals: {
+            score: 6.0,
+            plus: "Coordinates basic mineral tracing audits across international supplier chains.",
+            minus: "Lags behind primary US competitors in public traceability reporting.",
+            source: "https://www.lenovo.com/us/en/social_responsibility/conflict_minerals/",
+            source_title: "Lenovo Minerals Sourcing"
+          },
+          tax: {
+            score: 5.0,
+            plus: "Maintains transparent local corporate filings.",
+            minus: "Maintains complex tax optimization structures between Chinese headquarters and US subsidiaries.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Sourcing Index"
+          },
+          sustainability: {
+            score: 6.0,
+            plus: "Integrates eco-friendly packaging and moderate post-consumer recycled plastics.",
+            minus: "High volume of low-cost consumer hardware configurations with short lifespans.",
+            source: "https://www.lenovo.com/us/en/about/sustainability-reporting/",
+            source_title: "Lenovo Eco-Declaration"
+          },
+          workers: {
+            score: 6.0,
+            plus: "Maintains clear employee safety guidelines across direct operations.",
+            minus: "Vulnerable to poor labor and assembly monitoring at third-party supplier factories.",
+            source: "https://www.lenovo.com/us/en/social_responsibility/supplier_code/",
+            source_title: "Lenovo Supplier Guidelines"
+          },
+          community: {
+            score: 6.0,
+            plus: "Supports tech accessibility programs managed through its corporate foundation.",
+            minus: "Limited public local community agency and direct environmental restoration funding.",
+            source: "https://www.lenovo.com/us/en/about/lenovo-foundation/",
+            source_title: "Lenovo Foundation Portal"
+          },
+          repairability: {
+            score: 6.0,
+            plus: "Excellent repairability on business-oriented ThinkPads with highly modular designs.",
+            minus: "Consumer-grade configurations are heavily glued and use soldered memory components.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Lenovo Repair Guide"
+          }
+        }
+      },
+      {
+        id: "asus",
+        name: "ASUS",
+        highlights: {
+          carbonTarget: "Net-Zero by 2050",
+          repairClass: "Highly Sealed"
+        },
+        metrics: {
+          climate: {
+            score: 5.5,
+            plus: "Provides clear emissions transparency reports for its domestic operations in Taiwan.",
+            minus: "Net-zero target set to 2050, lagging behind major enterprise competitors.",
+            source: "https://www.asus.com/about-asus/sustainability/esg-performance/",
+            source_title: "ASUS Carbon Performance"
+          },
+          ethos: {
+            score: 4.5,
+            plus: "Maintains solid corporate filing transparency.",
+            minus: "Very limited support for open-source development or community hardware programs.",
+            source: "https://www.asus.com/about-asus/sustainability/esg-performance/",
+            source_title: "ASUS ESG Disclosures"
+          },
+          minerals: {
+            score: 5.0,
+            plus: "Performs basic tracing audits across major suppliers.",
+            minus: "Limited public visibility and disclosure regarding mineral tracing results.",
+            source: "https://www.asus.com/about-asus/sustainability/esg-performance/",
+            source_title: "ASUS Minerals Report"
+          },
+          tax: {
+            score: 6.0,
+            plus: "Solid localized tax filing with corporate headquarters in Taiwan.",
+            minus: "Uses standard transfer-pricing structures to minimize international corporate tax.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Sourcing Review"
+          },
+          sustainability: {
+            score: 5.0,
+            plus: "Gradually introducing FSC paper materials in product boxes.",
+            minus: "Low-end consumer hardware uses low percentages of post-consumer recycled plastics.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT ASUS Status"
+          },
+          workers: {
+            score: 5.0,
+            plus: "Maintains basic health and safety standards inside its direct assembly facilities.",
+            minus: "Limited transparency with few public labor audit logs.",
+            source: "https://www.asus.com/about-asus/sustainability/esg-performance/",
+            source_title: "ASUS Human Rights Statement"
+          },
+          community: {
+            score: 5.0,
+            plus: "Coordinates local educational donations in East Asia.",
+            minus: "Limited digital inclusion initiatives for underserved communities globally.",
+            source: "https://www.asus.com/about-asus/sustainability/esg-performance/",
+            source_title: "ASUS Sourcing Impact"
+          },
+          repairability: {
+            score: 4.0,
+            plus: "Provides standard replacement parts for business configurations.",
+            minus: "Consumer and gaming lines are sealed with proprietary adhesives, minimizing repair paths.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Gaming Reviews"
+          }
+        }
+      },
+      {
+        id: "acer",
+        name: "Acer",
+        highlights: {
+          carbonTarget: "Net-Zero by 2050",
+          repairClass: "Moderate Service (Vero Exception)"
+        },
+        metrics: {
+          climate: {
+            score: 6.5,
+            plus: "Clear timeline towards 100% renewable grid transition (RE100) by 2035.",
+            minus: "Scope 3 downstream distribution logistics generate high carbon output annually.",
+            source: "https://www.acer-group.com/sustainability/en/climate-change.html",
+            source_title: "Acer ESG Climate Report"
+          },
+          ethos: {
+            score: 5.5,
+            plus: "Consistently coordinates transparent corporate social responsibility targets.",
+            minus: "Standard defensive positioning on consumer warranty modifications and open bootloader options.",
+            source: "https://www.eff.org/",
+            source_title: "EFF Sourcing Review"
+          },
+          minerals: {
+            score: 6.5,
+            plus: "Active validation procedures for tin, gold, and tungsten sourcing through the RMI framework.",
+            minus: "Vulnerable to certification lags inside multi-tier subassembly smelters.",
+            source: "https://www.acer-group.com/sustainability/en/supply-chain-social-responsibility.html",
+            source_title: "Acer Minerals Sourcing"
+          },
+          tax: {
+            score: 6.0,
+            plus: "Strong statutory compliance within principal corporate operations in Taiwan.",
+            minus: "Utilizes complex transfer pricing structures to optimize tax margins across international subsidiaries.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Secrecy Indexes"
+          },
+          sustainability: {
+            score: 7.0,
+            plus: "Pioneered the 'Vero' product series, using up to 40% post-consumer recycled (PCR) plastic resins and paper-only boxes.",
+            minus: "Mainstream consumer Swift and Spin notebooks still rely heavily on newly-sourced, virgin plastic panels.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT Acer Registry"
+          },
+          workers: {
+            score: 5.5,
+            plus: "Maintains structured supplier verification templates based on standard RBA parameters.",
+            minus: "Audit records reveal persistent work-hour violations at external component subcontractors.",
+            source: "https://www.responsiblebusiness.org/",
+            source_title: "RBA Monitoring Hub"
+          },
+          community: {
+            score: 6.0,
+            plus: "Maintains routine hardware donations targeting rural educational development.",
+            minus: "Fewer community-driven resource regeneration projects near mining areas.",
+            source: "https://www.acer-group.com/sustainability/en/society-engagement.html",
+            source_title: "Acer CSR Giving Portfolio"
+          },
+          repairability: {
+            score: 5.0,
+            plus: "Dedicated Vero configurations feature standard cross-screws and simple chassis access.",
+            minus: "Ultrathin Swift lineups solder internal RAM modules, precluding user hardware upgrades.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Acer Registry"
+          }
+        }
+      },
+      {
+        id: "samsung",
+        name: "Samsung",
+        highlights: {
+          carbonTarget: "Net-Zero by 2050 (DX 2030)",
+          repairClass: "Highly Integrated"
+        },
+        metrics: {
+          climate: {
+            score: 7.0,
+            plus: "Committed to 100% renewable matching for Device Experience (DX) divisions by 2030.",
+            minus: "Highly energy-intensive memory fab and semiconductor foundry operations globally.",
+            source: "https://www.samsung.com/us/aboutsamsung/sustainability/strategy/",
+            source_title: "Samsung ESG Strategy Portal"
+          },
+          ethos: {
+            score: 5.0,
+            plus: "Highly stable supply security and standardized warranty coverage networks.",
+            minus: "Historical controversies regarding union organizations and political lobbying inside South Korea.",
+            source: "https://www.samsung.com/us/aboutsamsung/sustainability/governance/",
+            source_title: "Samsung Investor Governance"
+          },
+          minerals: {
+            score: 7.0,
+            plus: "Exerts direct oversight on minerals tracing due to high vertical integration of component lines.",
+            minus: "Vast manufacturing demand strains resource supplies in extraction areas.",
+            source: "https://www.samsung.com/us/aboutsamsung/sustainability/sustainable-supply-chain/",
+            source_title: "Samsung Materials Tracking"
+          },
+          tax: {
+            score: 5.5,
+            plus: "Contributes substantial statutory corporate tax inside parent South Korean jurisdiction.",
+            minus: "Optimizes tax exposures globally through highly complex multinational accounting holding structures.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Secrecy Indexes"
+          },
+          sustainability: {
+            score: 6.5,
+            plus: "Uses ocean-bound plastics sourced from discarded fishing nets inside structural design components.",
+            minus: "Extremely compact design profiles minimize options for utilizing heavy recycled metal alloys.",
+            source: "https://www.samsung.com/us/aboutsamsung/sustainability/environment/",
+            source_title: "Samsung Environmental Progress"
+          },
+          workers: {
+            score: 5.5,
+            plus: "Maintains structured health monitoring inside manufacturing semiconductor fabs.",
+            minus: "Historical disputes surrounding occupational leukemia rates in older production lines and worker union organization.",
+            source: "https://chinalaborwatch.org/",
+            source_title: "China Labor Watch Database"
+          },
+          community: {
+            score: 7.0,
+            plus: "Substantial direct funding for international youth STEM science competitions like 'Solve for Tomorrow'.",
+            minus: "High corporate concentration of CSR initiatives in major domestic hubs.",
+            source: "https://www.samsung.com/us/solvefortomorrow/",
+            source_title: "Samsung Solve For Tomorrow"
+          },
+          repairability: {
+            score: 4.0,
+            plus: "Provides accessible schematics and parts through authorized channels.",
+            minus: "Laptops utilize heavy structural adhesives, welded internal modules, and highly consolidated mainboards.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Samsung Catalog"
+          }
+        }
+      },
+      {
+        id: "lg",
+        name: "LG",
+        highlights: {
+          carbonTarget: "Net-Zero by 2030",
+          repairClass: "Modular Frame / Soldered Components"
+        },
+        metrics: {
+          climate: {
+            score: 7.0,
+            plus: "Aggressive verified targets aimed at 100% operational carbon neutrality by 2030.",
+            minus: "Maintains high Scope 3 manufacturing emission targets that stretch to 2050.",
+            source: "https://sciencebasedtargets.org/target-dashboard",
+            source_title: "SBTi Target Dashboard"
+          },
+          ethos: {
+            score: 6.0,
+            plus: "Stable and transparent corporate governance frameworks.",
+            minus: "Standard corporate policy lobbying footprints regarding regional consumer options.",
+            source: "https://www.lg.com/global/sustainability",
+            source_title: "LG Global Sustainability"
+          },
+          minerals: {
+            score: 6.5,
+            plus: "Aligns minerals tracing with standard RMI guidelines across external screen and battery suppliers.",
+            minus: "Less direct leverage over smelters due to outsourcing key silicon chip designs.",
+            source: "https://www.lg.com/global/sustainability/supply-chain",
+            source_title: "LG Minerals Verification"
+          },
+          tax: {
+            score: 6.0,
+            plus: "Consistent and standard corporate taxation returns filed inside South Korea.",
+            minus: "Utilizes standard global tax-minimization models through offshore distribution networks.",
+            source: "https://taxjustice.net/",
+            source_title: "Tax Justice Network Guidelines"
+          },
+          sustainability: {
+            score: 6.0,
+            plus: "Gram series lightweight magnesium alloy reduces chassis plastic volumes significantly.",
+            minus: "Extremely low usage of post-consumer recycled (PCR) aluminum or copper resins.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT LG Registry"
+          },
+          workers: {
+            score: 6.0,
+            plus: "Regular labor audit logs demonstrating compliance with key international codes of conduct.",
+            minus: "Occasional worker health complaints in sub-contracted electronic assembly plants.",
+            source: "https://www.lg.com/global/sustainability/human-rights",
+            source_title: "LG Human Rights Code"
+          },
+          community: {
+            score: 6.5,
+            plus: "Strong community engagement focusing on regional accessibility and digital support.",
+            minus: "CSR initiatives are often heavily coupled with commercial marketing initiatives.",
+            source: "https://www.lg.com/global/sustainability/social-contribution",
+            source_title: "LG Contribution Portfolio"
+          },
+          repairability: {
+            score: 5.0,
+            plus: "Gram models offer direct screw fastener access to battery and storage slots.",
+            minus: "Mainboard RAM is soldered directly; official spare parts are difficult for the public to purchase.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit LG Gram Teardowns"
+          }
+        }
+      },
+      {
+        id: "razer",
+        name: "Razer",
+        highlights: {
+          carbonTarget: "Carbon Neutral by 2030",
+          repairClass: "Highly Sealed / Gaming Focus"
+        },
+        metrics: {
+          climate: {
+            score: 6.0,
+            plus: "Clear corporate target for operational carbon neutrality by 2030.",
+            minus: "Relies heavily on carbon offset purchases; supply chain Scope 3 intensity remains exceptionally high.",
+            source: "https://www.razer.com/go-green",
+            source_title: "Razer GoGreen Targets"
+          },
+          ethos: {
+            score: 5.5,
+            plus: "Highly active in mobilizing youthful user-bases towards climate awareness.",
+            minus: "Faced past public scrutiny over specific marketing claims surrounding environmental merchandise.",
+            source: "https://www.eff.org/",
+            source_title: "EFF Sourcing Index"
+          },
+          minerals: {
+            score: 5.5,
+            plus: "Requires tier-1 suppliers to verify minerals through basic conflict-free frameworks.",
+            minus: "Extremely fragmented subcontracted ODM network reduces audit visibility.",
+            source: "https://www.razer.com/go-green/supply-chain",
+            source_title: "Razer Supply Disclosures"
+          },
+          tax: {
+            score: 5.5,
+            plus: "Complies with statutory tax expectations in corporate hubs.",
+            minus: "Uses optimized dual-headquarter frameworks in Singapore and the US to reduce overall tax margins.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Sourcing Index"
+          },
+          sustainability: {
+            score: 5.5,
+            plus: "Premium anodized aluminum chassis design ensures high durability.",
+            minus: "Very limited integration of post-consumer recycled metals or bio-based plastics in flagship units.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT Razer Listings"
+          },
+          workers: {
+            score: 5.5,
+            plus: "Requires principal contractors to sign a formal Code of Conduct.",
+            minus: "Very limited direct corporate auditing of assembly lines, relying heavily on subcontractor claims.",
+            source: "https://www.razer.com/go-green/supply-chain",
+            source_title: "Razer Supplier Code"
+          },
+          community: {
+            score: 7.5,
+            plus: "Excellent community-driven environmental partnerships, raising substantial conservation funding through 'Sneki Snek'.",
+            minus: "Community support is heavily restricted to gamer demographics.",
+            source: "https://www.razer.com/go-green/sneki-snek",
+            source_title: "Razer Sneki Snek Conservation"
+          },
+          repairability: {
+            score: 4.5,
+            plus: "Allows upgrades to secondary storage drives and standard network cards.",
+            minus: "Extremely tight internal layouts, delicate vapor chambers, and proprietary ribbon cables restrict standard repair.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Gaming teardowns"
+          }
+        }
+      }
+    ];
+
+    // Global App State
+    let currentWeights = {
+      climate: 5,
+      ethos: 5,
+      minerals: 5,
+      tax: 5,
+      sustainability: 5,
+      workers: 5,
+      community: 5,
+      repairability: 5
+    };
+
+    let selectedForComparison = [];
+    let highContrastMode = false;
+    let compareModeView = 'scores'; // 'scores' or 'details'
+    let currentSortCriteria = 'weighted'; // 'weighted', 'name', or specific key
+    let currentSortOrder = 'desc'; // 'desc' or 'asc'
+
+    // Chart.js Instances tracking (Must destroy old instance before recreating to prevent canvas overlap bugs)
+    let deepDiveChartInstance = null;
+    let compareChartInstance = null;
+
+    // Calculation & Sorter Engine
+    function calculateStandings() {
+      // First, map the base results with current weights calculated
+      let results = BRAND_DATABASE.map(brand => {
+        let weightedSum = 0;
+        let totalWeights = 0;
+
+        for (const criterion in currentWeights) {
+          const weight = currentWeights[criterion];
+          weightedSum += brand.metrics[criterion].score * weight;
+          totalWeights += weight;
+        }
+
+        const score = totalWeights > 0 ? (weightedSum / totalWeights) * 10 : 0;
+        return {
+          ...brand,
+          finalScore: Math.round(score * 10) / 10
+        };
+      });
+
+      // Apply primary sort criteria
+      results.sort((a, b) => {
+        let valA, valB;
+
+        if (currentSortCriteria === 'weighted') {
+          valA = a.finalScore;
+          valB = b.finalScore;
+        } else if (currentSortCriteria === 'name') {
+          valA = a.name.toLowerCase();
+          valB = b.name.toLowerCase();
+          
+          // Alphabetical default order sorting adjustments
+          if (currentSortOrder === 'desc') {
+            return valA < valB ? 1 : (valA > valB ? -1 : 0);
+          } else {
+            return valA > valB ? 1 : (valA < valB ? -1 : 0);
+          }
+        } else {
+          // Sorting by individual metric score
+          valA = a.metrics[currentSortCriteria].score;
+          valB = b.metrics[currentSortCriteria].score;
+        }
+
+        // Secondary fallback to name alphabetically if values match
+        if (valA === valB) {
+          return a.name.localeCompare(b.name);
+        }
+
+        return currentSortOrder === 'desc' ? valB - valA : valA - valB;
+      });
+
+      // Update screen reader announcer text
+      const announcer = document.getElementById("sorting-announcer");
+      if (announcer) {
+        let criteriaLabel = currentSortCriteria === 'weighted' ? 'overall weighted score' : 
+                          currentSortCriteria === 'name' ? 'alphabetical name' : currentSortCriteria;
+        announcer.innerText = `Currently sorted by ${criteriaLabel} in ${currentSortOrder === 'desc' ? 'descending' : 'ascending'} order`;
+      }
+
+      renderList(results);
+    }
+
+    function getGrade(score) {
+      if (score >= 90) return { grade: "A+", color: "bg-hiveSuccess text-hiveSuccessBg border-hiveSuccess" };
+      if (score >= 80) return { grade: "A-", color: "bg-hiveSuccess/80 text-hiveSuccessBg border-hiveSuccess/80" };
+      if (score >= 70) return { grade: "B", color: "bg-hiveYellow text-hiveCharcoal border-hiveCharcoal" };
+      if (score >= 60) return { grade: "C", color: "bg-hiveWarning text-hiveWarningBg border-hiveWarning" };
+      if (score >= 50) return { grade: "D", color: "bg-hiveDanger/80 text-hiveDangerBg border-hiveDanger/80" };
+      return { grade: "F", color: "bg-hiveDanger text-hiveDangerBg border-hiveDanger" };
+    }
+
+    // Toggle comparison checkboxes
+    window.toggleCompare = function(brandId) {
+      const idx = selectedForComparison.indexOf(brandId);
+      if (idx > -1) {
+        selectedForComparison.splice(idx, 1);
+      } else {
+        selectedForComparison.push(brandId);
+      }
+      updateCompareBar();
+    };
+
+    function updateCompareBar() {
+      const count = selectedForComparison.length;
+      const stickyCompareBar = document.getElementById("sticky-compare-bar");
+      const compareCountText = document.getElementById("compare-count-text");
+      if (!stickyCompareBar || !compareCountText) return;
+
+      if (count > 0) {
+        stickyCompareBar.classList.remove("hidden");
+        compareCountText.innerText = `${count} ${count === 1 ? 'Brand' : 'Brands'} Selected`;
+      } else {
+        stickyCompareBar.classList.add("hidden");
+      }
+    }
+
+    // Dynamic rendering of primary listing card matrix
+    function renderList(sortedBrands) {
+      const resultsContainer = document.getElementById("results-container");
+      if (!resultsContainer) return;
+      resultsContainer.innerHTML = "";
+
+      sortedBrands.forEach((brand, index) => {
+        const gradeInfo = getGrade(brand.finalScore);
+        const rank = index + 1;
+        const isChecked = selectedForComparison.includes(brand.id) ? 'checked' : '';
+
+        // Determine badge value to show next to score if sorting by specific metric
+        let additionalBadge = "";
+        if (currentSortCriteria !== 'weighted' && currentSortCriteria !== 'name') {
+          const metricVal = brand.metrics[currentSortCriteria].score;
+          additionalBadge = `<span class="text-xs font-black bg-hiveYellow text-hiveCharcoal px-2.5 py-1 border border-hiveCharcoal rounded uppercase tracking-wider block mt-1">${currentSortCriteria}: ${metricVal}/10</span>`;
+        }
+
+        const card = document.createElement("article");
+        card.className = `bg-white border-4 border-hiveCharcoal p-6 rounded-lg hive-shadow hover:translate-y-[-2px] hover:hive-shadow-sm transition-all relative flex flex-col md:flex-row items-start md:items-center justify-between gap-4`;
+        card.setAttribute("aria-label", `${brand.name}, Ranked ${rank} of ${sortedBrands.length}`);
+
+        card.innerHTML = `
+          <div class="flex items-start gap-4">
+            <div class="flex items-center h-5 mt-1.5">
+              <input id="compare-${brand.id}" type="checkbox" ${isChecked} onchange="toggleCompare('${brand.id}')" class="w-5 h-5 border-2 border-hiveCharcoal rounded bg-white accent-hiveYellow cursor-pointer focus:ring-2 focus:ring-hiveCharcoal" aria-label="Add ${brand.name} to comparison">
+            </div>
+            
+            <div class="w-10 h-10 rounded-full border-2 border-hiveCharcoal flex items-center justify-center font-black text-lg ${rank === 1 ? 'bg-hiveYellow' : 'bg-gray-100'}" aria-hidden="true">
+              ${rank}
+            </div>
+            <div>
+              <h3 class="text-xl font-extrabold tracking-tight">${brand.name}</h3>
+              <div class="flex flex-wrap gap-2 mt-2">
+                <span class="text-xs font-semibold bg-gray-100 text-gray-700 px-2 py-0.5 border border-gray-300 rounded">Carbon Strategy: ${brand.highlights.carbonTarget}</span>
+                <span class="text-xs font-semibold bg-gray-100 text-gray-700 px-2 py-0.5 border border-gray-300 rounded">Repair Strategy: ${brand.highlights.repairClass}</span>
+              </div>
+              ${additionalBadge}
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4 self-end md:self-auto">
+            <div class="text-right">
+              <span class="text-xs text-gray-500 font-bold block">ETHICAL INDEX</span>
+              <span class="text-3xl font-black">${brand.finalScore}%</span>
+            </div>
+            <div class="w-14 h-14 ${gradeInfo.color} border-2 rounded flex items-center justify-center font-black text-xl" title="Ethical grade of ${gradeInfo.grade}" aria-hidden="true">
+              ${gradeInfo.grade}
+            </div>
+            <button class="px-4 py-2 bg-hiveYellow text-hiveCharcoal font-bold border-2 border-hiveCharcoal rounded hover:bg-hiveYellowHover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-hiveCharcoal transition-transform active:translate-y-0.5 text-sm" onclick="openDetails('${brand.id}', ${rank}, ${brand.finalScore})">
+              Deep Dive
+            </button>
+          </div>
+        `;
+        resultsContainer.appendChild(card);
+      });
+    }
+
+    // Individual Deep Dive Accordions and Radar Chart Renderer
+    window.openDetails = function(brandId, rank, score) {
+      const brand = BRAND_DATABASE.find(b => b.id === brandId);
+      if (!brand) return;
+
+      const modalTitle = document.getElementById("modal-title");
+      const modalStatScore = document.getElementById("modal-stat-score");
+      const modalStatRank = document.getElementById("modal-stat-rank");
+      const modalStatCarbon = document.getElementById("modal-stat-carbon");
+      const modalStatRepair = document.getElementById("modal-stat-repair");
+      const modalGranularExplorer = document.getElementById("modal-granular-explorer");
+      const modalOverlay = document.getElementById("modal-overlay");
+      const modalContent = document.getElementById("modal-content");
+
+      if (modalTitle) modalTitle.innerText = brand.name;
+      if (modalStatScore) modalStatScore.innerText = `${score}%`;
+      if (modalStatRank) modalStatRank.innerText = `#${rank}`;
+      if (modalStatCarbon) modalStatCarbon.innerText = brand.highlights.carbonTarget;
+      if (modalStatRepair) modalStatRepair.innerText = brand.highlights.repairClass;
+
+      if (modalGranularExplorer) {
+        modalGranularExplorer.innerHTML = "";
+        const categories = [
+          { key: "climate", label: "Climate Impact", bg: "border-emerald-500" },
+          { key: "ethos", label: "Company Ethos", bg: "border-blue-500" },
+          { key: "minerals", label: "Conflict Minerals", bg: "border-yellow-500" },
+          { key: "tax", label: "Responsible Tax", bg: "border-purple-500" },
+          { key: "sustainability", label: "Sustainability", bg: "border-teal-500" },
+          { key: "workers", label: "Workers", bg: "border-orange-500" },
+          { key: "community", label: "Community", bg: "border-pink-500" },
+          { key: "repairability", label: "Repairability", bg: "border-cyan-500" }
+        ];
+
+        categories.forEach(cat => {
+          const item = brand.metrics[cat.key];
+          const panel = document.createElement("div");
+          panel.className = `bg-white border-2 ${cat.bg} rounded p-4 shadow-sm flex flex-col md:flex-row gap-4 justify-between items-start`;
+          
+          panel.innerHTML = `
+            <div class="space-y-2 flex-grow">
+              <div class="flex items-center gap-3">
+                <h4 class="font-extrabold text-base text-hiveCharcoal">${cat.label}</h4>
+                <span class="text-xs font-black bg-gray-100 text-gray-700 px-2 py-0.5 border border-gray-300 rounded">${item.score}/10</span>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                <div class="bg-emerald-50 border-l-4 border-hiveSuccess p-2.5 rounded-r">
+                  <span class="text-xs font-bold text-hiveSuccess uppercase tracking-wider block mb-1">Merits (+)</span>
+                  <p class="text-sm text-gray-700">${item.plus}</p>
+                </div>
+                <div class="bg-red-50 border-l-4 border-hiveDanger p-2.5 rounded-r">
+                  <span class="text-xs font-bold text-hiveDanger uppercase tracking-wider block mb-1">Deficits (-)</span>
+                  <p class="text-sm text-gray-700">${item.minus}</p>
+                </div>
+              </div>
+              <div class="pt-2">
+                <a href="${item.source}" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-800 hover:text-blue-600 font-bold underline inline-flex items-center gap-1">
+                  Verify Source: ${item.source_title}
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          `;
+          modalGranularExplorer.appendChild(panel);
+        });
+      }
+
+      // Show the modal container first so Chart.js has direct calculated layout coordinates
+      if (modalOverlay) modalOverlay.classList.remove("hidden");
+      if (modalContent) modalContent.focus();
+      document.body.style.overflow = 'hidden';
+
+      // Instantiate/Update individual radar chart
+      renderIndividualRadar(brand);
+    };
+
+    function renderIndividualRadar(brand) {
+      const canvas = document.getElementById('deepDiveChart');
+      if (!canvas) return;
+
+      // Clean destroy to avoid tooltip/hover bugs
+      if (deepDiveChartInstance) {
+        deepDiveChartInstance.destroy();
+      }
+
+      const rawScores = [
+        brand.metrics.climate.score,
+        brand.metrics.ethos.score,
+        brand.metrics.minerals.score,
+        brand.metrics.tax.score,
+        brand.metrics.sustainability.score,
+        brand.metrics.workers.score,
+        brand.metrics.community.score,
+        brand.metrics.repairability.score
+      ];
+
+      deepDiveChartInstance = new Chart(canvas, {
+        type: 'radar',
+        data: {
+          labels: ['Climate', 'Ethos', 'Minerals', 'Tax', 'Sustainability', 'Workers', 'Community', 'Repairability'],
+          datasets: [{
+            label: brand.name,
+            data: rawScores,
+            backgroundColor: 'rgba(255, 200, 3, 0.2)', // Honey Fill
+            borderColor: '#1E2229', // Charcoal Border
+            borderWidth: 3,
+            pointBackgroundColor: '#1E2229',
+            pointHoverBackgroundColor: '#FFFFFF',
+            pointHoverBorderColor: '#1E2229',
+            pointRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            r: {
+              angleLines: {
+                color: 'rgba(30, 34, 41, 0.15)'
+              },
+              grid: {
+                color: 'rgba(30, 34, 41, 0.1)'
+              },
+              pointLabels: {
+                color: '#1E2229',
+                font: {
+                  size: 11,
+                  weight: 'bold',
+                  family: 'Inter'
+                }
+              },
+              ticks: {
+                stepSize: 2,
+                color: '#1E2229'
+              },
+              suggestedMin: 0,
+              suggestedMax: 10
+            }
+          }
+        }
+      });
+    }
+
+    function closeModal() {
+      const modalOverlay = document.getElementById("modal-overlay");
+      if (modalOverlay) modalOverlay.classList.add("hidden");
+      document.body.style.overflow = '';
+      if (deepDiveChartInstance) {
+        deepDiveChartInstance.destroy();
+        deepDiveChartInstance = null;
+      }
+    }
+
+    function closeCompareModal() {
+      const compareModal = document.getElementById("compare-modal");
+      if (compareModal) compareModal.classList.add("hidden");
+      document.body.style.overflow = '';
+      if (compareChartInstance) {
+        compareChartInstance.destroy();
+        compareChartInstance = null;
+      }
+    }
+
+    // Side-by-Side Comparison Matrix Constructor & Overlay Chart Loader
+    function buildComparisonMatrix() {
+      if (selectedForComparison.length < 1) return;
+
+      const compareTableHeader = document.getElementById("compare-table-header");
+      const compareTableBody = document.getElementById("compare-table-body");
+      if (!compareTableHeader || !compareTableBody) return;
+
+      const comparisonList = BRAND_DATABASE.filter(b => selectedForComparison.includes(b.id)).map(brand => {
+        let weightedSum = 0;
+        let totalWeights = 0;
+        for (const criterion in currentWeights) {
+          const weight = currentWeights[criterion];
+          weightedSum += brand.metrics[criterion].score * weight;
+          totalWeights += weight;
+        }
+        const score = totalWeights > 0 ? (weightedSum / totalWeights) * 10 : 0;
+        return {
+          ...brand,
+          finalScore: Math.round(score * 10) / 10
+        };
+      });
+
+      // Render overlay Multi-Radar Chart
+      renderComparativeRadar(comparisonList);
+
+      // Construct Header Columns
+      compareTableHeader.innerHTML = `<th class="p-4 font-black border-r border-hiveCharcoal bg-gray-50">Metrics & Categories</th>`;
+      comparisonList.forEach(brand => {
+        const headerCell = document.createElement("th");
+        headerCell.className = "p-4 font-black text-center border-r border-hiveCharcoal bg-hiveYellow/10";
+        headerCell.innerHTML = `
+          <div class="text-base uppercase tracking-tight">${brand.name}</div>
+          <div class="text-2xl font-black text-hiveCharcoal mt-1">${brand.finalScore}%</div>
+        `;
+        compareTableHeader.appendChild(headerCell);
+      });
+
+      // Build Row Structures
+      const categories = [
+        { key: "climate", label: "Climate Impact" },
+        { key: "ethos", label: "Company Ethos" },
+        { key: "minerals", label: "Conflict Minerals" },
+        { key: "tax", label: "Responsible Tax" },
+        { key: "sustainability", label: "Sustainability" },
+        { key: "workers", label: "Workers" },
+        { key: "community", label: "Community" },
+        { key: "repairability", label: "Repairability" }
+      ];
+
+      compareTableBody.innerHTML = "";
+
+      categories.forEach(cat => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-gray-50 transition-colors";
+
+        let labelCell = document.createElement("td");
+        labelCell.className = "p-4 font-bold text-sm text-gray-700 border-r border-hiveCharcoal bg-gray-50 sticky left-0";
+        labelCell.innerText = cat.label;
+        tr.appendChild(labelCell);
+
+        comparisonList.forEach(brand => {
+          let valCell = document.createElement("td");
+          valCell.className = "p-4 text-center border-r border-hiveCharcoal font-medium text-sm";
+          const item = brand.metrics[cat.key];
+
+          if (compareModeView === 'scores') {
+            valCell.innerHTML = `
+              <div class="text-lg font-black text-hiveCharcoal">${item.score}/10</div>
+              <a href="${item.source}" target="_blank" rel="noopener noreferrer" class="text-[10px] text-blue-800 hover:underline block mt-1">Verify Source &rarr;</a>
+            `;
+          } else {
+            valCell.innerHTML = `
+              <div class="space-y-2 text-left max-w-sm">
+                <div class="bg-emerald-50 p-2 border-l-2 border-hiveSuccess text-xs rounded-r">
+                  <span class="font-bold text-hiveSuccess uppercase block mb-0.5">Merit (+)</span>
+                  <span>${item.plus}</span>
+                </div>
+                <div class="bg-red-50 p-2 border-l-2 border-hiveDanger text-xs rounded-r">
+                  <span class="font-bold text-hiveDanger uppercase block mb-0.5">Deficit (-)</span>
+                  <span>${item.minus}</span>
+                </div>
+              </div>
+            `;
+          }
+          tr.appendChild(valCell);
+        });
+
+        compareTableBody.appendChild(tr);
+      });
+    }
+
+    // Interactive comparative overlay radar renderer
+    function renderComparativeRadar(brandList) {
+      const canvas = document.getElementById('compareRadarChart');
+      if (!canvas) return;
+
+      if (compareChartInstance) {
+        compareChartInstance.destroy();
+      }
+
+      // Safe, vibrant contrast color map tailored to Hive IT templates
+      const palette = [
+        { stroke: '#1E2229', fill: 'rgba(30, 34, 41, 0.03)' },   // Deep Charcoal
+        { stroke: '#B07D11', fill: 'rgba(176, 125, 17, 0.12)' }, // Honey Yellow
+        { stroke: '#1B4332', fill: 'rgba(27, 67, 50, 0.12)' },   // Dark Emerald
+        { stroke: '#2563EB', fill: 'rgba(37, 99, 235, 0.12)' },   // Vivid Blue
+        { stroke: '#7C3AED', fill: 'rgba(124, 58, 237, 0.12)' },  // Purple
+        { stroke: '#EA580C', fill: 'rgba(234, 88, 12, 0.12)' },   // Orange
+        { stroke: '#DB2777', fill: 'rgba(219, 39, 119, 0.12)' },  // Pink
+        { stroke: '#0891B2', fill: 'rgba(8, 145, 178, 0.12)' },   // Cyan
+        { stroke: '#059669', fill: 'rgba(5, 150, 105, 0.12)' },   // Green
+        { stroke: '#DC2626', fill: 'rgba(220, 38, 38, 0.12)' },   // Red
+        { stroke: '#4B5563', fill: 'rgba(75, 85, 99, 0.12)' }     // Gray
+      ];
+
+      const datasets = brandList.map((brand, index) => {
+        const color = palette[index % palette.length];
+        const scores = [
+          brand.metrics.climate.score,
+          brand.metrics.ethos.score,
+          brand.metrics.minerals.score,
+          brand.metrics.tax.score,
+          brand.metrics.sustainability.score,
+          brand.metrics.workers.score,
+          brand.metrics.community.score,
+          brand.metrics.repairability.score
+        ];
+
+        return {
+          label: brand.name,
+          data: scores,
+          backgroundColor: color.fill,
+          borderColor: color.stroke,
+          borderWidth: 2,
+          pointBackgroundColor: color.stroke,
+          pointHoverRadius: 5
+        };
+      });
+
+      compareChartInstance = new Chart(canvas, {
+        type: 'radar',
+        data: {
+          labels: ['Climate', 'Ethos', 'Minerals', 'Tax', 'Sustainability', 'Workers', 'Community', 'Repairability'],
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: window.innerWidth > 768 ? 'right' : 'bottom',
+              labels: {
+                color: '#1E2229',
+                boxWidth: 12,
+                padding: 10,
+                font: {
+                  family: 'Inter',
+                  weight: 'bold',
+                  size: 11
+                }
+              }
+            }
+          },
+          scales: {
+            r: {
+              angleLines: {
+                color: 'rgba(30, 34, 41, 0.15)'
+              },
+              grid: {
+                color: 'rgba(30, 34, 41, 0.1)'
+              },
+              pointLabels: {
+                color: '#1E2229',
+                font: {
+                  size: 10,
+                  weight: 'bold',
+                  family: 'Inter'
+                }
+              },
+              ticks: {
+                stepSize: 2,
+                color: '#1E2229'
+              },
+              suggestedMin: 0,
+              suggestedMax: 10
+            }
+          }
+        }
+      });
+    }
+
+    // Toggle Matrix views (Detailed pluses/minuses vs Raw Numerical Indexes)
+    function registerViewToggles() {
+      const toggleCompareViewScores = document.getElementById("toggle-compare-view-scores");
+      if (toggleCompareViewScores) {
+        toggleCompareViewScores.addEventListener("click", () => {
+          compareModeView = 'scores';
+          toggleCompareViewScores.className = "px-3 py-1.5 bg-hiveYellow text-hiveCharcoal border-2 border-hiveCharcoal font-extrabold text-xs rounded hover:bg-hiveYellowHover focus:outline-none";
+          const toggleCompareViewDetails = document.getElementById("toggle-compare-view-details");
+          if (toggleCompareViewDetails) {
+            toggleCompareViewDetails.className = "px-3 py-1.5 bg-white text-hiveCharcoal border-2 border-hiveCharcoal font-bold text-xs rounded hover:bg-gray-100 focus:outline-none";
+          }
+          buildComparisonMatrix();
+        });
+      }
+
+      const toggleCompareViewDetails = document.getElementById("toggle-compare-view-details");
+      if (toggleCompareViewDetails) {
+        toggleCompareViewDetails.addEventListener("click", () => {
+          compareModeView = 'details';
+          toggleCompareViewDetails.className = "px-3 py-1.5 bg-hiveYellow text-hiveCharcoal border-2 border-hiveCharcoal font-extrabold text-xs rounded hover:bg-hiveYellowHover focus:outline-none";
+          const toggleCompareViewScores = document.getElementById("toggle-compare-view-scores");
+          if (toggleCompareViewScores) {
+            toggleCompareViewScores.className = "px-3 py-1.5 bg-white text-hiveCharcoal border-2 border-hiveCharcoal font-bold text-xs rounded hover:bg-gray-100 focus:outline-none";
+          }
+          buildComparisonMatrix();
+        });
+      }
+    }
+
+    // Sorter Weight slider actions
+    const sliders = ["climate", "ethos", "minerals", "tax", "sustainability", "workers", "community", "repairability"];
+    function bindSliders() {
+      sliders.forEach(sliderName => {
+        const sliderInput = document.getElementById(`weight-${sliderName}`);
+        const sliderVal = document.getElementById(`val-${sliderName}`);
+
+        if (sliderInput) {
+          sliderInput.addEventListener("input", (e) => {
+            const val = e.target.value;
+            if (sliderVal) sliderVal.innerText = `${val}/10`;
+            currentWeights[sliderName] = parseInt(val);
+            calculateStandings();
+          });
+        }
+      });
+    }
+
+    // DOM Setup & Safe Declarations
+    function init() {
+      const resetBtn = document.getElementById("reset-weights");
+      if (resetBtn) {
+        resetBtn.addEventListener("click", () => {
+          sliders.forEach(sliderName => {
+            const sliderInput = document.getElementById(`weight-${sliderName}`);
+            const sliderVal = document.getElementById(`val-${sliderName}`);
+            if (sliderInput) sliderInput.value = 5;
+            if (sliderVal) sliderVal.innerText = "5/10";
+            currentWeights[sliderName] = 5;
+          });
+          calculateStandings();
+        });
+      }
+
+      const toggleContrastBtn = document.getElementById("toggle-contrast");
+      if (toggleContrastBtn) {
+        toggleContrastBtn.addEventListener("click", () => {
+          highContrastMode = !highContrastMode;
+          if (highContrastMode) {
+            document.body.classList.add("contrast-double");
+            document.body.classList.remove("bg-hiveLightBg");
+            document.body.classList.add("bg-white");
+            toggleContrastBtn.innerText = "Normal Contrast View";
+          } else {
+            document.body.classList.remove("contrast-double");
+            document.body.classList.remove("bg-white");
+            document.body.classList.add("bg-hiveLightBg");
+            toggleContrastBtn.innerText = "High Contrast View";
+          }
+        });
+      }
+
+      // Sorting selectors binding
+      const sortSelect = document.getElementById("sort-criteria");
+      if (sortSelect) {
+        sortSelect.addEventListener("change", (e) => {
+          currentSortCriteria = e.target.value;
+          calculateStandings();
+        });
+      }
+
+      // Sort Order toggle button binding
+      const toggleOrderBtn = document.getElementById("toggle-sort-order");
+      const orderText = document.getElementById("sort-order-text");
+      const orderIcon = document.getElementById("sort-order-icon");
+      if (toggleOrderBtn) {
+        toggleOrderBtn.addEventListener("click", () => {
+          currentSortOrder = (currentSortOrder === 'desc') ? 'asc' : 'desc';
+          if (orderText) {
+            orderText.innerText = currentSortOrder === 'desc' ? 'Descending Order' : 'Ascending Order';
+          }
+          if (orderIcon) {
+            orderIcon.style.transform = currentSortOrder === 'desc' ? 'rotate(0deg)' : 'rotate(180deg)';
+          }
+          calculateStandings();
+        });
+      }
+
+      // Base event delegation on simple triggers
+      const closeModalBtn = document.getElementById("close-modal");
+      if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
+
+      const closeModalBottomBtn = document.getElementById("modal-close-bottom");
+      if (closeModalBottomBtn) closeModalBottomBtn.addEventListener("click", closeModal);
+
+      const modalOverlay = document.getElementById("modal-overlay");
+      if (modalOverlay) {
+        modalOverlay.addEventListener("click", (e) => { if (e.target === modalOverlay) closeModal(); });
+      }
+
+      const closeCompareModalBtn = document.getElementById("close-compare-modal");
+      if (closeCompareModalBtn) closeCompareModalBtn.addEventListener("click", closeCompareModal);
+
+      const dismissCompareBottomBtn = document.getElementById("dismiss-compare-bottom");
+      if (dismissCompareBottomBtn) dismissCompareBottomBtn.addEventListener("click", closeCompareModal);
+
+      const compareModal = document.getElementById("compare-modal");
+      if (compareModal) {
+        compareModal.addEventListener("click", (e) => { if (e.target === compareModal) closeCompareModal(); });
+      }
+
+      const triggerCompareModalBtn = document.getElementById("trigger-compare-modal-btn");
+      if (triggerCompareModalBtn) {
+        triggerCompareModalBtn.addEventListener("click", () => {
+          const compareModalEl = document.getElementById("compare-modal");
+          const compareModalContentEl = document.getElementById("compare-modal-content");
+          if (compareModalEl) compareModalEl.classList.remove("hidden");
+          if (compareModalContentEl) compareModalContentEl.focus();
+          document.body.style.overflow = 'hidden';
+          // Render chart after showing elements so rendering computes viewport dimensions safely
+          buildComparisonMatrix();
+        });
+      }
+
+      const clearCompareBtn = document.getElementById("clear-compare-btn");
+      if (clearCompareBtn) {
+        clearCompareBtn.addEventListener("click", () => {
+          selectedForComparison = [];
+          updateCompareBar();
+          BRAND_DATABASE.forEach(b => {
+            const chk = document.getElementById(`compare-${b.id}`);
+            if (chk) chk.checked = false;
+          });
+        });
+      }
+
+      // Bind functional helpers safely
+      registerViewToggles();
+      bindSliders();
+
+      // Escape key handlers
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeModal();
+          closeCompareModal();
+        }
+      });
+
+      // Initial execution
+      calculateStandings();
+    }
+
+    // Safe execution block
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>
