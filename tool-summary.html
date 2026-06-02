@@ -160,7 +160,7 @@
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
         <div class="space-y-1">
           <h2 class="text-xl font-bold text-hiveCharcoal">Active Tool Evaluation Register</h2>
-          <p class="text-xs text-slate-600">Platform mapping of backend models, carbon, and compliance.</p>
+          <p class="text-xs text-slate-600">Platform mapping of backend models, data routing, carbon, and compliance.</p>
         </div>
         
         <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto items-end">
@@ -193,8 +193,8 @@
               <th scope="col" class="px-6 py-4 cursor-pointer hover:text-hiveYellow transition-colors group" onclick="sortTable('providers')">
                 <div class="flex items-center justify-between">Model Providers <span id="sort-providers" class="opacity-30 group-hover:opacity-100 transition-opacity ml-1">↕</span></div>
               </th>
-              <th scope="col" class="px-6 py-4 cursor-pointer hover:text-hiveYellow transition-colors group" onclick="sortTable('useCase')">
-                <div class="flex items-center justify-between">Target Use <span id="sort-useCase" class="opacity-30 group-hover:opacity-100 transition-opacity ml-1">↕</span></div>
+              <th scope="col" class="px-6 py-4 cursor-pointer hover:text-hiveYellow transition-colors group text-center" onclick="sortTable('residency')">
+                <div class="flex items-center justify-center">Data Residency <span id="sort-residency" class="opacity-30 group-hover:opacity-100 transition-opacity ml-1">↕</span></div>
               </th>
               <th scope="col" class="px-6 py-4 cursor-pointer hover:text-hiveYellow transition-colors group text-center" onclick="sortTable('carbonTier')">
                 <div class="flex items-center justify-center">Carbon Tier <span id="sort-carbonTier" class="opacity-30 group-hover:opacity-100 transition-opacity ml-1">↕</span></div>
@@ -225,30 +225,37 @@
           <button type="button" onclick="hideInspector()" aria-label="Close details inspector panel" class="text-slate-500 hover:text-hiveCharcoal font-bold text-2xl px-3 py-1.5 focus-visible:ring-2 focus-visible:ring-hiveCharcoal">&times;</button>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs leading-relaxed mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 text-xs leading-relaxed mb-6">
           <div class="bg-white p-4 border border-hiveBorder">
             <h4 class="font-bold text-hiveCharcoal border-b pb-1.5 mb-2 uppercase tracking-wider text-[11px]">Integrated Models</h4>
             <div id="inspect-models-list" class="space-y-1.5"></div>
           </div>
           <div class="bg-white p-4 border border-hiveBorder flex flex-col">
             <div class="flex justify-between items-center border-b border-hiveBorder pb-1.5 mb-2">
-              <h4 class="font-bold text-hiveCharcoal uppercase tracking-wider text-[11px]">Carbon Footprint Context</h4>
-              <span id="inspect-carbon-badge" class="px-2 py-0.5 rounded-sm border text-[10px] font-semibold"></span>
+              <h4 class="font-bold text-hiveCharcoal uppercase tracking-wider text-[11px]">Data Routing & Storage</h4>
+              <span id="inspect-residency-badge" class="px-2 py-0.5 rounded-sm border text-[10px] font-semibold whitespace-nowrap"></span>
+            </div>
+            <p id="inspect-residency-working" class="text-[11px] text-slate-600 bg-slate-50 p-2 rounded-sm border border-slate-100 mt-auto"></p>
+          </div>
+          <div class="bg-white p-4 border border-hiveBorder flex flex-col">
+            <div class="flex justify-between items-center border-b border-hiveBorder pb-1.5 mb-2">
+              <h4 class="font-bold text-hiveCharcoal uppercase tracking-wider text-[11px]">Carbon Context</h4>
+              <span id="inspect-carbon-badge" class="px-2 py-0.5 rounded-sm border text-[10px] font-semibold whitespace-nowrap"></span>
             </div>
             <p id="inspect-carbon-text" class="text-slate-700"></p>
             <div class="mt-auto pt-3">
-              <h5 class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Intensity Calculation Basis</h5>
+              <h5 class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Intensity Basis</h5>
               <p id="inspect-carbon-working" class="text-[11px] text-slate-600 bg-slate-50 p-2 rounded-sm border border-slate-100"></p>
             </div>
           </div>
           <div class="bg-white p-4 border border-hiveBorder flex flex-col">
             <div class="flex justify-between items-center border-b border-hiveBorder pb-1.5 mb-2">
-              <h4 class="font-bold text-hiveCharcoal uppercase tracking-wider text-[11px]">Governance & Risk Rating</h4>
-              <span id="inspect-compliance-badge" class="px-2 py-0.5 rounded-sm border text-[10px] font-semibold"></span>
+              <h4 class="font-bold text-hiveCharcoal uppercase tracking-wider text-[11px]">Governance Risk</h4>
+              <span id="inspect-compliance-badge" class="px-2 py-0.5 rounded-sm border text-[10px] font-semibold whitespace-nowrap"></span>
             </div>
             <p id="inspect-governance-text" class="text-slate-700"></p>
             <div class="mt-auto pt-3">
-              <h5 class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Compliance Status Verification</h5>
+              <h5 class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Status Verification</h5>
               <p id="inspect-compliance-working" class="text-[11px] text-slate-600 bg-slate-50 p-2 rounded-sm border border-slate-100"></p>
             </div>
           </div>
@@ -644,6 +651,7 @@
         categories: ["creative", "dev", "client_services"],
         providers: ["Google"],
         useCase: "Multimodal reasoning and data analysis",
+        residency: "US & Global",
         carbonTier: "Medium",
         compliance: "Moderate",
         models: [
@@ -651,6 +659,7 @@
           { name: "Imagen 3", role: "Image generation", type: "Mixed" }
         ],
         context: "Highly efficient TPU infrastructure offsets heavy context window power draw. Utilizes filtered public datasets.",
+        residencyContext: "While Google Workspace offers European data region selection, Gemini AI API queries are often load-balanced across global TPU clusters, predominantly situated in the US.",
         carbonWorking: "Baseline text inference calculated at 0.6 Wh/query, image gen at 5.0 Wh/image. Total footprint buffered by Google's high-efficiency TPUv5e architecture, resulting in a stable Medium intensity classification.",
         governance: "Approved for enterprise reasoning tasks with Google Workspace data protections enabled.",
         complianceWorking: "Tier 2 (Moderate). Excludes customer data from training per enterprise terms, but base models rely on filtered web scrapes. Acknowledged regulatory scrutiny ongoing.",
@@ -663,12 +672,14 @@
         categories: ["creative", "dev", "client_services"],
         providers: ["Anthropic"],
         useCase: "Complex document analysis and coding",
+        residency: "US & Global",
         carbonTier: "Low",
         compliance: "Moderate",
         models: [
           { name: "Claude 3.7 Sonnet", role: "General analysis", type: "Mixed" }
         ],
         context: "Highly optimized token generation efficiency. Lowest comparative water footprint per query in the frontier class.",
+        residencyContext: "Hosted primarily on AWS us-east and us-west regions. Does not currently guarantee UK/EU isolated processing for standard commercial API tiers.",
         carbonWorking: "Calculated at baseline text inference (0.6 Wh/query) and code generation (0.1 Wh/line). Efficient sparse attention mechanisms place this firmly in the Low carbon tier.",
         governance: "Approved for deep technical analysis. Note residual provenance risk regarding upstream LibGen settlement.",
         complianceWorking: "Tier 2 (Moderate). Mixed sourcing. Models trained on public internet data. The 2025 Bartz v. Anthropic $1.5B settlement creates residual risk on legacy artifacts, precluding a 'Safe' rating.",
@@ -681,6 +692,7 @@
         categories: ["creative", "dev", "client_services"],
         providers: ["Microsoft", "OpenAI"],
         useCase: "Enterprise workspace automation",
+        residency: "UK & EU",
         carbonTier: "Medium",
         compliance: "Moderate",
         models: [
@@ -688,6 +700,7 @@
           { name: "DALL-E 3", role: "Image synthesis", type: "Scraped" }
         ],
         context: "Leverages standard OpenAI endpoints but encapsulates data within Azure's enterprise compliance boundary.",
+        residencyContext: "Enterprise data stays within the Microsoft EU Data Boundary, satisfying UK/EU GDPR requirements for processing and at-rest storage.",
         carbonWorking: "Blended text (0.6 Wh) and image (5.0 Wh) footprint. Continuous background reasoning in Office365 applications increases idle load, resulting in a Medium tier classification.",
         governance: "Approved. Commercial data protection prevents internal IP from entering global retraining pools.",
         complianceWorking: "Tier 2 (Moderate). Uses OpenAI's scraped models (High Risk), but mitigated to Moderate via Microsoft's 'Copilot Copyright Commitment' indemnification wrapper for enterprise customers.",
@@ -700,6 +713,7 @@
         categories: ["creative", "dev", "client_services"],
         providers: ["OpenAI"],
         useCase: "General generative intelligence",
+        residency: "US & Global",
         carbonTier: "Extreme",
         compliance: "High Risk",
         models: [
@@ -708,6 +722,7 @@
           { name: "Sora", role: "Video synthesis", type: "Scraped" }
         ],
         context: "High carbon intensity due to multi-modal video/image availability. Relies on unrestricted web scrapes.",
+        residencyContext: "All data routed to US-based GPU clusters for processing. Enterprise terms prevent training, but physical processing occurs outside the UK/EU.",
         carbonWorking: "Extreme tier driven by multi-modal video/image availability (Sora up to 180 Wh/query, DALL-E 3 at 5.0 Wh/query) combined with massive active parameter counts.",
         governance: "High legal exposure metrics if used for public-facing deliverables. Restrict to internal ideation.",
         complianceWorking: "Tier 3 (High Risk). Unrestricted public web scraping with ongoing major litigation (e.g., NYT v. OpenAI). Lack of full corporate indemnification for raw API/ChatGPT outputs.",
@@ -720,6 +735,7 @@
         categories: ["creative"],
         providers: ["OpenAI", "Anthropic", "Canva/Leonardo.Ai"],
         useCase: "Design layouts and copywriting",
+        residency: "US & Global",
         carbonTier: "Medium",
         compliance: "Moderate",
         models: [
@@ -728,6 +744,7 @@
           { name: "Leonardo Phoenix", role: "Text-to-image layer", type: "Mixed" }
         ],
         context: "Maintains standard cloud query loads. Leverages external model weights under mixed public training configurations.",
+        residencyContext: "Data is processed globally. Third-party integrations (OpenAI/Leonardo) route prompt data to US-based server infrastructure.",
         carbonWorking: "Primarily executes text (0.6 Wh) and 2D layout generation via efficient mixed endpoints, classifying it as Medium intensity.",
         governance: "Approved for rapid visual asset drafting. Production templates require verification of third-party layers.",
         complianceWorking: "Tier 2 (Moderate). 'Canva Shield' provides specific IP indemnification, though upstream Leonardo/OpenAI integrations utilize mixed public datasets.",
@@ -740,6 +757,7 @@
         categories: ["creative"],
         providers: ["OpenAI", "Meta", "Black Forest Labs", "Luma AI"],
         useCase: "Interface blueprints & prototyping",
+        residency: "US & Global",
         carbonTier: "Extreme",
         compliance: "High Risk",
         models: [
@@ -748,6 +766,7 @@
           { name: "Llama", role: "Contextual processing", type: "Mixed" }
         ],
         context: "Extremely resource-heavy model configurations owing to underlying image diffusion structures. High scraping index.",
+        residencyContext: "US-based AWS infrastructure. Design files and AI prompts are processed globally.",
         carbonWorking: "Deep integration with heavy diffusion models (FLUX.1.1 Pro) consuming up to 15.0 Wh per high-res vector/layout render cycle places this in the Extreme tier.",
         governance: "Presents underlying copyright liabilities on outward client visual deliverables. Restrict to internal exploration tiers.",
         complianceWorking: "Tier 3 (High Risk). Opt-out rather than opt-in policies for customer data, utilizing scraped base models. Past instances of output mimicking proprietary designs.",
@@ -760,6 +779,7 @@
         categories: ["creative"],
         providers: ["Adobe", "OpenAI", "Runway"],
         useCase: "Commercial creative production",
+        residency: "US & Global",
         carbonTier: "Extreme",
         compliance: "Safe",
         models: [
@@ -767,6 +787,7 @@
           { name: "Firefly Vector", role: "Scalable graphics engine", type: "Opt-In" }
         ],
         context: "Adobe Firefly is trained on licensed Adobe Stock, openly licensed, and public-domain content. Corporate indemnification provided.",
+        residencyContext: "Firefly synthesis and rendering workloads are processed on US-centric AWS and Azure compute clusters.",
         carbonWorking: "Heavy reliance on Firefly Image and Video pipelines (up to 180 Wh per video sequence) for commercial-grade rendering pushes this to the Extreme tier.",
         governance: "Mandated primary creative tool structure for client assets. Note: Adobe Stock may contain upstream AI-generated artifacts, but indemnification stands.",
         complianceWorking: "Tier 1 (Safe). Models trained explicitly on licensed Adobe Stock, openly licensed, and public domain content. Full commercial indemnification protects enterprise users.",
@@ -779,6 +800,7 @@
         categories: ["dev"],
         providers: ["OpenAI", "Anthropic", "xAI", "Microsoft"],
         useCase: "Code compilation & repository audit",
+        residency: "US & Global",
         carbonTier: "Low",
         compliance: "Moderate",
         models: [
@@ -786,6 +808,7 @@
           { name: "GPT-5 mini variant", role: "Light autocompletion", type: "Mixed" }
         ],
         context: "Low per-token carbon footprints achieved through optimized local contextual pipelines on standard technician units.",
+        residencyContext: "Code snippets are transmitted to GitHub's global Azure infrastructure (predominantly US) for inference.",
         carbonWorking: "Code autocompletion is highly efficient, averaging just 0.10 Wh per line. Aggressive local caching minimizes redundant inference API calls.",
         governance: "Cleared across full corporate infrastructure. Enterprise isolation settings active to shield source repositories. See Anthropic litigation notes.",
         complianceWorking: "Tier 2 (Moderate). Enterprise isolation settings prevent customer code ingestion, but underlying models still maintain some risk from public repository scraping.",
@@ -798,6 +821,7 @@
         categories: ["dev"],
         providers: ["OpenAI", "Anthropic", "xAI"],
         useCase: "Automated terminal adjustments",
+        residency: "US & Global",
         carbonTier: "Low",
         compliance: "Moderate",
         models: [
@@ -806,6 +830,7 @@
           { name: "Claude Sonnet", role: "Context routing", type: "Mixed" }
         ],
         context: "Small token footprint structures with small backend execution loads. Minimal data center overhead parameters.",
+        residencyContext: "US-based startup utilizing US-hosted AWS/GCP cloud environments for LLM routing.",
         carbonWorking: "Text and code refactoring tasks generate minimal Watt-hour draw (0.1 - 0.6 Wh per query), solidifying a Low tier placement.",
         governance: "Cleared for active runtime environment maintenance task sequences. See Anthropic litigation notes.",
         complianceWorking: "Tier 2 (Moderate). Protected by API-level enterprise privacy clauses, preventing conversational data retention for RLHF training.",
@@ -818,6 +843,7 @@
         categories: ["creative", "dev", "client_services"],
         providers: ["OpenAI", "Meta"],
         useCase: "Huddle summaries & thread search",
+        residency: "UK & EU",
         carbonTier: "Medium",
         compliance: "Safe",
         models: [
@@ -825,6 +851,7 @@
           { name: "Llama", role: "Lightweight local server processing", type: "Mixed" }
         ],
         context: "Moderate data center processing profiles offset by protective contracts preventing user training data recycling loops.",
+        residencyContext: "Enterprise data residency ensures messages and AI summaries are processed and stored in localized UK/Frankfurt AWS regions.",
         carbonWorking: "Continuous vector search indexing and background thread summarization loads increase baseline text energy requirements to Medium.",
         governance: "Fully approved for corporate internal file search optimizations and messaging automation pipelines.",
         complianceWorking: "Tier 1 (Safe). Slack AI models are deployed securely within the enterprise boundary; no customer data is used to train overarching third-party LLMs.",
@@ -837,6 +864,7 @@
         categories: ["creative", "dev", "client_services"],
         providers: ["OpenAI", "Meta"],
         useCase: "Brainstorm tracking & mindmapping",
+        residency: "UK & EU",
         carbonTier: "Medium",
         compliance: "Moderate",
         models: [
@@ -844,6 +872,7 @@
           { name: "Llama", role: "Language structuring", type: "Mixed" }
         ],
         context: "Combines text index calls with periodic vector node configurations, establishing a standard operational power draw profile.",
+        residencyContext: "Offers EU data residency for enterprise tenants, keeping board data and AI processing within EU boundaries.",
         carbonWorking: "Periodic image generation mixed with continuous structural text synthesis results in a steady Medium power draw.",
         governance: "Permitted for internal collaboration and scrum layout structure configurations.",
         complianceWorking: "Tier 2 (Moderate). Relies on mixed dataset sourcing but maintains strict enterprise data privacy guarantees on the platform layer.",
@@ -856,6 +885,7 @@
         categories: ["client_services"],
         providers: ["OpenAI", "Meta", "Stability AI", "Anthropic"],
         useCase: "Anonymized exploration searches",
+        residency: "US & Global",
         carbonTier: "Medium",
         compliance: "High Risk",
         models: [
@@ -863,6 +893,7 @@
           { name: "Claude Sonnet", role: "Search synthesis routing", type: "Mixed" }
         ],
         context: "High transparency variance within underlying nodes. Incorporates unmitigated public data collection engines.",
+        residencyContext: "Queries are anonymized but routed to US-based foundational model providers (OpenAI, Anthropic) for generation.",
         carbonWorking: "Text search and occasional image generation routines average out to a moderate power draw.",
         governance: "Restrict deployment cases involving core proprietary data parameters. See Anthropic litigation notes.",
         complianceWorking: "Tier 3 (High Risk). While queries are anonymized, the underlying frontier models (Claude, Llama) carry unmitigated IP liabilities without explicit indemnification wrappers.",
@@ -875,6 +906,7 @@
         categories: ["client_services"],
         providers: ["OpenAI", "Meta", "Anthropic"],
         useCase: "Syntax fixing and tone checks",
+        residency: "US & Global",
         carbonTier: "Low",
         compliance: "Safe",
         models: [
@@ -882,6 +914,7 @@
           { name: "Llama", role: "Grammatical correction loop", type: "Mixed" }
         ],
         context: "Minimal footprint structures execution loops only across token sequences without image rendering variables.",
+        residencyContext: "Text processing and AI synthesis occur within Grammarly's US-based AWS infrastructure.",
         carbonWorking: "Small-scale context window processing and specialized syntax editing models require fractional energy (Low tier) compared to full generative flows.",
         governance: "Approved globally for all enterprise staff communications and copy drafting tiers.",
         complianceWorking: "Tier 1 (Safe). Strict enterprise data separation enforced; no customer text is used for cross-tenant model training or foundation model updates.",
@@ -894,6 +927,7 @@
         categories: ["client_services"],
         providers: ["OpenAI", "ElevenLabs"],
         useCase: "Document auditory playback",
+        residency: "US & Global",
         carbonTier: "Low",
         compliance: "Safe",
         models: [
@@ -901,6 +935,7 @@
           { name: "Eleven Multilingual", role: "Auditory narrative output", type: "Mixed" }
         ],
         context: "Audio generation footprints track significantly lower than image or video workflows.",
+        residencyContext: "Audio generation workloads run on US cloud servers.",
         carbonWorking: "Audio synthesis (TTS) demands significantly lower GPU compute thresholds (Low tier) than image or spatial video generation.",
         governance: "Cleared for universal access and document readability optimization loops.",
         complianceWorking: "Tier 1 (Safe). Ethical voice licensing marketplace structure mitigates deepfake, voice cloning, and biometric data risks.",
@@ -913,6 +948,7 @@
         categories: ["client_services", "creative", "dev"],
         providers: ["OpenAI", "Anthropic"],
         useCase: "UX research transcription & synthesis",
+        residency: "US & Global",
         carbonTier: "Low",
         compliance: "Safe",
         models: [
@@ -920,6 +956,7 @@
           { name: "GPT-4o / Claude", role: "Sentiment analysis & tagging", type: "Scraped" }
         ],
         context: "Audio transcription and text-based thematic analysis require relatively low hardware power draw compared to multimodal generation.",
+        residencyContext: "Data is stored and processed on US AWS/GCP servers, applying to both standard data and AI synthesis requests.",
         carbonWorking: "Audio synthesis and text chunk processing sit within the Low intensity band (0.6 Wh per query, 0.1 Wh per transcription minute).",
         governance: "Approved for analyzing client interviews, assuming PII scrubbing protocols are active before upload.",
         complianceWorking: "Tier 1 (Safe). Enterprise API agreements prevent OpenAI/Anthropic from retaining transcript data for foundation model training.",
@@ -937,6 +974,7 @@
     // Carbon Tier and Compliance Status ranking for sensible sorting
     const rankCarbon = { 'Low': 1, 'Medium': 2, 'Extreme': 3 };
     const rankCompliance = { 'Safe': 1, 'Moderate': 2, 'High Risk': 3 };
+    const rankResidency = { 'UK Only': 1, 'UK & EU': 2, 'US & Global': 3, 'China': 4 };
 
     function sliceLabel(label) {
       if (label.length <= 16) return label;
@@ -969,7 +1007,7 @@
       }
 
       // Reset sort icons visually
-      const allHeaders = ['name', 'providers', 'useCase', 'carbonTier', 'compliance'];
+      const allHeaders = ['name', 'providers', 'useCase', 'residency', 'carbonTier', 'compliance'];
       allHeaders.forEach(col => {
         const el = document.getElementById(`sort-${col}`);
         if(el) {
@@ -1023,6 +1061,8 @@
             comp = rankCarbon[valA] - rankCarbon[valB];
           } else if (currentSortCol === 'compliance') {
             comp = rankCompliance[valA] - rankCompliance[valB];
+          } else if (currentSortCol === 'residency') {
+            comp = rankResidency[valA] - rankResidency[valB];
           } else {
             valA = String(valA).toLowerCase();
             valB = String(valB).toLowerCase();
@@ -1054,13 +1094,18 @@
         if (tool.compliance === 'Moderate') complianceColor = "bg-amber-100 text-amber-800 border-amber-300";
         if (tool.compliance === 'High Risk') complianceColor = "bg-rose-100 text-rose-800 border-rose-300";
 
+        let residencyColor = "bg-emerald-100 text-emerald-800 border-emerald-300"; // UK Only
+        if (tool.residency === 'UK & EU') residencyColor = "bg-cyan-100 text-cyan-800 border-cyan-300";
+        if (tool.residency === 'US & Global') residencyColor = "bg-amber-100 text-amber-800 border-amber-300";
+        if (tool.residency === 'China') residencyColor = "bg-rose-100 text-rose-800 border-rose-300";
+
         const formattedRow = `
           <tr class="hover:bg-slate-50 transition text-xs sm:text-sm">
             <td class="px-6 py-4 font-bold text-hiveCharcoal">${tool.name}</td>
             <td class="px-6 py-4 text-slate-600">${tool.providers.join(', ')}</td>
-            <td class="px-6 py-4 text-slate-700 font-mono text-xs">${tool.useCase}</td>
-            <td class="px-6 py-4 text-center"><span class="inline-block px-2 py-0.5 rounded-sm border text-[11px] font-semibold ${carbonColor}">${tool.carbonTier}</span></td>
-            <td class="px-6 py-4 text-center"><span class="inline-block px-2 py-0.5 rounded-sm border text-[11px] font-semibold ${complianceColor}">${tool.compliance}</span></td>
+            <td class="px-6 py-4 text-center"><span class="inline-block px-2 py-0.5 rounded-sm border text-[11px] font-semibold whitespace-nowrap ${residencyColor}">${tool.residency}</span></td>
+            <td class="px-6 py-4 text-center"><span class="inline-block px-2 py-0.5 rounded-sm border text-[11px] font-semibold whitespace-nowrap ${carbonColor}">${tool.carbonTier}</span></td>
+            <td class="px-6 py-4 text-center"><span class="inline-block px-2 py-0.5 rounded-sm border text-[11px] font-semibold whitespace-nowrap ${complianceColor}">${tool.compliance}</span></td>
             <td class="px-6 py-4 text-right">
               <button type="button" onclick="inspectRow('${tool.name}')" aria-label="Inspect details for ${tool.name}" class="min-h-[44px] px-4 py-2 text-xs font-bold text-hiveCharcoal hover:text-hiveYellow hover:bg-hiveCharcoal rounded-sm transition underline underline-offset-2 focus-visible:ring-2 focus-visible:ring-hiveCharcoal">
                 Inspect
@@ -1083,8 +1128,12 @@
 
       document.getElementById('inspect-name').innerText = tool.name;
       document.getElementById('inspect-category').innerText = `PIPELINE SPECIFICATIONS`;
+      
       document.getElementById('inspect-carbon-text').innerText = tool.context;
       document.getElementById('inspect-carbon-working').innerText = tool.carbonWorking;
+      
+      document.getElementById('inspect-residency-working').innerText = tool.residencyContext;
+      
       document.getElementById('inspect-governance-text').innerText = tool.governance;
       document.getElementById('inspect-compliance-working').innerText = tool.complianceWorking;
 
@@ -1092,15 +1141,23 @@
       if (tool.carbonTier === 'Medium') carbonColor = "bg-amber-100 text-amber-800 border-amber-300";
       if (tool.carbonTier === 'Extreme') carbonColor = "bg-rose-100 text-rose-800 border-rose-300";
       const carbonBadge = document.getElementById('inspect-carbon-badge');
-      carbonBadge.className = `px-2 py-0.5 rounded-sm border text-[10px] font-semibold ${carbonColor}`;
+      carbonBadge.className = `px-2 py-0.5 rounded-sm border text-[10px] font-semibold whitespace-nowrap ${carbonColor}`;
       carbonBadge.innerText = tool.carbonTier;
 
       let complianceColor = "bg-emerald-100 text-emerald-800 border-emerald-300";
       if (tool.compliance === 'Moderate') complianceColor = "bg-amber-100 text-amber-800 border-amber-300";
       if (tool.compliance === 'High Risk') complianceColor = "bg-rose-100 text-rose-800 border-rose-300";
       const complianceBadge = document.getElementById('inspect-compliance-badge');
-      complianceBadge.className = `px-2 py-0.5 rounded-sm border text-[10px] font-semibold ${complianceColor}`;
+      complianceBadge.className = `px-2 py-0.5 rounded-sm border text-[10px] font-semibold whitespace-nowrap ${complianceColor}`;
       complianceBadge.innerText = tool.compliance;
+
+      let residencyColor = "bg-emerald-100 text-emerald-800 border-emerald-300"; // UK Only
+      if (tool.residency === 'UK & EU') residencyColor = "bg-cyan-100 text-cyan-800 border-cyan-300";
+      if (tool.residency === 'US & Global') residencyColor = "bg-amber-100 text-amber-800 border-amber-300";
+      if (tool.residency === 'China') residencyColor = "bg-rose-100 text-rose-800 border-rose-300";
+      const residencyBadge = document.getElementById('inspect-residency-badge');
+      residencyBadge.className = `px-2 py-0.5 rounded-sm border text-[10px] font-semibold whitespace-nowrap ${residencyColor}`;
+      residencyBadge.innerText = tool.residency;
 
       const modelListTarget = document.getElementById('inspect-models-list');
       modelListTarget.innerHTML = '';
@@ -1186,7 +1243,7 @@
       return el ? parseInt(el.value) || 0 : 0;
     }
 
-    let sessionTurns = 17; // Calculated base conversation iterations utilized to build this tool
+    let sessionTurns = 18; // Calculated base conversation iterations utilized to build this tool
     let localInteractions = -1; // Increment on UI adjustment interaction
 
     function updateSessionFootprint() {
