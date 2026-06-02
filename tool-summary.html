@@ -146,8 +146,8 @@
       <div class="bg-white p-6 rounded-sm border-l-4 border-rose-600 shadow-sm flex flex-col justify-between">
         <div>
           <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">Ecosystem Integrity</span>
-          <h2 class="text-3xl font-extrabold text-rose-700 mt-2">11 of 14 Tools</h2>
-          <p class="text-xs text-slate-600 mt-2">OpenAI components exist in 78.5% of audited applications, exposing severe structural vendor dependency.</p>
+          <h2 class="text-3xl font-extrabold text-rose-700 mt-2">12 of 15 Tools</h2>
+          <p class="text-xs text-slate-600 mt-2">OpenAI components exist in 80.0% of audited applications, exposing severe structural vendor dependency.</p>
         </div>
         <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-rose-800 font-semibold uppercase tracking-wide">
           Data Scrape Vulnerability: High
@@ -616,7 +616,7 @@
         <strong>Why are enterprise tools using OpenAI rated "Safe" or "Moderate" while OpenAI itself is "High Risk"?</strong>
       </p>
       <ul class="text-xs text-slate-600 list-disc pl-5 space-y-2">
-        <li><strong>Zero Data Retention:</strong> Enterprise APIs (e.g., Slack, Grammarly) establish strict zero-retention boundaries, guaranteeing proprietary company data is not fed into OpenAI's public training models.</li>
+        <li><strong>Zero Data Retention:</strong> Enterprise APIs (e.g., Slack, Grammarly, Userbit) establish strict zero-retention boundaries, guaranteeing proprietary company data is not fed into OpenAI's public training models.</li>
         <li><strong>Corporate IP Indemnification:</strong> Vendors (e.g., Microsoft Copilot) offer formal copyright indemnification, absorbing legal risks and shielding end-users from IP liability.</li>
         <li><strong>Enterprise Tenant Encapsulation:</strong> Integrations host models within secure, compliant cloud environments (e.g., Azure), meeting corporate data sovereignty and security standards that raw public endpoints lack.</li>
       </ul>
@@ -907,6 +907,25 @@
         citations: [
           { text: "Speechify Corporate Privacy Policy", url: "https://speechify.com/privacy/" }
         ]
+      },
+      {
+        name: "Userbit",
+        categories: ["client_services", "creative", "dev"],
+        providers: ["OpenAI", "Anthropic"],
+        useCase: "UX research transcription & synthesis",
+        carbonTier: "Low",
+        compliance: "Safe",
+        models: [
+          { name: "Whisper", role: "Interview transcription", type: "Scraped" },
+          { name: "GPT-4o / Claude", role: "Sentiment analysis & tagging", type: "Scraped" }
+        ],
+        context: "Audio transcription and text-based thematic analysis require relatively low hardware power draw compared to multimodal generation.",
+        carbonWorking: "Audio synthesis and text chunk processing sit within the Low intensity band (0.6 Wh per query, 0.1 Wh per transcription minute).",
+        governance: "Approved for analyzing client interviews, assuming PII scrubbing protocols are active before upload.",
+        complianceWorking: "Tier 1 (Safe). Enterprise API agreements prevent OpenAI/Anthropic from retaining transcript data for foundation model training.",
+        citations: [
+          { text: "Userbit AI Privacy & Security", url: "https://userbit.com/privacy" }
+        ]
       }
     ];
 
@@ -1167,7 +1186,7 @@
       return el ? parseInt(el.value) || 0 : 0;
     }
 
-    let sessionTurns = 16; // Calculated base conversation iterations utilized to build this tool
+    let sessionTurns = 17; // Calculated base conversation iterations utilized to build this tool
     let localInteractions = -1; // Increment on UI adjustment interaction
 
     function updateSessionFootprint() {
@@ -1335,7 +1354,7 @@
         type: 'doughnut',
         data: {
           labels: ['OpenAI Models', 'Anthropic Claude', 'Meta Llama', 'Google Gemini', 'Adobe Engines', 'Others'].map(sliceLabel),
-          datasets: [{ data: [45, 15, 10, 10, 10, 10], backgroundColor: ['#1e2229', '#fdb813', '#64748b', '#10b981', '#f43f5e', '#cbd5e1'], borderWidth: 1, borderColor: '#ffffff' }]
+          datasets: [{ data: [46, 15, 10, 9, 10, 10], backgroundColor: ['#1e2229', '#fdb813', '#64748b', '#10b981', '#f43f5e', '#cbd5e1'], borderWidth: 1, borderColor: '#ffffff' }]
         },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { family: 'Poppins', size: 10 }, color: '#1e2229' } }, ...tooltipPlugin.plugins } }
       });
