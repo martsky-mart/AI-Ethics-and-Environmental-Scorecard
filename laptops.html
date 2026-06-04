@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laptop Ethical Sourcing Decision Matrix</title>
+  <title>Sourcing Scorecard | Hive IT Sourcing Matrix</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Chart.js CDN for Radar Graphs -->
@@ -34,7 +34,7 @@
   </script>
   <style>
     *:focus-visible {
-      outline: 4px solid #1E2229 !important;
+      outline: 4px solid #FFC803 !important;
       outline-offset: 2px !important;
     }
     .hive-shadow {
@@ -46,13 +46,6 @@
     .hive-shadow-active {
       box-shadow: 1px 1px 0px 0px #1E2229;
       transform: translate(2px, 2px);
-    }
-    .contrast-double {
-      background-color: #FFFFFF !important;
-      color: #000000 !important;
-    }
-    .contrast-double * {
-      border-color: #000000 !important;
     }
   </style>
 </head>
@@ -67,23 +60,24 @@
   <header class="border-b-4 border-hiveCharcoal bg-white py-6 px-4 sm:px-8">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
       <div class="flex items-center gap-4">
-        <div class="bg-hiveYellow p-3 rounded-lg border-2 border-hiveCharcoal hive-shadow-sm flex-shrink-0" aria-hidden="true">
-          <svg class="w-8 h-8 text-hiveCharcoal" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 .587l3.668 2.118v4.234L12 11.057 8.332 8.939V4.705zM22.002 6.36l1.998 1.154v4.234l-3.668 2.118-3.668-2.118V7.514zm-13.67 7.89l3.668 2.117v4.235l-3.668 2.117-3.668-2.117v-4.235zm11.67 0l3.668 2.117v4.235l-3.668 2.117-3.668-2.117v-4.235zM3.668 6.36L5.666 7.514v4.234l-3.668 2.118L0 11.748V7.514z" />
-          </svg>
+        <!-- SVG Hive IT Logo Integration -->
+        <svg class="h-10 w-auto flex-shrink-0" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Hive IT Logo" role="img">
+          <!-- Geometric Honeycomb Cluster -->
+          <g transform="translate(2, 4)">
+            <!-- Golden Hexagon 1 -->
+            <polygon points="12,0 24,7 24,21 12,28 0,21 0,7" fill="#FFC803" stroke="#1E2229" stroke-width="2"/>
+            <!-- Dark Hexagon 2 -->
+            <polygon points="21,12 33,19 33,33 21,40 9,33 9,19" fill="#1E2229" opacity="0.15"/>
+            <polygon points="21,12 33,19 33,33 21,40 9,33 9,19" stroke="#1E2229" stroke-width="2"/>
+          </g>
+          <!-- Typographic Wordmark -->
+          <text x="44" y="27" font-family="Inter, system-ui, sans-serif" font-weight="900" font-size="24" fill="#1E2229" letter-spacing="-1">hive</text>
+          <text x="91" y="27" font-family="Inter, system-ui, sans-serif" font-weight="400" font-size="24" fill="#1E2229" letter-spacing="-0.5">it</text>
+        </svg>
+        <div class="border-l-2 border-hiveBorder pl-4 hidden sm:block">
+          <p class="text-xs font-black tracking-widest text-gray-500 uppercase">Procurement Portal</p>
+          <p class="text-sm font-semibold text-gray-600">Dynamic Sustainability Matrix</p>
         </div>
-        <div>
-          <h1 class="text-3xl font-black tracking-tight">HIVE IT • SUSTAINABILITY PORTAL</h1>
-          <p class="text-sm font-semibold tracking-wide text-gray-600">Dynamic Procurement Matrix with Radar Map Visualizations</p>
-        </div>
-      </div>
-      <div class="flex flex-wrap gap-3">
-        <div class="px-4 py-2 bg-hiveYellow text-hiveCharcoal font-bold border-2 border-hiveCharcoal rounded hive-shadow-sm text-sm" aria-live="polite">
-          WCAG 2.2 AA Compliant
-        </div>
-        <button id="toggle-contrast" class="px-4 py-2 bg-hiveCharcoal text-white font-bold rounded hover:bg-gray-800 text-sm focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-hiveYellow transition-colors" aria-label="Toggle High Contrast Mode">
-          High Contrast View
-        </button>
       </div>
     </div>
   </header>
@@ -93,8 +87,23 @@
     <div class="bg-white border-4 border-hiveCharcoal p-6 rounded-lg hive-shadow">
       <h2 id="intro-title" class="text-xl font-bold mb-2">Dynamic Sourcing Scoring Engine</h2>
       <p class="text-gray-700 leading-relaxed max-w-4xl">
-        Adjust weights below to configure this index for your organization. Toggle the **Compare** checkbox on individual manufacturers to activate side-by-side matrices highlighting scoring variances, specific structural merits, and regulatory dockets.
+        Select a hardware category. Adjust standard evaluation weights in the sidebar to configure this index according to your organization's ethical standards. Toggle the comparison checkbox on specific manufacturers to review detailed performance metrics.
       </p>
+    </div>
+  </section>
+
+  <!-- PREMIUM MODERN SEGMENTED TABS CONTROLLER (HIVE IT PALETTE) -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-8 mt-8" aria-label="Device Category Selection">
+    <div class="bg-white border-4 border-hiveCharcoal p-2 rounded-2xl hive-shadow-sm flex flex-col sm:flex-row gap-2 w-full sm:w-auto" role="tablist">
+      <button id="tab-laptops" role="tab" aria-selected="true" class="flex-1 sm:flex-initial text-center bg-hiveCharcoal text-white rounded-xl px-8 py-4 font-black text-base tracking-tight transition-all focus:outline-none" aria-controls="results-container">
+        Laptops
+      </button>
+      <button id="tab-phones" role="tab" aria-selected="false" class="flex-1 sm:flex-initial text-center bg-transparent text-hiveCharcoal rounded-xl px-8 py-4 font-bold text-base tracking-tight transition-all hover:bg-gray-100 focus:outline-none" aria-controls="results-container">
+        Smartphones
+      </button>
+      <button id="tab-monitors" role="tab" aria-selected="false" class="flex-1 sm:flex-initial text-center bg-transparent text-hiveCharcoal rounded-xl px-8 py-4 font-bold text-base tracking-tight transition-all hover:bg-gray-100 focus:outline-none" aria-controls="results-container">
+        Displays & Monitors
+      </button>
     </div>
   </section>
 
@@ -233,7 +242,7 @@
     <!-- BRAND RESULTS DISPLAY LIST -->
     <section class="lg:col-span-7 flex flex-col gap-6" aria-labelledby="results-title">
       
-      <!-- DYNAMIC SORT PANEL (NEW) -->
+      <!-- DYNAMIC SORT PANEL -->
       <div class="bg-white border-4 border-hiveCharcoal p-4 rounded-lg hive-shadow flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
         <div class="w-full md:w-auto flex flex-col sm:flex-row sm:items-center gap-2">
           <label for="sort-criteria" class="text-xs font-black uppercase tracking-wider text-gray-700">Sort Standings By:</label>
@@ -293,7 +302,7 @@
         <div class="bg-white border-2 border-hiveCharcoal rounded p-4 hive-shadow-sm">
           <h3 class="font-extrabold text-base mb-4 text-hiveCharcoal uppercase tracking-tight">Comparative Ethical Profiles</h3>
           <!-- Responsive canvas container -->
-          <div class="relative h-[300px] md:h-[400px] w-full" aria-label="Ethical profile radar overlay comparing selected laptop manufacturers" role="img">
+          <div class="relative h-[300px] md:h-[400px] w-full" aria-label="Ethical profile radar overlay comparing selected mobile manufacturers" role="img">
             <canvas id="compareRadarChart"></canvas>
           </div>
         </div>
@@ -397,7 +406,7 @@
   <!-- FOOTER -->
   <footer class="border-t-4 border-hiveCharcoal bg-white py-12 px-4 mt-16 text-center">
     <div class="max-w-7xl mx-auto space-y-4">
-      <p class="font-bold text-sm">Design structured to align with Hive IT design guidelines and WCAG requirements.</p>
+      <p class="font-bold text-sm">Design structured to align with Hive IT brand standards.</p>
       <div class="text-xs text-gray-500 space-y-1">
         <p>Adaptive calculations utilize normalized real-time mathematical operations.</p>
         <p>Primary documentation sourced from state tax courts, SEC filings, independent laboratories, and EPEAT databases.</p>
@@ -407,7 +416,8 @@
 
   <!-- SCRIPTING ENGINE & RAW BRAND DATABASE -->
   <script>
-    const BRAND_DATABASE = [
+    // Separate laptop database
+    const LAPTOP_DATABASE = [
       {
         id: "framework",
         name: "Framework Computer",
@@ -607,17 +617,17 @@
         }
       },
       {
-        id: "apple",
-        name: "Apple Inc.",
+        id: "apple-laptop",
+        name: "Apple MacBook",
         highlights: {
           carbonTarget: "Carbon Neutral by 2030",
-          repairClass: "Highly Serialized"
+          repairClass: "Highly Serialized / Soldered"
         },
         metrics: {
           climate: {
             score: 8.5,
-            plus: "Ambitious decarbonisation goals, actively financing transition grids for offshore manufacturers.",
-            minus: "Substantial indirect carbon footprint due to high customer shipping demand.",
+            plus: "Market leader in supply chain decarbonization; targeting entirely neutral emissions across suppliers by 2030.",
+            minus: "Substantial indirect carbon footprint due to high consumer shipping demand.",
             source: "https://www.apple.com/environment/",
             source_title: "Apple Environment Index"
           },
@@ -631,9 +641,9 @@
           minerals: {
             score: 8.0,
             plus: "First-class tracing; 100% of smelters are audited, with zero tolerance for conflict-financing.",
-            minus: "Massive production volume means their absolute resource demand remains a strain on local regions.",
+            minus: "Massive production volume means absolute raw resource demand remains high.",
             source: "https://www.apple.com/supplier-responsibility/",
-            source_title: "Apple Supplier Portal"
+            source_title: "Apple Supplier Responsibility"
           },
           tax: {
             score: 2.0,
@@ -645,7 +655,7 @@
           sustainability: {
             score: 8.0,
             plus: "Pioneered high-quality recycled aluminum alloys, transitioning toward 100% recycled cobalt batteries.",
-            minus: "Highly integrated, un-upgradable designs limit the circular lifespan of perfectly functional chassis.",
+            minus: "Highly integrated, un-upgradable designs limit the circular lifespan of functional chassis.",
             source: "https://www.apple.com/newsroom/2019/04/apple-expands-global-recycling-programs/",
             source_title: "Apple Recycling Labs"
           },
@@ -665,16 +675,16 @@
           },
           repairability: {
             score: 3.0,
-            plus: "Recently launched a Self Service Repair program, providing official tools to the public.",
-            minus: "Heavy parts serialization prevents component replacement without proprietary software authentication.",
+            plus: "Provides clear self-service diagnostic manuals to certified networks.",
+            minus: "Solders SSDs and memory directly to logic board, rendering components completely non-upgradable.",
             source: "https://www.ifixit.com/news/parts-pairing",
-            source_title: "iFixit Serialization Review"
+            source_title: "iFixit Parts Pairing Review"
           }
         }
       },
       {
         id: "microsoft",
-        name: "Microsoft",
+        name: "Microsoft Surface",
         highlights: {
           carbonTarget: "Carbon Negative by 2030",
           repairClass: "Improving Modular"
@@ -740,7 +750,7 @@
       },
       {
         id: "lenovo",
-        name: "Lenovo Group",
+        name: "Lenovo ThinkPad",
         highlights: {
           carbonTarget: "Net-Zero by 2050",
           repairClass: "Standard Business Design"
@@ -935,206 +945,949 @@
             source_title: "iFixit Acer Registry"
           }
         }
+      }
+    ];
+
+    // Separate smartphone database
+    const PHONE_DATABASE = [
+      {
+        id: "fairphone",
+        name: "Fairphone",
+        highlights: {
+          carbonTarget: "Long-term Durability focus",
+          repairClass: "Pioneer Modularity"
+        },
+        metrics: {
+          climate: {
+            score: 8.5,
+            plus: "Strict operational target mapping product lifespan optimization to direct carbon reduction ratios.",
+            minus: "Small market volume reduces absolute leverage to finance custom regional green grids.",
+            source: "https://www.fairphone.com/en/impact/",
+            source_title: "Fairphone Impact Portal"
+          },
+          ethos: {
+            score: 10.0,
+            plus: "Openly encourages alternative open-source software (such as /e/OS) and provides complete material trails.",
+            minus: "Niche brand positioning offers lower broader corporate influence over legislative bodies.",
+            source: "https://www.fairphone.com/en/",
+            source_title: "Fairphone Sourcing Trail"
+          },
+          minerals: {
+            score: 10.0,
+            plus: "Unrivaled leadership: 100% fairtrade gold integration and fully transparent fair-mined cobalt alliances.",
+            minus: "Must rely on mainstream component suppliers for high-tier microchips where tracing is complex.",
+            source: "https://www.fairphone.com/en/impact/source-clean-materials/",
+            source_title: "Fairphone Clean Materials"
+          },
+          tax: {
+            score: 9.0,
+            plus: "Direct local corporate tax reporting within domestic European headquarters.",
+            minus: "Lack of aggressive offshore shelter optimization reduces overall capital reserve margins.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Sourcing Assessment"
+          },
+          sustainability: {
+            score: 10.0,
+            plus: "Chassis made from 100% recycled back covers and fair-sourced modular internal resins.",
+            minus: "Higher structural thickness compared to sealed competitive configurations.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT Registry"
+          },
+          workers: {
+            score: 9.0,
+            plus: "Pioneered living-wage bonus systems distributed directly to tier-1 manufacturing factory workers.",
+            minus: "Relies on standard contract assembly partners, requiring intense third-party auditing.",
+            source: "https://www.fairphone.com/en/impact/fair-specs/",
+            source_title: "Fairphone Labor Spec"
+          },
+          community: {
+            score: 9.0,
+            plus: "Directly funds and coordinates local e-waste collection systems within developing states.",
+            minus: "CSR budgets are highly focused on supply chain integration rather than broad charitable grants.",
+            source: "https://www.fairphone.com/en/impact/",
+            source_title: "Fairphone Impact Portal"
+          },
+          repairability: {
+            score: 10.0,
+            plus: "Outstanding 10/10 modular layout. All parts are easily swappable with a standard screwdriver.",
+            minus: "Increased hardware thickness to accommodate solderless contact points.",
+            source: "https://www.ifixit.com/Device/Fairphone",
+            source_title: "iFixit Fairphone Hub"
+          }
+        }
       },
       {
-        id: "samsung",
-        name: "Samsung",
+        id: "apple-phone",
+        name: "Apple iPhone",
+        highlights: {
+          carbonTarget: "Carbon Neutral by 2030",
+          repairClass: "Highly Serialized"
+        },
+        metrics: {
+          climate: {
+            score: 8.5,
+            plus: "Extremely ambitious decarbonization targets, forcing external chip manufacturers onto clean energy grids.",
+            minus: "Substantial Scope 3 emissions stemming from global rapid replacement lifecycles.",
+            source: "https://www.apple.com/environment/",
+            source_title: "Apple Environment Index"
+          },
+          ethos: {
+            score: 4.0,
+            plus: "Industry-leading user-facing privacy and system security mechanisms.",
+            minus: "Lobbies aggressively against regional independent repair access and self-servicing networks.",
+            source: "https://appfairness.org/",
+            source_title: "App Fairness Coalition"
+          },
+          minerals: {
+            score: 8.0,
+            plus: "Deep tracing capabilities, with 100% of smelting refineries validated under conflict-free schemas.",
+            minus: "Massive scale puts a high demand on extraction zones globally.",
+            source: "https://www.apple.com/supplier-responsibility/",
+            source_title: "Apple Supplier Portal"
+          },
+          tax: {
+            score: 2.0,
+            plus: "Complies with legal parameters set inside active operating countries.",
+            minus: "Historically involved in a landmark €13 billion Irish tax evasion dispute with European regulators.",
+            source: "https://curia.europa.eu/juris/liste.jsf?num=C-465/20",
+            source_title: "EC Ireland State Aid Case"
+          },
+          sustainability: {
+            score: 8.0,
+            plus: "Utilizes 100% recycled gold, rare earths, and recycled aluminum structures on flagship casings.",
+            minus: "Adhesive-sealed chassis prevent modular recovery of functional intermediate components.",
+            source: "https://www.apple.com/newsroom/2019/04/apple-expands-global-recycling-programs/",
+            source_title: "Apple Recycling Labs"
+          },
+          workers: {
+            score: 4.0,
+            plus: "Maintains structured supplier oversight checklists.",
+            minus: "Persistent, severe labor violations reported in major supplier networks, including forced labor risks and excessive overtime.",
+            source: "https://chinalaborwatch.org/",
+            source_title: "China Labor Watch Database"
+          },
+          community: {
+            score: 6.0,
+            plus: "Allocates substantial funding toward racial equity and environmental justice programs.",
+            minus: "Sourcing footprint causes local environmental stress in remote extraction zones.",
+            source: "https://www.apple.com/newsroom/2020/06/apple-announces-one-hundred-million-dollar-racial-equity-and-justice-initiative/",
+            source_title: "Apple REJI Initiative"
+          },
+          repairability: {
+            score: 3.5,
+            plus: "Pioneered public diagnostic tools and self-repair parts access for newer models.",
+            minus: "Heavily pairs parts via software, disabling FaceID or camera modules if swapped without proprietary tools.",
+            source: "https://www.ifixit.com/news/parts-pairing",
+            source_title: "iFixit Parts Pairing"
+          }
+        }
+      },
+      {
+        id: "samsung-phone",
+        name: "Samsung Galaxy",
         highlights: {
           carbonTarget: "Net-Zero by 2050 (DX 2030)",
-          repairClass: "Highly Integrated"
+          repairClass: "Adhesive Sealed / Glued"
         },
         metrics: {
           climate: {
             score: 7.0,
-            plus: "Committed to 100% renewable matching for Device Experience (DX) divisions by 2030.",
-            minus: "Highly energy-intensive memory fab and semiconductor foundry operations globally.",
+            plus: "Aiming for 100% renewable energy matching for consumer DX products by 2030.",
+            minus: "High carbon intensity associated with global direct chip-foundry operations.",
             source: "https://www.samsung.com/us/aboutsamsung/sustainability/strategy/",
-            source_title: "Samsung ESG Strategy Portal"
+            source_title: "Samsung ESG Strategy"
           },
           ethos: {
             score: 5.0,
-            plus: "Highly stable supply security and standardized warranty coverage networks.",
-            minus: "Historical controversies regarding union organizations and political lobbying inside South Korea.",
+            plus: "Maintains extensive warranty frameworks and consistent consumer firmware support.",
+            minus: "Lobbies to retain proprietary servicing loops, restricting independent repair availability.",
             source: "https://www.samsung.com/us/aboutsamsung/sustainability/governance/",
-            source_title: "Samsung Investor Governance"
+            source_title: "Samsung Governance Hub"
           },
           minerals: {
             score: 7.0,
-            plus: "Exerts direct oversight on minerals tracing due to high vertical integration of component lines.",
-            minus: "Vast manufacturing demand strains resource supplies in extraction areas.",
+            plus: "Coordinates highly granular auditing on regional cobalt and lithium refiners.",
+            minus: "Scale creates substantial pressure on local resource pools.",
             source: "https://www.samsung.com/us/aboutsamsung/sustainability/sustainable-supply-chain/",
-            source_title: "Samsung Materials Tracking"
+            source_title: "Samsung Materials Supply"
           },
           tax: {
             score: 5.5,
-            plus: "Contributes substantial statutory corporate tax inside parent South Korean jurisdiction.",
-            minus: "Optimizes tax exposures globally through highly complex multinational accounting holding structures.",
+            plus: "Contributes high tax volumes within primary domestic South Korean operations.",
+            minus: "Optimizes geographic liabilities using multi-layered offshore subsidiary grids.",
             source: "https://taxjustice.net/",
             source_title: "TJN Secrecy Indexes"
           },
           sustainability: {
             score: 6.5,
-            plus: "Uses ocean-bound plastics sourced from discarded fishing nets inside structural design components.",
-            minus: "Extremely compact design profiles minimize options for utilizing heavy recycled metal alloys.",
+            plus: "Successfully integrates recycled ocean plastics into flagship phone speaker components.",
+            minus: "Requires substantial chemical adhesives for internal battery structural sealing.",
             source: "https://www.samsung.com/us/aboutsamsung/sustainability/environment/",
-            source_title: "Samsung Environmental Progress"
+            source_title: "Samsung Eco-Performance"
           },
           workers: {
             score: 5.5,
-            plus: "Maintains structured health monitoring inside manufacturing semiconductor fabs.",
+            plus: "Maintains high direct employee workplace health monitoring in core foundries.",
             minus: "Historical disputes surrounding occupational leukemia rates in older production lines and worker union organization.",
             source: "https://chinalaborwatch.org/",
-            source_title: "China Labor Watch Database"
+            source_title: "China Labor Watch Reviews"
           },
           community: {
             score: 7.0,
-            plus: "Substantial direct funding for international youth STEM science competitions like 'Solve for Tomorrow'.",
-            minus: "High corporate concentration of CSR initiatives in major domestic hubs.",
+            plus: "Coordinates massive international STEM education programs like 'Solve for Tomorrow'.",
+            minus: "Socioeconomic support highly concentrated near major corporate office hubs.",
             source: "https://www.samsung.com/us/solvefortomorrow/",
             source_title: "Samsung Solve For Tomorrow"
           },
           repairability: {
             score: 4.0,
             plus: "Provides accessible schematics and parts through authorized channels.",
-            minus: "Laptops utilize heavy structural adhesives, welded internal modules, and highly consolidated mainboards.",
+            minus: "Heavily glued back panels make opening the device difficult without risking glass fracture.",
             source: "https://www.ifixit.com/",
             source_title: "iFixit Samsung Catalog"
           }
         }
       },
       {
-        id: "lg",
-        name: "LG",
+        id: "google-phone",
+        name: "Google Pixel",
         highlights: {
-          carbonTarget: "Net-Zero by 2030",
-          repairClass: "Modular Frame / Soldered Components"
+          carbonTarget: "Carbon-Free Energy 2030",
+          repairClass: "iFixit Component Partnership"
         },
         metrics: {
           climate: {
-            score: 7.0,
-            plus: "Aggressive verified targets aimed at 100% operational carbon neutrality by 2030.",
-            minus: "Maintains high Scope 3 manufacturing emission targets that stretch to 2050.",
-            source: "https://sciencebasedtargets.org/target-dashboard",
-            source_title: "SBTi Target Dashboard"
+            score: 7.5,
+            plus: "Committed to 100% carbon-free energy match across offices and server systems.",
+            minus: "Massive downstream shipping emissions across international customer channels.",
+            source: "https://www.google.com/about/datacenters/sustainability/",
+            source_title: "Google Environmental Report"
           },
           ethos: {
-            score: 6.0,
-            plus: "Stable and transparent corporate governance frameworks.",
-            minus: "Standard corporate policy lobbying footprints regarding regional consumer options.",
-            source: "https://www.lg.com/global/sustainability",
-            source_title: "LG Global Sustainability"
+            score: 5.0,
+            plus: "Excellent 7-year OS update guarantee for newer Pixel lines, maximizing software lifespan.",
+            minus: "Faced past public scrutiny over pre-installing software that compromised browser privacy.",
+            source: "https://www.eff.org/",
+            source_title: "EFF Security Logs"
           },
           minerals: {
-            score: 6.5,
-            plus: "Aligns minerals tracing with standard RMI guidelines across external screen and battery suppliers.",
-            minus: "Less direct leverage over smelters due to outsourcing key silicon chip designs.",
-            source: "https://www.lg.com/global/sustainability/supply-chain",
-            source_title: "LG Minerals Verification"
+            score: 7.0,
+            plus: "Coordinates complete tracing audits under the OECD minerals framework.",
+            minus: "Limited direct field monitoring of tier-2 and tier-3 subcontractor smelters.",
+            source: "https://www.google.com/about/datacenters/sustainability/",
+            source_title: "Google Devices Sourcing"
           },
           tax: {
-            score: 6.0,
-            plus: "Consistent and standard corporate taxation returns filed inside South Korea.",
-            minus: "Utilizes standard global tax-minimization models through offshore distribution networks.",
+            score: 3.0,
+            plus: "Complies with legal parameters set inside active operating countries.",
+            minus: "Historically shifted significant global revenue through offshore holding entities.",
             source: "https://taxjustice.net/",
-            source_title: "Tax Justice Network Guidelines"
+            source_title: "TJN Sourcing Index"
           },
           sustainability: {
-            score: 6.0,
-            plus: "Gram series lightweight magnesium alloy reduces chassis plastic volumes significantly.",
-            minus: "Extremely low usage of post-consumer recycled (PCR) aluminum or copper resins.",
+            score: 6.5,
+            plus: "Back casings on premium Pixel models are constructed using 100% recycled aluminum.",
+            minus: "Limited percentage of bio-resins or recycled plastics in internal assemblies.",
             source: "https://www.epeat.net/",
-            source_title: "EPEAT LG Registry"
+            source_title: "EPEAT Google Search"
           },
           workers: {
             score: 6.0,
-            plus: "Regular labor audit logs demonstrating compliance with key international codes of conduct.",
-            minus: "Occasional worker health complaints in sub-contracted electronic assembly plants.",
-            source: "https://www.lg.com/global/sustainability/human-rights",
-            source_title: "LG Human Rights Code"
+            plus: "Requires suppliers to sign a robust code of conduct with set labor standards.",
+            minus: "Relies heavily on non-employee contract workers with fewer labor benefits and protections.",
+            source: "https://www.google.com/about/datacenters/sustainability/",
+            source_title: "Google Supplier Guidelines"
           },
           community: {
-            score: 6.5,
-            plus: "Strong community engagement focusing on regional accessibility and digital support.",
-            minus: "CSR initiatives are often heavily coupled with commercial marketing initiatives.",
-            source: "https://www.lg.com/global/sustainability/social-contribution",
-            source_title: "LG Contribution Portfolio"
+            score: 7.5,
+            plus: "Allocates billions toward digital literacy grants and open education platforms.",
+            minus: "Cloud computing operations consume substantial local water supplies near data centers.",
+            source: "https://www.google.com/about/datacenters/sustainability/",
+            source_title: "Google Community Grants"
           },
           repairability: {
-            score: 5.0,
-            plus: "Gram models offer direct screw fastener access to battery and storage slots.",
-            minus: "Mainboard RAM is soldered directly; official spare parts are difficult for the public to purchase.",
+            score: 6.0,
+            plus: "Partnered with iFixit to sell genuine replacement parts and screens to the public.",
+            minus: "Still utilizes tight adhesive-sealed chassis, requiring heat pads to open.",
             source: "https://www.ifixit.com/",
-            source_title: "iFixit LG Gram Teardowns"
+            source_title: "iFixit Pixel Hub"
           }
         }
       },
       {
-        id: "razer",
-        name: "Razer",
+        id: "xiaomi-phone",
+        name: "Xiaomi Mobile",
         highlights: {
-          carbonTarget: "Carbon Neutral by 2030",
-          repairClass: "Highly Sealed / Gaming Focus"
+          carbonTarget: "Net-Zero by 2040",
+          repairClass: "Highly Sealed"
+        },
+        metrics: {
+          climate: {
+            score: 5.5,
+            plus: "Committed to RE100 (100% renewable energy) targets by 2035 and net-zero by 2050.",
+            minus: "Net-zero timeline is slower than competitors, relying on downstream offsets.",
+            source: "https://www.mi.com/global/about/agreement/",
+            source_title: "Xiaomi ESG Guidelines"
+          },
+          ethos: {
+            score: 4.5,
+            plus: "Maintains structured and accessible warranty support loops.",
+            minus: "Limited corporate support for independent repair networks or open bootloaders.",
+            source: "https://www.eff.org/",
+            source_title: "EFF Sourcing Review"
+          },
+          minerals: {
+            score: 5.5,
+            plus: "Diligently maps active mineral tracing metrics under RMI guidelines.",
+            minus: "Fewer public audits on tier-2 supplier smelters.",
+            source: "https://www.mi.com/global/about/agreement/",
+            source_title: "Xiaomi Sourcing Policies"
+          },
+          tax: {
+            score: 5.5,
+            plus: "Maintains direct accounting compliance inside primary domestic market.",
+            minus: "Uses optimized offshore transfer pricing structures across global channels.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Secrecy Indexes"
+          },
+          sustainability: {
+            score: 5.0,
+            plus: "Packaging size reduced to minimize cardboard footprint.",
+            minus: "Extremely low usage of post-consumer recycled metals or bio-based plastics.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT Registry"
+          },
+          workers: {
+            score: 5.0,
+            plus: "Requires suppliers to sign a formal Code of Conduct.",
+            minus: "Relies on major external manufacturing groups with periodic worker safety and overtime complaints.",
+            source: "https://www.responsiblebusiness.org/",
+            source_title: "RBA Monitoring Hub"
+          },
+          community: {
+            score: 5.0,
+            plus: "Coordinates local hardware donations to schools in East Asia.",
+            minus: "Limited digital inclusion initiatives for underserved communities globally.",
+            source: "https://www.mi.com/global/about/agreement/",
+            source_title: "Xiaomi Sourcing Impact"
+          },
+          repairability: {
+            score: 4.0,
+            plus: "Internal modular connectors are mapped in public servicing guides.",
+            minus: "Tight internal configurations require proprietary adhesives and delicate ribbon cables.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Android Teardowns"
+          }
+        }
+      },
+      {
+        id: "sony-phone",
+        name: "Sony Xperia",
+        highlights: {
+          carbonTarget: "Net-Zero by 2040",
+          repairClass: "Sealed Waterproof Frame"
+        },
+        metrics: {
+          climate: {
+            score: 6.5,
+            plus: "Carbon reduction targets validated and published annually.",
+            minus: "Relies on unbundled Renewable Energy Certificates (RECs) to meet regional goals.",
+            source: "https://www.sony.com/en/SonyInfo/csr/",
+            source_title: "Sony Carbon Goals"
+          },
+          ethos: {
+            score: 5.5,
+            plus: "Stable and transparent corporate governance frameworks.",
+            minus: "Anticompetitive licensing structures restrict independent repair access.",
+            source: "https://www.sony.com/en/SonyInfo/csr/",
+            source_title: "Sony Governance Reports"
+          },
+          minerals: {
+            score: 6.0,
+            plus: "Active validation procedures for conflict minerals sourcing.",
+            minus: "Limited public visibility and disclosure regarding mineral tracing results.",
+            source: "https://www.sony.com/en/SonyInfo/csr/",
+            source_title: "Sony Materials Policy"
+          },
+          tax: {
+            score: 6.0,
+            plus: "Pays statutory corporate tax within parent Japanese jurisdiction.",
+            minus: "Utilizes optimized geographic transfer pricing models.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Sourcing Index"
+          },
+          sustainability: {
+            score: 6.0,
+            plus: "Pioneered SORPLAS recycled plastics containing up to 99% recycled content.",
+            minus: "Low overall circular design properties inside mobile frames.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT Sony Registry"
+          },
+          workers: {
+            score: 6.0,
+            plus: "Supplier code of conduct aligned directly with standard international covenants.",
+            minus: "Minor regional sub-assembly factory disputes reported in Southeast Asia.",
+            source: "https://www.sony.com/en/SonyInfo/csr/",
+            source_title: "Sony Supplier Code"
+          },
+          community: {
+            score: 6.0,
+            plus: "Routine technology donations supporting tech-literacy campaigns.",
+            minus: "Fewer community-driven resource regeneration projects near mining areas.",
+            source: "https://www.sony.com/en/SonyInfo/csr/",
+            source_title: "Sony CSR Sourcing"
+          },
+          repairability: {
+            score: 4.0,
+            plus: "Uses standard modular connectors inside.",
+            minus: "Heavily glued waterproof seals make opening the device extremely difficult.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Sony Teardowns"
+          }
+        }
+      },
+      {
+        id: "motorola-phone",
+        name: "Motorola",
+        highlights: {
+          carbonTarget: "Net-Zero by 2050 (Lenovo)",
+          repairClass: "Highly Sealed / Compact"
         },
         metrics: {
           climate: {
             score: 6.0,
-            plus: "Clear corporate target for operational carbon neutrality by 2030.",
-            minus: "Relies heavily on carbon offset purchases; supply chain Scope 3 intensity remains exceptionally high.",
-            source: "https://www.razer.com/go-green",
-            source_title: "Razer GoGreen Targets"
+            plus: "Aligns with Lenovo's verified SBTi net-zero emission reduction goals.",
+            minus: "High downstream distribution logistics generate high carbon output annually.",
+            source: "https://www.lenovo.com/us/en/about/sustainability-reporting/",
+            source_title: "Lenovo Carbon Profile"
           },
           ethos: {
-            score: 5.5,
-            plus: "Highly active in mobilizing youthful user-bases towards climate awareness.",
-            minus: "Faced past public scrutiny over specific marketing claims surrounding environmental merchandise.",
+            score: 5.0,
+            plus: "Consistent statutory compliance within principal corporate operations.",
+            minus: "Standard corporate policy lobbying footprints regarding regional consumer options.",
             source: "https://www.eff.org/",
-            source_title: "EFF Sourcing Index"
+            source_title: "EFF Sourcing Review"
           },
           minerals: {
-            score: 5.5,
-            plus: "Requires tier-1 suppliers to verify minerals through basic conflict-free frameworks.",
-            minus: "Extremely fragmented subcontracted ODM network reduces audit visibility.",
-            source: "https://www.razer.com/go-green/supply-chain",
-            source_title: "Razer Supply Disclosures"
+            score: 6.0,
+            plus: "Integrates standard conflict-free tracing protocols under Lenovo’s RMI framework.",
+            minus: "Very limited direct field monitoring of tier-2 and tier-3 subcontractor smelters.",
+            source: "https://www.lenovo.com/us/en/social_responsibility/conflict_minerals/",
+            source_title: "Lenovo Minerals Sourcing"
           },
           tax: {
-            score: 5.5,
-            plus: "Complies with statutory tax expectations in corporate hubs.",
-            minus: "Uses optimized dual-headquarter frameworks in Singapore and the US to reduce overall tax margins.",
+            score: 5.0,
+            plus: "Maintains transparent local corporate filings.",
+            minus: "Maintains complex tax optimization structures between Chinese headquarters and US subsidiaries.",
             source: "https://taxjustice.net/",
             source_title: "TJN Sourcing Index"
           },
           sustainability: {
             score: 5.5,
-            plus: "Premium anodized aluminum chassis design ensures high durability.",
-            minus: "Very limited integration of post-consumer recycled metals or bio-based plastics in flagship units.",
+            plus: "Packaging footprint has reduced significantly, with paper-only elements.",
+            minus: "Consumer-focused devices use very low percentages of post-consumer recycled plastics.",
             source: "https://www.epeat.net/",
-            source_title: "EPEAT Razer Listings"
+            source_title: "EPEAT Sourcing Portal"
           },
           workers: {
-            score: 5.5,
-            plus: "Requires principal contractors to sign a formal Code of Conduct.",
-            minus: "Very limited direct corporate auditing of assembly lines, relying heavily on subcontractor claims.",
-            source: "https://www.razer.com/go-green/supply-chain",
-            source_title: "Razer Supplier Code"
+            score: 6.0,
+            plus: "Supplier code of conduct aligned directly with standard international covenants.",
+            minus: "Periodic labor disputes at sub-contracted assembly factories regarding forced overtime.",
+            source: "https://www.lenovo.com/us/en/social_responsibility/supplier_code/",
+            source_title: "Lenovo Supplier Guidelines"
           },
           community: {
-            score: 7.5,
-            plus: "Excellent community-driven environmental partnerships, raising substantial conservation funding through 'Sneki Snek'.",
-            minus: "Community support is heavily restricted to gamer demographics.",
-            source: "https://www.razer.com/go-green/sneki-snek",
-            source_title: "Razer Sneki Snek Conservation"
+            score: 5.5,
+            plus: "Basic tech accessibility grants managed through corporate foundation networks.",
+            minus: "Community investments are highly concentrated in major corporate areas.",
+            source: "https://www.lenovo.com/us/en/about/lenovo-foundation/",
+            source_title: "Lenovo Foundation Portal"
           },
           repairability: {
             score: 4.5,
-            plus: "Allows upgrades to secondary storage drives and standard network cards.",
-            minus: "Extremely tight internal layouts, delicate vapor chambers, and proprietary ribbon cables restrict standard repair.",
+            plus: "Allows upgrades to secondary components once internal seals are cleared.",
+            minus: "Heavily glued structural setups; replacement parts are rarely sold directly to consumers.",
             source: "https://www.ifixit.com/",
-            source_title: "iFixit Gaming teardowns"
+            source_title: "iFixit Sourcing Registry"
           }
         }
       }
     ];
+
+    // Monitor displays database (NEW)
+    const MONITOR_DATABASE = [
+      {
+        id: "eizo",
+        name: "Eizo Displays",
+        highlights: {
+          carbonTarget: "Long-term Durability Fokus",
+          repairClass: "High Enterprise Modularity"
+        },
+        metrics: {
+          climate: {
+            score: 7.0,
+            plus: "Consistent corporate operational reductions with highly efficient Japanese administrative facilities.",
+            minus: "Slower to publish comprehensive Scope 3 targets compared to larger global conglomerates.",
+            source: "https://www.eizoglobal.com/company/csr/",
+            source_title: "Eizo CSR Guidelines"
+          },
+          ethos: {
+            score: 8.5,
+            plus: "Exceptional consumer focus; standard 5-year warranty on all primary displays reducing long-term electronic turnover.",
+            minus: "Niche industrial concentration gives Eizo limited leverage over macro regulatory policies.",
+            source: "https://www.eizoglobal.com/support/warranty/",
+            source_title: "Eizo Global Warranty Guidelines"
+          },
+          minerals: {
+            score: 8.0,
+            plus: "Highly transparent annual minerals survey reporting aligned with active RMI regulations.",
+            minus: "Relies on small-batch display suppliers where deep tier-3 audit trail mapping is hard.",
+            source: "https://www.eizoglobal.com/company/csr/mineral/",
+            source_title: "Eizo Minerals Survey Reporting"
+          },
+          tax: {
+            score: 8.5,
+            plus: "Direct and straightforward corporate tax structures, paying statutory income taxes in domestic Japan.",
+            minus: "Limited regional tax incentives narrow operational capital margins relative to optimized offshore competitors.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Sourcing Assessment Guidelines"
+          },
+          sustainability: {
+            score: 8.0,
+            plus: "Employs completely halogen-free display panel designs, drastically reducing downstream toxic e-waste.",
+            minus: "Premium component housing limits the inclusion of higher percentages of post-consumer recycled (PCR) resins.",
+            source: "https://www.eizoglobal.com/company/csr/environment/",
+            source_title: "Eizo Eco-Management Framework"
+          },
+          workers: {
+            score: 8.5,
+            plus: "Unparalleled manufacturing quality and employee protections in Japanese direct assembly centers.",
+            minus: "Highly centralized operations create localized resource dependency on Ishikawan assembly channels.",
+            source: "https://www.ilo.org/",
+            source_title: "ILO Core Work Standards"
+          },
+          community: {
+            score: 7.5,
+            plus: "Direct, localized socio-environmental development grants inside Ishikawan corporate zones.",
+            minus: " CSR spending lacks a globally distributed footprint in developing mining jurisdictions.",
+            source: "https://www.eizoglobal.com/company/csr/society/",
+            source_title: "Eizo CSR Society Portal"
+          },
+          repairability: {
+            score: 7.5,
+            plus: "Discrete power boards and logic assemblies are easily swappable; highly modular compared to basic monitors.",
+            minus: "Servicing manuals are strictly distributed to certified enterprise partners rather than open public wikis.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Display Services Guides"
+          }
+        }
+      },
+      {
+        id: "dell-monitor",
+        name: "Dell Displays",
+        highlights: {
+          carbonTarget: "Net-Zero display panel chains by 2050",
+          repairClass: "Detachable Bracket Assemblies"
+        },
+        metrics: {
+          climate: {
+            score: 7.5,
+            plus: "Solid carbon mitigation strategies tracked across global display panel partner operations.",
+            minus: "High F-gas emission footprint at outsourced semiconductor fabrication plants.",
+            source: "https://www.dell.com/en-us/dt/corporate/social-impact/advancing-sustainability/climate-and-energy.htm",
+            source_title: "Dell Display Carbon Mitigation Track"
+          },
+          ethos: {
+            score: 6.5,
+            plus: "Maintains rigorous corporate social responsibility auditing across all enterprise displays.",
+            minus: "Active lobbyist presence in coalitions resisting regional e-waste circularity collection guidelines.",
+            source: "https://corporate.delltechnologies.com/en-us/about-us/governance.htm",
+            source_title: "Dell Display Corporate Governance Profile"
+          },
+          minerals: {
+            score: 7.5,
+            plus: "Excellent diligence regarding RMAP conflict-free indium, tin-solder, and backlight supply tracks.",
+            minus: "Difficult tier-2 display semiconductor mapping leaves minor trace blindspots.",
+            source: "https://www.dell.com/en-us/dt/corporate/social-impact/advancing-sustainability/sustainable-sourcing/materials.htm",
+            source_title: "Dell Display Materials Tracking"
+          },
+          tax: {
+            score: 6.0,
+            plus: "Maintains clear transparency in standard domestic corporate filings.",
+            minus: "Optimizes tax obligations using complex international accounting holding channels.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Secrecy Indexes"
+          },
+          sustainability: {
+            score: 8.0,
+            plus: "Largest global footprint of EPEAT Gold monitors incorporating massive volume of PCR resins.",
+            minus: "Backlight reflector units contain trace fluorinated compounds to prevent heat degradation.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT Global Registry Dell Displays"
+          },
+          workers: {
+            score: 6.5,
+            plus: "Supplier code of conduct aligned directly with standard international covenants.",
+            minus: "Supplier assembly networks in Southeast Asia present persistent working hours disputes.",
+            source: "https://www.responsiblebusiness.org/",
+            source_title: "RBA Monitoring Portal"
+          },
+          community: {
+            score: 7.0,
+            plus: "Substantial direct funding for youth STEM educational programs adjacent to principal offices.",
+            minus: "CSR initiatives are often structured around brand marketing rather than local community agency.",
+            source: "https://www.dell.com/en-us/dt/corporate/social-impact/transforming-lives.htm",
+            source_title: "Dell Displays Sourcing Impact"
+          },
+          repairability: {
+            score: 5.5,
+            plus: "Allows upgrades to stand elements, with standard VESA bracket configurations.",
+            minus: "Main chassis frames are fused with tough plastic tabs instead of screws, risking fracture on opening.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Display Services Guides"
+          }
+        }
+      },
+      {
+        id: "samsung-monitor",
+        name: "Samsung Displays",
+        highlights: {
+          carbonTarget: "Net-Zero panel fabs by 2030",
+          repairClass: "Heavily Glued Gaming Panels"
+        },
+        metrics: {
+          climate: {
+            score: 7.0,
+            plus: "Targeted decarbonization tracks for OLED and display divisions, scaling to RE100 matching.",
+            minus: "Extremely high operational electricity footprint inside cleanroom QD-OLED fabrication.",
+            source: "https://www.samsung.com/us/aboutsamsung/sustainability/strategy/",
+            source_title: "Samsung Display ESG Strategy Portal"
+          },
+          ethos: {
+            score: 5.0,
+            plus: "Excellent research into eco-mode settings and low-power standby display states.",
+            minus: "Corporate history of anti-union litigation inside South Korean headquarters.",
+            source: "https://www.samsung.com/us/aboutsamsung/sustainability/governance/",
+            source_title: "Samsung Investor Governance"
+          },
+          minerals: {
+            score: 7.0,
+            plus: "Direct audit power on indium-tin-oxide (ITO) panel suppliers due to vertical display fab ownership.",
+            minus: "Massive scale puts a high demand on extraction zones globally.",
+            source: "https://www.samsung.com/us/aboutsamsung/sustainability/sustainable-supply-chain/",
+            source_title: "Samsung Display Materials"
+          },
+          tax: {
+            score: 5.5,
+            plus: "Pays high statutory corporate tax inside parent South Korean jurisdiction.",
+            minus: "Uses optimized geographic transfer pricing models to minimize global tax liability.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Secrecy Indexes"
+          },
+          sustainability: {
+            score: 6.5,
+            plus: "Eliminates toxic lead solder components across newer OLED monitor lines.",
+            minus: "Extremely thin displays restrict space for utilizing heavy recycled metal alloys.",
+            source: "https://www.samsung.com/us/aboutsamsung/sustainability/environment/",
+            source_title: "Samsung Display Environmental Management"
+          },
+          workers: {
+            score: 5.5,
+            plus: "Rigorous cleanroom air filtering and employee protection guidelines inside domestic fabs.",
+            minus: "Historical disputes surrounding occupational chemical exposure in older LCD/OLED cleanrooms.",
+            source: "https://chinalaborwatch.org/",
+            source_title: "China Labor Watch Reviews"
+          },
+          community: {
+            score: 7.0,
+            plus: "Coordinates massive international STEM education programs like 'Solve for Tomorrow'.",
+            minus: "Community investments are highly concentrated in South Korea.",
+            source: "https://www.samsung.com/us/solvefortomorrow/",
+            source_title: "Samsung Displays Solve For Tomorrow"
+          },
+          repairability: {
+            score: 4.0,
+            plus: "Provides accessible schematics and parts through authorized channels.",
+            minus: "Gaming monitors (Odyssey series) rely on heavy adhesives, welded panel backplates, and integrated board designs.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Displays Services Guides"
+          }
+        }
+      },
+      {
+        id: "lg-monitor",
+        name: "LG Display",
+        highlights: {
+          carbonTarget: "Net-Zero by 2030 (Operational)",
+          repairClass: "Integrated Display Frame"
+        },
+        metrics: {
+          climate: {
+            score: 6.5,
+            plus: "Highly aggressive targets verified by SBTi methodologies for direct operational carbon neutrality.",
+            minus: "High downstream Scope 3 intensity from potent Fluorinated-gas (F-gas) etching emissions.",
+            source: "https://sciencebasedtargets.org/target-dashboard",
+            source_title: "SBTi Target Dashboard"
+          },
+          ethos: {
+            score: 6.0,
+            plus: "Clear corporate reporting structures and stable corporate governance.",
+            minus: "Lobbies to retain proprietary servicing loops, restricting independent repair availability.",
+            source: "https://www.lg.com/global/sustainability",
+            source_title: "LG Global Display Sustainability Reports"
+          },
+          minerals: {
+            score: 6.5,
+            plus: "Coordinates regular supply audits across indium, tin, and backlight suppliers, aligned with RMI guidelines.",
+            minus: "Relies on joint-venture minerals consortiums with limited direct operational visibility.",
+            source: "https://www.lg.com/global/sustainability/supply-chain",
+            source_title: "LG Display Minerals Verification"
+          },
+          tax: {
+            score: 6.0,
+            plus: "Maintains transparent local corporate tax filings within South Korea.",
+            minus: "Optimizes geographic liabilities using multi-layered offshore subsidiary grids.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Secrecy Indexes"
+          },
+          sustainability: {
+            score: 7.0,
+            plus: "Designed ultra-thin panels that require up to 40% less plastic structural framework.",
+            minus: "Lower-tier displays continue to rely on virgin-grade plastics for chassis structural components.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT LG Display Registry"
+          },
+          workers: {
+            score: 6.0,
+            plus: "Supplier code of conduct aligned directly with standard international covenants.",
+            minus: "Audit records reveal persistent work-hour violations at external component subcontractors.",
+            source: "https://www.lg.com/global/sustainability/human-rights",
+            source_title: "LG Supply Chain Code of Conduct"
+          },
+          community: {
+            score: 6.5,
+            plus: "Solid direct support for local digital inclusion campaigns in Southeast Asia.",
+            minus: "CSR initiatives are often structured around brand marketing rather than local community agency.",
+            source: "https://www.lg.com/global/sustainability/social-contribution",
+            source_title: "LG Display Contribution Reports"
+          },
+          repairability: {
+            score: 4.5,
+            plus: "Allows basic stand detachment with quick release mechanisms.",
+            minus: "Backlight array is bonded directly to panel sheets; individual LED bar replacements are impossible without specialized ovens.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit LG Gram/Display Teardowns"
+          }
+        }
+      },
+      {
+        id: "hp-monitor",
+        name: "HP Displays",
+        highlights: {
+          carbonTarget: "Net-Zero by 2040",
+          repairClass: "Modular Stand Assemblies"
+        },
+        metrics: {
+          climate: {
+            score: 8.0,
+            plus: "Validated Science Based Targets initiative (SBTi) plans, tracking absolute Scope 3 reductions.",
+            minus: "Significant scope-3 emissions from global retail and freight networks.",
+            source: "https://sciencebasedtargets.org/target-dashboard",
+            source_title: "SBTi Target Dashboard"
+          },
+          ethos: {
+            score: 7.0,
+            plus: "Highly responsive governance frameworks for institutional procurement.",
+            minus: "Consumer hardware policies are structured around brand locking mechanisms rather than open access.",
+            source: "https://www.eff.org/",
+            source_title: "EFF Sourcing Review"
+          },
+          minerals: {
+            score: 8.0,
+            plus: "Excellent diligence regarding RMAP conflict-free indium and display-solder components.",
+            minus: "Smaller sourcing footprint reduces physical influence over Tier-2 refining smelters directly.",
+            source: "https://www.hp.com/us-en/hp-information/sustainable-impact/human-rights.html",
+            source_title: "HP Display Conflict Minerals Report"
+          },
+          tax: {
+            score: 6.0,
+            plus: "Maintains transparency in geographic revenue reporting.",
+            minus: "Utilizes standard global tax-minimization models through European and Asian operations.",
+            source: "https://fairtaxmark.net/",
+            source_title: "HP Display Tax Review"
+          },
+          sustainability: {
+            score: 8.0,
+            plus: "Exceptional integration of post-consumer recycled plastic casing frames on business display ranges.",
+            minus: "Shorter hardware operational lifecycle compared to modular and upgradeable options.",
+            source: "https://www.hp.com/us-en/hp-information/sustainable-impact/climate-action.html",
+            source_title: "HP Display Sustainability Center"
+          },
+          workers: {
+            score: 7.0,
+            plus: "Rigorous tier-1 and tier-2 vendor auditing guidelines verified via the RBA.",
+            minus: "Audit records reveal persistent work-hour violations at external component subcontractors.",
+            source: "https://www.responsiblebusiness.org/",
+            source_title: "RBA Monitoring Portal"
+          },
+          community: {
+            score: 7.5,
+            plus: "Substantial direct investment into local educational technology campaigns.",
+            minus: "CSR initiatives are often structured around brand marketing rather than local community agency.",
+            source: "https://www.hp.com/us-en/hp-information/sustainable-impact/digital-equity.html",
+            source_title: "HP Display Digital Equity Index"
+          },
+          repairability: {
+            score: 6.0,
+            plus: "Excellent stand-mounts and panel brackets are easily detachable.",
+            minus: "Integrated logical display chips prevent simple home soldering or modular component swap paths.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Displays Services Guides"
+          }
+        }
+      },
+      {
+        id: "benq",
+        name: "BenQ",
+        highlights: {
+          carbonTarget: "RE100 target by 2035",
+          repairClass: "Moderate Chassis Modularity"
+        },
+        metrics: {
+          climate: {
+            score: 6.0,
+            plus: "Steady progress in energy conservation inside administrative hubs; panel supply chains are slower to decarbonize.",
+            minus: "Data-center and AI development energy demands threaten overall carbon goals.",
+            source: "https://www.benq.com/en-us/about-benq/csr.html",
+            source_title: "BenQ Group CSR Disclosures"
+          },
+          ethos: {
+            score: 5.5,
+            plus: "Basic transparency in corporate filings and customer support pathways.",
+            minus: "Anticompetitive licensing structures restrict independent repair access.",
+            source: "https://www.benq.com/en-us/about-benq/csr/governance.html",
+            source_title: "BenQ Governance Profile"
+          },
+          minerals: {
+            score: 6.0,
+            plus: "Coordinates basic mineral tracing audits across international supplier chains.",
+            minus: "Limited direct field monitoring of tier-2 and tier-3 subcontractor smelters.",
+            source: "https://www.benq.com/en-us/about-benq/csr/supply-chain.html",
+            source_title: "BenQ Minerals Policy"
+          },
+          tax: {
+            score: 6.0,
+            plus: "Direct tax reporting within high-compliance corporate offices in Taiwan.",
+            minus: "Uses optimized geographic transfer pricing models to minimize global tax liability.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Secrecy Indexes"
+          },
+          sustainability: {
+            score: 6.5,
+            plus: "Gradual integration of PCR plastics in monitor chassis housings, paired with basic eco-mode energy presets.",
+            minus: "Low-end consumer hardware uses low percentages of post-consumer recycled plastics.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT Registry for BenQ"
+          },
+          workers: {
+            score: 6.0,
+            plus: "Supplier code of conduct aligned directly with standard international covenants.",
+            minus: "Vulnerable to poor labor and assembly monitoring at third-party supplier factories.",
+            source: "https://www.benq.com/en-us/about-benq/csr/supply-chain.html",
+            source_title: "BenQ Supplier Code"
+          },
+          community: {
+            score: 6.0,
+            plus: "Targeted educational screen donations to local schools in Southeast Asia.",
+            minus: "Community investments are highly concentrated in Taiwan.",
+            source: "https://www.benq.com/en-us/about-benq/csr/social.html",
+            source_title: "BenQ Global Giving"
+          },
+          repairability: {
+            score: 5.0,
+            plus: "Enclosures use robust, hidden plastic snaps; internal power boards are discrete.",
+            minus: " Curved displays utilize highly integrated structural configurations that prevent simple logic swaps.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Displays Services Guides"
+          }
+        }
+      },
+      {
+        id: "asus-monitor",
+        name: "ASUS Displays",
+        highlights: {
+          carbonTarget: "Net-Zero Supply Chain by 2050",
+          repairClass: "Highly Sealed Gaming Cases"
+        },
+        metrics: {
+          climate: {
+            score: 5.5,
+            plus: "Provides clear emissions transparency reports for its domestic operations in Taiwan.",
+            minus: "Net-zero target set to 2050, lagging behind major enterprise competitors.",
+            source: "https://www.asus.com/about-asus/sustainability/esg-performance/",
+            source_title: "ASUS Carbon Performance"
+          },
+          ethos: {
+            score: 4.5,
+            plus: "Maintains solid corporate filing transparency.",
+            minus: "Very limited support for open-source development or community hardware programs.",
+            source: "https://www.asus.com/about-asus/sustainability/esg-performance/",
+            source_title: "ASUS ESG Disclosures"
+          },
+          minerals: {
+            score: 5.0,
+            plus: "Performs basic tracing audits across major suppliers.",
+            minus: "Limited public visibility and disclosure regarding mineral tracing results.",
+            source: "https://www.asus.com/about-asus/sustainability/esg-performance/",
+            source_title: "ASUS Minerals Report"
+          },
+          tax: {
+            score: 6.0,
+            plus: "Solid localized tax filing with corporate headquarters in Taiwan.",
+            minus: "Uses standard transfer-pricing structures to minimize international corporate tax.",
+            source: "https://taxjustice.net/",
+            source_title: "TJN Sourcing Review"
+          },
+          sustainability: {
+            score: 5.5,
+            plus: "Gradually introducing FSC paper materials in product boxes.",
+            minus: "Low-end consumer hardware uses low percentages of post-consumer recycled plastics.",
+            source: "https://www.epeat.net/",
+            source_title: "EPEAT ASUS Status"
+          },
+          workers: {
+            score: 5.0,
+            plus: "Maintains basic health and safety standards inside its direct assembly facilities.",
+            minus: "Limited transparency with few public labor audit logs.",
+            source: "https://www.asus.com/about-asus/sustainability/esg-performance/",
+            source_title: "ASUS Human Rights Statement"
+          },
+          community: {
+            score: 5.0,
+            plus: "Coordinates local educational donations in East Asia.",
+            minus: "Limited digital inclusion initiatives for underserved communities globally.",
+            source: "https://www.asus.com/about-asus/sustainability/esg-performance/",
+            source_title: "ASUS Sourcing Impact"
+          },
+          repairability: {
+            score: 4.0,
+            plus: "Provides standard replacement parts for business configurations.",
+            minus: "Consumer and gaming lines are sealed with proprietary adhesives, minimizing repair paths.",
+            source: "https://www.ifixit.com/",
+            source_title: "iFixit Gaming Reviews"
+          }
+        }
+      }
+    ];
+
+    // Global Active Database State
+    let activeCategory = "laptops"; // 'laptops', 'phones', or 'monitors'
+
+    function getActiveDatabase() {
+      if (activeCategory === "laptops") return LAPTOP_DATABASE;
+      if (activeCategory === "phones") return PHONE_DATABASE;
+      return MONITOR_DATABASE;
+    }
 
     // Global App State
     let currentWeights = {
@@ -1154,14 +1907,16 @@
     let currentSortCriteria = 'weighted'; // 'weighted', 'name', or specific key
     let currentSortOrder = 'desc'; // 'desc' or 'asc'
 
-    // Chart.js Instances tracking (Must destroy old instance before recreating to prevent canvas overlap bugs)
+    // Chart.js Instances tracking
     let deepDiveChartInstance = null;
     let compareChartInstance = null;
 
     // Calculation & Sorter Engine
     function calculateStandings() {
+      const activeDb = getActiveDatabase();
+      
       // First, map the base results with current weights calculated
-      let results = BRAND_DATABASE.map(brand => {
+      let results = activeDb.map(brand => {
         let weightedSum = 0;
         let totalWeights = 0;
 
@@ -1189,19 +1944,16 @@
           valA = a.name.toLowerCase();
           valB = b.name.toLowerCase();
           
-          // Alphabetical default order sorting adjustments
           if (currentSortOrder === 'desc') {
             return valA < valB ? 1 : (valA > valB ? -1 : 0);
           } else {
             return valA > valB ? 1 : (valA < valB ? -1 : 0);
           }
         } else {
-          // Sorting by individual metric score
           valA = a.metrics[currentSortCriteria].score;
           valB = b.metrics[currentSortCriteria].score;
         }
 
-        // Secondary fallback to name alphabetically if values match
         if (valA === valB) {
           return a.name.localeCompare(b.name);
         }
@@ -1265,7 +2017,6 @@
         const rank = index + 1;
         const isChecked = selectedForComparison.includes(brand.id) ? 'checked' : '';
 
-        // Determine badge value to show next to score if sorting by specific metric
         let additionalBadge = "";
         if (currentSortCriteria !== 'weighted' && currentSortCriteria !== 'name') {
           const metricVal = brand.metrics[currentSortCriteria].score;
@@ -1314,7 +2065,8 @@
 
     // Individual Deep Dive Accordions and Radar Chart Renderer
     window.openDetails = function(brandId, rank, score) {
-      const brand = BRAND_DATABASE.find(b => b.id === brandId);
+      const activeDb = getActiveDatabase();
+      const brand = activeDb.find(b => b.id === brandId);
       if (!brand) return;
 
       const modalTitle = document.getElementById("modal-title");
@@ -1393,7 +2145,6 @@
       const canvas = document.getElementById('deepDiveChart');
       if (!canvas) return;
 
-      // Clean destroy to avoid tooltip/hover bugs
       if (deepDiveChartInstance) {
         deepDiveChartInstance.destroy();
       }
@@ -1489,7 +2240,8 @@
       const compareTableBody = document.getElementById("compare-table-body");
       if (!compareTableHeader || !compareTableBody) return;
 
-      const comparisonList = BRAND_DATABASE.filter(b => selectedForComparison.includes(b.id)).map(brand => {
+      const activeDb = getActiveDatabase();
+      const comparisonList = activeDb.filter(b => selectedForComparison.includes(b.id)).map(brand => {
         let weightedSum = 0;
         let totalWeights = 0;
         for (const criterion in currentWeights) {
@@ -1582,7 +2334,6 @@
         compareChartInstance.destroy();
       }
 
-      // Safe, vibrant contrast color map tailored to Hive IT templates
       const palette = [
         { stroke: '#1E2229', fill: 'rgba(30, 34, 41, 0.03)' },   // Deep Charcoal
         { stroke: '#B07D11', fill: 'rgba(176, 125, 17, 0.12)' }, // Honey Yellow
@@ -1720,6 +2471,69 @@
       });
     }
 
+    // Modern Segmented Tab Switcher Actions (Capsule/Segment Control with Hive IT Palette)
+    function bindTabControls() {
+      const tabLaptops = document.getElementById("tab-laptops");
+      const tabPhones = document.getElementById("tab-phones");
+      const tabMonitors = document.getElementById("tab-monitors");
+
+      if (tabLaptops && tabPhones && tabMonitors) {
+        tabLaptops.addEventListener("click", () => {
+          if (activeCategory === "laptops") return;
+          activeCategory = "laptops";
+          
+          tabLaptops.className = "flex-1 sm:flex-initial text-center bg-hiveCharcoal text-white rounded-xl px-8 py-4 font-black text-base tracking-tight transition-all focus:outline-none";
+          tabLaptops.setAttribute("aria-selected", "true");
+          
+          tabPhones.className = "flex-1 sm:flex-initial text-center bg-transparent text-hiveCharcoal rounded-xl px-8 py-4 font-bold text-base tracking-tight transition-all hover:bg-gray-100 focus:outline-none";
+          tabPhones.setAttribute("aria-selected", "false");
+
+          tabMonitors.className = "flex-1 sm:flex-initial text-center bg-transparent text-hiveCharcoal rounded-xl px-8 py-4 font-bold text-base tracking-tight transition-all hover:bg-gray-100 focus:outline-none";
+          tabMonitors.setAttribute("aria-selected", "false");
+          
+          selectedForComparison = [];
+          updateCompareBar();
+          calculateStandings();
+        });
+
+        tabPhones.addEventListener("click", () => {
+          if (activeCategory === "phones") return;
+          activeCategory = "phones";
+          
+          tabPhones.className = "flex-1 sm:flex-initial text-center bg-hiveCharcoal text-white rounded-xl px-8 py-4 font-black text-base tracking-tight transition-all focus:outline-none";
+          tabPhones.setAttribute("aria-selected", "true");
+          
+          tabLaptops.className = "flex-1 sm:flex-initial text-center bg-transparent text-hiveCharcoal rounded-xl px-8 py-4 font-bold text-base tracking-tight transition-all hover:bg-gray-100 focus:outline-none";
+          tabLaptops.setAttribute("aria-selected", "false");
+
+          tabMonitors.className = "flex-1 sm:flex-initial text-center bg-transparent text-hiveCharcoal rounded-xl px-8 py-4 font-bold text-base tracking-tight transition-all hover:bg-gray-100 focus:outline-none";
+          tabMonitors.setAttribute("aria-selected", "false");
+          
+          selectedForComparison = [];
+          updateCompareBar();
+          calculateStandings();
+        });
+
+        tabMonitors.addEventListener("click", () => {
+          if (activeCategory === "monitors") return;
+          activeCategory = "monitors";
+          
+          tabMonitors.className = "flex-1 sm:flex-initial text-center bg-hiveCharcoal text-white rounded-xl px-8 py-4 font-black text-base tracking-tight transition-all focus:outline-none";
+          tabMonitors.setAttribute("aria-selected", "true");
+          
+          tabLaptops.className = "flex-1 sm:flex-initial text-center bg-transparent text-hiveCharcoal rounded-xl px-8 py-4 font-bold text-base tracking-tight transition-all hover:bg-gray-100 focus:outline-none";
+          tabLaptops.setAttribute("aria-selected", "false");
+
+          tabPhones.className = "flex-1 sm:flex-initial text-center bg-transparent text-hiveCharcoal rounded-xl px-8 py-4 font-bold text-base tracking-tight transition-all hover:bg-gray-100 focus:outline-none";
+          tabPhones.setAttribute("aria-selected", "false");
+          
+          selectedForComparison = [];
+          updateCompareBar();
+          calculateStandings();
+        });
+      }
+    }
+
     // DOM Setup & Safe Declarations
     function init() {
       const resetBtn = document.getElementById("reset-weights");
@@ -1733,24 +2547,6 @@
             currentWeights[sliderName] = 5;
           });
           calculateStandings();
-        });
-      }
-
-      const toggleContrastBtn = document.getElementById("toggle-contrast");
-      if (toggleContrastBtn) {
-        toggleContrastBtn.addEventListener("click", () => {
-          highContrastMode = !highContrastMode;
-          if (highContrastMode) {
-            document.body.classList.add("contrast-double");
-            document.body.classList.remove("bg-hiveLightBg");
-            document.body.classList.add("bg-white");
-            toggleContrastBtn.innerText = "Normal Contrast View";
-          } else {
-            document.body.classList.remove("contrast-double");
-            document.body.classList.remove("bg-white");
-            document.body.classList.add("bg-hiveLightBg");
-            toggleContrastBtn.innerText = "High Contrast View";
-          }
         });
       }
 
@@ -1811,7 +2607,6 @@
           if (compareModalEl) compareModalEl.classList.remove("hidden");
           if (compareModalContentEl) compareModalContentEl.focus();
           document.body.style.overflow = 'hidden';
-          // Render chart after showing elements so rendering computes viewport dimensions safely
           buildComparisonMatrix();
         });
       }
@@ -1821,7 +2616,8 @@
         clearCompareBtn.addEventListener("click", () => {
           selectedForComparison = [];
           updateCompareBar();
-          BRAND_DATABASE.forEach(b => {
+          const activeDb = getActiveDatabase();
+          activeDb.forEach(b => {
             const chk = document.getElementById(`compare-${b.id}`);
             if (chk) chk.checked = false;
           });
@@ -1831,6 +2627,7 @@
       // Bind functional helpers safely
       registerViewToggles();
       bindSliders();
+      bindTabControls();
 
       // Escape key handlers
       document.addEventListener("keydown", (e) => {
