@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Ethics of AI &mdash; A Scorecard</title>
-<meta name="description" content="Two scorecards: AI providers scored on seven ethical dimensions, and AI-using tools scored on their environmental and ethics posture.">
+<title>AI Provider Ethics Scorecard — A Dossier</title>
+<meta name="description" content="An interactive scorecard ranking nine AI providers across seven ethical dimensions: military restraint, carbon transparency, efficiency, water use, community impact, bias, and privacy.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,800&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1206,158 +1206,6 @@
       border: 2px solid CanvasText;
     }
   }
-
-  /* ===== TAB NAVIGATION ===== */
-  .tab-nav {
-    border-bottom: 2px solid var(--rule-strong);
-    background: var(--paper);
-    padding: 0 40px;
-    display: flex;
-    gap: 0;
-    position: relative;
-    overflow-x: auto;
-  }
-  .tab-nav button {
-    background: transparent;
-    border: none;
-    border-bottom: 3px solid transparent;
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 13px;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    font-weight: 600;
-    padding: 22px 28px 18px;
-    cursor: pointer;
-    transition: all .2s ease;
-    min-height: 60px;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    white-space: nowrap;
-    position: relative;
-  }
-  .tab-nav button .tab-num {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    color: var(--hot);
-    font-size: 18px;
-    letter-spacing: -0.02em;
-    transition: color .2s ease;
-  }
-  .tab-nav button:hover {
-    color: var(--ink);
-    background: var(--paper-2);
-  }
-  .tab-nav button[aria-selected="true"] {
-    color: var(--ink);
-    border-bottom-color: var(--hot);
-  }
-  .tab-nav button[aria-selected="true"] .tab-num {
-    color: var(--hot);
-  }
-  .tab-nav button:focus-visible {
-    outline: 3px solid var(--focus);
-    outline-offset: -3px;
-  }
-
-  /* Tab panels */
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-
-  /* ===== Cross-reference link inside tool panel ===== */
-  .supplier-link {
-    background: transparent;
-    border: 1.5px solid var(--ink);
-    color: var(--ink);
-    font-family: var(--mono); font-size: 12px;
-    padding: 6px 12px;
-    min-height: 32px;
-    cursor: pointer;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    transition: all .15s ease;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .supplier-link:hover, .supplier-link:focus-visible {
-    background: var(--ink); color: var(--paper);
-  }
-  .supplier-link .arrow {
-    font-style: italic; font-family: var(--serif); color: var(--hot);
-  }
-  .supplier-link:hover .arrow,
-  .supplier-link:focus-visible .arrow {
-    color: var(--hot-on-ink);
-  }
-  .supplier-link.unlinked {
-    border-style: dashed;
-    cursor: default;
-    color: var(--muted);
-  }
-  .supplier-link.unlinked:hover {
-    background: transparent;
-    color: var(--muted);
-  }
-
-  /* ===== Suppliers list in tool card ===== */
-  .card .suppliers {
-    margin-top: 12px;
-    padding-top: 14px;
-    border-top: 1px solid var(--rule);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .card .suppliers-lbl {
-    font-family: var(--mono); font-size: 10px;
-    color: var(--muted); letter-spacing: .1em;
-    text-transform: uppercase;
-    width: 100%; margin-bottom: 6px;
-  }
-  .card .supplier-tag {
-    font-family: var(--mono); font-size: 11px;
-    padding: 4px 8px;
-    border: 1px solid var(--rule);
-    color: var(--ink);
-    background: var(--paper-2);
-    letter-spacing: .02em;
-  }
-  .card .supplier-tag.linked {
-    border-color: var(--ink);
-    cursor: pointer;
-    transition: all .15s ease;
-  }
-  .card .supplier-tag.linked:hover {
-    background: var(--ink);
-    color: var(--paper);
-  }
-
-  /* ===== Opaque score band ===== */
-  .category-block .score-pill.s-unk {
-    color: var(--muted);
-    border-color: var(--muted);
-    border-style: dashed;
-  }
-  .bar-row .bar-fill.s-unk {
-    background: var(--muted);
-    background-image: repeating-linear-gradient(
-      135deg, transparent 0, transparent 4px,
-      rgba(14,13,11,.15) 4px, rgba(14,13,11,.15) 6px
-    );
-  }
-
-  /* ===== Tool subtitle ===== */
-  .tool-summary {
-    font-family: var(--serif); font-style: italic;
-    font-size: 14px; line-height: 1.55;
-    color: var(--muted);
-    margin: 12px 0 0;
-    font-variation-settings: "opsz" 16;
-  }
 </style>
 </head>
 <body>
@@ -1376,13 +1224,25 @@
   </div>
 
   <h1 class="title">The Ethics<br>of AI: <span class="em">a scorecard</span></h1>
-  <p class="subtitle">Nine frontier AI providers, scored on military restraint, environmental disclosure, water use, community impact, bias mitigation, and transparency. Twelve AI-using tools, scored on the supply chains they ride on. Activate any score to interrogate the reasoning, see the calculation, and trace the references.</p>
+  <p class="subtitle">Ten frontier AI providers and open-source platforms, scored on military restraint, environmental disclosure, water use, community impact, bias mitigation, and transparency. Activate any score to interrogate the reasoning, see the calculation, and trace the references.</p>
 
   <dl class="deck" aria-label="Headline statistics">
-    <div><dt class="k">Providers assessed</dt><dd class="v">09</dd></div>
-    <div><dt class="k">Tools assessed</dt><dd class="v">12</dd></div>
-    <div><dt class="k">Scoring categories</dt><dd class="v">07&hairsp;+&hairsp;04</dd></div>
-    <div><dt class="k">Cited references</dt><dd class="v hot">60+</dd></div>
+    <div>
+      <dt class="k">Providers assessed</dt>
+      <dd class="v">10</dd>
+    </div>
+    <div>
+      <dt class="k">Scoring categories</dt>
+      <dd class="v">07</dd>
+    </div>
+    <div>
+      <dt class="k">Max possible score</dt>
+      <dd class="v">70</dd>
+    </div>
+    <div>
+      <dt class="k">Cited references</dt>
+      <dd class="v hot">39</dd>
+    </div>
   </dl>
 </header>
 
@@ -1391,7 +1251,7 @@
   <div class="fp-head">
     <div>
       <p class="fp-eyebrow">A note on what this cost</p>
-      <h2 class="fp-title" id="fp-title">Generating the underlying report, both scorecards, and the accessibility passes <em>itself</em> consumed energy and water. Honest estimates below.</h2>
+      <h2 class="fp-title" id="fp-title">Generating the underlying report, this scorecard, and the accessibility pass <em>itself</em> consumed energy and water. Honest estimates below.</h2>
     </div>
     <button type="button" class="fp-method" id="open-footprint" aria-label="Open methodology for footprint estimates">Methodology &rarr;</button>
   </div>
@@ -1399,29 +1259,29 @@
     <div class="fp-stat">
       <dt class="lbl">Energy</dt>
       <dd>
-        <span class="num">~210<span class="unit">Wh</span></span>
-        <p class="eq">About 1.6 kettle boils.</p>
+        <span class="num">~155<span class="unit">Wh</span></span>
+        <p class="eq">About 1.2 kettle boils.</p>
       </dd>
     </div>
     <div class="fp-stat">
       <dt class="lbl">CO&#8322; equivalent</dt>
       <dd>
-        <span class="num">~81<span class="unit">g</span></span>
-        <p class="eq">Driving a petrol car for ~200&nbsp;metres.</p>
+        <span class="num">~60<span class="unit">g</span></span>
+        <p class="eq">Driving a petrol car for ~150&nbsp;metres.</p>
       </dd>
     </div>
     <div class="fp-stat">
       <dt class="lbl">Water (on-site only)</dt>
       <dd>
-        <span class="num">~227<span class="unit">mL</span></span>
-        <p class="eq">About one full glass of water.</p>
+        <span class="num">~168<span class="unit">mL</span></span>
+        <p class="eq">About half a glass of water.</p>
       </dd>
     </div>
     <div class="fp-stat">
       <dt class="lbl">Water (full lifecycle)</dt>
       <dd>
-        <span class="num">~910<span class="unit">mL</span></span>
-        <p class="eq">Nearly a litre &mdash; including indirect water at power plants.</p>
+        <span class="num">~670<span class="unit">mL</span></span>
+        <p class="eq">Including indirect water at power plants.</p>
       </dd>
     </div>
   </dl>
@@ -1434,144 +1294,66 @@
     <span><span class="swatch" style="background:#3a6b3a" aria-hidden="true"></span>STRONG (8&ndash;10)</span>
     <span><span class="swatch" style="background:#8a5a0c" aria-hidden="true"></span>MIXED (5&ndash;7)</span>
     <span><span class="swatch" style="background:#b73512" aria-hidden="true"></span>WEAK (0&ndash;4)</span>
-    <span><span class="swatch" style="background:#6b6357;background-image:repeating-linear-gradient(135deg,transparent 0,transparent 3px,rgba(244,239,230,.4) 3px,rgba(244,239,230,.4) 5px)" aria-hidden="true"></span>OPAQUE (no data)</span>
   </div>
   <div class="spacer" aria-hidden="true"></div>
   <button id="open-methodology" type="button">How scoring works &rarr;</button>
 </div>
 
-<!-- ========== TAB NAVIGATION ========== -->
-<nav class="tab-nav" role="tablist" aria-label="Scorecard sections">
-  <button type="button" role="tab" id="tab-providers" aria-controls="panel-providers" aria-selected="true" data-tab="providers">
-    <span class="tab-num">01</span>AI Providers
-  </button>
-  <button type="button" role="tab" id="tab-tools" aria-controls="panel-tools" aria-selected="false" data-tab="tools" tabindex="-1">
-    <span class="tab-num">02</span>AI-Using Tools
-  </button>
-</nav>
-
+<!-- ========== MAIN ========== -->
 <main id="main-content" tabindex="-1">
+  <p class="section-label" id="rank-label">Ranked, best to worst, on weighted total</p>
+  <h2 class="section-h">The Field, Audited.</h2>
 
-<!-- ========== TAB 1: AI PROVIDERS ========== -->
-<div class="tab-panel active" id="panel-providers" role="tabpanel" aria-labelledby="tab-providers">
-
-  <div style="padding: 48px 40px 0; max-width: 1600px; margin: 0 auto;">
-    <p class="section-label" id="rank-label-providers">Ranked, best to worst, on weighted total</p>
-    <h2 class="section-h">The Field, Audited.</h2>
-
-    <div class="rank-by" role="group" aria-labelledby="rank-by-lbl-providers">
-      <span class="lbl" id="rank-by-lbl-providers">Rank by</span>
-      <div class="rank-by-group">
-        <button type="button" class="rank-pill" data-tab-target="providers" data-rank="overall"   aria-pressed="true">Overall</button>
-        <button type="button" class="rank-pill" data-tab-target="providers" data-rank="military"  aria-pressed="false">Military restraint</button>
-        <button type="button" class="rank-pill" data-tab-target="providers" data-rank="environment" aria-pressed="false">Carbon &amp; water</button>
-        <button type="button" class="rank-pill" data-tab-target="providers" data-rank="community" aria-pressed="false">Community impact</button>
-        <button type="button" class="rank-pill" data-tab-target="providers" data-rank="privacy"   aria-pressed="false">Privacy &amp; data</button>
-      </div>
+  <div class="rank-by" role="group" aria-labelledby="rank-by-lbl">
+    <span class="lbl" id="rank-by-lbl">Rank by</span>
+    <div class="rank-by-group">
+      <button type="button" class="rank-pill" data-rank="overall"   aria-pressed="true">Overall</button>
+      <button type="button" class="rank-pill" data-rank="military"  aria-pressed="false">Military restraint</button>
+      <button type="button" class="rank-pill" data-rank="environment" aria-pressed="false">Carbon &amp; water</button>
+      <button type="button" class="rank-pill" data-rank="community" aria-pressed="false">Community impact</button>
+      <button type="button" class="rank-pill" data-rank="privacy"   aria-pressed="false">Privacy &amp; data</button>
     </div>
   </div>
 
-  <div style="padding: 0 40px; max-width: 1600px; margin: 0 auto;">
-    <div class="cards" id="provider-cards" role="list" aria-label="Provider scorecards" aria-live="polite"></div>
-  </div>
-
-  <!-- Compare section for providers -->
-  <section class="sources-wrap" style="background: var(--paper); color: var(--ink); border-top: 2px solid var(--rule-strong); margin-top: 80px;" aria-labelledby="compare-heading-providers">
-    <p class="section-label">Side by side</p>
-    <h2 class="section-h" id="compare-heading-providers">Compare Providers.</h2>
-    <p style="font-family: var(--serif); font-size: 17px; line-height: 1.55; max-width: 720px; margin-bottom: 8px; font-variation-settings: 'opsz' 17; color: var(--ink); font-style: italic;">Select up to four providers to overlay their scores on a radar chart. Useful for spotting where strengths and weaknesses actually line up &mdash; or don&rsquo;t.</p>
-
-    <div class="compare-wrap">
-      <div class="compare-picker" role="region" aria-labelledby="picker-title-providers">
-        <div class="picker-head">
-          <span class="picker-title" id="picker-title-providers">Select providers</span>
-          <span class="picker-counter" id="picker-counter-providers" aria-live="polite" aria-atomic="true">0 / 4</span>
-        </div>
-        <ul class="picker-list" id="picker-list-providers"></ul>
-        <p class="picker-hint">Click any provider to toggle. Maximum four at once.</p>
-      </div>
-
-      <div class="compare-chart" id="compare-chart-providers" aria-labelledby="chart-region-label-providers" role="region">
-        <span class="sr-only" id="chart-region-label-providers">Comparison radar chart for providers</span>
-        <div id="chart-content-providers">
-          <p class="chart-empty">Select at least two providers to start comparing.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="compare-table-wrap" id="compare-table-wrap-providers" hidden>
-      <table class="compare-table" id="compare-table-providers" aria-label="Detailed scores for selected providers">
-        <thead id="compare-table-head-providers"></thead>
-        <tbody id="compare-table-body-providers"></tbody>
-      </table>
-    </div>
-  </section>
-</div>
-
-<!-- ========== TAB 2: AI-USING TOOLS ========== -->
-<div class="tab-panel" id="panel-tools" role="tabpanel" aria-labelledby="tab-tools" hidden>
-
-  <div style="padding: 48px 40px 0; max-width: 1600px; margin: 0 auto;">
-    <p class="section-label" id="rank-label-tools">Ranked, best to worst, on weighted total</p>
-    <h2 class="section-h">The Stack, Audited.</h2>
-    <p style="font-family: var(--serif); font-size: 17px; line-height: 1.55; max-width: 760px; margin-bottom: 24px; font-variation-settings: 'opsz' 17; color: var(--ink); font-style: italic;">Twelve popular AI-powered products, scored across carbon, water, ethics, and transparency. Each tool inherits the upstream practices of the providers it builds on &mdash; click any supplier tag to jump to that provider&rsquo;s dossier in tab one.</p>
-
-    <div class="rank-by" role="group" aria-labelledby="rank-by-lbl-tools">
-      <span class="lbl" id="rank-by-lbl-tools">Rank by</span>
-      <div class="rank-by-group">
-        <button type="button" class="rank-pill" data-tab-target="tools" data-rank="overall"      aria-pressed="true">Overall</button>
-        <button type="button" class="rank-pill" data-tab-target="tools" data-rank="carbon"       aria-pressed="false">Carbon</button>
-        <button type="button" class="rank-pill" data-tab-target="tools" data-rank="water"        aria-pressed="false">Water</button>
-        <button type="button" class="rank-pill" data-tab-target="tools" data-rank="ethics"       aria-pressed="false">Ethics</button>
-        <button type="button" class="rank-pill" data-tab-target="tools" data-rank="transparency" aria-pressed="false">Transparency</button>
-      </div>
-    </div>
-  </div>
-
-  <div style="padding: 0 40px; max-width: 1600px; margin: 0 auto;">
-    <div class="cards" id="tool-cards" role="list" aria-label="Tool scorecards" aria-live="polite"></div>
-  </div>
-
-  <!-- Compare section for tools -->
-  <section class="sources-wrap" style="background: var(--paper); color: var(--ink); border-top: 2px solid var(--rule-strong); margin-top: 80px;" aria-labelledby="compare-heading-tools">
-    <p class="section-label">Side by side</p>
-    <h2 class="section-h" id="compare-heading-tools">Compare Tools.</h2>
-    <p style="font-family: var(--serif); font-size: 17px; line-height: 1.55; max-width: 720px; margin-bottom: 8px; font-variation-settings: 'opsz' 17; color: var(--ink); font-style: italic;">Select up to four tools to overlay their scores on a radar chart and inspect them side by side.</p>
-
-    <div class="compare-wrap">
-      <div class="compare-picker" role="region" aria-labelledby="picker-title-tools">
-        <div class="picker-head">
-          <span class="picker-title" id="picker-title-tools">Select tools</span>
-          <span class="picker-counter" id="picker-counter-tools" aria-live="polite" aria-atomic="true">0 / 4</span>
-        </div>
-        <ul class="picker-list" id="picker-list-tools"></ul>
-        <p class="picker-hint">Click any tool to toggle. Maximum four at once.</p>
-      </div>
-
-      <div class="compare-chart" id="compare-chart-tools" aria-labelledby="chart-region-label-tools" role="region">
-        <span class="sr-only" id="chart-region-label-tools">Comparison radar chart for tools</span>
-        <div id="chart-content-tools">
-          <p class="chart-empty">Select at least two tools to start comparing.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="compare-table-wrap" id="compare-table-wrap-tools" hidden>
-      <table class="compare-table" id="compare-table-tools" aria-label="Detailed scores for selected tools">
-        <thead id="compare-table-head-tools"></thead>
-        <tbody id="compare-table-body-tools"></tbody>
-      </table>
-    </div>
-  </section>
-</div>
-
+  <div class="cards" id="cards" role="list" aria-label="Provider scorecards" aria-live="polite"></div>
 </main>
+
+<!-- ========== COMPARE ========== -->
+<section class="sources-wrap" style="background: var(--paper); color: var(--ink); border-top: 2px solid var(--rule-strong); margin-top: 0;" aria-labelledby="compare-heading">
+  <p class="section-label">Side by side</p>
+  <h2 class="section-h" id="compare-heading">Compare the Field.</h2>
+  <p style="font-family: var(--serif); font-size: 17px; line-height: 1.55; max-width: 720px; margin-bottom: 8px; font-variation-settings: 'opsz' 17; color: var(--ink); font-style: italic;">Select up to four providers to overlay their scores on a radar chart &mdash; either from the list below, or with the &ldquo;Add to compare&rdquo; button on any card above. Useful for spotting where strengths and weaknesses actually line up &mdash; or don&rsquo;t.</p>
+
+  <div class="compare-wrap">
+    <div class="compare-picker" role="region" aria-labelledby="picker-title-id">
+      <div class="picker-head">
+        <span class="picker-title" id="picker-title-id">Select providers</span>
+        <span class="picker-counter" id="picker-counter" aria-live="polite" aria-atomic="true">0 / 4</span>
+      </div>
+      <ul class="picker-list" id="picker-list"></ul>
+      <p class="picker-hint">Click any provider to toggle. Maximum four at once &mdash; further selections will be ignored until you deselect.</p>
+    </div>
+
+    <div class="compare-chart" id="compare-chart" aria-labelledby="chart-region-label" role="region">
+      <span class="sr-only" id="chart-region-label">Comparison radar chart</span>
+      <div id="chart-content">
+        <p class="chart-empty">Select at least two providers to start comparing.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="compare-table-wrap" id="compare-table-wrap" hidden>
+    <table class="compare-table" id="compare-table" aria-label="Detailed scores for selected providers">
+      <thead id="compare-table-head"></thead>
+      <tbody id="compare-table-body"></tbody>
+    </table>
+  </div>
+</section>
 
 <!-- ========== SOURCES ========== -->
 <section class="sources-wrap" aria-labelledby="sources-heading">
   <p class="section-label">The receipts</p>
   <h2 class="section-h" id="sources-heading">References &amp; Sources</h2>
-  <p style="color: var(--paper); font-family: var(--serif); font-style: italic; font-size: 15px; opacity: .85; margin-bottom: 24px; max-width: 720px;">Combined source list for both scorecards. Numbered references appear throughout the provider and tool dossiers.</p>
   <ol class="sources-grid" id="sources"></ol>
 </section>
 
@@ -1586,7 +1368,7 @@
 <aside class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="panel-ttl" aria-hidden="true" tabindex="-1">
   <div class="panel-head">
     <div>
-      <div class="lbl" id="panel-lbl">Dossier</div>
+      <div class="lbl" id="panel-lbl">Provider dossier</div>
       <h2 class="ttl" id="panel-ttl">&mdash;</h2>
     </div>
     <button id="panel-close" type="button" aria-label="Close panel">&times;</button>
@@ -1595,6 +1377,9 @@
 </aside>
 
 <script>
+/* ============================================================
+   REFERENCES — keyed to the report's numbered citations [1]–[23]
+   ============================================================ */
 const REFS = {
   1:  ["Winbuzzer: Pentagon Demands Unrestricted AI for Classified Military Networks (Feb 2026)", "https://winbuzzer.com/2026/02/14/pentagon-demands-unrestricted-ai-classified-networks-xcxwbn/"],
   2:  ["Finviz / Benzinga: Dario Amodei statement on Anthropic refusal (26 Feb 2026)", "https://finviz.com/news/324662/dario-amodei-is-a-liar-with-god-complex-says-trump-official-as-anthropic-refuses-to-comply-with-pentagons-request-for-unrestricted-ai"],
@@ -1792,283 +1577,301 @@ const PROVIDERS = [
       privacy: { text: "<p>Subject to China's data-retention and access laws, including the 2017 National Intelligence Law obliging companies to assist state intelligence work. Banned for government use in multiple jurisdictions, including the EU and several US federal agencies, on national-security grounds similar to DeepSeek and TikTok.</p><p>Open weights mean a self-hosted deployment on private infrastructure can sidestep many of these concerns; using Qwen via Alibaba's hosted API cannot.</p>", refs: [38, 39] },
     }
   },
+  {
+    id: "nous",
+    org: "Nous Research",
+    product: "Hermes",
+    scores: { military: 2, carbon: 4, efficiency: 8, water: 3, community: 7, bias: 3, privacy: 8 },
+    verdict: "Open-source, locally-deployed models with exceptional privacy and efficiency. Deliberately lower safety alignment and refusal rates to maximize steerability — a core design choice that raises military deployment risk.",
+    reasoning: {
+      military: { text: "<p>Nous Research explicitly designs lower refusal rates into Hermes models to enhance steerability. Published research on \"military task accuracy\" and \"zero refusals\" for military-tuned variants suggests purposeful optimization for military deployment without safety guardrails. The deliberate reduction of safety mechanisms is a major red flag.</p>", refs: [] },
+      carbon: { text: "<p>No first-party disclosure of training emissions for Hermes models. Decentralized training (Psyche network) is innovative but unverified. Open-weight distribution shifts inference to end-user hardware, reducing centralized DC carbon per user — a structural win — but training footprint remains opaque.</p>", refs: [] },
+      efficiency: { text: "<p>Exceptional: Hermes runs on 16GB consumer Macs, optimized for local execution with no central inference overhead. Mixture-of-experts and pruned variants enable client-side deployment, eliminating API costs and centralized DC loads. This is the most user-hardware-friendly offering on the scorecard.</p>", refs: [] },
+      water: { text: "<p>No water disclosure from Nous Research. Local deployment architecture inherently reduces centralized data-centre water demand per inference, but training water footprint is unknown.</p>", refs: [] },
+      community: { text: "<p>Nous Research designs for decentralized operation: Hermes Agent runs on user infrastructure (Linux, macOS, WSL), with memory and learning stored locally. Decentralized training network (Psyche) for latest Hermes 4.3. MIT license and open-weight commitment mean zero dependence on centralized DCs for end-user deployment — a structural win for avoiding data-centre proliferation.</p>", refs: [] },
+      bias: { text: "<p>Nous Research deliberately lowers safety-training investment to maximize model steerability. Research explicitly on \"overriding inherent safety guardrails\" and \"achieving zero refusals\" for military task optimization. This trades off safety robustness for developer control — the inverse of other frontier labs' approach.</p>", refs: [] },
+      privacy: { text: "<p>Excellent: Open-weight models on user hardware mean no vendor surveillance or data collection. MIT license allows audit. Local-first architecture means zero data residency with Nous. The caveat is that the lower safety baseline creates downstream deployment risk if used for unvetted purposes.</p>", refs: [] },
+    }
+  },
 ];
-
-const TOOLS = [
-  {
-    id: "canva", name: "Canva", category: "Design",
-    suppliers: ["OpenAI","Anthropic","Leonardo.ai","Google Gemini"],
-    modelType: "Hybrid builder",
-    carbon: "mid", water: "unk", ethics: "mid", transparency: "low",
-    keyIssue: "Heaviest image-gen use (Dream Lab); no sustainability report; discloses some model names but not energy or water data; Leonardo Phoenix training dataset includes AI-generated content.",
-    carbonDetail: "Dream Lab (image generation) is the dominant workload. Image generation is estimated at 100-1,450x more energy-intensive than text queries. No sustainability report published. Leonardo.ai was acquired in Aug 2024; its environmental disclosures are absent.",
-    waterDetail: "No water use data published by Canva or Leonardo.ai. Image generation workloads are water-intensive at the data centre level. No commitments stated.",
-    ethicsDetail: "OpenAI upstream: NYT lawsuit ongoing, Kenyan workers paid $1.32-$2/hr. Leonardo.ai training dataset included AI-generated images from other platforms. Canva Design Model training data not publicly disclosed.",
-    transparencyDetail: "Discloses some model partnerships (Anthropic, OpenAI, Google Gemini). Does not map features to models publicly. No published AI ethics policy or sustainability report. Magic Studio usage stats are PR metrics, not environmental data.",
-    refs: [{"label": "Canva + Anthropic collaboration (Apr 2026)", "url": "https://www.businesswire.com/news/home/20260410843169/en/Canva-Announces-Anthropic-Collaboration-to-Bring-AI-Powered-Design-to-Millions"}, {"label": "OpenAI x Canva case study", "url": "https://openai.com/index/canva/"}, {"label": "Dream Lab / Leonardo.ai launch (Oct 2024)", "url": "https://www.businesswire.com/news/home/20241022640737/en/Canva-Boosts-AI-and-Workplace-Tools-with-the-Introduction-of-Dream-Lab-and-Significant-Visual-Suite-Upgrades"}]
-  },
-  {
-    id: "figma", name: "Figma", category: "Design",
-    suppliers: ["OpenAI","Anthropic"],
-    modelType: "Orchestrator",
-    carbon: "mid", water: "unk", ethics: "mid", transparency: "mid",
-    keyIssue: "Relies on OpenAI and Anthropic (both undisclosed on emissions); trained on public Community files raising consent questions; has published an AI ethics approach page.",
-    carbonDetail: "Routes requests to OpenAI (FigJam AI, image gen) and Anthropic Claude 3.7 (Figma Make). Neither provider publishes Scope 1/2/3 emissions. Figma fine-tunes some models on Community files.",
-    waterDetail: "No water data from Figma. Fully dependent on OpenAI (Azure infrastructure) and Anthropic (AWS). Microsoft Iowa data centres used 68.5M gallons in 2024.",
-    ethicsDetail: "Used public Community files for fine-tuning without explicit opt-in from designers. Anthropic has a Responsible Scaling Policy and ASL-3 safety standards. OpenAI carries NYT lawsuit and data-labeller pay concerns.",
-    transparencyDetail: "Publishes an AI approach page at figma.com/ai/our-approach. States use of multiple models. Does not name specific models per feature. Has published AI ethics commitments.",
-    refs: [{"label": "Building Figma AI - official approach", "url": "https://www.figma.com/ai/our-approach/"}, {"label": "Introducing Figma AI (blog)", "url": "https://www.figma.com/blog/introducing-figma-ai/"}]
-  },
-  {
-    id: "adobe", name: "Adobe", category: "Creative Suite",
-    suppliers: ["Proprietary Firefly","OpenAI","Google","Runway","ElevenLabs","Anthropic"],
-    modelType: "Hybrid builder",
-    carbon: "mid", water: "mid", ethics: "mid", transparency: "mid",
-    keyIssue: "Commercially safe claims partly undermined: ~5% Firefly training was AI-gen content; text encoders used LAION; Stock contributors not pre-notified; now bundles unlicensed partner models alongside Firefly.",
-    carbonDetail: "Firefly image and video generation is energy-intensive at scale. Adobe has a sustainability report but does not publish AI-specific energy figures. Partner models (Runway video, Google Veo3) add upstream footprints Adobe does not disclose.",
-    waterDetail: "Adobe publishes a sustainability report with data centre water commitments, but AI-workload water use is not broken out. Video generation is estimated at ~1 kWh per 5-second clip.",
-    ethicsDetail: "Bloomberg (Apr 2024): ~5% of Firefly training images were AI-generated from other platforms. Text encoders used LAION 2B - not exclusively licensed content. Stock contributors were not pre-notified or offered opt-out. IP indemnity covers Firefly family only, not partner models.",
-    transparencyDetail: "Distinguishes Firefly family (licensed) from Firefly app (includes unlicensed partners) - meaningful but confusingly communicated. Names partner models publicly. Publishes AI ethics principles. Terms-of-service controversy in 2024 over broad AI training rights on uploads.",
-    refs: [{"label": "Bloomberg: Firefly trained on AI-generated images", "url": "https://www.bloomberg.com/news/articles/2024-03-07/adobe-trained-its-ai-on-competitors-ai-generated-images"}, {"label": "Adobe FY2025 record revenue release", "url": "https://www.stocktitan.net/news/ADBE/adobe-reports-record-q4-and-fy2025-n6cvngseceik.html"}, {"label": "Adobe Firefly product page", "url": "https://www.adobe.com/products/firefly.html"}]
-  },
-  {
-    id: "github", name: "GitHub Copilot", category: "Developer Tools",
-    suppliers: ["OpenAI GPT-4o/5","Anthropic Claude","Google Gemini"],
-    modelType: "Orchestrator (multi-model)",
-    carbon: "low", water: "mid", ethics: "mid", transparency: "mid",
-    keyIssue: "Runs large frontier models for coding - high per-query cost; trained on public code without contributor consent; Microsoft has 100% renewable matching; multi-model picker gives users agency.",
-    carbonDetail: "GPT-4o, Claude Opus, Gemini 2.5 Pro are among the largest and most energy-intensive models. Agent mode and reasoning chains multiply per-session compute. Microsoft achieved 100% renewable matching (Feb 2026) but total emissions rose 23%.",
-    waterDetail: "GitHub sits on Microsoft Azure. Iowa data centres used 68.5M gallons in 2024. Microsoft has a water positivity commitment for 2030. Claude runs on AWS; Gemini on Google Cloud. Combined upstream water footprint is substantial.",
-    ethicsDetail: "Copilot was trained on public GitHub repositories without explicit opt-in - multiple lawsuits filed 2022-2025. Microsoft settled some claims and introduced opt-out controls. OpenAI carries NYT lawsuit inheritance. Anthropic has the strongest safety governance of the three providers.",
-    transparencyDetail: "GitHub Docs list all supported models by feature and hosting provider. Model picker in VS Code is user-visible. Publishes usage-based billing multipliers per model. Does not publish AI-workload environmental metrics. Microsoft sustainability report is comprehensive but not Copilot-specific.",
-    refs: [{"label": "Supported AI models - GitHub Docs", "url": "https://docs.github.com/en/copilot/reference/ai-models/supported-models"}, {"label": "GPT-4o Copilot code completion (Microsoft Learn)", "url": "https://learn.microsoft.com/en-us/shows/visual-studio/new-github-copilot-code-completion-model-gpt-4o-copilot"}, {"label": "GitHub Copilot overview", "url": "https://github.com/features/copilot"}]
-  },
-  {
-    id: "junie", name: "Junie", category: "Developer Tools",
-    suppliers: ["OpenAI","Anthropic","Google Gemini","xAI Grok","JetBrains Mellum"],
-    modelType: "Orchestrator (LLM-agnostic)",
-    carbon: "mid", water: "unk", ethics: "high", transparency: "high",
-    keyIssue: "LLM-agnostic with BYOK - users choose their provider and its footprint. JetBrains openly names all partner LLMs. Mellum (in-house) is smaller and more efficient for completions. No sustainability report.",
-    carbonDetail: "BYOK architecture means carbon footprint is user-chosen. JetBrains Mellum model is domain-specific and significantly smaller than frontier LLMs - lower per-inference energy. xAI Grok is the worst upstream option (Memphis data centre runs on methane gas turbines).",
-    waterDetail: "No JetBrains water data published. Fully dependent on the user chosen provider and their cloud infrastructure. Google Cloud has the best water disclosure; Anthropic and OpenAI have none.",
-    ethicsDetail: "BYOK model gives users meaningful control. JetBrains openly publishes all LLM integrations. Mellum is trained on code - JetBrains does not disclose training data sources fully. China region uses Alibaba Tongyi Qianwen only - disclosed proactively.",
-    transparencyDetail: "Explicitly markets itself as LLM-agnostic. Lists all supported providers in documentation. Names the Mellum in-house model and its purpose. Best-in-class provider disclosure among the 12 tools.",
-    refs: [{"label": "Junie CLI LLM-agnostic beta", "url": "https://ide.com/junie-cli-the-llm-agnostic-coding-agent-is-now-in-beta/"}, {"label": "JetBrains free AI tier + Junie agent", "url": "https://www.developer-tech.com/news/jetbrains-debuts-free-ai-tier-junie-coding-agent-in-ide/"}]
-  },
-  {
-    id: "slack", name: "Slack", category: "Collaboration",
-    suppliers: ["Anthropic Claude"],
-    modelType: "Orchestrator (Anthropic-centric)",
-    carbon: "mid", water: "mid", ethics: "high", transparency: "high",
-    keyIssue: "Explicitly names Anthropic Claude as AI provider; traffic stays within Salesforce private cloud; Anthropic has no emissions disclosures; Salesforce has sustainability commitments but AI-specific data is absent.",
-    carbonDetail: "Slackbot uses Claude Haiku 4.5 for fast in-channel tasks - Haiku is among the most energy-efficient Claude models (est. 0.35x GPT-4o multiplier). Salesforce has a Net Zero commitment but AI workload energy is not broken out.",
-    waterDetail: "Traffic runs through Salesforce virtual private cloud. Salesforce does not publish AI-specific water data. Anthropic infrastructure runs on AWS and GCP - neither breaks out AI-workload water figures.",
-    ethicsDetail: "Anthropic has the strongest safety governance covered here: Responsible Scaling Policy v3.0, ASL-3 safeguards, external Risk Report reviews every 3-6 months. Slackbot is an internal productivity tool with lower misuse risk. User data stays within Salesforce trust boundary.",
-    transparencyDetail: "Slack official blog names Anthropic Claude explicitly - unusual and commendable transparency. CNBC confirmed the statement from the CTO. Slackbot demo specifies Claude Haiku 4.5. Salesforce publishes a sustainability report but not AI-specific metrics.",
-    refs: [{"label": "How we rebuilt Slackbot (Slack blog)", "url": "https://slack.com/blog/productivity/how-we-rebuilt-slackbot"}, {"label": "CNBC: Slackbot powered by Anthropic", "url": "https://www.cnbc.com/2026/01/13/salesforce-releases-updated-slackbot-powered-by-anthropics-ai-model.html"}, {"label": "Anthropic customer story: Slack", "url": "https://claude.com/customers/slack"}]
-  },
-  {
-    id: "miro", name: "Miro", category: "Collaboration",
-    suppliers: ["OpenAI GPT-4o","Anthropic","Google","Azure"],
-    modelType: "Orchestrator (multi-model)",
-    carbon: "mid", water: "unk", ethics: "mid", transparency: "mid",
-    keyIssue: "Multi-model via AWS Bedrock or Azure; no published AI-specific footprint; BYOK and model-picker improve user agency; no AI ethics policy published.",
-    carbonDetail: "Defaults to GPT-4o for Miro Insights (est. 0.34 Wh per query). AWS Bedrock and Azure hosting - AWS reports 0.15 L/kWh water use effectiveness. Miro has published no sustainability report or AI energy data.",
-    waterDetail: "AWS Bedrock has relatively good water efficiency vs industry average (0.15 L/kWh vs 1.8 L/kWh). Azure Iowa data centres are high-consumption. No Miro-specific water data published.",
-    ethicsDetail: "Multi-model picker and BYOK give users agency. No published AI ethics policy. GPT-4o carries OpenAI inherited training data concerns. Miro MCP server shares workspace context with third-party coding tools - data governance implications undisclosed.",
-    transparencyDetail: "Names supported providers in product documentation. BYOK keys are user-managed. No public AI ethics policy or sustainability report. Select Your Own Model is a meaningful transparency feature.",
-    refs: [{"label": "Miro AI Innovation Workspace announcement", "url": "https://miro.com/blog/"}, {"label": "Miro privacy policy & subprocessors", "url": "https://miro.com/legal/privacy-policy/"}]
-  },
-  {
-    id: "duckduckgo", name: "DuckDuckGo", category: "Search",
-    suppliers: ["OpenAI","Anthropic","Meta Llama","Mistral"],
-    modelType: "Privacy proxy orchestrator",
-    carbon: "mid", water: "mid", ethics: "high", transparency: "high",
-    keyIssue: "Privacy-first proxy: strips IP, no-training contracts with providers, chats deleted within 30 days. Openly lists all models. Meta Llama included (Meta has mixed environmental record). No AI emissions data of its own.",
-    carbonDetail: "Free tier defaults to smaller models (GPT-4o mini, Claude Haiku, Llama 4 Scout, Mistral Small) - lowest-energy model selection here. No training compute of its own. No sustainability report. Does not run its own GPU infrastructure.",
-    waterDetail: "No DuckDuckGo infrastructure - fully proxies to providers. Meta data centre water use is published, with the 2022 figure at 6.1B gallons globally. Mistral (EU-based) has relatively lower water-stress exposure.",
-    ethicsDetail: "Strongest privacy protections of all 12 tools: IPs stripped before LLM call, contractual no-training agreements with all providers, chats deleted within 30 days. Model picker lets users avoid providers they distrust. Includes Meta Llama - Meta has worker-safety lawsuit history.",
-    transparencyDetail: "Publishes the complete model list (free and paid tiers) at duckduckgo.com/aichat. Explains privacy architecture publicly. Named the no-training contracts in their official blog. Most transparent model disclosure of any tool here.",
-    refs: [{"label": "DuckDuckGo AI features: private, useful, optional", "url": "https://spreadprivacy.com/ai-feature-upgrade/"}, {"label": "DuckDuckGo subscription + advanced models", "url": "https://spreadprivacy.com/ai-subscription/"}, {"label": "How-To Geek: DDG AI summaries", "url": "https://www.howtogeek.com/duckduckgos-ai-summaries-are-less-invasive-than-googles/"}]
-  },
-  {
-    id: "grammarly", name: "Grammarly / Superhuman", category: "Writing",
-    suppliers: ["OpenAI","Anthropic","Azure OpenAI"],
-    modelType: "Orchestrator",
-    carbon: "mid", water: "unk", ethics: "mid", transparency: "low",
-    keyIssue: "Names providers in legal subprocessor list but does not map features to models publicly. Rebrand to Superhuman muddied data governance communication. No sustainability report. Proprietary AI Detector is in-house.",
-    carbonDetail: "Generative features route to OpenAI, Anthropic, and Azure OpenAI - no public breakdown of which features use which provider. In-house AI Detector and grammar engines are computationally light. No sustainability report published.",
-    waterDetail: "Fully dependent on upstream providers (OpenAI on Azure, Anthropic on AWS). No Grammarly water data published. Rebrand to Superhuman has not introduced any environmental disclosures.",
-    ethicsDetail: "Grammar and spelling features are proprietary algorithms with no training data concerns. Generative AI carries OpenAI and Anthropic inherited issues. AI Detector claims 99% accuracy - self-reported and unverified by third parties. Acquisition of Coda and Superhuman broadens data governance scope.",
-    transparencyDetail: "Lists OpenAI, Anthropic, and Azure in legal subprocessor documentation - technically transparent but buried. Does not tell users which model responds to their prompt. No AI ethics page. Rebrand from Grammarly to Superhuman (Oct 2025) was not clearly communicated to existing users.",
-    refs: [{"label": "Grammarly responsible AI page", "url": "https://www.grammarly.com/ai/responsible-ai"}, {"label": "Grammarly rebrands as Superhuman", "url": "https://finance.yahoo.com/news/grammarly-rebrands-company-superhuman-introduces-130000867.html"}, {"label": "Superhuman subprocessors list", "url": "https://superhuman.com/legal/subprocessors"}]
-  },
-  {
-    id: "speechify", name: "Speechify", category: "Voice AI",
-    suppliers: ["Proprietary SIMBA 3.0"],
-    modelType: "Vertical in-house builder",
-    carbon: "high", water: "high", ethics: "low", transparency: "low",
-    keyIssue: "In-house SIMBA models give a smaller carbon footprint vs frontier LLMs. Consumer Reports (2025): voice cloning requires only a checkbox - no real consent gate. No disclosure of voice training data sources.",
-    carbonDetail: "SIMBA 3.0 is a domain-specific voice model - vastly smaller and more energy-efficient than a frontier LLM like GPT-4o or Claude Opus. No GPU-cluster training of general intelligence. No sustainability report published.",
-    waterDetail: "Domain-specific voice model training and inference has a fraction of the water footprint of frontier LLM deployments. No Speechify water data published. Likely hosted on major cloud at much smaller compute scale.",
-    ethicsDetail: "Consumer Reports (Mar 2025) flagged Speechify as lacking technical consent enforcement for voice cloning - researchers could clone any voice by checking a box. Speechify requires only self-attestation. No disclosure of speech recordings used to train SIMBA. Voice cloning without robust consent is a significant risk vector for fraud.",
-    transparencyDetail: "Claims full in-house SIMBA models - confirmed. Third-party analysis found legacy app versions contacted Amazon Polly servers. Does not disclose SIMBA training data sources. No AI ethics policy or sustainability report. Partial disclosure only via a company blog post.",
-    refs: [{"label": "SIMBA 3.0 voice model launch", "url": "https://speechify.com/news/speechify-voice-ai-research-lab-simba-3-voice-model-launch/"}, {"label": "Does Speechify make its own AI voice models?", "url": "https://speechify.com/blog/does-speechify-make-its-own-ai-voice-models/"}, {"label": "Speech Central: Speechify vs ElevenLabs / Polly", "url": "https://speechcentral.net/2025/04/18/is-speechify-using-its-own-voice-tech-or-relying-on-elevenlabs-amazon-polly-or-others/"}]
-  },
-  {
-    id: "hemingway", name: "Hemingway Editor", category: "Writing",
-    suppliers: ["OpenAI (unconfirmed)"],
-    modelType: "Rule-based + thin LLM wrapper",
-    carbon: "high", water: "high", ethics: "mid", transparency: "low",
-    keyIssue: "Lowest-footprint tool here: mostly rule-based algorithms, AI features used sparingly. Never officially confirmed which model it uses. No AI ethics or sustainability statement published.",
-    carbonDetail: "Core readability scoring and colour-coded analysis is rule-based - zero AI compute. Generative rewriting (Plus) relies on a per-credit system limiting total volume. Smallest estimated carbon footprint of all 12 tools.",
-    waterDetail: "Near-zero water footprint attributable to Hemingway itself. Generative rewrites go to OpenAI (Azure) but at low volume relative to other tools. No water data published.",
-    ethicsDetail: "The rule-based engine has no training data concerns. OpenAI generative features carry inherited training data and worker welfare issues. Credit-based system structurally limits over-reliance. No known independent controversies.",
-    transparencyDetail: "Has never officially confirmed which AI model powers its Plus features - OpenAI attribution comes from secondary reviews only. No AI ethics page or sustainability statement. No model card or system card published. Least transparent tool on model identity.",
-    refs: [{"label": "Hemingway Editor review 2026 (Tooliverse)", "url": "https://tooliverse.ai/tools/hemingway-editor"}, {"label": "Reedsy Hemingway App review", "url": "https://reedsy.com/blog/guide/book-writing-software/hemingway-app-review/"}]
-  },
-  {
-    id: "microsoft", name: "Microsoft Copilot", category: "Productivity Suite",
-    suppliers: ["OpenAI GPT-4o/5","Anthropic Claude","MAI-1","MAI-Voice-1","MAI-Image-2"],
-    modelType: "Hybrid builder (multi-model)",
-    carbon: "mid", water: "mid", ethics: "mid", transparency: "high",
-    keyIssue: "Highest-volume deployment here. 100% renewable energy matched (Feb 2026) but total emissions up 23%; water use up 34%. GPT-5 and Claude Opus are energy-intensive. Best-in-class sustainability reporting. OpenAI lawsuits are upstream risk.",
-    carbonDetail: "Microsoft achieved 100% annual renewable energy matching (Feb 2026). Total Scope 3 emissions rose 26% from 2020-2025 driven by AI. GPT-5 and Claude Opus 4.1 are among the most energy-intensive models. MAI-1 in-house model intended to reduce OpenAI dependency. Publishes annual sustainability report reviewed by Deloitte.",
-    waterDetail: "Global water use: 1.7B gallons (2023), up 34% year-on-year. Iowa facilities: 68.5M gallons in 2024. Committed to being water positive by 2030. Contracted 104M cubic metres of water replenishment. New data centres use zero-water evaporated cooling designs.",
-    ethicsDetail: "OpenAI: NYT lawsuit with chat logs ordered for disclosure (Dec 2025), Kenyan data labeller pay issues. Microsoft settled early Copilot code-generation copyright claims. Copilot Studio now offers Anthropic Claude which has stronger safety governance. MAI models trained in-house with no public training data disclosure.",
-    transparencyDetail: "Best sustainability reporting of any tool here: 90-page annual report, Deloitte-reviewed, with Scope 1/2/3 data. AI feature to model mapping published in Microsoft Learn docs. Copilot Studio model picker visible to users. Anthropic added as default subprocessor. Only tool to disclose specific water replenishment figures and emissions increases clearly.",
-    refs: [{"label": "Anthropic joins Microsoft Copilot Studio", "url": "https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/anthropic-joins-the-multi-model-lineup-in-microsoft-copilot-studio/"}, {"label": "Claude in Microsoft Foundry and M365 Copilot", "url": "https://www.anthropic.com/news/claude-in-microsoft-foundry"}, {"label": "Microsoft in-house MAI models", "url": "https://microsoft.ai/news/two-new-in-house-models/"}, {"label": "M365 Copilot enables Anthropic by default", "url": "https://www.uctoday.com/unified-communications/microsoft-365-copilot-to-enable-anthropic-models-by-default-what-compliance-leads-need-to-know/"}]
-  }
-];
-
 
 /* ============================================================
-   TOOL CATEGORIES (4 dimensions, mapped to same banding as providers)
+   HELPERS
    ============================================================ */
-const TOOL_CATEGORIES = [
-  { id: "carbon",       name: "Carbon Impact",   desc: "Energy intensity of underlying models and infrastructure transparency." },
-  { id: "water",        name: "Water Use",        desc: "Data centre water consumption disclosure and water-stressed siting." },
-  { id: "ethics",       name: "Ethics",           desc: "Training data sourcing, consent, labour conditions, and downstream safety governance." },
-  { id: "transparency", name: "Transparency",     desc: "Disclosure of suppliers, methodology, and limits of claims." },
-];
+/* Shared comparison state — declared early so both the cards and the
+   comparison picker can read and mutate the same selection. */
+const COMPARE_COLOURS = ["#b73512", "#1f4d8b", "#3a6b3a", "#7d3c98"];
+const MAX_SELECT = 4;
+const selected = [];   // array of provider ids, in selection order
 
-// Map tool categorical ratings → 0-10 scale
-const RATING_SCORE = { high: 8, mid: 5, low: 2, unk: 0 };
-const RATING_LABEL = { high: "Better", mid: "Mixed", low: "Concern", unk: "Opaque" };
-
-// Map supplier strings → provider IDs for cross-referencing
-function mapSupplierToProvider(supplier) {
-  const s = supplier.toLowerCase();
-  if (s.includes("anthropic")) return "anthropic";
-  if (s.includes("azure openai")) return "openai";
-  if (s.includes("openai")) return "openai";
-  if (s.includes("gemini") || s === "google" || s.includes("google ")) return "google";
-  if (s.includes("meta") || s.includes("llama")) return "meta";
-  if (s.includes("mistral")) return "mistral";
-  if (s.includes("xai") || s.includes("grok")) return "xai";
-  if (s.includes("deepseek")) return "deepseek";
-  if (s.includes("alibaba") || s.includes("qwen")) return "alibaba";
-  if (s === "azure" || s.includes("microsoft") || s.startsWith("mai-")) return "microsoft";
-  return null;
-}
-
-/* ============================================================
-   HELPERS — shared between providers and tools
-   ============================================================ */
-function esc(str) {
-  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
+function totalScore(p) { return Object.values(p.scores).reduce((a, b) => a + b, 0); }
 function scoreBand(s) {
-  if (s === 0) return 'unk';
   const pct = s / 10;
   if (pct >= 0.7) return 'hi';
   if (pct >= 0.5) return 'mid';
   return 'lo';
 }
-function bandLabel(b) {
-  return b === 'hi' ? 'STRONG' : b === 'mid' ? 'MIXED' : b === 'unk' ? 'OPAQUE' : 'WEAK';
-}
-function totalBand(s, max) {
-  const pct = s / max;
+function bandLabel(b) { return b === 'hi' ? 'STRONG' : b === 'mid' ? 'MIXED' : 'WEAK'; }
+function totalBand(s) {
+  const pct = s / 70;
   if (pct >= 0.65) return 'hi';
   if (pct >= 0.5) return 'mid';
   return 'lo';
 }
 
-/* Convert tool categorical to numeric */
-function toolScores(t) {
-  return {
-    carbon:       RATING_SCORE[t.carbon]       ?? 0,
-    water:        RATING_SCORE[t.water]        ?? 0,
-    ethics:       RATING_SCORE[t.ethics]       ?? 0,
-    transparency: RATING_SCORE[t.transparency] ?? 0,
-  };
+/* HTML escape for any user-provided/text that ends up in attributes */
+function esc(str) {
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-function totalScore(p)     { return Object.values(p.scores).reduce((a, b) => a + b, 0); }
-function totalToolScore(t) { return Object.values(toolScores(t)).reduce((a, b) => a + b, 0); }
-
-const COMPARE_COLOURS = ["#b73512", "#1f4d8b", "#3a6b3a", "#7d3c98"];
-const MAX_SELECT = 4;
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ============================================================
-   PANEL — shared modal for both providers and tools
+   RENDER CARDS — re-rankable
    ============================================================ */
-const panel = document.getElementById('panel');
-const pTtl  = document.getElementById('panel-ttl');
-const pLbl  = document.getElementById('panel-lbl');
-const pBody = document.getElementById('panel-body');
-const pClose = document.getElementById('panel-close');
-const scrim = document.getElementById('scrim');
-let lastFocused = null;
+const cardsEl = document.getElementById('cards');
+const rankLabelEl = document.getElementById('rank-label');
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function trapFocus(e) {
-  if (e.key !== 'Tab' || !panel.classList.contains('open')) return;
-  const focusable = panel.querySelectorAll(
-    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-  );
-  if (!focusable.length) return;
-  const first = focusable[0], last = focusable[focusable.length - 1];
-  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+// Ranking modes: define each mode's category set, max possible score,
+// label text, and the noun used in the score-display label.
+const RANK_MODES = {
+  overall: {
+    cats:  CATEGORIES.map(c => c.id),
+    max:   70,
+    label: "Ranked, best to worst, on weighted total",
+    noun:  "Overall posture",
+    nounSr: "overall score"
+  },
+  military: {
+    cats:  ["military"],
+    max:   10,
+    label: "Ranked, best to worst, on military restraint",
+    noun:  "Military restraint",
+    nounSr: "military restraint score"
+  },
+  environment: {
+    cats:  ["carbon", "efficiency", "water"],
+    max:   30,
+    label: "Ranked, best to worst, on carbon &amp; water impact",
+    noun:  "Environmental score",
+    nounSr: "environmental score"
+  },
+  community: {
+    cats:  ["community"],
+    max:   10,
+    label: "Ranked, best to worst, on community impact",
+    noun:  "Community impact",
+    nounSr: "community impact score"
+  },
+  privacy: {
+    cats:  ["privacy"],
+    max:   10,
+    label: "Ranked, best to worst, on privacy &amp; data practice",
+    noun:  "Privacy & data",
+    nounSr: "privacy score"
+  },
+};
+
+// Score under a given ranking mode = sum of the relevant category scores
+function rankScore(p, mode) {
+  return RANK_MODES[mode].cats.reduce((sum, catId) => sum + p.scores[catId], 0);
 }
 
-function openPanel() {
-  panel.classList.add('open');
-  panel.setAttribute('aria-hidden', 'false');
-  scrim.classList.add('open');
-  scrim.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
+// Band thresholds scale with max
+function rankBand(score, max) {
+  const pct = score / max;
+  if (pct >= 0.65) return 'hi';
+  if (pct >= 0.5) return 'mid';
+  return 'lo';
 }
-function closePanel() {
-  panel.classList.remove('open');
-  panel.setAttribute('aria-hidden', 'true');
-  scrim.classList.remove('open');
-  scrim.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-  if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+
+let currentRank = 'overall';
+
+function renderCards(rankBy) {
+  currentRank = rankBy;
+  const mode = RANK_MODES[rankBy];
+
+  // Update section label
+  rankLabelEl.innerHTML = mode.label;
+
+  // Sort providers by current rank-score (desc); stable-sort ties alphabetically
+  // so layout doesn't randomly reshuffle within a tier.
+  const sorted = [...PROVIDERS]
+    .map(p => ({ p, s: rankScore(p, rankBy) }))
+    .sort((a, b) => b.s - a.s || a.p.org.localeCompare(b.p.org))
+    .map(x => x.p);
+
+  // Clear and rebuild
+  cardsEl.innerHTML = '';
+
+  sorted.forEach((p, idx) => {
+    const score = rankScore(p, rankBy);
+    const band = rankBand(score, mode.max);
+    const bandLbl = bandLabel(band);
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.id = p.id;
+    card.setAttribute('role', 'listitem');
+
+    const openBtnLabel = `Open full dossier for ${p.org} ${p.product}: ${mode.nounSr} ${score} out of ${mode.max}, ${bandLbl}`;
+
+    // Mark category bars as "active" if they're the basis of current ranking
+    const activeCats = new Set(mode.cats);
+    const isMultiCatRank = mode.cats.length > 1;
+    const isOverall = rankBy === 'overall';
+
+    const barRowsHTML = CATEGORIES.map(cat => {
+      const s = p.scores[cat.id];
+      const b = scoreBand(s);
+      const bLbl = bandLabel(b);
+      // Highlight bars that contribute to current rank — but not for overall
+      // (would highlight everything, defeating the purpose).
+      const activeCls = !isOverall && activeCats.has(cat.id) ? ' active-category' : '';
+      return `
+        <li>
+          <button type="button" class="bar-row${activeCls}" data-cat="${esc(cat.id)}" data-provider="${esc(p.id)}"
+                  aria-label="${esc(cat.name)}: score ${s} of 10, ${bLbl}${activeCls ? ', currently ranking by this' : ''}. Activate to read reasoning.">
+            <span class="lbl"><span class="dot" aria-hidden="true"></span>${esc(cat.name)}</span>
+            <span class="val" aria-hidden="true">${s}<span class="pts">/10</span></span>
+            <span class="bar-wrap" aria-hidden="true"><span class="bar-fill s-${b}" style="width: 0%" data-width="${s*10}"></span></span>
+          </button>
+        </li>
+      `;
+    }).join('');
+
+    card.innerHTML = `
+      <button type="button" class="card-open" aria-label="${esc(openBtnLabel)}"
+              data-provider="${esc(p.id)}">
+        <span class="rank" aria-hidden="true">&#8470;${String(idx + 1).padStart(2, '0')} / ${String(sorted.length).padStart(2, '0')}</span>
+        <span class="org" style="display:block;">${esc(p.org)}</span>
+        <span class="name" style="display:block;">${esc(p.product.split(' ')[0])}${p.product.includes(' ') ? `<span class="product">${esc(p.product.split(' ').slice(1).join(' '))}</span>` : ''}</span>
+        <span class="score-display">
+          <span class="num" aria-hidden="true">${score}</span>
+          <span class="denom" aria-hidden="true">/ ${mode.max}</span>
+          <span class="sr-only">${mode.nounSr} ${score} out of ${mode.max}, banded as ${bandLbl}.</span>
+          <span class="label"><strong>${bandLbl}</strong>${esc(mode.noun)}</span>
+        </span>
+      </button>
+      <ul class="bar-list" aria-label="Category breakdown for ${esc(p.org)} ${esc(p.product)}">
+        ${barRowsHTML}
+      </ul>
+      <p class="verdict">${esc(p.verdict)}</p>
+      <div class="card-actions">
+        <button type="button" class="card-compare" data-compare="${esc(p.id)}" aria-pressed="false">
+          <span class="ico" aria-hidden="true"></span>
+          <span class="card-compare-text">Add to compare</span>
+        </button>
+        <button type="button" class="card-view-compare" data-view-compare="${esc(p.id)}" hidden
+                aria-label="View ${esc(p.org)} ${esc(p.product)} in the comparison chart">
+          View comparison <span aria-hidden="true">&darr;</span>
+        </button>
+      </div>
+    `;
+
+    cardsEl.appendChild(card);
+  });
+
+  // Animate bars (skip if reduced motion). For re-rank, also pulse the cards.
+  if (prefersReduced) {
+    document.querySelectorAll('.bar-fill').forEach(el => {
+      el.style.width = el.dataset.width + '%';
+    });
+  } else {
+    // Stagger the bar fills
+    setTimeout(() => {
+      document.querySelectorAll('.bar-fill').forEach((el, i) => {
+        setTimeout(() => { el.style.width = el.dataset.width + '%'; }, i * 12);
+      });
+    }, 50);
+    // Flash cards to signal re-rank (only after initial render)
+    if (initialRenderDone) {
+      document.querySelectorAll('.card').forEach((el, i) => {
+        setTimeout(() => {
+          el.classList.add('re-rank');
+          setTimeout(() => el.classList.remove('re-rank'), 800);
+        }, i * 30);
+      });
+    }
+  }
+
+  // Card markup is rebuilt on every render, so re-apply compare-button state.
+  // Guarded by a flag because the comparison UI is initialised later in the script.
+  if (compareReady) syncCompareUI();
 }
-pClose.addEventListener('click', closePanel);
-scrim.addEventListener('click', closePanel);
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
-  trapFocus(e);
+
+let compareReady = false;
+
+let initialRenderDone = false;
+renderCards('overall');
+initialRenderDone = true;
+
+// Wire up clicks (delegation — works across re-renders)
+cardsEl.addEventListener('click', (e) => {
+  const barBtn = e.target.closest('.bar-row');
+  if (barBtn) {
+    openPanel(barBtn.dataset.provider, barBtn.dataset.cat);
+    return;
+  }
+  const openBtn = e.target.closest('.card-open');
+  if (openBtn) {
+    openPanel(openBtn.dataset.provider, null);
+  }
+});
+
+// Wire up ranking pills
+document.querySelectorAll('.rank-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const newRank = pill.dataset.rank;
+    if (newRank === currentRank) return;
+    // Update pressed state
+    document.querySelectorAll('.rank-pill').forEach(p => {
+      p.setAttribute('aria-pressed', p === pill ? 'true' : 'false');
+    });
+    renderCards(newRank);
+  });
 });
 
 /* ============================================================
-   PROVIDER PANEL
+   PANEL — with focus management for WCAG 2.4.3 / 2.4.11
    ============================================================ */
-function openProviderPanel(providerId, focusCatId) {
+const panel  = document.getElementById('panel');
+const scrim  = document.getElementById('scrim');
+const pTtl   = document.getElementById('panel-ttl');
+const pBody  = document.getElementById('panel-body');
+const pClose = document.getElementById('panel-close');
+
+let lastFocused = null;     // For focus restoration on close (2.4.3)
+
+function trapFocus(e) {
+  if (!panel.classList.contains('open')) return;
+  if (e.key !== 'Tab') return;
+
+  const focusables = panel.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+  if (focusables.length === 0) return;
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault(); last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault(); first.focus();
+  }
+}
+
+function openPanel(providerId, focusCatId = null) {
   const p = PROVIDERS.find(x => x.id === providerId);
   if (!p) return;
   const total = totalScore(p);
+
+  // Save current focus to restore later
   lastFocused = document.activeElement;
 
-  pLbl.textContent = 'Provider dossier';
-  pTtl.textContent = p.org + ' — ' + p.product;
+  pTtl.textContent = `${p.org} \u2014 ${p.product}`;
 
   const calcRows = CATEGORIES.map(cat =>
-    '<div class="row"><span class="lbl">' + esc(cat.name) + '</span><span class="val">' + p.scores[cat.id] + ' / 10</span></div>'
+    `<div class="row"><span class="lbl">${esc(cat.name)}</span><span class="val">${p.scores[cat.id]} / 10</span></div>`
   ).join('');
 
   const blocks = CATEGORIES.map(cat => {
@@ -2079,694 +1882,101 @@ function openProviderPanel(providerId, focusCatId) {
     const refs = (reason.refs || []).map(n => {
       const [title, url] = REFS[n];
       const shortTitle = title.split(':')[0];
-      return '<li><a class="ref" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' +
-        '<span class="num" aria-hidden="true">[' + n + ']</span>' +
-        '<span class="sr-only">Reference ' + n + ': </span>' + esc(shortTitle) +
-        '<span class="sr-only"> (opens in new tab)</span></a></li>';
+      return `<li><a class="ref" href="${esc(url)}" target="_blank" rel="noopener noreferrer">
+        <span class="num" aria-hidden="true">[${n}]</span>
+        <span class="sr-only">Reference ${n}: </span>${esc(shortTitle)}
+        <span class="sr-only"> (opens in new tab)</span>
+      </a></li>`;
     }).join('');
 
     const refsHTML = refs
-      ? '<p class="refs-heading" id="refs-' + esc(cat.id) + '">References &rarr;</p>' +
-        '<ul class="ref-list" aria-labelledby="refs-' + esc(cat.id) + '">' + refs + '</ul>'
-      : '<p class="no-refs">No external references for this score — based on company posture / direct disclosure.</p>';
+      ? `<p class="refs-heading" id="refs-${esc(cat.id)}">References &rarr;</p>
+         <ul class="ref-list" aria-labelledby="refs-${esc(cat.id)}">${refs}</ul>`
+      : '<p class="no-refs">No external references for this score &mdash; based on company posture / direct disclosure.</p>';
 
-    return (
-      '<section class="category-block" data-cat="' + esc(cat.id) + '" aria-labelledby="cat-' + esc(cat.id) + '">' +
-        '<header class="head">' +
-          '<div>' +
-            '<h3 class="name" id="cat-' + esc(cat.id) + '">' + esc(cat.name) + '</h3>' +
-            '<p class="desc">' + esc(cat.desc) + '</p>' +
-          '</div>' +
-          '<div class="score-pill s-' + b + '" data-band="' + bLbl + '" aria-label="Score ' + s + ' of 10, banded as ' + bLbl + '">' +
-            s + ' / 10' +
-          '</div>' +
-        '</header>' +
-        '<div class="reasoning">' + reason.text + '</div>' +
-        refsHTML +
-      '</section>'
-    );
+    return `
+      <section class="category-block" data-cat="${esc(cat.id)}" aria-labelledby="cat-${esc(cat.id)}">
+        <header class="head">
+          <div>
+            <h3 class="name" id="cat-${esc(cat.id)}">${esc(cat.name)}</h3>
+            <p class="desc">${esc(cat.desc)}</p>
+          </div>
+          <div class="score-pill s-${b}" data-band="${bLbl}" aria-label="Score ${s} of 10, banded as ${bLbl}">
+            ${s} / 10
+          </div>
+        </header>
+        <div class="reasoning">${reason.text}</div>
+        ${refsHTML}
+      </section>
+    `;
   }).join('');
 
-  const band = totalBand(total, 70);
+  const band = totalBand(total);
   const totalBandLbl = bandLabel(band);
 
-  pBody.innerHTML =
-    '<div class="summary">' +
-      '<span class="lead">Verdict</span>' + esc(p.verdict) +
-    '</div>' +
-    '<div class="calc" role="region" aria-label="Score calculation">' +
-      calcRows +
-      '<div class="row tot"><span class="lbl">TOTAL (sum of category scores)</span><span class="val">' + total + ' / 70</span></div>' +
-      '<div class="row" style="margin-top:6px;"><span class="lbl">Band</span><span class="val">' + totalBandLbl + '</span></div>' +
-    '</div>' + blocks;
+  pBody.innerHTML = `
+    <div class="summary">
+      <span class="lead">Verdict</span>
+      ${esc(p.verdict)}
+    </div>
+    <div class="calc" role="region" aria-label="Score calculation">
+      ${calcRows}
+      <div class="row tot">
+        <span class="lbl">TOTAL (sum of category scores)</span>
+        <span class="val">${total} / 70</span>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <span class="lbl">Band</span>
+        <span class="val">${totalBandLbl}</span>
+      </div>
+    </div>
+    ${blocks}
+  `;
 
-  openPanel();
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden', 'false');
+  scrim.classList.add('open');
+  scrim.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+
+  // Move focus into the panel
   setTimeout(() => {
     if (focusCatId) {
-      const target = pBody.querySelector('[data-cat="' + focusCatId + '"]');
+      const target = pBody.querySelector(`[data-cat="${focusCatId}"]`);
       if (target) {
         target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' });
         const heading = target.querySelector('h3');
-        if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus(); }
-      } else { pClose.focus(); }
-    } else { pBody.scrollTop = 0; pClose.focus(); }
-  }, prefersReduced ? 0 : 380);
-}
-
-/* ============================================================
-   TOOL PANEL
-   ============================================================ */
-function openToolPanel(toolId, focusCatId) {
-  const t = TOOLS.find(x => x.id === toolId);
-  if (!t) return;
-  const scores = toolScores(t);
-  const total = totalToolScore(t);
-  lastFocused = document.activeElement;
-
-  pLbl.textContent = 'Tool dossier';
-  pTtl.textContent = t.name + ' — ' + t.category;
-
-  const detailMap = {
-    carbon:       t.carbonDetail,
-    water:        t.waterDetail,
-    ethics:       t.ethicsDetail,
-    transparency: t.transparencyDetail
-  };
-
-  const calcRows = TOOL_CATEGORIES.map(cat =>
-    '<div class="row"><span class="lbl">' + esc(cat.name) + '</span><span class="val">' + scores[cat.id] + ' / 10 <span style="opacity:.6">(' + RATING_LABEL[t[cat.id]] + ')</span></span></div>'
-  ).join('');
-
-  // References per-tool
-  let toolRefsHTML = '';
-  if (t.refs && t.refs.length) {
-    toolRefsHTML = '<p class="refs-heading" id="refs-tool">Sources &rarr;</p><ul class="ref-list" aria-labelledby="refs-tool">';
-    t.refs.forEach(function(ref, i) {
-      toolRefsHTML += '<li><a class="ref" href="' + esc(ref.url) + '" target="_blank" rel="noopener noreferrer">' +
-        '<span class="num" aria-hidden="true">[' + (i+1) + ']</span>' + esc(ref.label) +
-        '<span class="sr-only"> (opens in new tab)</span></a></li>';
-    });
-    toolRefsHTML += '</ul>';
-  }
-
-  // Suppliers with cross-reference links
-  let suppliersHTML = '<section class="category-block">';
-  suppliersHTML += '<header class="head"><div>';
-  suppliersHTML += '<h3 class="name">Upstream suppliers</h3>';
-  suppliersHTML += '<p class="desc">Model type: ' + esc(t.modelType) + '</p>';
-  suppliersHTML += '</div></header>';
-  suppliersHTML += '<div class="reasoning">';
-  suppliersHTML += '<p style="margin-bottom:14px;">This tool builds on the following AI providers. Click any linked supplier to read its full provider dossier.</p>';
-  suppliersHTML += '<div style="display:flex;flex-wrap:wrap;gap:8px;">';
-  t.suppliers.forEach(function(s) {
-    const pid = mapSupplierToProvider(s);
-    if (pid) {
-      suppliersHTML += '<button class="supplier-link" type="button" data-provider-jump="' + pid + '">' + esc(s) + ' <span class="arrow">&rarr;</span></button>';
-    } else {
-      suppliersHTML += '<span class="supplier-link unlinked">' + esc(s) + '</span>';
-    }
-  });
-  suppliersHTML += '</div></div></section>';
-
-  const blocks = TOOL_CATEGORIES.map(cat => {
-    const s = scores[cat.id];
-    const b = scoreBand(s);
-    const bLbl = bandLabel(b);
-    return (
-      '<section class="category-block" data-cat="' + esc(cat.id) + '" aria-labelledby="cat-tool-' + esc(cat.id) + '">' +
-        '<header class="head">' +
-          '<div>' +
-            '<h3 class="name" id="cat-tool-' + esc(cat.id) + '">' + esc(cat.name) + '</h3>' +
-            '<p class="desc">' + esc(cat.desc) + '</p>' +
-          '</div>' +
-          '<div class="score-pill s-' + b + '" data-band="' + bLbl + '" aria-label="Score ' + s + ' of 10, banded as ' + bLbl + '">' +
-            s + ' / 10' +
-          '</div>' +
-        '</header>' +
-        '<div class="reasoning"><p>' + esc(detailMap[cat.id]) + '</p></div>' +
-      '</section>'
-    );
-  }).join('');
-
-  const band = totalBand(total, 40);
-  const totalBandLbl = bandLabel(band);
-
-  pBody.innerHTML =
-    '<div class="summary">' +
-      '<span class="lead">Key issue</span>' + esc(t.keyIssue) +
-    '</div>' +
-    '<div class="calc" role="region" aria-label="Score calculation">' +
-      calcRows +
-      '<div class="row tot"><span class="lbl">TOTAL (sum of category scores)</span><span class="val">' + total + ' / 40</span></div>' +
-      '<div class="row" style="margin-top:6px;"><span class="lbl">Band</span><span class="val">' + totalBandLbl + '</span></div>' +
-    '</div>' +
-    suppliersHTML +
-    blocks +
-    toolRefsHTML;
-
-  // Wire up supplier-link cross-jumps
-  pBody.querySelectorAll('[data-provider-jump]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      const pid = btn.dataset.providerJump;
-      closePanel();
-      // Switch to providers tab
-      setTimeout(() => {
-        switchTab('providers');
-        setTimeout(() => openProviderPanel(pid), 100);
-      }, 200);
-    });
-  });
-
-  openPanel();
-  setTimeout(() => {
-    if (focusCatId) {
-      const target = pBody.querySelector('[data-cat="' + focusCatId + '"]');
-      if (target) {
-        target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' });
-        const heading = target.querySelector('h3');
-        if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus(); }
-      } else { pClose.focus(); }
-    } else { pBody.scrollTop = 0; pClose.focus(); }
-  }, prefersReduced ? 0 : 380);
-}
-
-/* ============================================================
-   RANK MODES
-   ============================================================ */
-const PROVIDER_RANK_MODES = {
-  overall:     { cats: CATEGORIES.map(c => c.id), max: 70, label: 'Ranked, best to worst, on weighted total',     nounSr: 'overall score' },
-  military:    { cats: ['military'],                max: 10, label: 'Ranked, best to worst, on military restraint', nounSr: 'military restraint score' },
-  environment: { cats: ['carbon','efficiency','water'], max: 30, label: 'Ranked, best to worst, on carbon &amp; water impact', nounSr: 'environmental score' },
-  community:   { cats: ['community'],               max: 10, label: 'Ranked, best to worst, on community impact',  nounSr: 'community impact score' },
-  privacy:     { cats: ['privacy'],                 max: 10, label: 'Ranked, best to worst, on privacy &amp; data practice', nounSr: 'privacy score' },
-};
-
-const TOOL_RANK_MODES = {
-  overall:      { cats: TOOL_CATEGORIES.map(c => c.id), max: 40, label: 'Ranked, best to worst, on weighted total',   nounSr: 'overall score' },
-  carbon:       { cats: ['carbon'],       max: 10, label: 'Ranked, best to worst, on carbon impact',       nounSr: 'carbon score' },
-  water:        { cats: ['water'],        max: 10, label: 'Ranked, best to worst, on water use',           nounSr: 'water score' },
-  ethics:       { cats: ['ethics'],       max: 10, label: 'Ranked, best to worst, on ethics',              nounSr: 'ethics score' },
-  transparency: { cats: ['transparency'], max: 10, label: 'Ranked, best to worst, on transparency',        nounSr: 'transparency score' },
-};
-
-function providerRankScore(p, mode) { return PROVIDER_RANK_MODES[mode].cats.reduce((s, c) => s + p.scores[c], 0); }
-function toolRankScore(t, mode)     { const s = toolScores(t); return TOOL_RANK_MODES[mode].cats.reduce((sum, c) => sum + s[c], 0); }
-
-function rankBand(score, max) {
-  if (score === 0) return 'unk';
-  const pct = score / max;
-  if (pct >= 0.65) return 'hi';
-  if (pct >= 0.5) return 'mid';
-  return 'lo';
-}
-
-/* ============================================================
-   PROVIDER CARDS
-   ============================================================ */
-const providerCardsEl = document.getElementById('provider-cards');
-const providerRankLabelEl = document.getElementById('rank-label-providers');
-let currentProviderRank = 'overall';
-
-function renderProviderCards(rankBy) {
-  currentProviderRank = rankBy;
-  const mode = PROVIDER_RANK_MODES[rankBy];
-  providerRankLabelEl.innerHTML = mode.label;
-
-  const sorted = [...PROVIDERS]
-    .map(p => ({ p, s: providerRankScore(p, rankBy) }))
-    .sort((a, b) => b.s - a.s || a.p.org.localeCompare(b.p.org))
-    .map(x => x.p);
-
-  providerCardsEl.innerHTML = '';
-
-  sorted.forEach((p, idx) => {
-    const score = providerRankScore(p, rankBy);
-    const band  = rankBand(score, mode.max);
-    const bLbl  = bandLabel(band);
-
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.id = p.id;
-    card.dataset.type = 'provider';
-    card.setAttribute('role', 'listitem');
-
-    const isSelected = selectedProviders.includes(p.id);
-    const selColour = isSelected ? COMPARE_COLOURS[selectedProviders.indexOf(p.id)] : null;
-
-    let html = '<span class="rank">No.&nbsp;' + String(idx + 1).padStart(2, '0') + '</span>';
-    html += '<button class="card-open" type="button" data-id="' + p.id + '" data-type="provider" aria-label="Open full dossier for ' + esc(p.org) + ' ' + esc(p.product) + ': ' + mode.nounSr + ' ' + score + ' out of ' + mode.max + ', ' + bLbl + '">';
-    html += '<p class="org">' + esc(p.org) + '</p>';
-    html += '<h3 class="name">' + esc(p.product) + '<span class="product">' + esc(p.org) + '</span></h3>';
-    html += '<div class="score-display">';
-    html += '<span class="num">' + score + '</span>';
-    html += '<span class="denom">/ ' + mode.max + '</span>';
-    html += '<div class="label"><strong>' + bLbl + '</strong>' + mode.nounSr + '</div>';
-    html += '</div>';
-
-    // Bars for each category
-    html += '<ul class="bar-list">';
-    const catsToShow = rankBy === 'overall' ? CATEGORIES : CATEGORIES.filter(c => mode.cats.includes(c.id));
-    catsToShow.forEach(cat => {
-      const s = p.scores[cat.id];
-      const b = scoreBand(s);
-      const active = rankBy !== 'overall' && mode.cats.includes(cat.id);
-      html += '<li><button class="bar-row' + (active ? ' active-category' : '') + '" type="button" data-id="' + p.id + '" data-type="provider" data-cat="' + cat.id + '" aria-label="' + esc(cat.name) + ' ' + s + ' out of 10, ' + bandLabel(b) + '. Click for details">';
-      html += '<span class="lbl"><span class="dot" aria-hidden="true"></span>' + esc(cat.name) + '</span>';
-      html += '<span style="font-family:var(--mono);font-size:13px;font-weight:600;">' + s + '<span style="opacity:.5">/10</span></span>';
-      html += '<span class="bar-wrap"><span class="bar-fill s-' + b + '" style="width:' + (s * 10) + '%"></span></span>';
-      html += '</button></li>';
-    });
-    html += '</ul>';
-    html += '</button>';
-
-    // Compare toggle
-    html += '<button type="button" class="card-compare" data-id="' + p.id + '" data-type="provider"';
-    html += ' aria-pressed="' + (isSelected ? 'true' : 'false') + '"';
-    if (selColour) html += ' style="--compare-colour:' + selColour + '"';
-    html += ' aria-label="' + (isSelected ? 'Remove' : 'Add') + ' ' + esc(p.org) + ' ' + esc(p.product) + ' ' + (isSelected ? 'from' : 'to') + ' comparison">';
-    html += '<span class="ico" aria-hidden="true"></span>';
-    html += (isSelected ? 'Selected for compare' : 'Add to compare');
-    html += '</button>';
-
-    card.innerHTML = html;
-    providerCardsEl.appendChild(card);
-  });
-
-  // Wire interactions
-  providerCardsEl.querySelectorAll('.card-open').forEach(btn => {
-    btn.addEventListener('click', () => openProviderPanel(btn.dataset.id));
-  });
-  providerCardsEl.querySelectorAll('.bar-row').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      openProviderPanel(btn.dataset.id, btn.dataset.cat);
-    });
-  });
-  providerCardsEl.querySelectorAll('.card-compare').forEach(btn => {
-    btn.addEventListener('click', () => toggleCompare('provider', btn.dataset.id));
-  });
-}
-
-/* ============================================================
-   TOOL CARDS
-   ============================================================ */
-const toolCardsEl = document.getElementById('tool-cards');
-const toolRankLabelEl = document.getElementById('rank-label-tools');
-let currentToolRank = 'overall';
-
-function renderToolCards(rankBy) {
-  currentToolRank = rankBy;
-  const mode = TOOL_RANK_MODES[rankBy];
-  toolRankLabelEl.innerHTML = mode.label;
-
-  const sorted = [...TOOLS]
-    .map(t => ({ t, s: toolRankScore(t, rankBy) }))
-    .sort((a, b) => b.s - a.s || a.t.name.localeCompare(b.t.name))
-    .map(x => x.t);
-
-  toolCardsEl.innerHTML = '';
-
-  sorted.forEach((t, idx) => {
-    const score = toolRankScore(t, rankBy);
-    const band  = rankBand(score, mode.max);
-    const bLbl  = bandLabel(band);
-    const scores = toolScores(t);
-
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.id = t.id;
-    card.dataset.type = 'tool';
-    card.setAttribute('role', 'listitem');
-
-    const isSelected = selectedTools.includes(t.id);
-    const selColour = isSelected ? COMPARE_COLOURS[selectedTools.indexOf(t.id)] : null;
-
-    let html = '<span class="rank">No.&nbsp;' + String(idx + 1).padStart(2, '0') + '</span>';
-    html += '<button class="card-open" type="button" data-id="' + t.id + '" data-type="tool" aria-label="Open full dossier for ' + esc(t.name) + ': ' + mode.nounSr + ' ' + score + ' out of ' + mode.max + ', ' + bLbl + '">';
-    html += '<p class="org">' + esc(t.category) + '</p>';
-    html += '<h3 class="name">' + esc(t.name) + '<span class="product">' + esc(t.modelType) + '</span></h3>';
-    html += '<div class="score-display">';
-    html += '<span class="num">' + score + '</span>';
-    html += '<span class="denom">/ ' + mode.max + '</span>';
-    html += '<div class="label"><strong>' + bLbl + '</strong>' + mode.nounSr + '</div>';
-    html += '</div>';
-
-    // Bars for each tool category
-    html += '<ul class="bar-list">';
-    const catsToShow = rankBy === 'overall' ? TOOL_CATEGORIES : TOOL_CATEGORIES.filter(c => mode.cats.includes(c.id));
-    catsToShow.forEach(cat => {
-      const s = scores[cat.id];
-      const b = scoreBand(s);
-      const active = rankBy !== 'overall' && mode.cats.includes(cat.id);
-      html += '<li><button class="bar-row' + (active ? ' active-category' : '') + '" type="button" data-id="' + t.id + '" data-type="tool" data-cat="' + cat.id + '" aria-label="' + esc(cat.name) + ' ' + s + ' out of 10, ' + bandLabel(b) + '. Click for details">';
-      html += '<span class="lbl"><span class="dot" aria-hidden="true"></span>' + esc(cat.name) + '</span>';
-      html += '<span style="font-family:var(--mono);font-size:13px;font-weight:600;">' + s + '<span style="opacity:.5">/10</span></span>';
-      html += '<span class="bar-wrap"><span class="bar-fill s-' + b + '" style="width:' + (s * 10) + '%"></span></span>';
-      html += '</button></li>';
-    });
-    html += '</ul>';
-    html += '</button>';
-
-    // Suppliers preview with cross-reference links
-    html += '<div class="suppliers">';
-    html += '<span class="suppliers-lbl">Upstream</span>';
-    t.suppliers.slice(0, 5).forEach(s => {
-      const pid = mapSupplierToProvider(s);
-      if (pid) {
-        html += '<button class="supplier-tag linked" type="button" data-provider-jump="' + pid + '" aria-label="Jump to ' + esc(s) + ' provider dossier">' + esc(s) + '</button>';
+        if (heading) {
+          heading.setAttribute('tabindex', '-1');
+          heading.focus();
+        }
       } else {
-        html += '<span class="supplier-tag">' + esc(s) + '</span>';
+        pClose.focus();
       }
-    });
-    if (t.suppliers.length > 5) html += '<span class="supplier-tag">+' + (t.suppliers.length - 5) + '</span>';
-    html += '</div>';
-
-    // Compare toggle
-    html += '<button type="button" class="card-compare" data-id="' + t.id + '" data-type="tool"';
-    html += ' aria-pressed="' + (isSelected ? 'true' : 'false') + '"';
-    if (selColour) html += ' style="--compare-colour:' + selColour + '"';
-    html += ' aria-label="' + (isSelected ? 'Remove' : 'Add') + ' ' + esc(t.name) + ' ' + (isSelected ? 'from' : 'to') + ' comparison">';
-    html += '<span class="ico" aria-hidden="true"></span>';
-    html += (isSelected ? 'Selected for compare' : 'Add to compare');
-    html += '</button>';
-
-    card.innerHTML = html;
-    toolCardsEl.appendChild(card);
-  });
-
-  // Wire interactions
-  toolCardsEl.querySelectorAll('.card-open').forEach(btn => {
-    btn.addEventListener('click', () => openToolPanel(btn.dataset.id));
-  });
-  toolCardsEl.querySelectorAll('.bar-row').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      openToolPanel(btn.dataset.id, btn.dataset.cat);
-    });
-  });
-  toolCardsEl.querySelectorAll('.card-compare').forEach(btn => {
-    btn.addEventListener('click', () => toggleCompare('tool', btn.dataset.id));
-  });
-  toolCardsEl.querySelectorAll('[data-provider-jump]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const pid = btn.dataset.providerJump;
-      switchTab('providers');
-      setTimeout(() => openProviderPanel(pid), 150);
-    });
-  });
-}
-
-/* ============================================================
-   RANK BUTTONS
-   ============================================================ */
-document.querySelectorAll('.rank-pill').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const target = btn.dataset.tabTarget;
-    const rank   = btn.dataset.rank;
-    document.querySelectorAll('.rank-pill[data-tab-target="' + target + '"]').forEach(b => {
-      b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
-    });
-    if (target === 'providers') renderProviderCards(rank);
-    else renderToolCards(rank);
-  });
-});
-
-/* ============================================================
-   COMPARE STATE — separate selections for each tab
-   ============================================================ */
-let selectedProviders = [];
-let selectedTools     = [];
-
-function toggleCompare(type, id) {
-  const list = type === 'provider' ? selectedProviders : selectedTools;
-  const idx = list.indexOf(id);
-  if (idx >= 0) {
-    list.splice(idx, 1);
-  } else {
-    if (list.length >= MAX_SELECT) return;
-    list.push(id);
-  }
-  if (type === 'provider') {
-    renderProviderCards(currentProviderRank);
-    renderProviderPicker();
-    renderProviderCompare();
-  } else {
-    renderToolCards(currentToolRank);
-    renderToolPicker();
-    renderToolCompare();
-  }
-}
-
-/* ============================================================
-   PROVIDER COMPARE
-   ============================================================ */
-function renderProviderPicker() {
-  const list = document.getElementById('picker-list-providers');
-  const counter = document.getElementById('picker-counter-providers');
-  counter.textContent = selectedProviders.length + ' / 4';
-  counter.classList.toggle('full', selectedProviders.length === MAX_SELECT);
-
-  list.innerHTML = '';
-  PROVIDERS.forEach(p => {
-    const isSelected = selectedProviders.includes(p.id);
-    const idx = selectedProviders.indexOf(p.id);
-    const colour = isSelected ? COMPARE_COLOURS[idx] : null;
-    const atMax = !isSelected && selectedProviders.length >= MAX_SELECT;
-    const total = totalScore(p);
-
-    const li = document.createElement('li');
-    let html = '<button class="picker-row" type="button" data-id="' + p.id + '" data-type="provider"';
-    html += ' aria-pressed="' + (isSelected ? 'true' : 'false') + '"';
-    if (atMax) html += ' aria-disabled="true"';
-    if (colour) html += ' style="--swatch-color:' + colour + '"';
-    html += '>';
-    html += '<span class="swatch" aria-hidden="true"></span>';
-    html += '<span><span class="picker-org">' + esc(p.org) + '</span>';
-    html += '<span class="picker-name">' + esc(p.product) + '</span></span>';
-    html += '<span class="picker-total">' + total + ' / 70</span>';
-    html += '</button>';
-    li.innerHTML = html;
-    list.appendChild(li);
-  });
-
-  list.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (btn.getAttribute('aria-disabled') === 'true') return;
-      toggleCompare('provider', btn.dataset.id);
-    });
-  });
-}
-
-function renderProviderCompare() {
-  const chartContent = document.getElementById('chart-content-providers');
-  const tableWrap = document.getElementById('compare-table-wrap-providers');
-
-  if (selectedProviders.length < 2) {
-    chartContent.innerHTML = '<p class="chart-empty">Select at least two providers to start comparing.</p>';
-    tableWrap.hidden = true;
-    return;
-  }
-
-  const selected = selectedProviders.map(id => PROVIDERS.find(p => p.id === id));
-  chartContent.innerHTML = buildRadar(selected, CATEGORIES, 'provider');
-  renderCompareTable('providers', selected, CATEGORIES, 'provider');
-  tableWrap.hidden = false;
-}
-
-/* ============================================================
-   TOOL COMPARE
-   ============================================================ */
-function renderToolPicker() {
-  const list = document.getElementById('picker-list-tools');
-  const counter = document.getElementById('picker-counter-tools');
-  counter.textContent = selectedTools.length + ' / 4';
-  counter.classList.toggle('full', selectedTools.length === MAX_SELECT);
-
-  list.innerHTML = '';
-  TOOLS.forEach(t => {
-    const isSelected = selectedTools.includes(t.id);
-    const idx = selectedTools.indexOf(t.id);
-    const colour = isSelected ? COMPARE_COLOURS[idx] : null;
-    const atMax = !isSelected && selectedTools.length >= MAX_SELECT;
-    const total = totalToolScore(t);
-
-    const li = document.createElement('li');
-    let html = '<button class="picker-row" type="button" data-id="' + t.id + '" data-type="tool"';
-    html += ' aria-pressed="' + (isSelected ? 'true' : 'false') + '"';
-    if (atMax) html += ' aria-disabled="true"';
-    if (colour) html += ' style="--swatch-color:' + colour + '"';
-    html += '>';
-    html += '<span class="swatch" aria-hidden="true"></span>';
-    html += '<span><span class="picker-org">' + esc(t.category) + '</span>';
-    html += '<span class="picker-name">' + esc(t.name) + '</span></span>';
-    html += '<span class="picker-total">' + total + ' / 40</span>';
-    html += '</button>';
-    li.innerHTML = html;
-    list.appendChild(li);
-  });
-
-  list.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (btn.getAttribute('aria-disabled') === 'true') return;
-      toggleCompare('tool', btn.dataset.id);
-    });
-  });
-}
-
-function renderToolCompare() {
-  const chartContent = document.getElementById('chart-content-tools');
-  const tableWrap = document.getElementById('compare-table-wrap-tools');
-
-  if (selectedTools.length < 2) {
-    chartContent.innerHTML = '<p class="chart-empty">Select at least two tools to start comparing.</p>';
-    tableWrap.hidden = true;
-    return;
-  }
-
-  const selected = selectedTools.map(id => TOOLS.find(t => t.id === id));
-  chartContent.innerHTML = buildRadar(selected, TOOL_CATEGORIES, 'tool');
-  renderCompareTable('tools', selected, TOOL_CATEGORIES, 'tool');
-  tableWrap.hidden = false;
-}
-
-/* ============================================================
-   RADAR CHART — shared
-   ============================================================ */
-function buildRadar(items, categories, type) {
-  const W = 560, H = 560, CX = 280, CY = 280, R = 200;
-  const n = categories.length;
-  const levels = 5;
-
-  function pt(i, val) {
-    const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
-    const r = (val / 10) * R;
-    return { x: CX + r * Math.cos(angle), y: CY + r * Math.sin(angle) };
-  }
-
-  let svg = '<svg class="radar" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Radar chart comparing ' + items.map(i => esc(i.name || i.org)).join(', ') + ' across ' + n + ' dimensions" xmlns="http://www.w3.org/2000/svg">';
-
-  // Rings
-  for (let l = 1; l <= levels; l++) {
-    const pts = categories.map((_, i) => { const p = pt(i, l * 2); return p.x + ',' + p.y; }).join(' ');
-    svg += '<polygon class="ring' + (l === levels ? ' outer' : '') + '" points="' + pts + '"/>';
-  }
-  // Spokes
-  for (let i = 0; i < n; i++) {
-    const outer = pt(i, 10);
-    svg += '<line class="axis" x1="' + CX + '" y1="' + CY + '" x2="' + outer.x + '" y2="' + outer.y + '"/>';
-  }
-  // Axis labels
-  categories.forEach((cat, i) => {
-    const p = pt(i, 11.2);
-    const anch = p.x < CX - 5 ? 'end' : p.x > CX + 5 ? 'start' : 'middle';
-    svg += '<text class="axis-label" x="' + p.x + '" y="' + (p.y + 4) + '" text-anchor="' + anch + '">' + esc(cat.name) + '</text>';
-  });
-  // Ring labels
-  for (let l = 1; l <= levels; l++) {
-    const lp = pt(0, l * 2);
-    svg += '<text class="ring-label" x="' + (lp.x + 6) + '" y="' + (lp.y - 4) + '">' + (l * 2) + '</text>';
-  }
-  // Shapes
-  items.forEach((item, ti) => {
-    const colour = COMPARE_COLOURS[ti % COMPARE_COLOURS.length];
-    const sc = type === 'tool' ? toolScores(item) : item.scores;
-    const pts = categories.map((cat, i) => { const p = pt(i, sc[cat.id] || 0); return p.x + ',' + p.y; }).join(' ');
-    svg += '<polygon class="shape" points="' + pts + '" fill="' + colour + '" stroke="' + colour + '"/>';
-    categories.forEach((cat, i) => {
-      const p = pt(i, sc[cat.id] || 0);
-      svg += '<circle class="point" cx="' + p.x + '" cy="' + p.y + '" r="5" fill="' + colour + '"/>';
-    });
-  });
-  svg += '</svg>';
-
-  // Legend
-  let legend = '<div style="display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:16px;padding-top:16px;border-top:1px solid var(--rule);">';
-  items.forEach((item, i) => {
-    const colour = COMPARE_COLOURS[i % COMPARE_COLOURS.length];
-    legend += '<div style="display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;">' +
-      '<span style="display:inline-block;width:14px;height:14px;background:' + colour + ';"></span>' +
-      esc(item.name || item.product) + '</div>';
-  });
-  legend += '</div>';
-
-  return svg + legend;
-}
-
-/* ============================================================
-   COMPARE TABLE
-   ============================================================ */
-function renderCompareTable(suffix, items, categories, type) {
-  const head = document.getElementById('compare-table-head-' + suffix);
-  const body = document.getElementById('compare-table-body-' + suffix);
-  const max = type === 'tool' ? 40 : 70;
-
-  let hh = '<tr><th>Category</th>';
-  items.forEach((item, i) => {
-    const colour = COMPARE_COLOURS[i % COMPARE_COLOURS.length];
-    hh += '<th><span class="col-header-swatch" style="background:' + colour + '" aria-hidden="true"></span>' + esc(item.name || item.product) + '</th>';
-  });
-  hh += '</tr>';
-  head.innerHTML = hh;
-
-  let bh = '';
-  categories.forEach(cat => {
-    bh += '<tr><td class="cat">' + esc(cat.name) + '</td>';
-    items.forEach(item => {
-      const sc = type === 'tool' ? toolScores(item) : item.scores;
-      const s = sc[cat.id] || 0;
-      const b = scoreBand(s);
-      bh += '<td class="score ' + b + '">' + s + ' / 10</td>';
-    });
-    bh += '</tr>';
-  });
-  // Total row
-  bh += '<tr class="total"><td>Total</td>';
-  items.forEach(item => {
-    const tot = type === 'tool' ? totalToolScore(item) : totalScore(item);
-    bh += '<td class="score">' + tot + ' / ' + max + '</td>';
-  });
-  bh += '</tr>';
-  body.innerHTML = bh;
-}
-
-/* ============================================================
-   TAB SWITCHING
-   ============================================================ */
-function switchTab(name) {
-  document.querySelectorAll('.tab-nav button').forEach(btn => {
-    const active = btn.dataset.tab === name;
-    btn.setAttribute('aria-selected', active ? 'true' : 'false');
-    btn.tabIndex = active ? 0 : -1;
-  });
-  document.querySelectorAll('.tab-panel').forEach(p => {
-    const active = p.id === 'panel-' + name;
-    p.classList.toggle('active', active);
-    p.hidden = !active;
-  });
-}
-
-document.querySelectorAll('.tab-nav button').forEach(btn => {
-  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
-  btn.addEventListener('keydown', (e) => {
-    const tabs = [...document.querySelectorAll('.tab-nav button')];
-    const idx = tabs.indexOf(btn);
-    if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      const next = tabs[(idx + 1) % tabs.length];
-      next.focus(); switchTab(next.dataset.tab);
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      const prev = tabs[(idx - 1 + tabs.length) % tabs.length];
-      prev.focus(); switchTab(prev.dataset.tab);
-    } else if (e.key === 'Home') {
-      e.preventDefault();
-      tabs[0].focus(); switchTab(tabs[0].dataset.tab);
-    } else if (e.key === 'End') {
-      e.preventDefault();
-      tabs[tabs.length-1].focus(); switchTab(tabs[tabs.length-1].dataset.tab);
+    } else {
+      pBody.scrollTop = 0;
+      pClose.focus();
     }
-  });
+  }, prefersReduced ? 0 : 380);
+}
+
+function closePanel() {
+  panel.classList.remove('open');
+  panel.setAttribute('aria-hidden', 'true');
+  scrim.classList.remove('open');
+  scrim.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  // Restore focus to the element that opened the panel
+  if (lastFocused && typeof lastFocused.focus === 'function') {
+    lastFocused.focus();
+  }
+}
+
+pClose.addEventListener('click', closePanel);
+scrim.addEventListener('click', closePanel);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+  trapFocus(e);
 });
 
 /* ============================================================
@@ -2774,39 +1984,69 @@ document.querySelectorAll('.tab-nav button').forEach(btn => {
    ============================================================ */
 document.getElementById('open-footprint').addEventListener('click', () => {
   lastFocused = document.activeElement;
-  pLbl.textContent = 'Methodology';
-  pTtl.textContent = 'What this project cost';
-  pBody.innerHTML =
-    '<div class="summary">' +
-      '<span class="lead">The footprint, made visible</span>' +
-      'A report on AI\u2019s environmental impact is itself produced by an AI. Honesty requires we count the cost. These are <strong>order-of-magnitude estimates</strong>, not precise measurements \u2014 Anthropic publishes no per-prompt energy data, so the figures are triangulated from peer disclosures and grid averages.' +
-    '</div>' +
-    '<div class="calc" role="region" aria-label="Footprint calculation">' +
-      '<div class="row"><span class="lbl">Substantive generation turns</span><span class="val">~40 &times; 4 Wh</span></div>' +
-      '<div class="row"><span class="lbl">Lighter tool-call turns</span><span class="val">~45 &times; 0.8 Wh</span></div>' +
-      '<div class="row"><span class="lbl">Web searches &amp; fetches</span><span class="val">25 &times; 0.4 Wh</span></div>' +
-      '<div class="row tot"><span class="lbl">TOTAL ENERGY</span><span class="val">~210 Wh</span></div>' +
-      '<div class="row" style="margin-top:6px;"><span class="lbl">&times; US grid avg (385 g CO\u2082e/kWh)</span><span class="val">~81 g CO\u2082e</span></div>' +
-      '<div class="row"><span class="lbl">&times; Gemini\u2019s on-site water ratio (1.08 mL/Wh)</span><span class="val">~227 mL</span></div>' +
-      '<div class="row"><span class="lbl">&times; 4 for indirect/thermal water (Ren midpoint)</span><span class="val">~910 mL</span></div>' +
-    '</div>' +
-    '<section class="category-block"><header class="head"><h3 class="name">Why both scorecards share one footprint</h3></header><div class="reasoning">' +
-      '<p>This single page combines the AI providers scorecard and the AI-using tools scorecard. Both were generated using Claude, with web research and document creation tooling. The 210 Wh estimate covers both passes together, including the unified merge.</p>' +
-    '</div></section>' +
-    '<section class="category-block"><header class="head"><h3 class="name">Per-turn energy assumptions</h3></header><div class="reasoning">' +
-      '<p>Anthropic publishes no per-prompt energy figures. The model used here is Claude Opus, a frontier model with reasoning, long-context generation, and tool use. Peer disclosures bracket the likely range:</p>' +
-      '<ul style="padding-left:20px;margin:8px 0;">' +
-        '<li><strong>Gemini median text prompt</strong> &mdash; 0.24 Wh (Google&rsquo;s 2025 disclosure)</li>' +
-        '<li><strong>ChatGPT average</strong> &mdash; ~0.34 Wh (Sam Altman blog claim)</li>' +
-        '<li><strong>GPT-5 reasoning</strong> &mdash; 18 Wh average, up to 40 Wh per response</li>' +
-      '</ul>' +
-      '<p>Substantive generation turns: <strong>~4 Wh per turn</strong>. Brief tool-call turns: <strong>~0.8 Wh</strong>. Web searches: <strong>~0.4 Wh</strong>.</p>' +
-    '</div></section>' +
-    '<section class="category-block"><header class="head"><h3 class="name">What\u2019s excluded</h3></header><div class="reasoning">' +
-      '<p>These estimates count <em>inference</em> energy only. They do not include amortised training emissions, end-user device energy, hosting energy, or embodied carbon in hardware. A complete cradle-to-grave figure would be several times higher.</p>' +
-    '</div></section>';
-  openPanel();
-  setTimeout(() => { pBody.scrollTop = 0; pClose.focus(); }, prefersReduced ? 0 : 100);
+  pTtl.textContent = "What this project cost";
+  pBody.innerHTML = `
+    <div class="summary">
+      <span class="lead">The footprint, made visible</span>
+      A report on AI's environmental impact is itself produced by an AI. Honesty requires we count the cost. These are <strong>order-of-magnitude estimates</strong>, not precise measurements &mdash; Anthropic publishes no per-prompt energy data, so the figures are triangulated from peer disclosures and grid averages.
+    </div>
+    <div class="calc" role="region" aria-label="Footprint calculation">
+      <div class="row"><span class="lbl">Substantive generation turns</span><span class="val">~30 &times; 4 Wh</span></div>
+      <div class="row"><span class="lbl">Lighter tool-call turns</span><span class="val">~32 &times; 0.8 Wh</span></div>
+      <div class="row"><span class="lbl">Web searches &amp; fetches</span><span class="val">18 &times; 0.4 Wh</span></div>
+      <div class="row tot"><span class="lbl">TOTAL ENERGY</span><span class="val">~155 Wh</span></div>
+      <div class="row" style="margin-top:6px;"><span class="lbl">&times; US grid avg (385 g CO\u2082e/kWh)</span><span class="val">~60 g CO\u2082e</span></div>
+      <div class="row"><span class="lbl">&times; Gemini's on-site water ratio (1.08 mL/Wh)</span><span class="val">~168 mL</span></div>
+      <div class="row"><span class="lbl">&times; 4 for indirect/thermal water (Ren midpoint)</span><span class="val">~670 mL</span></div>
+    </div>
+    <section class="category-block">
+      <header class="head"><h3 class="name">Per-turn energy assumptions</h3></header>
+      <div class="reasoning">
+        <p>Anthropic publishes no per-prompt energy figures. The model used here is Claude Opus, a frontier model with reasoning, long-context generation, and tool use. Peer disclosures bracket the likely range:</p>
+        <ul style="padding-left: 20px; margin: 8px 0;">
+          <li><strong>Gemini median text prompt</strong> &mdash; 0.24 Wh (Google's 2025 disclosure)</li>
+          <li><strong>ChatGPT average</strong> &mdash; ~0.34 Wh (Sam Altman blog claim)</li>
+          <li><strong>GPT-5 reasoning</strong> &mdash; 18 Wh average, up to 40 Wh per response</li>
+        </ul>
+        <p>For substantive generation turns producing long documents with tool use, this report uses <strong>~4 Wh per turn</strong> &mdash; between Gemini's median and GPT-5 reasoning, weighted toward the higher end. Brief tool-call turns are estimated at <strong>~0.8 Wh</strong>. Web searches at <strong>~0.4 Wh</strong> each, scaled up from Google's 2009 estimate of 0.3 Wh per search.</p>
+      </div>
+    </section>
+    <section class="category-block">
+      <header class="head"><h3 class="name">Carbon conversion</h3></header>
+      <div class="reasoning">
+        <p>Used the US national grid average of <strong>385 g CO\u2082e per kWh</strong> (EPA eGRID 2022). Anthropic's primary compute partner (AWS) operates partially on renewables and uses regional power purchase agreements, but does not publish per-query carbon. The grid-average figure is a reasonable upper bound; the true number is likely lower but not by an order of magnitude.</p>
+      </div>
+    </section>
+    <section class="category-block">
+      <header class="head"><h3 class="name">Water conversion</h3></header>
+      <div class="reasoning">
+        <p>On-site water uses Google's published Gemini ratio (0.26 mL water per 0.24 Wh of energy &approx; <strong>1.08 mL per Wh on-site</strong>). This counts only the water evaporated in data-centre cooling towers.</p>
+        <p>The full-lifecycle figure multiplies by <strong>4&times;</strong> to include indirect water consumed by thermoelectric power generation. This is the midpoint of independent researcher Shaolei Ren's estimated 3&ndash;5&times; range for US grid mix &mdash; the same critique applied to Google's own disclosure in the underlying report.</p>
+      </div>
+    </section>
+    <section class="category-block">
+      <header class="head"><h3 class="name">What's excluded</h3></header>
+      <div class="reasoning">
+        <p>These estimates count <em>inference</em> energy only &mdash; the cost of running Claude to produce this work. They <strong>do not include</strong>:</p>
+        <ul style="padding-left: 20px; margin: 8px 0;">
+          <li>Amortised share of Claude's training emissions (one-off, large, spread across all users)</li>
+          <li>Energy used by the user reading the report or scorecard (depends on device and time spent)</li>
+          <li>Energy used to host and serve the resulting files</li>
+          <li>Embodied carbon in the data-centre hardware</li>
+        </ul>
+        <p>A complete cradle-to-grave figure would be several times higher. The honest answer is that nobody &mdash; including this author &mdash; can give a precise figure, because the data isn't published. That is itself the central finding of the underlying report.</p>
+      </div>
+    </section>
+  `;
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden', 'false');
+  scrim.classList.add('open');
+  scrim.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    pBody.scrollTop = 0;
+    pClose.focus();
+  }, prefersReduced ? 0 : 100);
 });
 
 /* ============================================================
@@ -2814,77 +2054,349 @@ document.getElementById('open-footprint').addEventListener('click', () => {
    ============================================================ */
 document.getElementById('open-methodology').addEventListener('click', () => {
   lastFocused = document.activeElement;
-  pLbl.textContent = 'Methodology';
-  pTtl.textContent = 'How the scoring works';
-
-  pBody.innerHTML =
-    '<div class="summary">' +
-      '<span class="lead">Two scorecards, one banding system</span>' +
-      'Providers are scored 0\u201310 across seven ethical categories, summed to a /70 total. Tools are scored categorically (Better / Mixed / Concern / Opaque) across four dimensions, mapped to the same 0\u201310 scale for consistency.' +
-    '</div>' +
-    '<div class="calc" role="region" aria-label="Methodology calculation">' +
-      '<div class="row"><span class="lbl">Providers</span><span class="val">9</span></div>' +
-      '<div class="row"><span class="lbl">Provider categories</span><span class="val">7</span></div>' +
-      '<div class="row"><span class="lbl">Provider max score</span><span class="val">70</span></div>' +
-      '<div class="row"><span class="lbl">Tools</span><span class="val">12</span></div>' +
-      '<div class="row"><span class="lbl">Tool dimensions</span><span class="val">4</span></div>' +
-      '<div class="row"><span class="lbl">Tool max score</span><span class="val">40</span></div>' +
-    '</div>' +
-    '<section class="category-block"><header class="head"><h3 class="name">Banding</h3></header><div class="reasoning">' +
-      '<p><strong>STRONG (\u2265 65% of max)</strong> \u2014 published red lines, peer-reviewed or third-party-verified data, demonstrated willingness to incur commercial cost for ethical reasons.</p>' +
-      '<p><strong>MIXED (50\u201364% of max)</strong> \u2014 partial disclosure, some commitments without enforcement, mixed track record across categories.</p>' +
-      '<p><strong>WEAK (&lt; 50% of max with disclosed data)</strong> \u2014 no published policy, active resistance to regulation, or documented harms.</p>' +
-      '<p><strong>OPAQUE</strong> \u2014 insufficient public data to score; treated as a separate band rather than a low score.</p>' +
-    '</div></section>' +
-    '<section class="category-block"><header class="head"><h3 class="name">Tool rating \u2192 numeric mapping</h3></header><div class="reasoning">' +
-      '<p>To make the two scorecards comparable, tool ratings are mapped as:</p>' +
-      '<ul style="padding-left:20px;margin:8px 0;">' +
-        '<li><strong>Better</strong> \u2192 8 / 10 (STRONG)</li>' +
-        '<li><strong>Mixed</strong> \u2192 5 / 10 (MIXED)</li>' +
-        '<li><strong>Concern</strong> \u2192 2 / 10 (WEAK)</li>' +
-        '<li><strong>Opaque</strong> \u2192 0 / 10 (no data)</li>' +
-      '</ul>' +
-    '</div></section>' +
-    '<section class="category-block"><header class="head"><h3 class="name">Provider categories</h3></header><div class="reasoning">' +
-      CATEGORIES.map(c => '<p><strong>' + esc(c.name) + '</strong> \u2014 ' + esc(c.desc) + '</p>').join('') +
-    '</div></section>' +
-    '<section class="category-block"><header class="head"><h3 class="name">Tool dimensions</h3></header><div class="reasoning">' +
-      TOOL_CATEGORIES.map(c => '<p><strong>' + esc(c.name) + '</strong> \u2014 ' + esc(c.desc) + '</p>').join('') +
-    '</div></section>' +
-    '<section class="category-block"><header class="head"><h3 class="name">Limitations</h3></header><div class="reasoning">' +
-      '<p>Scores reflect publicly reported positions as of May 2026 and are necessarily a snapshot. Providers may update policies; new disclosures or reporting may shift scores up or down. Tool ratings are coarser by design \u2014 they capture posture rather than precise measurements.</p>' +
-    '</div></section>';
-  openPanel();
-  setTimeout(() => { pBody.scrollTop = 0; pClose.focus(); }, prefersReduced ? 0 : 100);
+  pTtl.textContent = 'Methodology';
+  pBody.innerHTML = `
+    <div class="summary">
+      <span class="lead">How the scoring works</span>
+      Nine providers were each scored 0&ndash;10 across seven ethical categories drawn from the underlying report. Categories were weighted equally; the headline figure is a simple sum out of 70.
+    </div>
+    <div class="calc" role="region" aria-label="Methodology calculation">
+      <div class="row"><span class="lbl">Providers</span><span class="val">9</span></div>
+      <div class="row"><span class="lbl">Categories</span><span class="val">7</span></div>
+      <div class="row"><span class="lbl">Max score per category</span><span class="val">10</span></div>
+      <div class="row tot"><span class="lbl">MAX POSSIBLE TOTAL</span><span class="val">70</span></div>
+    </div>
+    <section class="category-block">
+      <header class="head"><h3 class="name">Banding</h3></header>
+      <div class="reasoning">
+        <p><strong>STRONG (&ge; 45/70 overall or &ge; 7/10 per category)</strong> &mdash; published red lines, peer-reviewed or third-party-verified data, demonstrated willingness to incur commercial cost for ethical reasons.</p>
+        <p><strong>MIXED (35&ndash;44 overall or 5&ndash;6/10 per category)</strong> &mdash; partial disclosure, some commitments without enforcement, mixed track record across categories.</p>
+        <p><strong>WEAK (&lt; 35 overall or &le; 4/10 per category)</strong> &mdash; no published policy, active resistance to regulation, or documented harms attributable to the provider's choices.</p>
+      </div>
+    </section>
+    <section class="category-block">
+      <header class="head"><h3 class="name">Categories explained</h3></header>
+      <div class="reasoning">
+        ${CATEGORIES.map(c => `<p><strong>${esc(c.name)}</strong> &mdash; ${esc(c.desc)}</p>`).join('')}
+      </div>
+    </section>
+    <section class="category-block">
+      <header class="head"><h3 class="name">Limitations</h3></header>
+      <div class="reasoning">
+        <p>Scores reflect publicly reported positions as of May 2026 and are necessarily a snapshot. Providers may update policies; new disclosures or reporting may shift scores up or down.</p>
+        <p>Where two equally credible sources disagree (e.g. industry vs. independent analysis of data-centre rate impact), both perspectives inform the score and are linked in the relevant category.</p>
+        <p>Equal weighting is a deliberate editorial choice. A reader who weights military restraint twice as heavily as efficiency will get different rankings &mdash; the underlying scores are intended to support that kind of re-weighting.</p>
+      </div>
+    </section>
+  `;
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden', 'false');
+  scrim.classList.add('open');
+  scrim.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    pBody.scrollTop = 0;
+    pClose.focus();
+  }, prefersReduced ? 0 : 100);
 });
 
 /* ============================================================
    SOURCES SECTION
    ============================================================ */
 const sourcesEl = document.getElementById('sources');
-Object.entries(REFS).forEach(([n, val]) => {
-  const title = val[0]; const url = val[1];
+Object.entries(REFS).forEach(([n, [title, url]]) => {
   const li = document.createElement('li');
   li.className = 'source';
-  li.value = parseInt(n, 10);
-  li.innerHTML =
-    '<span class="source-num" aria-hidden="true">' + String(n).padStart(2, '0') + '</span>' +
-    '<div class="source-text">' +
-      '<p class="title"><span class="sr-only">Reference ' + n + ': </span>' + esc(title) + '</p>' +
-      '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(url) + '<span class="sr-only"> (opens in new tab)</span></a>' +
-    '</div>';
+  li.value = parseInt(n, 10);     // for <ol>
+  li.innerHTML = `
+    <span class="source-num" aria-hidden="true">${String(n).padStart(2, '0')}</span>
+    <div class="source-text">
+      <p class="title"><span class="sr-only">Reference ${n}: </span>${esc(title)}</p>
+      <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(url)}<span class="sr-only"> (opens in new tab)</span></a>
+    </div>
+  `;
   sourcesEl.appendChild(li);
 });
 
 /* ============================================================
-   INIT
+   COMPARISON RADAR CHART
    ============================================================ */
-renderProviderCards('overall');
-renderToolCards('overall');
-renderProviderPicker();
-renderToolPicker();
+const pickerListEl = document.getElementById('picker-list');
+const pickerCounterEl = document.getElementById('picker-counter');
+const chartContentEl = document.getElementById('chart-content');
+const tableWrapEl = document.getElementById('compare-table-wrap');
+const tableHeadEl = document.getElementById('compare-table-head');
+const tableBodyEl = document.getElementById('compare-table-body');
 
+// Build picker rows — display in alphabetical order by org for predictable scanning
+const pickerProviders = [...PROVIDERS].sort((a, b) => a.org.localeCompare(b.org));
+pickerProviders.forEach(p => {
+  const total = totalScore(p);
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <button type="button" class="picker-row" data-id="${esc(p.id)}" aria-pressed="false"
+            aria-label="${esc(p.org)} ${esc(p.product)}, total score ${total} out of 70. Toggle for comparison.">
+      <span class="swatch" aria-hidden="true"></span>
+      <span>
+        <span class="picker-org">${esc(p.org)}</span>
+        <span class="picker-name">${esc(p.product.split(' ')[0])}</span>
+      </span>
+      <span class="picker-total" aria-hidden="true">${total}/70</span>
+    </button>
+  `;
+  pickerListEl.appendChild(li);
+});
+
+/* Unified toggle — called from BOTH the picker rows and the card buttons.
+   Returns true if the selection changed, false if it was blocked (at cap). */
+function toggleCompare(id) {
+  const idx = selected.indexOf(id);
+  if (idx >= 0) {
+    selected.splice(idx, 1);
+  } else {
+    if (selected.length >= MAX_SELECT) return false;
+    selected.push(id);
+  }
+  syncCompareUI();
+  renderCompare();
+  return true;
+}
+
+/* Keep picker rows AND card buttons visually in sync with `selected`. */
+function syncCompareUI() {
+  const atCap = selected.length >= MAX_SELECT;
+  pickerCounterEl.textContent = `${selected.length} / ${MAX_SELECT}`;
+  pickerCounterEl.classList.toggle('full', atCap);
+
+  // Picker rows
+  pickerListEl.querySelectorAll('.picker-row').forEach(btn => {
+    const id = btn.dataset.id;
+    const selIdx = selected.indexOf(id);
+    const isSelected = selIdx >= 0;
+    btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+    if (isSelected) {
+      btn.style.setProperty('--swatch-color', COMPARE_COLOURS[selIdx]);
+      btn.removeAttribute('aria-disabled');
+    } else {
+      btn.style.removeProperty('--swatch-color');
+      if (atCap) btn.setAttribute('aria-disabled', 'true');
+      else btn.removeAttribute('aria-disabled');
+    }
+  });
+
+  // Card buttons (these are re-created on every renderCards, so query live)
+  document.querySelectorAll('.card-compare').forEach(btn => {
+    const id = btn.dataset.compare;
+    const selIdx = selected.indexOf(id);
+    const isSelected = selIdx >= 0;
+    btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+    const txt = btn.querySelector('.card-compare-text');
+    if (isSelected) {
+      btn.style.setProperty('--compare-colour', COMPARE_COLOURS[selIdx]);
+      btn.removeAttribute('aria-disabled');
+      if (txt) txt.textContent = 'Added to compare';
+    } else {
+      btn.style.removeProperty('--compare-colour');
+      if (atCap) btn.setAttribute('aria-disabled', 'true');
+      else btn.removeAttribute('aria-disabled');
+      if (txt) txt.textContent = 'Add to compare';
+    }
+  });
+
+  // "View comparison" button: visible only once a card is in the comparison,
+  // and only when there are enough selections for the chart to actually render.
+  const chartActive = selected.length >= 2;
+  document.querySelectorAll('.card-view-compare').forEach(btn => {
+    const id = btn.dataset.viewCompare;
+    const isSelected = selected.includes(id);
+    btn.hidden = !(isSelected && chartActive);
+  });
+}
+
+pickerListEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('.picker-row');
+  if (!btn) return;
+  toggleCompare(btn.dataset.id);
+});
+
+// Card compare buttons (event delegation on the cards container, which already
+// exists; this listener is separate from the open/bar-row listener).
+cardsEl.addEventListener('click', (e) => {
+  const cmpBtn = e.target.closest('.card-compare');
+  if (cmpBtn) {
+    // Block if at cap and this card isn't already selected
+    const id = cmpBtn.dataset.compare;
+    if (!selected.includes(id) && selected.length >= MAX_SELECT) return;
+    toggleCompare(id);
+    return;
+  }
+  const viewBtn = e.target.closest('.card-view-compare');
+  if (viewBtn) {
+    scrollToComparison();
+  }
+});
+
+// Smooth-scroll to the comparison chart and briefly highlight it.
+function scrollToComparison() {
+  const section = document.getElementById('compare-heading');
+  const chart = document.getElementById('compare-chart');
+  if (!section) return;
+  section.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+  if (chart) {
+    // Move focus to the chart region for keyboard/screen-reader users
+    chart.setAttribute('tabindex', '-1');
+    // Delay focus until the scroll settles so it isn't interrupted
+    setTimeout(() => {
+      chart.focus({ preventScroll: true });
+      if (!prefersReduced) {
+        chart.classList.add('flash');
+        setTimeout(() => chart.classList.remove('flash'), 1200);
+      }
+    }, prefersReduced ? 0 : 420);
+  }
+}
+
+function renderCompare() {
+  if (selected.length < 2) {
+    chartContentEl.innerHTML = `<p class="chart-empty">${
+      selected.length === 0
+        ? "Select at least two providers to start comparing."
+        : "Select one more provider to start comparing."
+    }</p>`;
+    tableWrapEl.hidden = true;
+    return;
+  }
+
+  // Get selected provider objects in selection order
+  const selProvs = selected.map(id => PROVIDERS.find(p => p.id === id));
+
+  // ---------- Build SVG radar ----------
+  const cx = 250, cy = 250;
+  const radius = 175;
+  const maxScore = 10;
+  const n = CATEGORIES.length; // 7
+  const startAngle = -Math.PI / 2; // 12 o'clock
+
+  function pointAt(catIdx, value) {
+    const angle = startAngle + (2 * Math.PI * catIdx / n);
+    const r = (value / maxScore) * radius;
+    return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+  }
+
+  // Concentric rings at 2, 4, 6, 8, 10
+  const rings = [2, 4, 6, 8, 10].map(v => {
+    const pts = CATEGORIES.map((_, i) => pointAt(i, v).join(',')).join(' ');
+    const isOuter = v === maxScore;
+    return `<polygon class="ring${isOuter ? ' outer' : ''}" points="${pts}" />`;
+  }).join('');
+
+  // Axes (centre to outer edge for each category)
+  const axes = CATEGORIES.map((_, i) => {
+    const [x, y] = pointAt(i, maxScore);
+    return `<line class="axis" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" />`;
+  }).join('');
+
+  // Ring numeric labels (on the top axis only, to avoid clutter)
+  const ringLabels = [2, 4, 6, 8, 10].map(v => {
+    const [, y] = pointAt(0, v);
+    return `<text class="ring-label" x="${cx + 5}" y="${y + 3}">${v}</text>`;
+  }).join('');
+
+  // Axis labels just outside the outer ring
+  const axisLabels = CATEGORIES.map((cat, i) => {
+    const angle = startAngle + (2 * Math.PI * i / n);
+    const labelR = radius + 22;
+    const x = cx + labelR * Math.cos(angle);
+    const y = cy + labelR * Math.sin(angle);
+    // Anchor based on horizontal position
+    let anchor = 'middle';
+    if (x < cx - 10) anchor = 'end';
+    else if (x > cx + 10) anchor = 'start';
+    // Vertical offset for top/bottom labels
+    const dy = (y < cy - 20) ? 0 : (y > cy + 20 ? 8 : 4);
+    // Split long labels onto two lines if they have a space
+    const words = cat.name.split(' ');
+    if (words.length > 1 && cat.name.length > 12) {
+      return `
+        <text class="axis-label" x="${x}" y="${y - 4 + dy}" text-anchor="${anchor}">
+          <tspan x="${x}" dy="0">${words[0]}</tspan>
+          <tspan x="${x}" dy="12">${words.slice(1).join(' ')}</tspan>
+        </text>`;
+    }
+    return `<text class="axis-label" x="${x}" y="${y + dy}" text-anchor="${anchor}">${cat.name}</text>`;
+  }).join('');
+
+  // Provider shapes
+  const shapes = selProvs.map((p, idx) => {
+    const colour = COMPARE_COLOURS[idx];
+    const pts = CATEGORIES.map((cat, i) => pointAt(i, p.scores[cat.id]).join(',')).join(' ');
+    const dots = CATEGORIES.map((cat, i) => {
+      const [x, y] = pointAt(i, p.scores[cat.id]);
+      return `<circle class="point" cx="${x}" cy="${y}" r="4" fill="${colour}" />`;
+    }).join('');
+    return `
+      <g>
+        <polygon class="shape" points="${pts}" fill="${colour}" stroke="${colour}" />
+        ${dots}
+      </g>
+    `;
+  }).join('');
+
+  // Legend rows under chart
+  const legendItems = selProvs.map((p, idx) => `
+    <div style="display: inline-flex; align-items: center; gap: 8px; margin-right: 18px; margin-bottom: 4px;">
+      <span aria-hidden="true" style="display: inline-block; width: 14px; height: 14px; background: ${COMPARE_COLOURS[idx]};"></span>
+      <span style="font-family: var(--mono); font-size: 12px; color: var(--ink); font-weight: 500;">${esc(p.org)} — ${esc(p.product.split(' ')[0])}</span>
+    </div>
+  `).join('');
+
+  chartContentEl.innerHTML = `
+    <svg class="radar" viewBox="0 0 500 500" role="img" aria-label="Radar chart comparing ${selProvs.map(p => p.product).join(', ')} across seven ethical categories">
+      ${rings}
+      ${axes}
+      ${ringLabels}
+      ${shapes}
+      ${axisLabels}
+    </svg>
+    <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--rule);" aria-hidden="true">
+      ${legendItems}
+    </div>
+  `;
+
+  // ---------- Build accessible data table ----------
+  // Header: blank corner | one column per selected provider
+  let headHTML = '<tr><th scope="col">Category</th>';
+  selProvs.forEach((p, idx) => {
+    headHTML += `<th scope="col"><span class="col-header-swatch" aria-hidden="true" style="background: ${COMPARE_COLOURS[idx]};"></span>${esc(p.org)} ${esc(p.product.split(' ')[0])}</th>`;
+  });
+  headHTML += '</tr>';
+  tableHeadEl.innerHTML = headHTML;
+
+  // Body: one row per category, then a totals row
+  let bodyHTML = '';
+  CATEGORIES.forEach(cat => {
+    bodyHTML += `<tr><td class="cat" scope="row">${esc(cat.name)}</td>`;
+    selProvs.forEach(p => {
+      const s = p.scores[cat.id];
+      const b = scoreBand(s);
+      bodyHTML += `<td class="score s-${b}" data-band="${bandLabel(b)}">${s}/10</td>`;
+    });
+    bodyHTML += '</tr>';
+  });
+  bodyHTML += '<tr class="total"><td class="cat" scope="row">Total</td>';
+  selProvs.forEach(p => {
+    bodyHTML += `<td class="score">${totalScore(p)}/70</td>`;
+  });
+  bodyHTML += '</tr>';
+  tableBodyEl.innerHTML = bodyHTML;
+
+  tableWrapEl.hidden = false;
+}
+
+// Initialise state
+compareReady = true;
+syncCompareUI();
+renderCompare();
 </script>
-
 </body>
 </html>
