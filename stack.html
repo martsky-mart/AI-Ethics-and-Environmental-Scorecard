@@ -1,1454 +1,1484 @@
-import React, { useState, useMemo } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsible Tech Scorecard & Analysis Tool</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- React and ReactDOM CDNs -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  
+  <!-- Babel compiler for in-browser JSX parsing -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-// Custom lightweight SVG Icons to avoid external library loading issues
-const Icons = {
-  Leaf: () => (
-    <svg className="w-5 h-5 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-    </svg>
-  ),
-  Shield: () => (
-    <svg className="w-5 h-5 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-    </svg>
-  ),
-  Scale: () => (
-    <svg className="w-5 h-5 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-    </svg>
-  ),
-  Info: () => (
-    <svg className="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  ),
-  Search: () => (
-    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-    </svg>
-  ),
-  Sliders: () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-    </svg>
-  ),
-  Award: () => (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-    </svg>
-  ),
-  ArrowRight: () => (
-    <svg className="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-    </svg>
-  ),
-  Server: () => (
-    <svg className="w-5 h-5 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
-    </svg>
-  )
-};
-
-// Seed evaluations data
-const database = {
-  technologies: [
-    {
-      id: 'react',
-      name: 'React',
-      category: 'Frontend Library',
-      envScore: 6,
-      ethicScore: 5,
-      privScore: 8,
-      envDetails: 'Client-side rendering (CSR) offsets initial server loads but shifts heavy execution and battery drainage to user devices. High bundle sizes increase bandwidth demands unless properly optimized using tree-shaking and server-side components.',
-      ethicDetails: 'React is an open-source library under the MIT License, which is highly democratic. However, its development is heavily controlled and funded by Meta (Facebook), aligning it with a parent corporation with a complex ethical history in social and geopolitical spheres.',
-      privDetails: 'React itself has no telemetry or native tracking mechanisms. However, the Single Page Application (SPA) ecosystem built on React highly facilitates client-side user session recording, dynamic tracking scripts, and complex fingerprinting techniques.',
-      pros: ['Zero default library telemetry', 'Vibrant, accessible open-source community', 'React Server Components lower client computing strain'],
-      cons: ['Meta corporate control and stewardship influence', 'High client-side CPU consumption if unoptimized', 'SPA ecosystem heavily leans on invasive analytics integration'],
-      mitigation: 'Implement React Server Components (RSC) to offset computing burdens from the user device to the server, and audit third-party React-wrapper hook libraries for embedded telemetry.'
-    },
-    {
-      id: 'next',
-      name: 'Next.js',
-      category: 'Full-stack Framework',
-      envScore: 7,
-      ethicScore: 6,
-      privScore: 8,
-      envDetails: 'Offers Server-Side Rendering (SSR) and Static Site Generation (SSG/ISR), reducing client-side computational strain. However, global Edge distribution and dynamic server routes on platforms like Vercel rely heavily on active cloud compute networks.',
-      ethicDetails: 'Maintained by Vercel. While built on open-source principles, Vercel structures the framework features to optimize deployment on their own paid, proprietary serverless architecture, causing soft platform lock-in.',
-      privDetails: 'Features dynamic server execution which can isolate tracking databases, keep sensitive API keys backend-only, and prevent exposure of credentials. However, the Vercel ecosystem compiles telemetry which must be explicitly opted-out.',
-      pros: ['Excellent carbon performance through static rendering', 'Keeps keys and tracking securely on server side', 'Rich caching patterns minimize unnecessary processor cycles'],
-      cons: ['Subtle design pressures targeting Vercel platform lock-in', 'Default developer telemetry tracking', 'Complex rendering models increase development cycle overhead'],
-      mitigation: 'Configure output as "export" (static HTML) where applicable to minimize active server runtime, disable telemetry via environment variables, and verify self-hosting alternatives.'
-    },
-    {
-      id: 'node',
-      name: 'Node.js',
-      category: 'Backend Runtime',
-      envScore: 8,
-      ethicScore: 9,
-      privScore: 7,
-      envDetails: 'Uses an asynchronous, single-threaded, event-driven model (V8 engine). Outstanding operational efficiency, consuming far less RAM and raw CPU time per request compared to multi-threaded heavy enterprise ecosystems.',
-      ethicDetails: 'Governed by the OpenJS Foundation. High score for democratic open-source representation, avoiding central ownership by any single big-tech monopoly. Inclusive global developer base.',
-      privDetails: 'Highly secure environment, but vulnerable to massive supply chain privacy issues. Dependency on the NPM registry exposes developers to malicious, nested code dependencies designed to exfiltrate database records or system information.',
-      pros: ['Extremely low idle energy consumption profiles', 'Truly democratic community governance model', 'Facilitates fast, highly micro-optimized backend operations'],
-      cons: ['Severe vulnerability to third-party NPM security risks', 'Lack of built-in standard library requires deep reliance on external modules', 'Frequent, fast-paced version deprecation cycles'],
-      mitigation: 'Implement automated dependency vulnerability scanners (e.g., Socket, Snyk), freeze lockfiles, and run containers on energy-efficient ARM64 server architectures.'
-    },
-    {
-      id: 'robot',
-      name: 'Robot (Robotic Process Automation)',
-      category: 'Testing & Automation Framework',
-      envScore: 5,
-      ethicScore: 6,
-      privScore: 6,
-      envDetails: 'Automated testing and web browser automation (Selenium/Playwright engines) require significant processing power, often continuously run in CI/CD pipelines, compounding substantial data center power profiles.',
-      ethicDetails: 'Ethically dual-use. While it greatly democratizes automation, quality assurance, and testing, Robotic Process Automation (RPA) tools can contribute to white-collar labor displacement and workforce downsizing.',
-      privDetails: 'Automated scripts can easily bypass standard web controls, scrape personal data from targets, or simulate massive botnets. Prone to triggering authentication alarms and privacy violations when badly configured.',
-      pros: ['Open-source testing and task standardisation', 'Eliminates repetitive human tasks and associated fatigue', 'Integrates with carbon-aware CI/CD runners'],
-      cons: ['Bypasses structural privacy gates via automated browsers', 'Displaces human operational labor roles', 'Resource-intensive runner environments in CI/CD pipeline structures'],
-      mitigation: 'Schedule automation pipelines to run during periods of high grid clean energy availability, and explicitly limit automated scraping parameters to protect individual target site privacy.'
-    },
-    {
-      id: 'net',
-      name: '.NET Core / .NET',
-      category: 'Backend & Cloud Framework',
-      envScore: 8,
-      ethicScore: 7,
-      privScore: 8,
-      envDetails: 'Modern .NET is a compiled, lightning-fast platform ranking consistently high on the TechEmpower benchmarks. Low server-side energy profile, supporting highly optimized containerized instances.',
-      ethicDetails: 'Maintained by Microsoft. Shifted successfully from historical proprietary lock-in to open-source (MIT). Microsoft targets carbon-negative operations by 2030, but still holds commercial partnerships with global oil & gas conglomerates.',
-      privDetails: 'Superb enterprise-grade encryption, privacy configurations, and built-in protection against SQL injection, XSS, and data leaks. Excellent integration with federated enterprise single sign-on systems.',
-      pros: ['Extremely high performance-per-watt runtime efficiency', 'Thorough, enterprise-grade safety and security defaults', 'Deeply structured, highly maintainable language profiles (C#)'],
-      cons: ['Underlying corporate alignment with big tech fossil initiatives', 'Ecosystem leans heavily on Microsoft Azure hosting, restricting neutrality', 'Substantial boilerplate codebase footprint'],
-      mitigation: 'Host .NET builds inside lightweight Linux containers (such as Alpine) and utilize native Ahead-Of-Time (AOT) compilation to dramatically lower server memory footprints.'
-    },
-    {
-      id: 'jquery',
-      name: 'jQuery',
-      category: 'Legacy Frontend Library',
-      envScore: 9,
-      ethicScore: 10,
-      privScore: 9,
-      envDetails: 'Exceedingly lightweight (~30KB gzipped). Largely cached globally on CDN architectures, introducing almost zero modern server-side or pipeline carbon overhead. Minimal processing strain on client machines.',
-      ethicDetails: 'Managed by OpenJS Foundation. An ethical champion of the early modern web. Deeply democratic, completely free, and instrumental in bridging the digital divide for over a decade.',
-      privDetails: 'Completely zero analytics, telemetry, or user tracking built in. Does not manipulate cookies or exfiltrate client contexts automatically. Completely safe from data privacy intrusion.',
-      pros: ['Extremely low environmental carbon legacy footprint', 'Stellar, highly democratic, non-corporate open history', 'Zero background telemetry or tracing operations'],
-      cons: ['Frequent XSS vulnerabilities in older, unpatched releases', 'Often leads to DOM-heavy spaghetti code models', 'Inefficient for large-scale, state-driven user interfaces'],
-      mitigation: 'Use modern, secure CDNs with Subresource Integrity (SRI) hashes enabled to secure jQuery scripts against man-in-the-middle code injections.'
-    },
-    {
-      id: 'kinsta',
-      name: 'Kinsta',
-      category: 'Cloud Hosting Provider',
-      envScore: 8,
-      ethicScore: 8,
-      privScore: 8,
-      envDetails: 'Built exclusively on Google Cloud Platform (GCP) infrastructure. GCP matches 100% of its annual electricity usage with regional renewable energy purchases. Operates highly efficient server nodes.',
-      ethicDetails: 'A privately owned, non-VC-dominated premium hosting platform. High standards of employee compensation, distributed global operations, and strong platform service standards.',
-      privDetails: 'Rigorous security firewalls (Cloudflare integration), isolated container infrastructure, robust GDPR/CCPA data handling policies, and zero hidden user tracking schemes.',
-      pros: ['Powered by Google Cloud renewable energy initiatives', 'Containerized hosting prevents server cross-contamination', 'Full GDPR compliance and integrated security protections'],
-      cons: ['Locked to Google Cloud regions', 'Higher pricing structure restricts access for low-budget developers', 'Proprietary platform dash makes migrating away tedious'],
-      mitigation: 'Choose Kinsta data center regions with the lowest carbon intensity (e.g., Oregon, Finland, Zurich) when configuring your deployment settings.'
-    },
-    {
-      id: 'mantine',
-      name: 'Mantine',
-      category: 'React Component Library',
-      envScore: 9,
-      ethicScore: 10,
-      privScore: 10,
-      envDetails: 'Highly optimized, modular React components. Built with strict tree-shaking support to minimize the bundle payload sent over cellular networks, avoiding client-side layout thrashing and heating.',
-      ethicDetails: 'Entirely open-source, community-driven framework without big-tech corporate manipulation or venture capital pressure. Highly focused on digital inclusion and accessibility standards (A11y).',
-      privDetails: 'Absolutely zero client-side tracking, cookie creation, or telemetry scripts included. Keeps user actions entirely internal to the application instance.',
-      pros: ['Zero telemetry, tracking, or background tracking requests', 'Outstanding out-of-the-box digital accessibility (WAI-ARIA)', 'Excellent tree-shaking optimizes client performance'],
-      cons: ['Requires React dependency, inheriting React-specific impacts', 'Frequent updates require continuous version alignment code modifications', 'Heavier than native Tailwind CSS if not properly tree-shaken'],
-      mitigation: 'Utilize only the specific sub-modules needed (e.g., `@mantine/core`) instead of the entire package to optimize bundle delivery metrics.'
-    }
-  ],
-  cms: [
-    {
-      id: 'craft',
-      name: 'Craft CMS',
-      category: 'Hybrid / Headless CMS',
-      envScore: 8,
-      ethicScore: 9,
-      privScore: 9,
-      envDetails: 'Yii-based PHP framework engine. Extremely efficient database layout structures. When paired with standard Redis or Blitz caching, it operates with microsecond execution times, reducing database server heat.',
-      ethicDetails: 'Developed by Pixel & Tonic, an independent software studio. Sidesteps tech conglomerate monopolies. Relies on straightforward, fair commercial license pricing rather than exploitative monetization.',
-      privDetails: 'Does not bundle telemetry, system audits, or tracking mechanisms out of the box. Fully self-hosted architecture, allowing absolute client containment of all database contents.',
-      pros: ['Ultra-clean, bespoke database schemas minimize server load', 'Independent, ethical developer-first business model', 'Completely localized data custody pipelines'],
-      cons: ['Requires commercial licenses for custom client work', 'Requires specialized development resources to prevent performance bottlenecks', 'Steep setup curve compared to instant low-code platforms'],
-      mitigation: 'Combine Craft with static site generation (using plugins like Blitz or headless GraphQL configurations) to eliminate dynamic server execution completely.'
-    },
-    {
-      id: 'umbraco',
-      name: 'Umbraco',
-      category: 'Open Source CMS',
-      envScore: 9,
-      ethicScore: 8,
-      privScore: 9,
-      envDetails: 'An industry leader in digital sustainability. Features an active, dedicated "Umbraco Sustainability Community" working on core carbon optimization, reducing image payload sizes, and optimizing database queries.',
-      ethicDetails: 'Hybrid open-source HQ model. Strongly community-centric, highly collaborative ecosystem with democratic developer feedback channels and open core access.',
-      privDetails: 'Runs on secure ASP.NET framework. Built-in compliance toolsets for GDPR, advanced user permissions, local deployment models, and zero platform tracking cookies.',
-      pros: ['Active community-led green web-sustainability initiatives', 'Robust, enterprise-grade ASP.NET security structures', 'Completely self-hostable with full database ownership'],
-      cons: ['Host architectures (.NET) are historically complex to scale', 'Steep learning curve for frontend-only developers', 'Ecosystem has fewer green-certified plug-and-play extensions'],
-      mitigation: 'Leverage the Umbraco Sustainability best practices guide, utilizing automatic WebP media conversion on upload to trim transfer carbon.'
-    },
-    {
-      id: 'sanity',
-      name: 'Sanity.io',
-      category: 'Headless SaaS CMS',
-      envScore: 7,
-      ethicScore: 7,
-      privScore: 8,
-      envDetails: 'SaaS cloud platform. While delivering content via fast global CDNs saves server workloads locally, the central storage relies heavily on Sanity proprietary hosting infrastructure (Google/AWS base networks).',
-      ethicDetails: 'Venture-backed platform model. Excellent developer experience, but pricing tiers escalate sharply, and central lock-in to their GROQ/data cloud limits digital autonomy.',
-      privDetails: 'SOC 2 Type II compliant. Excellent security, single sign-on options, and granular role permissions. Data is stored on third-party servers, which may concern strict local-data advocates.',
-      pros: ['Global CDN optimization lowers localized client-to-server distances', 'Enterprise-grade cloud compliance (SOC 2, ISO-aligned)', 'Real-time collaborative editing reduces draft bloat'],
-      cons: ['Proprietary database cloud storage lock-in', 'Venture-backed model subjects roadmap to growth targets', 'Data stored on third-party cloud architectures'],
-      mitigation: 'Configure Sanity to cache API requests intensely at your client application layer, minimizing recurring cloud network hits to their central server pool.'
-    },
-    {
-      id: 'payload',
-      name: 'Payload CMS',
-      category: 'Headless Node.js CMS',
-      envScore: 9,
-      ethicScore: 9,
-      privScore: 10,
-      envDetails: 'Built on Node.js and MongoDB/PostgreSQL. Extremely fast server startup, light execution loops, and ultra-lean admin panel built on Next.js. Much lighter resource envelope than old PHP setups.',
-      ethicDetails: 'Shifted completely to a free, open-source MIT License. Completely transparent, developer-centric, and encourages distributed self-hosting over SaaS cloud reliance.',
-      privDetails: 'No default telemetry, cloud tracking, or mandatory data collection. Because it is completely self-hosted, you maintain absolute database sovereignty, with secure JWT-based auth options.',
-      pros: ['Modern, ultra-efficient Node.js server performance profile', '100% open-source MIT License with absolute transparency', 'Complete developer-owned data privacy pipeline'],
-      cons: ['Relatively new ecosystem with fewer out-of-the-box templates', 'Requires custom developer setup and maintenance', 'Self-hosting requires database configuration overhead'],
-      mitigation: 'Pair Payload with an energy-efficient server provider (such as green VPS nodes) and use PostgreSQL for optimum index storage.'
-    },
-    {
-      id: 'wordpress',
-      name: 'WordPress',
-      category: 'Monolithic CMS',
-      envScore: 5,
-      ethicScore: 6,
-      privScore: 6,
-      envDetails: 'Powers over 43% of the internet. Legacy PHP architecture and database design require significant server resource cycles per un-cached page load. Unoptimized, dynamic sites collectively represent a massive carbon footprint.',
-      ethicDetails: 'Democratized global publishing and web design. However, current corporate and governance battles (such as the Automattic vs WP Engine legal conflicts) raise concerns about ecosystem stability and community governance.',
-      privDetails: 'The core platform provides robust GDPR tools. However, the vast third-party plugin ecosystem is a massive privacy risk, often injecting unchecked trackers, cookies, and telemetry into user sessions.',
-      pros: ['Fully democratized, accessible publishing environment', 'Massive global network of experts and extensive documentation', 'Rich, built-in user privacy compliance controls'],
-      cons: ['Massive global carbon footprint from un-cached dynamic runs', 'Ecosystem governance disputes between corporate entities', 'Third-party plugins frequently introduce telemetry and security bugs'],
-      mitigation: 'Enforce aggressive page-caching (Redis, Varnish), minimize external plugins, utilize a green-certified host, and use plugin-auditing tools.'
-    }
-  ]
-};
-
-export default function App() {
-  // Navigation State
-  const [activeTab, setActiveTab] = useState('scorecard');
-
-  // Search & Filter State
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterCategory, setFilterCategory] = useState('all');
-
-  // Interactive Weighting State
-  const [envWeight, setEnvWeight] = useState(7);
-  const [ethicWeight, setEthicWeight] = useState(5);
-  const [privacyWeight, setPrivacyWeight] = useState(8);
-
-  // Stack Estimator State
-  const [monthlyViews, setMonthlyViews] = useState(50000);
-  const [hostingType, setHostingType] = useState('standard'); // 'standard' (0.5g CO2/page) or 'green' (0.15g CO2/page)
-  const [selectedEstimatorTech, setSelectedEstimatorTech] = useState(['react', 'node']);
-  const [selectedEstimatorCms, setSelectedEstimatorCms] = useState('payload');
-
-  // Comparison State
-  const [selectedCompareIds, setSelectedCompareIds] = useState(['react', 'next', 'payload', 'wordpress']);
-
-  // Custom Report State
-  const [reportTitle, setReportTitle] = useState('My Stack Responsibility Audit');
-  const [reportCheckedItems, setReportCheckedItems] = useState({
-    react: true,
-    node: true,
-    payload: true
-  });
-  const [isCopied, setIsCopied] = useState(false);
-
-  // Deep dive profile selection
-  const [selectedProfileId, setSelectedProfileId] = useState('react');
-
-  // Merge tech and CMS into unified list
-  const allTools = useMemo(() => {
-    return [...database.technologies, ...database.cms];
-  }, []);
-
-  // Calculate Weighted Score
-  const calculateScore = (item) => {
-    const totalWeight = envWeight + ethicWeight + privacyWeight;
-    if (totalWeight === 0) return 0;
-    const rawScore = (
-      (item.envScore * envWeight) +
-      (item.ethicScore * ethicWeight) +
-      (item.privScore * privacyWeight)
-    ) / totalWeight;
-    return parseFloat(rawScore.toFixed(1));
-  };
-
-  // Get Score Badge Color
-  const getScoreColor = (score) => {
-    if (score >= 8.5) return 'bg-emerald-100 text-emerald-800 border-emerald-200';
-    if (score >= 7.0) return 'bg-blue-100 text-blue-800 border-blue-200';
-    if (score >= 5.5) return 'bg-amber-100 text-amber-800 border-amber-200';
-    return 'bg-rose-100 text-rose-800 border-rose-200';
-  };
-
-  const getScoreDotColor = (score) => {
-    if (score >= 8.5) return 'bg-emerald-500';
-    if (score >= 7.0) return 'bg-blue-500';
-    if (score >= 5.5) return 'bg-amber-500';
-    return 'bg-rose-500';
-  };
-
-  // Filtered and Sorted list based on weights and search
-  const filteredTools = useMemo(() => {
-    return allTools
-      .filter(item => {
-        const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.category.toLowerCase().includes(searchTerm.toLowerCase());
-        const isCms = database.cms.some(c => c.id === item.id);
-        const matchesCategory = filterCategory === 'all' ||
-          (filterCategory === 'tech' && !isCms) ||
-          (filterCategory === 'cms' && isCms);
-        return matchesSearch && matchesCategory;
-      })
-      .map(item => ({
-        ...item,
-        weightedScore: calculateScore(item)
-      }))
-      .sort((a, b) => b.weightedScore - a.weightedScore);
-  }, [searchTerm, filterCategory, envWeight, ethicWeight, privacyWeight, allTools]);
-
-  // Handle weight preset configurations
-  const applyPreset = (preset) => {
-    if (preset === 'eco') {
-      setEnvWeight(10);
-      setEthicWeight(4);
-      setPrivacyWeight(4);
-    } else if (preset === 'privacy') {
-      setEnvWeight(4);
-      setEthicWeight(4);
-      setPrivacyWeight(10);
-    } else if (preset === 'ethics') {
-      setEnvWeight(4);
-      setEthicWeight(10);
-      setPrivacyWeight(4);
-    } else {
-      setEnvWeight(7);
-      setEthicWeight(7);
-      setPrivacyWeight(7);
-    }
-  };
-
-  // Stack Estimator Calculations
-  const estimationResults = useMemo(() => {
-    // Carbon calculations
-    const baseCarbonPageFactor = hostingType === 'green' ? 0.12 : 0.45; // grams of CO2e per pageview
-    let totalStackModifier = 1.0;
-
-    // Adjust stack factor based on tech selection efficiency
-    selectedEstimatorTech.forEach(techId => {
-      const tech = database.technologies.find(t => t.id === techId);
-      if (tech) {
-        // lower score = less efficient = higher carbon multiplier
-        totalStackModifier += (10 - tech.envScore) * 0.05;
+  <!-- Custom Tailwind config for styling adjustments if needed -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
       }
-    });
-
-    const cmsObj = database.cms.find(c => c.id === selectedEstimatorCms);
-    if (cmsObj) {
-      totalStackModifier += (10 - cmsObj.envScore) * 0.1;
     }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-    const estimatedMonthlyCarbonKg = (monthlyViews * baseCarbonPageFactor * totalStackModifier) / 1000;
-    const yearlyCarbonKg = estimatedMonthlyCarbonKg * 12;
-    const equivalentKmDriven = (yearlyCarbonKg / 0.12).toFixed(0); // Avg car emits ~120g/km
+  <div id="root"></div>
 
-    // Average Privacy Score
-    let sumPriv = 0;
-    let countPriv = 0;
-    selectedEstimatorTech.forEach(techId => {
-      const tech = database.technologies.find(t => t.id === techId);
-      if (tech) { sumPriv += tech.privScore; countPriv++; }
-    });
-    if (cmsObj) { sumPriv += cmsObj.privScore; countPriv++; }
-    const avgPrivacyScore = countPriv > 0 ? (sumPriv / countPriv).toFixed(1) : 0;
+  <!-- React Application Code -->
+  <script type="text/babel">
+    const { useState, useMemo } = React;
 
-    // Average Ethical Score
-    let sumEthic = 0;
-    let countEthic = 0;
-    selectedEstimatorTech.forEach(techId => {
-      const tech = database.technologies.find(t => t.id === techId);
-      if (tech) { sumEthic += tech.ethicScore; countEthic++; }
-    });
-    if (cmsObj) { sumEthic += cmsObj.ethicScore; countEthic++; }
-    const avgEthicScore = countEthic > 0 ? (sumEthic / countEthic).toFixed(1) : 0;
-
-    return {
-      monthlyCarbon: estimatedMonthlyCarbonKg.toFixed(2),
-      yearlyCarbon: yearlyCarbonKg.toFixed(1),
-      carKm: equivalentKmDriven,
-      privacyScore: avgPrivacyScore,
-      ethicalScore: avgEthicScore,
-      stackMultiplier: totalStackModifier.toFixed(2)
+    // Custom lightweight SVG Icons to avoid external library loading issues
+    const Icons = {
+      Leaf: () => (
+        <svg className="w-5 h-5 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+      ),
+      Shield: () => (
+        <svg className="w-5 h-5 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      ),
+      Scale: () => (
+        <svg className="w-5 h-5 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+        </svg>
+      ),
+      Info: () => (
+        <svg className="w-4 h-4 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      Search: () => (
+        <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      ),
+      Sliders: () => (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+        </svg>
+      ),
+      Award: () => (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg>
+      ),
+      ArrowRight: () => (
+        <svg className="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      ),
+      Server: () => (
+        <svg className="w-5 h-5 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+        </svg>
+      )
     };
-  }, [monthlyViews, hostingType, selectedEstimatorTech, selectedEstimatorCms]);
 
-  // Toggle estimator tech choice
-  const toggleEstimatorTech = (id) => {
-    if (selectedEstimatorTech.includes(id)) {
-      setSelectedEstimatorTech(selectedEstimatorTech.filter(t => t !== id));
-    } else {
-      setSelectedEstimatorTech([...selectedEstimatorTech, id]);
-    }
-  };
+    // Seed evaluations database
+    const database = {
+      technologies: [
+        {
+          id: 'react',
+          name: 'React',
+          category: 'Frontend Library',
+          envScore: 6,
+          ethicScore: 5,
+          privScore: 8,
+          envDetails: 'Client-side rendering (CSR) offsets initial server loads but shifts heavy execution and battery drainage to user devices. High bundle sizes increase bandwidth demands unless properly optimized using tree-shaking and server-side components.',
+          ethicDetails: 'React is an open-source library under the MIT License, which is highly democratic. However, its development is heavily controlled and funded by Meta (Facebook), aligning it with a parent corporation with a complex ethical history in social and geopolitical spheres.',
+          privDetails: 'React itself has no telemetry or native tracking mechanisms. However, the Single Page Application (SPA) ecosystem built on React highly facilitates client-side user session recording, dynamic tracking scripts, and complex fingerprinting techniques.',
+          pros: ['Zero default library telemetry', 'Vibrant, accessible open-source community', 'React Server Components lower client computing strain'],
+          cons: ['Meta corporate control and stewardship influence', 'High client-side CPU consumption if unoptimized', 'SPA ecosystem heavily leans on invasive analytics integration'],
+          mitigation: 'Implement React Server Components (RSC) to offset computing burdens from the user device to the server, and audit third-party React-wrapper hook libraries for embedded telemetry.'
+        },
+        {
+          id: 'next',
+          name: 'Next.js',
+          category: 'Full-stack Framework',
+          envScore: 7,
+          ethicScore: 6,
+          privScore: 8,
+          envDetails: 'Offers Server-Side Rendering (SSR) and Static Site Generation (SSG/ISR), reducing client-side computational strain. However, global Edge distribution and dynamic server routes on platforms like Vercel rely heavily on active cloud compute networks.',
+          ethicDetails: 'Maintained by Vercel. While built on open-source principles, Vercel structures the framework features to optimize deployment on their own paid, proprietary serverless architecture, causing soft platform lock-in.',
+          privDetails: 'Features dynamic server execution which can isolate tracking databases, keep sensitive API keys backend-only, and prevent exposure of credentials. However, the Vercel ecosystem compiles telemetry which must be explicitly opted-out.',
+          pros: ['Excellent carbon performance through static rendering', 'Keeps keys and tracking securely on server side', 'Rich caching patterns minimize unnecessary processor cycles'],
+          cons: ['Subtle design pressures targeting Vercel platform lock-in', 'Default developer telemetry tracking', 'Complex rendering models increase development cycle overhead'],
+          mitigation: 'Configure output as "export" (static HTML) where applicable to minimize active server runtime, disable telemetry via environment variables, and verify self-hosting alternatives.'
+        },
+        {
+          id: 'node',
+          name: 'Node.js',
+          category: 'Backend Runtime',
+          envScore: 8,
+          ethicScore: 9,
+          privScore: 7,
+          envDetails: 'Uses an asynchronous, single-threaded, event-driven model (V8 engine). Outstanding operational efficiency, consuming far less RAM and raw CPU time per request compared to multi-threaded heavy enterprise ecosystems.',
+          ethicDetails: 'Governed by the OpenJS Foundation. High score for democratic open-source representation, avoiding central ownership by any single big-tech monopoly. Inclusive global developer base.',
+          privDetails: 'Highly secure environment, but vulnerable to massive supply chain privacy issues. Dependency on the NPM registry exposes developers to malicious, nested code dependencies designed to exfiltrate database records or system information.',
+          pros: ['Extremely low idle energy consumption profiles', 'Truly democratic community governance model', 'Facilitates fast, highly micro-optimized backend operations'],
+          cons: ['Severe vulnerability to third-party NPM security risks', 'Lack of built-in standard library requires deep reliance on external modules', 'Frequent, fast-paced version deprecation cycles'],
+          mitigation: 'Implement automated dependency vulnerability scanners (e.g., Socket, Snyk), freeze lockfiles, and run containers on energy-efficient ARM64 server architectures.'
+        },
+        {
+          id: 'robot',
+          name: 'Robot (Robotic Process Automation)',
+          category: 'Testing & Automation Framework',
+          envScore: 5,
+          ethicScore: 6,
+          privScore: 6,
+          envDetails: 'Automated testing and web browser automation (Selenium/Playwright engines) require significant processing power, often continuously run in CI/CD pipelines, compounding substantial data center power profiles.',
+          ethicDetails: 'Ethically dual-use. While it greatly democratizes automation, quality assurance, and testing, Robotic Process Automation (RPA) tools can contribute to white-collar labor displacement and workforce downsizing.',
+          privDetails: 'Automated scripts can easily bypass standard web controls, scrape personal data from targets, or simulate massive botnets. Prone to triggering authentication alarms and privacy violations when badly configured.',
+          pros: ['Open-source testing and task standardisation', 'Eliminates repetitive human tasks and associated fatigue', 'Integrates with carbon-aware CI/CD runners'],
+          cons: ['Bypasses structural privacy gates via automated browsers', 'Displaces human operational labor roles', 'Resource-intensive runner environments in CI/CD pipeline structures'],
+          mitigation: 'Schedule automation pipelines to run during periods of high grid clean energy availability, and explicitly limit automated scraping parameters to protect individual target site privacy.'
+        },
+        {
+          id: 'net',
+          name: '.NET Core / .NET',
+          category: 'Backend & Cloud Framework',
+          envScore: 8,
+          ethicScore: 7,
+          privScore: 8,
+          envDetails: 'Modern .NET is a compiled, lightning-fast platform ranking consistently high on the TechEmpower benchmarks. Low server-side energy profile, supporting highly optimized containerized instances.',
+          ethicDetails: 'Maintained by Microsoft. Shifted successfully from historical proprietary lock-in to open-source (MIT). Microsoft targets carbon-negative operations by 2030, but still holds commercial partnerships with global oil & gas conglomerates.',
+          privDetails: 'Superb enterprise-grade encryption, privacy configurations, and built-in protection against SQL injection, XSS, and data leaks. Excellent integration with federated enterprise single sign-on systems.',
+          pros: ['Extremely high performance-per-watt runtime efficiency', 'Thorough, enterprise-grade safety and security defaults', 'Deeply structured, highly maintainable language profiles (C#)'],
+          cons: ['Underlying corporate alignment with big tech fossil initiatives', 'Ecosystem leans heavily on Microsoft Azure hosting, restricting neutrality', 'Substantial boilerplate codebase footprint'],
+          mitigation: 'Host .NET builds inside lightweight Linux containers (such as Alpine) and utilize native Ahead-Of-Time (AOT) compilation to dramatically lower server memory footprints.'
+        },
+        {
+          id: 'jquery',
+          name: 'jQuery',
+          category: 'Legacy Frontend Library',
+          envScore: 9,
+          ethicScore: 10,
+          privScore: 9,
+          envDetails: 'Exceedingly lightweight (~30KB gzipped). Largely cached globally on CDN architectures, introducing almost zero modern server-side or pipeline carbon overhead. Minimal processing strain on client machines.',
+          ethicDetails: 'Managed by OpenJS Foundation. An ethical champion of the early modern web. Deeply democratic, completely free, and instrumental in bridging the digital divide for over a decade.',
+          privDetails: 'Completely zero analytics, telemetry, or user tracking built in. Does not manipulate cookies or exfiltrate client contexts automatically. Completely safe from data privacy intrusion.',
+          pros: ['Extremely low environmental carbon legacy footprint', 'Stellar, highly democratic, non-corporate open history', 'Zero background telemetry or tracing operations'],
+          cons: ['Frequent XSS vulnerabilities in older, unpatched releases', 'Often leads to DOM-heavy spaghetti code models', 'Inefficient for large-scale, state-driven user interfaces'],
+          mitigation: 'Use modern, secure CDNs with Subresource Integrity (SRI) hashes enabled to secure jQuery scripts against man-in-the-middle code injections.'
+        },
+        {
+          id: 'kinsta',
+          name: 'Kinsta',
+          category: 'Cloud Hosting Provider',
+          envScore: 8,
+          ethicScore: 8,
+          privScore: 8,
+          envDetails: 'Built exclusively on Google Cloud Platform (GCP) infrastructure. GCP matches 100% of its annual electricity usage with regional renewable energy purchases. Operates highly efficient server nodes.',
+          ethicDetails: 'A privately owned, non-VC-dominated premium hosting platform. High standards of employee compensation, distributed global operations, and strong platform service standards.',
+          privDetails: 'Rigorous security firewalls (Cloudflare integration), isolated container infrastructure, robust GDPR/CCPA data handling policies, and zero hidden user tracking schemes.',
+          pros: ['Powered by Google Cloud renewable energy initiatives', 'Containerized hosting prevents server cross-contamination', 'Full GDPR compliance and integrated security protections'],
+          cons: ['Locked to Google Cloud regions', 'Higher pricing structure restricts access for low-budget developers', 'Proprietary platform dash makes migrating away tedious'],
+          mitigation: 'Choose Kinsta data center regions with the lowest carbon intensity (e.g., Oregon, Finland, Zurich) when configuring your deployment settings.'
+        },
+        {
+          id: 'mantine',
+          name: 'Mantine',
+          category: 'React Component Library',
+          envScore: 9,
+          ethicScore: 10,
+          privScore: 10,
+          envDetails: 'Highly optimized, modular React components. Built with strict tree-shaking support to minimize the bundle payload sent over cellular networks, avoiding client-side layout thrashing and heating.',
+          ethicDetails: 'Entirely open-source, community-driven framework without big-tech corporate manipulation or venture capital pressure. Highly focused on digital inclusion and accessibility standards (A11y).',
+          privDetails: 'Absolutely zero client-side tracking, cookie creation, or telemetry scripts included. Keeps user actions entirely internal to the application instance.',
+          pros: ['Zero telemetry, tracking, or background tracking requests', 'Outstanding out-of-the-box digital accessibility (WAI-ARIA)', 'Excellent tree-shaking optimizes client performance'],
+          cons: ['Requires React dependency, inheriting React-specific impacts', 'Frequent updates require continuous version alignment code modifications', 'Heavier than native Tailwind CSS if not properly tree-shaken'],
+          mitigation: 'Utilize only the specific sub-modules needed (e.g., `@mantine/core`) instead of the entire package to optimize bundle delivery metrics.'
+        }
+      ],
+      cms: [
+        {
+          id: 'craft',
+          name: 'Craft CMS',
+          category: 'Hybrid / Headless CMS',
+          envScore: 8,
+          ethicScore: 9,
+          privScore: 9,
+          envDetails: 'Yii-based PHP framework engine. Extremely efficient database layout structures. When paired with standard Redis or Blitz caching, it operates with microsecond execution times, reducing database server heat.',
+          ethicDetails: 'Developed by Pixel & Tonic, an independent software studio. Sidesteps tech conglomerate monopolies. Relies on straightforward, fair commercial license pricing rather than exploitative monetization.',
+          privDetails: 'Does not bundle telemetry, system audits, or tracking mechanisms out of the box. Fully self-hosted architecture, allowing absolute client containment of all database contents.',
+          pros: ['Ultra-clean, bespoke database schemas minimize server load', 'Independent, ethical developer-first business model', 'Completely localized data custody pipelines'],
+          cons: ['Requires commercial licenses for custom client work', 'Requires specialized development resources to prevent performance bottlenecks', 'Steep setup curve compared to instant low-code platforms'],
+          mitigation: 'Combine Craft with static site generation (using plugins like Blitz or headless GraphQL configurations) to eliminate dynamic server execution completely.'
+        },
+        {
+          id: 'umbraco',
+          name: 'Umbraco',
+          category: 'Open Source CMS',
+          envScore: 9,
+          ethicScore: 8,
+          privScore: 9,
+          envDetails: 'An industry leader in digital sustainability. Features an active, dedicated "Umbraco Sustainability Community" working on core carbon optimization, reducing image payload sizes, and optimizing database queries.',
+          ethicDetails: 'Hybrid open-source HQ model. Strongly community-centric, highly collaborative ecosystem with democratic developer feedback channels and open core access.',
+          privDetails: 'Runs on secure ASP.NET framework. Built-in compliance toolsets for GDPR, advanced user permissions, local deployment models, and zero platform tracking cookies.',
+          pros: ['Active community-led green web-sustainability initiatives', 'Robust, enterprise-grade ASP.NET security structures', 'Completely self-hostable with full database ownership'],
+          cons: ['Host architectures (.NET) are historically complex to scale', 'Steep learning curve for frontend-only developers', 'Ecosystem has fewer green-certified plug-and-play extensions'],
+          mitigation: 'Leverage the Umbraco Sustainability best practices guide, utilizing automatic WebP media conversion on upload to trim transfer carbon.'
+        },
+        {
+          id: 'sanity',
+          name: 'Sanity.io',
+          category: 'Headless SaaS CMS',
+          envScore: 7,
+          ethicScore: 7,
+          privScore: 8,
+          envDetails: 'SaaS cloud platform. While delivering content via fast global CDNs saves server workloads locally, the central storage relies heavily on Sanity proprietary hosting infrastructure (Google/AWS base networks).',
+          ethicDetails: 'Venture-backed platform model. Excellent developer experience, but pricing tiers escalate sharply, and central lock-in to their GROQ/data cloud limits digital autonomy.',
+          privDetails: 'SOC 2 Type II compliant. Excellent security, single sign-on options, and granular role permissions. Data is stored on third-party servers, which may concern strict local-data advocates.',
+          pros: ['Global CDN optimization lowers localized client-to-server distances', 'Enterprise-grade cloud compliance (SOC 2, ISO-aligned)', 'Real-time collaborative editing reduces draft bloat'],
+          cons: ['Proprietary database cloud storage lock-in', 'Venture-backed model subjects roadmap to growth targets', 'Data stored on third-party cloud architectures'],
+          mitigation: 'Configure Sanity to cache API requests intensely at your client application layer, minimizing recurring cloud network hits to their central server pool.'
+        },
+        {
+          id: 'payload',
+          name: 'Payload CMS',
+          category: 'Headless Node.js CMS',
+          envScore: 9,
+          ethicScore: 9,
+          privScore: 10,
+          envDetails: 'Built on Node.js and MongoDB/PostgreSQL. Extremely fast server startup, light execution loops, and ultra-lean admin panel built on Next.js. Much lighter resource envelope than old PHP setups.',
+          ethicDetails: 'Shifted completely to a free, open-source MIT License. Completely transparent, developer-centric, and encourages distributed self-hosting over SaaS cloud reliance.',
+          privDetails: 'No default telemetry, cloud tracking, or mandatory data collection. Because it is completely self-hosted, you maintain absolute database sovereignty, with secure JWT-based auth options.',
+          pros: ['Modern, ultra-efficient Node.js server performance profile', '100% open-source MIT License with absolute transparency', 'Complete developer-owned data privacy pipeline'],
+          cons: ['Relatively new ecosystem with fewer out-of-the-box templates', 'Requires custom developer setup and maintenance', 'Self-hosting requires database configuration overhead'],
+          mitigation: 'Pair Payload with an energy-efficient server provider (such as green VPS nodes) and use PostgreSQL for optimum index storage.'
+        },
+        {
+          id: 'wordpress',
+          name: 'WordPress',
+          category: 'Monolithic CMS',
+          envScore: 5,
+          ethicScore: 6,
+          privScore: 6,
+          envDetails: 'Powers over 43% of the internet. Legacy PHP architecture and database design require significant server resource cycles per un-cached page load. Unoptimized, dynamic sites collectively represent a massive carbon footprint.',
+          ethicDetails: 'Democratized global publishing and web design. However, current corporate and governance battles (such as the Automattic vs WP Engine legal conflicts) raise concerns about ecosystem stability and community governance.',
+          privDetails: 'The core platform provides robust GDPR tools. However, the vast third-party plugin ecosystem is a massive privacy risk, often injecting unchecked trackers, cookies, and telemetry into user sessions.',
+          pros: ['Fully democratized, accessible publishing environment', 'Massive global network of experts and extensive documentation', 'Rich, built-in user privacy compliance controls'],
+          cons: ['Massive global carbon footprint from un-cached dynamic runs', 'Ecosystem governance disputes between corporate entities', 'Third-party plugins frequently introduce telemetry and security bugs'],
+          mitigation: 'Enforce aggressive page-caching (Redis, Varnish), minimize external plugins, utilize a green-certified host, and use plugin-auditing tools.'
+        }
+      ]
+    };
 
-  // Toggle comparison selection
-  const toggleComparison = (id) => {
-    if (selectedCompareIds.includes(id)) {
-      if (selectedCompareIds.length > 2) {
-        setSelectedCompareIds(selectedCompareIds.filter(i => i !== id));
-      }
-    } else {
-      if (selectedCompareIds.length < 5) {
-        setSelectedCompareIds([...selectedCompareIds, id]);
-      }
-    }
-  };
+    function App() {
+      // Navigation State
+      const [activeTab, setActiveTab] = useState('scorecard');
 
-  // Handle checklist toggles for Custom Report
-  const toggleReportItem = (id) => {
-    setReportCheckedItems({
-      ...reportCheckedItems,
-      [id]: !reportCheckedItems[id]
-    });
-  };
+      // Search & Filter State
+      const [searchTerm, setSearchTerm] = useState('');
+      const [filterCategory, setFilterCategory] = useState('all');
 
-  // Generate Report Markdown
-  const reportMarkdown = useMemo(() => {
-    let markdown = `# ${reportTitle}\n`;
-    markdown += `*Generated via the Responsible Tech Scorecard on ${new Date().toLocaleDateString()}*\n\n`;
-    markdown += `## Executive Summary Scorecard\n\n`;
-    markdown += `This report outlines the environmental, ethical, and privacy evaluation of the software components selected. Scores are rated out of 10 (higher is better).\n\n`;
+      // Interactive Weighting State
+      const [envWeight, setEnvWeight] = useState(7);
+      const [ethicWeight, setEthicWeight] = useState(5);
+      const [privacyWeight, setPrivacyWeight] = useState(8);
 
-    markdown += `| Component | Category | Environmental | Ethical | Privacy | Weighted Score (Current Settings) |\n`;
-    markdown += `| :--- | :--- | :---: | :---: | :---: | :---: |\n`;
+      // Stack Estimator State
+      const [monthlyViews, setMonthlyViews] = useState(50000);
+      const [hostingType, setHostingType] = useState('standard'); // 'standard' or 'green'
+      const [selectedEstimatorTech, setSelectedEstimatorTech] = useState(['react', 'node']);
+      const [selectedEstimatorCms, setSelectedEstimatorCms] = useState('payload');
 
-    let totalEnv = 0;
-    let totalEth = 0;
-    let totalPriv = 0;
-    let count = 0;
+      // Comparison State
+      const [selectedCompareIds, setSelectedCompareIds] = useState(['react', 'next', 'payload', 'wordpress']);
 
-    allTools.forEach(item => {
-      if (reportCheckedItems[item.id]) {
-        const weighted = calculateScore(item);
-        markdown += `| **${item.name}** | ${item.category} | ${item.envScore}/10 | ${item.ethicScore}/10 | ${item.privScore}/10 | **${weighted}/10** |\n`;
-        totalEnv += item.envScore;
-        totalEth += item.ethicScore;
-        totalPriv += item.privScore;
-        count++;
-      }
-    });
+      // Custom Report State
+      const [reportTitle, setReportTitle] = useState('My Stack Responsibility Audit');
+      const [reportCheckedItems, setReportCheckedItems] = useState({
+        react: true,
+        node: true,
+        payload: true
+      });
+      const [isCopied, setIsCopied] = useState(false);
 
-    if (count > 0) {
-      markdown += `| **AVERAGE** | - | **${(totalEnv / count).toFixed(1)}/10** | **${(totalEth / count).toFixed(1)}/10** | **${(totalPriv / count).toFixed(1)}/10** | **-** |\n\n`;
-    }
+      // Deep dive profile selection
+      const [selectedProfileId, setSelectedProfileId] = useState('react');
 
-    markdown += `\n## Component Breakdown & Actionable Guidance\n\n`;
+      // Merge tech and CMS into unified list
+      const allTools = useMemo(() => {
+        return [...database.technologies, ...database.cms];
+      }, []);
 
-    allTools.forEach(item => {
-      if (reportCheckedItems[item.id]) {
-        markdown += `### 1. ${item.name} (${item.category})\n`;
-        markdown += `* **Environmental Impact (${item.envScore}/10):** ${item.envDetails}\n`;
-        markdown += `* **Ethical Aspect (${item.ethicScore}/10):** ${item.ethicDetails}\n`;
-        markdown += `* **Privacy Issue (${item.privScore}/10):** ${item.privDetails}\n`;
-        markdown += `* **Proactive Mitigation:** ${item.mitigation}\n\n`;
-      }
-    });
+      // Calculate Weighted Score
+      const calculateScore = (item) => {
+        const totalWeight = envWeight + ethicWeight + privacyWeight;
+        if (totalWeight === 0) return 0;
+        const rawScore = (
+          (item.envScore * envWeight) +
+          (item.ethicScore * ethicWeight) +
+          (item.privScore * privacyWeight)
+        ) / totalWeight;
+        return parseFloat(rawScore.toFixed(1));
+      };
 
-    markdown += `## Recommended Global Actions\n`;
-    markdown += `1. **Hosting Decisions:** Ensure production hosting runs on providers matching high grid carbon offset schemes (e.g., Kinsta / Google Cloud platform or clean-energy VPS).\n`;
-    markdown += `2. **Build Optimization:** Keep client bundles lean (utilize modern tree-shaking packages like Mantine and clean frameworks like Next.js/Payload) to offset mobile battery consumption globally.\n`;
-    markdown += `3. **Privacy Isolation:** Opt out of default server and builder telemetries in Next.js and secure third-party dependencies utilizing security audits (e.g., Snyk/Socket).\n`;
+      // Get Score Badge Color
+      const getScoreColor = (score) => {
+        if (score >= 8.5) return 'bg-emerald-100 text-emerald-800 border-emerald-200';
+        if (score >= 7.0) return 'bg-blue-100 text-blue-800 border-blue-200';
+        if (score >= 5.5) return 'bg-amber-100 text-amber-800 border-amber-200';
+        return 'bg-rose-100 text-rose-800 border-rose-200';
+      };
 
-    return markdown;
-  }, [reportTitle, reportCheckedItems, envWeight, ethicWeight, privacyWeight, allTools]);
+      const getScoreDotColor = (score) => {
+        if (score >= 8.5) return 'bg-emerald-500';
+        if (score >= 7.0) return 'bg-blue-500';
+        if (score >= 5.5) return 'bg-amber-500';
+        return 'bg-rose-500';
+      };
 
-  const copyToClipboard = () => {
-    // Fallback document.execCommand to satisfy iframe constraints
-    const textArea = document.createElement("textarea");
-    textArea.value = reportMarkdown;
-    document.body.appendChild(textArea);
-    textArea.select();
-    try {
-      document.execCommand('copy');
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy", err);
-    }
-    document.body.removeChild(textArea);
-  };
+      // Filtered and Sorted list based on weights and search
+      const filteredTools = useMemo(() => {
+        return allTools
+          .filter(item => {
+            const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              item.category.toLowerCase().includes(searchTerm.toLowerCase());
+            const isCms = database.cms.some(c => c.id === item.id);
+            const matchesCategory = filterCategory === 'all' ||
+              (filterCategory === 'tech' && !isCms) ||
+              (filterCategory === 'cms' && isCms);
+            return matchesSearch && matchesCategory;
+          })
+          .map(item => ({
+            ...item,
+            weightedScore: calculateScore(item)
+          }))
+          .sort((a, b) => b.weightedScore - a.weightedScore);
+      }, [searchTerm, filterCategory, envWeight, ethicWeight, privacyWeight, allTools]);
 
-  return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans antialiased">
-      {/* Header Banner */}
-      <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white py-10 px-4 sm:px-6 lg:px-8 border-b border-slate-700 shadow-md">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div>
-              <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                Sustainability & Tech Ethics Audit
-              </span>
-              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-2 text-white">
-                Responsible Tech Scorecard
-              </h1>
-              <p className="text-slate-300 mt-2 text-sm md:text-base max-w-2xl">
-                Evaluate the environmental, ethical, and privacy footprint of mainstream frontend frameworks, backend engines, and CMS platforms dynamically.
-              </p>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 flex flex-wrap gap-2 text-xs">
-              <span className="text-slate-400 block w-full mb-1 font-semibold uppercase tracking-wider">Evaluation Metrics:</span>
-              <span className="flex items-center text-emerald-400"><Icons.Leaf /> Environmental Impact</span>
-              <span className="text-slate-500">•</span>
-              <span className="flex items-center text-amber-400"><Icons.Scale /> Ethical Sourcing & Org</span>
-              <span className="text-slate-500">•</span>
-              <span className="flex items-center text-indigo-400"><Icons.Shield /> Privacy Protection</span>
-            </div>
-          </div>
-        </div>
-      </header>
+      // Handle weight preset configurations
+      const applyPreset = (preset) => {
+        if (preset === 'eco') {
+          setEnvWeight(10);
+          setEthicWeight(4);
+          setPrivacyWeight(4);
+        } else if (preset === 'privacy') {
+          setEnvWeight(4);
+          setEthicWeight(4);
+          setPrivacyWeight(10);
+        } else if (preset === 'ethics') {
+          setEnvWeight(4);
+          setEthicWeight(10);
+          setPrivacyWeight(4);
+        } else {
+          setEnvWeight(7);
+          setEthicWeight(7);
+          setPrivacyWeight(7);
+        }
+      };
 
-      {/* Main Body Grid */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        {/* Category weight selectors and presets (Sticky & Configurable Panel) */}
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-            <div>
-              <h2 className="text-lg font-bold flex items-center text-slate-900 gap-2">
-                <span className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg"><Icons.Sliders /></span>
-                Adjust Evaluation Weight Settings
-              </h2>
-              <p className="text-xs text-slate-500 mt-1">
-                Calibrate the significance of each criterion to compute customized ratings matching your organization's mission.
-              </p>
-            </div>
-            
-            {/* Quick Presets */}
-            <div className="flex flex-wrap gap-2">
-              <span className="text-xs text-slate-400 flex items-center mr-1">Presets:</span>
-              <button 
-                onClick={() => applyPreset('equal')}
-                className="px-3 py-1 text-xs font-semibold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-colors"
-              >
-                Balanced
-              </button>
-              <button 
-                onClick={() => applyPreset('eco')}
-                className="px-3 py-1 text-xs font-semibold rounded-lg border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors"
-              >
-                🌿 Green First
-              </button>
-              <button 
-                onClick={() => applyPreset('privacy')}
-                className="px-3 py-1 text-xs font-semibold rounded-lg border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors"
-              >
-                🔒 Privacy First
-              </button>
-              <button 
-                onClick={() => applyPreset('ethics')}
-                className="px-3 py-1 text-xs font-semibold rounded-lg border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 transition-colors"
-              >
-                ⚖️ Ethics First
-              </button>
-            </div>
-          </div>
+      // Stack Estimator Calculations
+      const estimationResults = useMemo(() => {
+        const baseCarbonPageFactor = hostingType === 'green' ? 0.12 : 0.45;
+        let totalStackModifier = 1.0;
 
-          {/* Sliders Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 pt-6 border-t border-slate-100">
-            {/* Env Weight Slider */}
-            <div className="bg-emerald-50/50 rounded-xl p-4 border border-emerald-100/50">
-              <div className="flex justify-between items-center mb-2">
-                <label className="text-xs font-bold text-emerald-800 uppercase tracking-wide flex items-center">
-                  🌿 Env. Footprint Weight
-                </label>
-                <span className="text-xs bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded-full">
-                  {envWeight} / 10
-                </span>
-              </div>
-              <input 
-                type="range" 
-                min="0" 
-                max="10" 
-                value={envWeight}
-                onChange={(e) => setEnvWeight(parseInt(e.target.value))}
-                className="w-full h-1.5 bg-emerald-100 rounded-lg appearance-none cursor-pointer accent-emerald-600"
-              />
-              <span className="text-[11px] text-emerald-600 block mt-1.5 leading-tight">
-                Emphasizes carbon optimization, payload size efficiency, runtime power, and data center energy sources.
-              </span>
-            </div>
+        selectedEstimatorTech.forEach(techId => {
+          const tech = database.technologies.find(t => t.id === techId);
+          if (tech) {
+            totalStackModifier += (10 - tech.envScore) * 0.05;
+          }
+        });
 
-            {/* Ethic Weight Slider */}
-            <div className="bg-amber-50/50 rounded-xl p-4 border border-amber-100/50">
-              <div className="flex justify-between items-center mb-2">
-                <label className="text-xs font-bold text-amber-800 uppercase tracking-wide flex items-center">
-                  ⚖️ Ethical Aspect Weight
-                </label>
-                <span className="text-xs bg-amber-100 text-amber-800 font-extrabold px-2 py-0.5 rounded-full">
-                  {ethicWeight} / 10
-                </span>
-              </div>
-              <input 
-                type="range" 
-                min="0" 
-                max="10" 
-                value={ethicWeight}
-                onChange={(e) => setEthicWeight(parseInt(e.target.value))}
-                className="w-full h-1.5 bg-amber-100 rounded-lg appearance-none cursor-pointer accent-amber-500"
-              />
-              <span className="text-[11px] text-amber-600 block mt-1.5 leading-tight">
-                Evaluates corporate stewardship, licensing models, developer democratization, accessibility focus, and industry monopolies.
-              </span>
-            </div>
+        const cmsObj = database.cms.find(c => c.id === selectedEstimatorCms);
+        if (cmsObj) {
+          totalStackModifier += (10 - cmsObj.envScore) * 0.1;
+        }
 
-            {/* Privacy Weight Slider */}
-            <div className="bg-indigo-50/50 rounded-xl p-4 border border-indigo-100/50">
-              <div className="flex justify-between items-center mb-2">
-                <label className="text-xs font-bold text-indigo-800 uppercase tracking-wide flex items-center">
-                  🔒 Privacy Security Weight
-                </label>
-                <span className="text-xs bg-indigo-100 text-indigo-800 font-extrabold px-2 py-0.5 rounded-full">
-                  {privacyWeight} / 10
-                </span>
-              </div>
-              <input 
-                type="range" 
-                min="0" 
-                max="10" 
-                value={privacyWeight}
-                onChange={(e) => setPrivacyWeight(parseInt(e.target.value))}
-                className="w-full h-1.5 bg-indigo-100 rounded-lg appearance-none cursor-pointer accent-indigo-600"
-              />
-              <span className="text-[11px] text-indigo-600 block mt-1.5 leading-tight">
-                Weights default local custody, library telemetries, background tracking, third-party plugin exposure, and encryption standards.
-              </span>
-            </div>
-          </div>
-        </div>
+        const estimatedMonthlyCarbonKg = (monthlyViews * baseCarbonPageFactor * totalStackModifier) / 1000;
+        const yearlyCarbonKg = estimatedMonthlyCarbonKg * 12;
+        const equivalentKmDriven = (yearlyCarbonKg / 0.12).toFixed(0);
 
-        {/* Navigation Tabs */}
-        <div className="flex border-b border-slate-200 mb-8 overflow-x-auto whitespace-nowrap">
-          <button
-            onClick={() => setActiveTab('scorecard')}
-            className={`py-3 px-6 font-semibold text-sm border-b-2 transition-all ${
-              activeTab === 'scorecard'
-                ? 'border-indigo-600 text-indigo-600 font-bold'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
-          >
-            📊 Directory & Scorecard Matrix
-          </button>
-          <button
-            onClick={() => setActiveTab('estimator')}
-            className={`py-3 px-6 font-semibold text-sm border-b-2 transition-all ${
-              activeTab === 'estimator'
-                ? 'border-indigo-600 text-indigo-600 font-bold'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
-          >
-            ⚡ Stack Impact & Carbon Estimator
-          </button>
-          <button
-            onClick={() => setActiveTab('compare')}
-            className={`py-3 px-6 font-semibold text-sm border-b-2 transition-all ${
-              activeTab === 'compare'
-                ? 'border-indigo-600 text-indigo-600 font-bold'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
-          >
-            ⚔️ Interactive Stack Comparator
-          </button>
-          <button
-            onClick={() => setActiveTab('report')}
-            className={`py-3 px-6 font-semibold text-sm border-b-2 transition-all ${
-              activeTab === 'report'
-                ? 'border-indigo-600 text-indigo-600 font-bold'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
-            }`}
-          >
-            📋 Custom Audit Report Builder
-          </button>
-        </div>
+        let sumPriv = 0;
+        let countPriv = 0;
+        selectedEstimatorTech.forEach(techId => {
+          const tech = database.technologies.find(t => t.id === techId);
+          if (tech) { sumPriv += tech.privScore; countPriv++; }
+        });
+        if (cmsObj) { sumPriv += cmsObj.privScore; countPriv++; }
+        const avgPrivacyScore = countPriv > 0 ? (sumPriv / countPriv).toFixed(1) : 0;
 
-        {/* Tab 1: Directory & Scorecard Matrix */}
-        {activeTab === 'scorecard' && (
-          <div>
-            {/* Search and Filters */}
-            <div className="flex flex-col md:flex-row gap-4 mb-6">
-              <div className="relative flex-grow">
-                <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Icons.Search />
-                </span>
-                <input
-                  type="text"
-                  placeholder="Search technology or CMS by name (e.g. Next, Payload, WordPress)..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2.5 w-full bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm shadow-sm"
-                />
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setFilterCategory('all')}
-                  className={`px-4 py-2.5 rounded-xl border text-xs font-semibold transition-colors ${
-                    filterCategory === 'all'
-                      ? 'bg-slate-800 border-slate-800 text-white'
-                      : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
-                  }`}
-                >
-                  All Components ({allTools.length})
-                </button>
-                <button
-                  onClick={() => setFilterCategory('tech')}
-                  className={`px-4 py-2.5 rounded-xl border text-xs font-semibold transition-colors ${
-                    filterCategory === 'tech'
-                      ? 'bg-slate-800 border-slate-800 text-white'
-                      : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
-                  }`}
-                >
-                  General Tech ({database.technologies.length})
-                </button>
-                <button
-                  onClick={() => setFilterCategory('cms')}
-                  className={`px-4 py-2.5 rounded-xl border text-xs font-semibold transition-colors ${
-                    filterCategory === 'cms'
-                      ? 'bg-slate-800 border-slate-800 text-white'
-                      : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
-                  }`}
-                >
-                  CMS Platforms ({database.cms.length})
-                </button>
-              </div>
-            </div>
+        let sumEthic = 0;
+        let countEthic = 0;
+        selectedEstimatorTech.forEach(techId => {
+          const tech = database.technologies.find(t => t.id === techId);
+          if (tech) { sumEthic += tech.ethicScore; countEthic++; }
+        });
+        if (cmsObj) { sumEthic += cmsObj.ethicScore; countEthic++; }
+        const avgEthicScore = countEthic > 0 ? (sumEthic / countEthic).toFixed(1) : 0;
 
-            {/* Main Scorecard Split View */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              {/* Left Side: Scorecard List Table */}
-              <div className="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/75 flex justify-between items-center">
-                  <h3 className="font-bold text-slate-900 text-sm uppercase tracking-wider">
-                    Score Matrix & Rankings ({filteredTools.length})
-                  </h3>
-                  <span className="text-xs text-slate-500">Sorted by dynamic rating</span>
+        return {
+          monthlyCarbon: estimatedMonthlyCarbonKg.toFixed(2),
+          yearlyCarbon: yearlyCarbonKg.toFixed(1),
+          carKm: equivalentKmDriven,
+          privacyScore: avgPrivacyScore,
+          ethicalScore: avgEthicScore,
+          stackMultiplier: totalStackModifier.toFixed(2)
+        };
+      }, [monthlyViews, hostingType, selectedEstimatorTech, selectedEstimatorCms]);
+
+      // Toggle estimator tech choice
+      const toggleEstimatorTech = (id) => {
+        if (selectedEstimatorTech.includes(id)) {
+          setSelectedEstimatorTech(selectedEstimatorTech.filter(t => t !== id));
+        } else {
+          setSelectedEstimatorTech([...selectedEstimatorTech, id]);
+        }
+      };
+
+      // Toggle comparison selection
+      const toggleComparison = (id) => {
+        if (selectedCompareIds.includes(id)) {
+          if (selectedCompareIds.length > 2) {
+            setSelectedCompareIds(selectedCompareIds.filter(i => i !== id));
+          }
+        } else {
+          if (selectedCompareIds.length < 4) {
+            setSelectedCompareIds([...selectedCompareIds, id]);
+          }
+        }
+      };
+
+      // Handle checklist toggles for Custom Report
+      const toggleReportItem = (id) => {
+        setReportCheckedItems({
+          ...reportCheckedItems,
+          [id]: !reportCheckedItems[id]
+        });
+      };
+
+      // Generate Report Markdown
+      const reportMarkdown = useMemo(() => {
+        let markdown = `# ${reportTitle}\n`;
+        markdown += `*Generated via the Responsible Tech Scorecard on ${new Date().toLocaleDateString()}*\n\n`;
+        markdown += `## Executive Summary Scorecard\n\n`;
+        markdown += `This report outlines the environmental, ethical, and privacy evaluation of the software components selected. Scores are rated out of 10 (higher is better).\n\n`;
+
+        markdown += `| Component | Category | Environmental | Ethical | Privacy | Weighted Score |\n`;
+        markdown += `| :--- | :--- | :---: | :---: | :---: | :---: |\n`;
+
+        let totalEnv = 0;
+        let totalEth = 0;
+        let totalPriv = 0;
+        let count = 0;
+
+        allTools.forEach(item => {
+          if (reportCheckedItems[item.id]) {
+            const weighted = calculateScore(item);
+            markdown += `| **${item.name}** | ${item.category} | ${item.envScore}/10 | ${item.ethicScore}/10 | ${item.privScore}/10 | **${weighted}/10** |\n`;
+            totalEnv += item.envScore;
+            totalEth += item.ethicScore;
+            totalPriv += item.privScore;
+            count++;
+          }
+        });
+
+        if (count > 0) {
+          markdown += `| **AVERAGE** | - | **${(totalEnv / count).toFixed(1)}/10** | **${(totalEth / count).toFixed(1)}/10** | **${(totalPriv / count).toFixed(1)}/10** | **-** |\n\n`;
+        }
+
+        markdown += `\n## Component Breakdown & Actionable Guidance\n\n`;
+
+        allTools.forEach(item => {
+          if (reportCheckedItems[item.id]) {
+            markdown += `### 1. ${item.name} (${item.category})\n`;
+            markdown += `* **Environmental Impact (${item.envScore}/10):** ${item.envDetails}\n`;
+            markdown += `* **Ethical Aspect (${item.ethicScore}/10):** ${item.ethicDetails}\n`;
+            markdown += `* **Privacy Issue (${item.privScore}/10):** ${item.privDetails}\n`;
+            markdown += `* **Proactive Mitigation:** ${item.mitigation}\n\n`;
+          }
+        });
+
+        markdown += `## Recommended Global Actions\n`;
+        markdown += `1. **Hosting Decisions:** Ensure production hosting runs on providers matching high grid carbon offset schemes (e.g., Kinsta / Google Cloud platform or clean-energy VPS).\n`;
+        markdown += `2. **Build Optimization:** Keep client bundles lean (utilize modern tree-shaking packages like Mantine and clean frameworks like Next.js/Payload) to offset mobile battery consumption globally.\n`;
+        markdown += `3. **Privacy Isolation:** Opt out of default server and builder telemetries in Next.js and secure third-party dependencies utilizing security audits (e.g., Snyk/Socket).\n`;
+
+        return markdown;
+      }, [reportTitle, reportCheckedItems, envWeight, ethicWeight, privacyWeight, allTools]);
+
+      const copyToClipboard = () => {
+        const textArea = document.createElement("textarea");
+        textArea.value = reportMarkdown;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          setIsCopied(true);
+          setTimeout(() => setIsCopied(false), 2000);
+        } catch (err) {
+          console.error("Failed to copy", err);
+        }
+        document.body.removeChild(textArea);
+      };
+
+      return (
+        <div className="min-h-screen flex flex-col">
+          {/* Header Banner */}
+          <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white py-10 px-4 sm:px-6 lg:px-8 border-b border-slate-700 shadow-md">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                  <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                    Sustainability & Tech Ethics Audit
+                  </span>
+                  <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-2 text-white">
+                    Responsible Tech Scorecard
+                  </h1>
+                  <p className="text-slate-300 mt-2 text-sm md:text-base max-w-2xl">
+                    Evaluate the environmental, ethical, and privacy footprint of mainstream frontend frameworks, backend engines, and CMS platforms dynamically.
+                  </p>
                 </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="border-b border-slate-100 bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                        <th className="py-3 px-4">System</th>
-                        <th className="py-3 px-2 text-center">Env</th>
-                        <th className="py-3 px-2 text-center">Eth</th>
-                        <th className="py-3 px-2 text-center">Priv</th>
-                        <th className="py-3 px-4 text-center">Resp. Score</th>
-                        <th className="py-3 px-4"></th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100 text-xs">
-                      {filteredTools.map((item, index) => {
-                        const isSelected = selectedProfileId === item.id;
-                        return (
-                          <tr 
-                            key={item.id} 
-                            onClick={() => setSelectedProfileId(item.id)}
-                            className={`cursor-pointer transition-colors ${
-                              isSelected ? 'bg-indigo-50/60 hover:bg-indigo-50' : 'hover:bg-slate-50'
-                            }`}
-                          >
-                            <td className="py-3.5 px-4">
-                              <div className="font-bold text-slate-900 text-sm flex items-center">
-                                {item.name}
-                                {item.weightedScore >= 8.5 && (
-                                  <span className="ml-1.5 text-emerald-600" title="Highly Responsible System">
-                                    <Icons.Award />
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 flex flex-wrap gap-2 text-xs">
+                  <span className="text-slate-400 block w-full mb-1 font-semibold uppercase tracking-wider">Evaluation Metrics:</span>
+                  <span className="flex items-center text-emerald-400"><Icons.Leaf /> Environmental Impact</span>
+                  <span className="text-slate-500">•</span>
+                  <span className="flex items-center text-amber-400"><Icons.Scale /> Ethical Sourcing & Org</span>
+                  <span className="text-slate-500">•</span>
+                  <span className="flex items-center text-indigo-400"><Icons.Shield /> Privacy Protection</span>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          {/* Main Body Grid */}
+          <main className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+            
+            {/* Category weight selectors and presets */}
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8">
+              <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                <div>
+                  <h2 className="text-lg font-bold flex items-center text-slate-900 gap-2">
+                    <span className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg"><Icons.Sliders /></span>
+                    Adjust Evaluation Weight Settings
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Calibrate the significance of each criterion to compute customized ratings matching your organization's mission.
+                  </p>
+                </div>
+                
+                {/* Quick Presets */}
+                <div className="flex flex-wrap gap-2">
+                  <span className="text-xs text-slate-400 flex items-center mr-1 font-semibold">Presets:</span>
+                  <button 
+                    onClick={() => applyPreset('equal')}
+                    className="px-3 py-1 text-xs font-semibold rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-colors"
+                  >
+                    Balanced
+                  </button>
+                  <button 
+                    onClick={() => applyPreset('eco')}
+                    className="px-3 py-1 text-xs font-semibold rounded-lg border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors"
+                  >
+                    🌿 Green First
+                  </button>
+                  <button 
+                    onClick={() => applyPreset('privacy')}
+                    className="px-3 py-1 text-xs font-semibold rounded-lg border border-indigo-200 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors"
+                  >
+                    🔒 Privacy First
+                  </button>
+                  <button 
+                    onClick={() => applyPreset('ethics')}
+                    className="px-3 py-1 text-xs font-semibold rounded-lg border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 transition-colors"
+                  >
+                    ⚖️ Ethics First
+                  </button>
+                </div>
+              </div>
+
+              {/* Sliders Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 pt-6 border-t border-slate-100">
+                {/* Env Weight Slider */}
+                <div className="bg-emerald-50/50 rounded-xl p-4 border border-emerald-100/50">
+                  <div className="flex justify-between items-center mb-2">
+                    <label className="text-xs font-bold text-emerald-800 uppercase tracking-wide flex items-center">
+                      🌿 Env. Footprint Weight
+                    </label>
+                    <span className="text-xs bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded-full">
+                      {envWeight} / 10
+                    </span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="0" 
+                    max="10" 
+                    value={envWeight}
+                    onChange={(e) => setEnvWeight(parseInt(e.target.value))}
+                    className="w-full h-1.5 bg-emerald-100 rounded-lg appearance-none cursor-pointer accent-emerald-600"
+                  />
+                  <span className="text-[11px] text-emerald-600 block mt-1.5 leading-tight">
+                    Emphasizes carbon optimization, payload size efficiency, runtime power, and data center energy sources.
+                  </span>
+                </div>
+
+                {/* Ethic Weight Slider */}
+                <div className="bg-amber-50/50 rounded-xl p-4 border border-amber-100/50">
+                  <div className="flex justify-between items-center mb-2">
+                    <label className="text-xs font-bold text-amber-800 uppercase tracking-wide flex items-center">
+                      ⚖️ Ethical Aspect Weight
+                    </label>
+                    <span className="text-xs bg-amber-100 text-amber-800 font-extrabold px-2 py-0.5 rounded-full">
+                      {ethicWeight} / 10
+                    </span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="0" 
+                    max="10" 
+                    value={ethicWeight}
+                    onChange={(e) => setEthicWeight(parseInt(e.target.value))}
+                    className="w-full h-1.5 bg-amber-100 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                  />
+                  <span className="text-[11px] text-amber-600 block mt-1.5 leading-tight">
+                    Evaluates corporate stewardship, licensing models, developer democratization, accessibility focus, and industry monopolies.
+                  </span>
+                </div>
+
+                {/* Privacy Weight Slider */}
+                <div className="bg-indigo-50/50 rounded-xl p-4 border border-indigo-100/50">
+                  <div className="flex justify-between items-center mb-2">
+                    <label className="text-xs font-bold text-indigo-800 uppercase tracking-wide flex items-center">
+                      🔒 Privacy Security Weight
+                    </label>
+                    <span className="text-xs bg-indigo-100 text-indigo-800 font-extrabold px-2 py-0.5 rounded-full">
+                      {privacyWeight} / 10
+                    </span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="0" 
+                    max="10" 
+                    value={privacyWeight}
+                    onChange={(e) => setPrivacyWeight(parseInt(e.target.value))}
+                    className="w-full h-1.5 bg-indigo-100 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                  />
+                  <span className="text-[11px] text-indigo-600 block mt-1.5 leading-tight">
+                    Weights default local custody, library telemetries, background tracking, third-party plugin exposure, and encryption standards.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Navigation Tabs */}
+            <div className="flex border-b border-slate-200 mb-8 overflow-x-auto whitespace-nowrap">
+              <button
+                onClick={() => setActiveTab('scorecard')}
+                className={`py-3 px-6 font-semibold text-sm border-b-2 transition-all ${
+                  activeTab === 'scorecard'
+                    ? 'border-indigo-600 text-indigo-600 font-bold'
+                    : 'border-transparent text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                📊 Directory & Scorecard Matrix
+              </button>
+              <button
+                onClick={() => setActiveTab('estimator')}
+                className={`py-3 px-6 font-semibold text-sm border-b-2 transition-all ${
+                  activeTab === 'estimator'
+                    ? 'border-indigo-600 text-indigo-600 font-bold'
+                    : 'border-transparent text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                ⚡ Stack Impact & Carbon Estimator
+              </button>
+              <button
+                onClick={() => setActiveTab('compare')}
+                className={`py-3 px-6 font-semibold text-sm border-b-2 transition-all ${
+                  activeTab === 'compare'
+                    ? 'border-indigo-600 text-indigo-600 font-bold'
+                    : 'border-transparent text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                ⚔️ Interactive Stack Comparator
+              </button>
+              <button
+                onClick={() => setActiveTab('report')}
+                className={`py-3 px-6 font-semibold text-sm border-b-2 transition-all ${
+                  activeTab === 'report'
+                    ? 'border-indigo-600 text-indigo-600 font-bold'
+                    : 'border-transparent text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                📋 Custom Audit Report Builder
+              </button>
+            </div>
+
+            {/* Tab 1: Directory & Scorecard Matrix */}
+            {activeTab === 'scorecard' && (
+              <div>
+                {/* Search and Filters */}
+                <div className="flex flex-col md:flex-row gap-4 mb-6">
+                  <div className="relative flex-grow">
+                    <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Icons.Search />
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="Search technology or CMS by name (e.g. Next, Payload, WordPress)..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10 pr-4 py-2.5 w-full bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm shadow-sm"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setFilterCategory('all')}
+                      className={`px-4 py-2.5 rounded-xl border text-xs font-semibold transition-colors ${
+                        filterCategory === 'all'
+                          ? 'bg-slate-800 border-slate-800 text-white'
+                          : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      All Components ({allTools.length})
+                    </button>
+                    <button
+                      onClick={() => setFilterCategory('tech')}
+                      className={`px-4 py-2.5 rounded-xl border text-xs font-semibold transition-colors ${
+                        filterCategory === 'tech'
+                          ? 'bg-slate-800 border-slate-800 text-white'
+                          : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      General Tech ({database.technologies.length})
+                    </button>
+                    <button
+                      onClick={() => setFilterCategory('cms')}
+                      className={`px-4 py-2.5 rounded-xl border text-xs font-semibold transition-colors ${
+                        filterCategory === 'cms'
+                          ? 'bg-slate-800 border-slate-800 text-white'
+                          : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      CMS Platforms ({database.cms.length})
+                    </button>
+                  </div>
+                </div>
+
+                {/* Main Scorecard Split View */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                  {/* Left Side: Scorecard List Table */}
+                  <div className="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div className="px-6 py-4 border-b border-slate-100 bg-slate-50/75 flex justify-between items-center">
+                      <h3 className="font-bold text-slate-900 text-sm uppercase tracking-wider">
+                        Score Matrix & Rankings ({filteredTools.length})
+                      </h3>
+                      <span className="text-xs text-slate-500">Sorted by dynamic rating</span>
+                    </div>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left border-collapse">
+                        <thead>
+                          <tr className="border-b border-slate-100 bg-slate-50/50 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                            <th className="py-3 px-4">System</th>
+                            <th className="py-3 px-2 text-center">Env</th>
+                            <th className="py-3 px-2 text-center">Eth</th>
+                            <th className="py-3 px-2 text-center">Priv</th>
+                            <th className="py-3 px-4 text-center">Resp. Score</th>
+                            <th className="py-3 px-4"></th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100 text-xs">
+                          {filteredTools.map((item, index) => {
+                            const isSelected = selectedProfileId === item.id;
+                            return (
+                              <tr 
+                                key={item.id} 
+                                onClick={() => setSelectedProfileId(item.id)}
+                                className={`cursor-pointer transition-colors ${
+                                  isSelected ? 'bg-indigo-50/60 hover:bg-indigo-50' : 'hover:bg-slate-50'
+                                }`}
+                              >
+                                <td className="py-3.5 px-4">
+                                  <div className="font-bold text-slate-900 text-sm flex items-center">
+                                    {item.name}
+                                    {item.weightedScore >= 8.5 && (
+                                      <span className="ml-1.5 text-emerald-600" title="Highly Responsible System">
+                                        <Icons.Award />
+                                      </span>
+                                    )}
+                                  </div>
+                                  <div className="text-[10px] text-slate-400 font-medium">{item.category}</div>
+                                </td>
+                                <td className="py-3.5 px-2 text-center">
+                                  <span className={`inline-block font-mono font-bold px-1.5 py-0.5 rounded ${
+                                    item.envScore >= 8 ? 'text-emerald-700 bg-emerald-50' : item.envScore >= 6 ? 'text-amber-700 bg-amber-50' : 'text-rose-700 bg-rose-50'
+                                  }`}>
+                                    {item.envScore}
                                   </span>
-                                )}
+                                </td>
+                                <td className="py-3.5 px-2 text-center">
+                                  <span className={`inline-block font-mono font-bold px-1.5 py-0.5 rounded ${
+                                    item.ethicScore >= 8 ? 'text-emerald-700 bg-emerald-50' : item.ethicScore >= 6 ? 'text-amber-700 bg-amber-50' : 'text-rose-700 bg-rose-50'
+                                  }`}>
+                                    {item.ethicScore}
+                                  </span>
+                                </td>
+                                <td className="py-3.5 px-2 text-center">
+                                  <span className={`inline-block font-mono font-bold px-1.5 py-0.5 rounded ${
+                                    item.privScore >= 8 ? 'text-emerald-700 bg-emerald-50' : item.privScore >= 6 ? 'text-amber-700 bg-amber-50' : 'text-rose-700 bg-rose-50'
+                                  }`}>
+                                    {item.privScore}
+                                  </span>
+                                </td>
+                                <td className="py-3.5 px-4 text-center font-bold">
+                                  <div className="flex items-center justify-center gap-1.5">
+                                    <span className={`w-2 h-2 rounded-full ${getScoreDotColor(item.weightedScore)}`} />
+                                    <span className={`px-2 py-0.5 rounded border text-xs font-bold font-mono ${getScoreColor(item.weightedScore)}`}>
+                                      {item.weightedScore}
+                                    </span>
+                                  </div>
+                                </td>
+                                <td className="py-3.5 px-4 text-right text-slate-400 text-[11px] font-bold whitespace-nowrap">
+                                  View Profile <Icons.ArrowRight />
+                                </td>
+                              </tr>
+                            );
+                          })}
+                          {filteredTools.length === 0 && (
+                            <tr>
+                              <td colSpan="6" className="py-10 text-center text-slate-400">
+                                No technologies match your search queries or category filters.
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* Right Side: Live Profile Deep-Dive Display */}
+                  <div className="lg:col-span-5">
+                    {(() => {
+                      const item = allTools.find(t => t.id === selectedProfileId);
+                      if (!item) return <p className="text-slate-400 italic">Select a technology card to launch analysis.</p>;
+                      const calculatedRts = calculateScore(item);
+
+                      return (
+                        <div className="bg-white rounded-2xl shadow-md border-2 border-indigo-500/30 overflow-hidden lg:sticky lg:top-4">
+                          {/* Badge / Type Header */}
+                          <div className="bg-slate-900 text-white p-6">
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <span className="text-xs bg-indigo-500 text-white font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                                  {item.category}
+                                </span>
+                                <h3 className="text-2xl font-black text-white mt-2">{item.name}</h3>
                               </div>
-                              <div className="text-[10px] text-slate-400 font-medium">{item.category}</div>
-                            </td>
-                            {/* Environmental raw metric */}
-                            <td className="py-3.5 px-2 text-center">
-                              <span className={`inline-block font-mono font-bold px-1.5 py-0.5 rounded ${
-                                item.envScore >= 8 ? 'text-emerald-700 bg-emerald-50' : item.envScore >= 6 ? 'text-amber-700 bg-amber-50' : 'text-rose-700 bg-rose-50'
-                              }`}>
-                                {item.envScore}
-                              </span>
-                            </td>
-                            {/* Ethical raw metric */}
-                            <td className="py-3.5 px-2 text-center">
-                              <span className={`inline-block font-mono font-bold px-1.5 py-0.5 rounded ${
-                                item.ethicScore >= 8 ? 'text-emerald-700 bg-emerald-50' : item.ethicScore >= 6 ? 'text-amber-700 bg-amber-50' : 'text-rose-700 bg-rose-50'
-                              }`}>
-                                {item.ethicScore}
-                              </span>
-                            </td>
-                            {/* Privacy raw metric */}
-                            <td className="py-3.5 px-2 text-center">
-                              <span className={`inline-block font-mono font-bold px-1.5 py-0.5 rounded ${
-                                item.privScore >= 8 ? 'text-emerald-700 bg-emerald-50' : item.privScore >= 6 ? 'text-amber-700 bg-amber-50' : 'text-rose-700 bg-rose-50'
-                              }`}>
-                                {item.privScore}
-                              </span>
-                            </td>
-                            {/* Dynamic Rating indicator */}
-                            <td className="py-3.5 px-4 text-center font-bold">
-                              <div className="flex items-center justify-center gap-1.5">
-                                <span className={`w-2 h-2 rounded-full ${getScoreDotColor(item.weightedScore)}`} />
-                                <span className={`px-2 py-0.5 rounded border text-xs font-bold font-mono ${getScoreColor(item.weightedScore)}`}>
-                                  {item.weightedScore}
+                              <div className="text-right">
+                                <span className="text-[10px] text-slate-400 block font-semibold uppercase tracking-wider">RESPONSIBLE SCORE</span>
+                                <span className={`inline-block text-2xl font-extrabold px-3 py-1 rounded-xl border mt-1 font-mono ${getScoreColor(calculatedRts)}`}>
+                                  {calculatedRts}
                                 </span>
                               </div>
-                            </td>
-                            <td className="py-3.5 px-4 text-right text-slate-400 text-[11px] font-bold">
-                              View Profile <Icons.ArrowRight />
-                            </td>
-                          </tr>
-                        );
-                      })}
-                      {filteredTools.length === 0 && (
-                        <tr>
-                          <td colSpan="6" className="py-10 text-center text-slate-400">
-                            No technologies match your search queries or category filters.
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
+                            </div>
+                          </div>
+
+                          {/* Score Metrics Meters */}
+                          <div className="p-6 border-b border-slate-100 bg-slate-50/50">
+                            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Core Dimensions:</h4>
+                            
+                            <div className="space-y-4">
+                              {/* Environmental Progress */}
+                              <div>
+                                <div className="flex justify-between text-xs font-bold mb-1">
+                                  <span className="text-emerald-700 flex items-center"><Icons.Leaf /> Environmental Impact</span>
+                                  <span className="font-mono text-emerald-800">{item.envScore} / 10</span>
+                                </div>
+                                <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                  <div className="bg-emerald-500 h-full transition-all duration-300" style={{ width: `${item.envScore * 10}%` }}></div>
+                                </div>
+                              </div>
+
+                              {/* Ethical Progress */}
+                              <div>
+                                <div className="flex justify-between text-xs font-bold mb-1">
+                                  <span className="text-amber-700 flex items-center"><Icons.Scale /> Ethical Aspects</span>
+                                  <span className="font-mono text-amber-800">{item.ethicScore} / 10</span>
+                                </div>
+                                <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                  <div className="bg-amber-500 h-full transition-all duration-300" style={{ width: `${item.ethicScore * 10}%` }}></div>
+                                </div>
+                              </div>
+
+                              {/* Privacy Progress */}
+                              <div>
+                                <div className="flex justify-between text-xs font-bold mb-1">
+                                  <span className="text-indigo-700 flex items-center"><Icons.Shield /> Privacy Issues</span>
+                                  <span className="font-mono text-indigo-800">{item.privScore} / 10</span>
+                                </div>
+                                <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                  <div className="bg-indigo-500 h-full transition-all duration-300" style={{ width: `${item.privScore * 10}%` }}></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* In-depth writeups tabs or details */}
+                          <div className="p-6 space-y-5">
+                            <div>
+                              <h5 className="text-xs font-bold text-emerald-800 uppercase tracking-wide flex items-center mb-1">
+                                🌿 Environmental Footprint Analysis
+                              </h5>
+                              <p className="text-xs text-slate-600 leading-relaxed">{item.envDetails}</p>
+                            </div>
+
+                            <div>
+                              <h5 className="text-xs font-bold text-amber-800 uppercase tracking-wide flex items-center mb-1">
+                                ⚖️ Ethical & Corporate Ownership Sourcing
+                              </h5>
+                              <p className="text-xs text-slate-600 leading-relaxed">{item.ethicDetails}</p>
+                            </div>
+
+                            <div>
+                              <h5 className="text-xs font-bold text-indigo-800 uppercase tracking-wide flex items-center mb-1">
+                                🔒 User & Developer Data Privacy Profiles
+                              </h5>
+                              <p className="text-xs text-slate-600 leading-relaxed">{item.privDetails}</p>
+                            </div>
+
+                            <div className="pt-4 border-t border-slate-100 grid grid-cols-2 gap-4">
+                              <div>
+                                <h5 className="text-xs font-extrabold text-emerald-700 mb-1.5 uppercase tracking-wide">Key Strengths</h5>
+                                <ul className="space-y-1">
+                                  {item.pros.map((pro, i) => (
+                                    <li key={i} className="text-[11px] text-slate-600 flex items-start gap-1">
+                                      <span className="text-emerald-500 font-bold">✓</span> {pro}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                              <div>
+                                <h5 className="text-xs font-extrabold text-rose-700 mb-1.5 uppercase tracking-wide">Inherent Risks</h5>
+                                <ul className="space-y-1">
+                                  {item.cons.map((con, i) => (
+                                    <li key={i} className="text-[11px] text-slate-600 flex items-start gap-1">
+                                      <span className="text-rose-400 font-bold">!</span> {con}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
+
+                            {/* Mitigation Strategy Panel */}
+                            <div className="mt-4 p-4 bg-indigo-50 border border-indigo-100 rounded-xl">
+                              <h5 className="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-1 flex items-center">
+                                💡 Recommended Mitigation Strategy
+                              </h5>
+                              <p className="text-[11px] text-indigo-950 leading-relaxed">
+                                {item.mitigation}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
                 </div>
               </div>
+            )}
 
-              {/* Right Side: Live Profile Deep-Dive Display */}
-              <div className="lg:col-span-5">
-                {(() => {
-                  const item = allTools.find(t => t.id === selectedProfileId);
-                  if (!item) return <p className="text-slate-400 italic">Select a technology card to launch analysis.</p>;
-                  const calculatedRts = calculateScore(item);
+            {/* Tab 2: Stack Impact & Carbon Estimator */}
+            {activeTab === 'estimator' && (
+              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <div className="max-w-3xl mx-auto text-center mb-8">
+                  <span className="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    Interactive Carbon & Policy Projection Tool
+                  </span>
+                  <h3 className="text-2xl font-black text-slate-900 mt-2">Evaluate Your Live Web Application Footprint</h3>
+                  <p className="text-sm text-slate-500 mt-2">
+                    Estimate the cumulative environmental load, corporate ethical compliance rating, and privacy risk footprint based on your monthly dynamic site traffic and technology configurations.
+                  </p>
+                </div>
 
-                  return (
-                    <div className="bg-white rounded-2xl shadow-md border-2 border-indigo-500/30 overflow-hidden sticky top-4">
-                      {/* Badge / Type Header */}
-                      <div className="bg-slate-900 text-white p-6">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <span className="text-xs bg-indigo-500 text-white font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider">
-                              {item.category}
-                            </span>
-                            <h3 className="text-2xl font-black text-white mt-2">{item.name}</h3>
-                          </div>
-                          <div className="text-right">
-                            <span className="text-[10px] text-slate-400 block font-semibold uppercase tracking-wider">RESPONSIBLE SCORE</span>
-                            <span className={`inline-block text-2xl font-extrabold px-3 py-1 rounded-xl border mt-1 font-mono ${getScoreColor(calculatedRts)}`}>
-                              {calculatedRts}
-                            </span>
-                          </div>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  {/* Estimator Configuration inputs */}
+                  <div className="lg:col-span-6 space-y-6 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2">
+                      1. Configure App Parameters
+                    </h4>
+
+                    {/* Monthly Traffic Slider */}
+                    <div>
+                      <div className="flex justify-between items-center mb-1">
+                        <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">
+                          Monthly Site Pageviews:
+                        </label>
+                        <span className="text-sm font-bold text-indigo-700 font-mono">
+                          {monthlyViews.toLocaleString()}
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min="1000"
+                        max="1000000"
+                        step="5000"
+                        value={monthlyViews}
+                        onChange={(e) => setMonthlyViews(parseInt(e.target.value))}
+                        className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                      />
+                      <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+                        <span>1k</span>
+                        <span>250k</span>
+                        <span>500k</span>
+                        <span>750k</span>
+                        <span>1M+</span>
+                      </div>
+                    </div>
+
+                    {/* Server Hosting Green Alignment */}
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block mb-2">
+                        Hosting Provider Energy Sourcing:
+                      </label>
+                      <div className="grid grid-cols-2 gap-3">
+                        <button
+                          onClick={() => setHostingType('standard')}
+                          className={`p-3 rounded-xl border text-xs font-bold flex flex-col items-center gap-1 transition-all ${
+                            hostingType === 'standard'
+                              ? 'border-indigo-600 bg-indigo-50 text-indigo-900 shadow-sm'
+                              : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-100'
+                          }`}
+                        >
+                          <span>Standard Cloud Node</span>
+                          <span className="text-[10px] text-slate-400 font-normal">Grid mix (~0.45g CO2/page)</span>
+                        </button>
+                        <button
+                          onClick={() => setHostingType('green')}
+                          className={`p-3 rounded-xl border text-xs font-bold flex flex-col items-center gap-1 transition-all ${
+                            hostingType === 'green'
+                              ? 'border-emerald-600 bg-emerald-50 text-emerald-900 shadow-sm'
+                              : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-100'
+                          }`}
+                        >
+                          <span>🌿 Carbon-Matched (e.g. Kinsta)</span>
+                          <span className="text-[10px] text-emerald-600/70 font-normal">Green Energy (~0.12g CO2/page)</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Selected General Technologies */}
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block mb-2">
+                        Select Stack Components:
+                      </label>
+                      <div className="flex flex-wrap gap-2">
+                        {database.technologies.map(tech => {
+                          const selected = selectedEstimatorTech.includes(tech.id);
+                          return (
+                            <button
+                              key={tech.id}
+                              onClick={() => toggleEstimatorTech(tech.id)}
+                              className={`px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all ${
+                                selected
+                                  ? 'bg-slate-800 border-slate-800 text-white shadow-sm'
+                                  : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
+                              }`}
+                            >
+                              {tech.name}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Selected CMS Platform */}
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block mb-2">
+                        Select CMS Platform:
+                      </label>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {database.cms.map(cms => {
+                          const selected = selectedEstimatorCms === cms.id;
+                          return (
+                            <button
+                              key={cms.id}
+                              onClick={() => setSelectedEstimatorCms(cms.id)}
+                              className={`p-2.5 rounded-xl border text-xs font-bold transition-all truncate text-center ${
+                                selected
+                                  ? 'bg-slate-800 border-slate-800 text-white shadow-sm'
+                                  : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
+                              }`}
+                            >
+                              {cms.name}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dynamic Projection Results Display Panel */}
+                  <div className="lg:col-span-6 space-y-6">
+                    <div className="bg-slate-900 text-white rounded-2xl p-6 shadow-lg border border-slate-800">
+                      <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">
+                        ESTIMATED SYSTEM PROJECTIONS
+                      </h4>
+
+                      {/* Top Stats Overview */}
+                      <div className="grid grid-cols-2 gap-4 border-b border-white/10 pb-6 mb-6">
+                        <div>
+                          <span className="text-[10px] text-slate-400 block font-semibold uppercase tracking-wider">
+                            Monthly Carbon Output
+                          </span>
+                          <span className="text-3xl font-black text-white font-mono">
+                            {estimationResults.monthlyCarbon} <span className="text-sm text-slate-300">kg CO₂e</span>
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-slate-400 block font-semibold uppercase tracking-wider">
+                            Annual CO2 Emissions
+                          </span>
+                          <span className="text-3xl font-black text-emerald-400 font-mono">
+                            {estimationResults.yearlyCarbon} <span className="text-sm text-emerald-300/80">kg</span>
+                          </span>
                         </div>
                       </div>
 
-                      {/* Score Metrics Meters */}
-                      <div className="p-6 border-b border-slate-100 bg-slate-50/50">
-                        <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Core Dimensions:</h4>
-                        
-                        <div className="space-y-4">
-                          {/* Environmental Progress */}
-                          <div>
-                            <div className="flex justify-between text-xs font-bold mb-1">
-                              <span className="text-emerald-700 flex items-center"><Icons.Leaf /> Environmental Impact</span>
-                              <span className="font-mono text-emerald-800">{item.envScore} / 10</span>
-                            </div>
-                            <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                              <div className="bg-emerald-500 h-full transition-all duration-300" style={{ width: `${item.envScore * 10}%` }}></div>
-                            </div>
-                          </div>
-
-                          {/* Ethical Progress */}
-                          <div>
-                            <div className="flex justify-between text-xs font-bold mb-1">
-                              <span className="text-amber-700 flex items-center"><Icons.Scale /> Ethical Aspects</span>
-                              <span className="font-mono text-amber-800">{item.ethicScore} / 10</span>
-                            </div>
-                            <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                              <div className="bg-amber-500 h-full transition-all duration-300" style={{ width: `${item.ethicScore * 10}%` }}></div>
-                            </div>
-                          </div>
-
-                          {/* Privacy Progress */}
-                          <div>
-                            <div className="flex justify-between text-xs font-bold mb-1">
-                              <span className="text-indigo-700 flex items-center"><Icons.Shield /> Privacy Issues</span>
-                              <span className="font-mono text-indigo-800">{item.privScore} / 10</span>
-                            </div>
-                            <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                              <div className="bg-indigo-500 h-full transition-all duration-300" style={{ width: `${item.privScore * 10}%` }}></div>
-                            </div>
-                          </div>
+                      {/* Environmental Equivalency Indicator */}
+                      <div className="bg-white/5 rounded-xl p-4 border border-white/10 mb-6 flex items-start gap-3">
+                        <span className="text-2xl mt-0.5">🚗</span>
+                        <div>
+                          <h5 className="text-xs font-bold text-white uppercase tracking-wider">Annual Mobility Equivalency</h5>
+                          <p className="text-[11px] text-slate-300 leading-relaxed mt-1">
+                            Your yearly digital footprint is equivalent to driving approximately <strong className="text-white font-mono">{estimationResults.carKm} km</strong> in a standard passenger car.
+                          </p>
                         </div>
                       </div>
 
-                      {/* In-depth writeups tabs or details */}
-                      <div className="p-6 space-y-5">
+                      {/* Tech stack risk benchmarks */}
+                      <div className="space-y-4">
+                        {/* Privacy Index */}
                         <div>
-                          <h5 className="text-xs font-bold text-emerald-800 uppercase tracking-wide flex items-center mb-1">
-                            🌿 Environmental Footprint Analysis
-                          </h5>
-                          <p className="text-xs text-slate-600 leading-relaxed">{item.envDetails}</p>
-                        </div>
-
-                        <div>
-                          <h5 className="text-xs font-bold text-amber-800 uppercase tracking-wide flex items-center mb-1">
-                            ⚖️ Ethical & Corporate Ownership Sourcing
-                          </h5>
-                          <p className="text-xs text-slate-600 leading-relaxed">{item.ethicDetails}</p>
-                        </div>
-
-                        <div>
-                          <h5 className="text-xs font-bold text-indigo-800 uppercase tracking-wide flex items-center mb-1">
-                            🔒 User & Developer Data Privacy Profiles
-                          </h5>
-                          <p className="text-xs text-slate-600 leading-relaxed">{item.privDetails}</p>
-                        </div>
-
-                        <div className="pt-4 border-t border-slate-100 grid grid-cols-2 gap-4">
-                          <div>
-                            <h5 className="text-xs font-extrabold text-emerald-700 mb-1.5 uppercase tracking-wide">Key Strengths</h5>
-                            <ul className="space-y-1">
-                              {item.pros.map((pro, i) => (
-                                <li key={i} className="text-[11px] text-slate-600 flex items-start gap-1">
-                                  <span className="text-emerald-500 font-bold">✓</span> {pro}
-                                </li>
-                              ))}
-                            </ul>
+                          <div className="flex justify-between text-xs font-bold mb-1">
+                            <span className="text-indigo-300 uppercase tracking-wide">Privacy Safeguard Rating</span>
+                            <span className="font-mono text-indigo-200">{estimationResults.privacyScore} / 10</span>
                           </div>
-                          <div>
-                            <h5 className="text-xs font-extrabold text-rose-700 mb-1.5 uppercase tracking-wide">Inherent Risks</h5>
-                            <ul className="space-y-1">
-                              {item.cons.map((con, i) => (
-                                <li key={i} className="text-[11px] text-slate-600 flex items-start gap-1">
-                                  <span className="text-rose-400 font-bold">!</span> {con}
-                                </li>
-                              ))}
-                            </ul>
+                          <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                            <div 
+                              className="bg-indigo-400 h-full transition-all duration-300" 
+                              style={{ width: `${estimationResults.privacyScore * 10}%` }}
+                            ></div>
                           </div>
+                          <p className="text-[9px] text-slate-400 leading-tight mt-1">
+                            {estimationResults.privacyScore >= 8 
+                              ? "✓ High trust stack. Negligible tracking or external data leakage." 
+                              : "⚠ Mid to High risk of tracking or external script privacy leaks."}
+                          </p>
                         </div>
 
-                        {/* Mitigation Strategy Panel */}
-                        <div className="mt-4 p-4 bg-indigo-50 border border-indigo-100 rounded-xl">
-                          <h5 className="text-xs font-bold text-indigo-900 uppercase tracking-wider mb-1 flex items-center">
-                            💡 Recommended Mitigation Strategy
-                          </h5>
-                          <p className="text-[11px] text-indigo-950 leading-relaxed">
-                            {item.mitigation}
+                        {/* Ethical Sourcing index */}
+                        <div>
+                          <div className="flex justify-between text-xs font-bold mb-1">
+                            <span className="text-amber-300 uppercase tracking-wide">Ethical Sourcing Alignment</span>
+                            <span className="font-mono text-amber-200">{estimationResults.ethicalScore} / 10</span>
+                          </div>
+                          <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                            <div 
+                              className="bg-amber-400 h-full transition-all duration-300" 
+                              style={{ width: `${estimationResults.ethicalScore * 10}%` }}
+                            ></div>
+                          </div>
+                          <p className="text-[9px] text-slate-400 leading-tight mt-1">
+                            {estimationResults.ethicalScore >= 8 
+                              ? "✓ Democratic stack alignment. Pure open source or non-VC dominated models." 
+                              : "⚠ Moderate lock-in risk or corporate-aligned stack architecture."}
                           </p>
                         </div>
                       </div>
                     </div>
-                  );
-                })()}
-              </div>
-            </div>
-          </div>
-        )}
 
-        {/* Tab 2: Stack Impact & Carbon Estimator */}
-        {activeTab === 'estimator' && (
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
-            <div className="max-w-3xl mx-auto text-center mb-8">
-              <span className="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                Interactive Carbon & Policy Projection Tool
-              </span>
-              <h3 className="text-2xl font-black text-slate-900 mt-2">Evaluate Your Live Web Application Footprint</h3>
-              <p className="text-sm text-slate-500 mt-2">
-                Estimate the cumulative environmental load, corporate ethical compliance rating, and privacy risk footprint based on your monthly dynamic site traffic and technology configurations.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Estimator Configuration inputs */}
-              <div className="lg:col-span-6 space-y-6 bg-slate-50 p-6 rounded-2xl border border-slate-200">
-                <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2">
-                  1. Configure App Parameters
-                </h4>
-
-                {/* Monthly Traffic Slider */}
-                <div>
-                  <div className="flex justify-between items-center mb-1">
-                    <label className="text-xs font-bold text-slate-700 uppercase tracking-wide">
-                      Monthly Site Pageviews:
-                    </label>
-                    <span className="text-sm font-bold text-indigo-700 font-mono">
-                      {monthlyViews.toLocaleString()}
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min="1000"
-                    max="1000000"
-                    step="5000"
-                    value={monthlyViews}
-                    onChange={(e) => setMonthlyViews(parseInt(e.target.value))}
-                    className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
-                  />
-                  <div className="flex justify-between text-[10px] text-slate-400 mt-1">
-                    <span>1k</span>
-                    <span>250k</span>
-                    <span>500k</span>
-                    <span>750k</span>
-                    <span>1M+</span>
-                  </div>
-                </div>
-
-                {/* Server Hosting Green Alignment */}
-                <div>
-                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block mb-2">
-                    Hosting Provider Energy Sourcing:
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      onClick={() => setHostingType('standard')}
-                      className={`p-3 rounded-xl border text-xs font-bold flex flex-col items-center gap-1 transition-all ${
-                        hostingType === 'standard'
-                          ? 'border-indigo-600 bg-indigo-50 text-indigo-900 shadow-sm'
-                          : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-100'
-                      }`}
-                    >
-                      <span>Standard Cloud Node</span>
-                      <span className="text-[10px] text-slate-400 font-normal">Grid mix (~0.45g CO2/page)</span>
-                    </button>
-                    <button
-                      onClick={() => setHostingType('green')}
-                      className={`p-3 rounded-xl border text-xs font-bold flex flex-col items-center gap-1 transition-all ${
-                        hostingType === 'green'
-                          ? 'border-emerald-600 bg-emerald-50 text-emerald-900 shadow-sm'
-                          : 'border-slate-300 bg-white text-slate-600 hover:bg-slate-100'
-                      }`}
-                    >
-                      <span>🌿 Carbon-Matched (e.g. Kinsta)</span>
-                      <span className="text-[10px] text-emerald-600/70 font-normal">Green Energy (~0.12g CO2/page)</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Selected General Technologies */}
-                <div>
-                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block mb-2">
-                    Select Stack Components:
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {database.technologies.map(tech => {
-                      const selected = selectedEstimatorTech.includes(tech.id);
-                      return (
-                        <button
-                          key={tech.id}
-                          onClick={() => toggleEstimatorTech(tech.id)}
-                          className={`px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all ${
-                            selected
-                              ? 'bg-slate-800 border-slate-800 text-white shadow-sm'
-                              : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
-                          }`}
-                        >
-                          {tech.name}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Selected CMS Platform */}
-                <div>
-                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block mb-2">
-                    Select CMS Platform:
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                    {database.cms.map(cms => {
-                      const selected = selectedEstimatorCms === cms.id;
-                      return (
-                        <button
-                          key={cms.id}
-                          onClick={() => setSelectedEstimatorCms(cms.id)}
-                          className={`p-2.5 rounded-xl border text-xs font-bold transition-all truncate text-center ${
-                            selected
-                              ? 'bg-slate-800 border-slate-800 text-white shadow-sm'
-                              : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
-                          }`}
-                        >
-                          {cms.name}
-                        </button>
-                      );
-                    })}
+                    {/* Stack Optimization suggestions based on selections */}
+                    <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
+                      <h5 className="font-extrabold text-indigo-950 text-sm uppercase tracking-wide flex items-center mb-3">
+                        🚀 Actionable Optimization Guidelines For This Stack
+                      </h5>
+                      <ul className="space-y-3 text-xs text-indigo-900 leading-relaxed">
+                        {hostingType === 'standard' && (
+                          <li className="flex items-start gap-2">
+                            <span className="text-indigo-600 font-bold">1.</span>
+                            <span>
+                              <strong>Switch to Green Hosting:</strong> Migrating this exact stack to a green-energy matched provider (like <strong>Kinsta</strong> / Google Cloud) can decrease server emissions by up to <strong>70%</strong>.
+                            </span>
+                          </li>
+                        )}
+                        {selectedEstimatorCms === 'wordpress' && (
+                          <li className="flex items-start gap-2">
+                            <span className="text-indigo-600 font-bold">2.</span>
+                            <span>
+                              <strong>Optimize WordPress Cache:</strong> Since WordPress is dynamic, ensure absolute CDN caching is enabled to limit dynamic PHP page cycle energy footprint.
+                            </span>
+                          </li>
+                        )}
+                        {!selectedEstimatorTech.includes('mantine') && selectedEstimatorTech.includes('react') && (
+                          <li className="flex items-start gap-2">
+                            <span className="text-indigo-600 font-bold">3.</span>
+                            <span>
+                              <strong>Use Lightweight UI Libraries:</strong> Pairing React with tree-shaken, accessibility-optimized libraries like <strong>Mantine</strong> reduces mobile battery drainage globally.
+                            </span>
+                          </li>
+                        )}
+                        <li className="flex items-start gap-2">
+                          <span className="text-indigo-600 font-bold">4.</span>
+                          <span>
+                            <strong>Implement Static Export (SSG):</strong> Convert dynamic Next.js routes to static HTML exports to eliminate active database processing carbon cycles.
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
+            )}
 
-              {/* Dynamic Projection Results Display Panel */}
-              <div className="lg:col-span-6 space-y-6">
-                <div className="bg-slate-900 text-white rounded-2xl p-6 shadow-lg border border-slate-800">
-                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">
-                    ESTIMATED SYSTEM PROJECTIONS
-                  </h4>
-
-                  {/* Top Stats Overview */}
-                  <div className="grid grid-cols-2 gap-4 border-b border-white/10 pb-6 mb-6">
-                    <div>
-                      <span className="text-[10px] text-slate-400 block font-semibold uppercase tracking-wider">
-                        Monthly Carbon Output
-                      </span>
-                      <span className="text-3xl font-black text-white font-mono">
-                        {estimationResults.monthlyCarbon} <span className="text-sm text-slate-300">kg CO₂e</span>
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-slate-400 block font-semibold uppercase tracking-wider">
-                        Annual CO2 Emissions
-                      </span>
-                      <span className="text-3xl font-black text-emerald-400 font-mono">
-                        {estimationResults.yearlyCarbon} <span className="text-sm text-emerald-300/80">kg</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Fun Environmental Equivalency Indicator */}
-                  <div className="bg-white/5 rounded-xl p-4 border border-white/10 mb-6 flex items-start gap-3">
-                    <span className="text-2xl mt-0.5">🚗</span>
-                    <div>
-                      <h5 className="text-xs font-bold text-white uppercase tracking-wider">Annual Mobility Equivalency</h5>
-                      <p className="text-[11px] text-slate-300 leading-relaxed mt-1">
-                        Your yearly digital footprint is equivalent to driving approximately <strong className="text-white font-mono">{estimationResults.carKm} km</strong> in a standard internal combustion engine passenger car.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Tech stack risk benchmarks */}
-                  <div className="space-y-4">
-                    {/* Privacy Index */}
-                    <div>
-                      <div className="flex justify-between text-xs font-bold mb-1">
-                        <span className="text-indigo-300 uppercase tracking-wide">Privacy Safeguard Rating</span>
-                        <span className="font-mono text-indigo-200">{estimationResults.privacyScore} / 10</span>
-                      </div>
-                      <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                        <div 
-                          className="bg-indigo-400 h-full transition-all duration-300" 
-                          style={{ width: `${estimationResults.privacyScore * 10}%` }}
-                        ></div>
-                      </div>
-                      <p className="text-[9px] text-slate-400 leading-tight mt-1">
-                        {estimationResults.privacyScore >= 8 
-                          ? "✓ High trust stack. Negligible tracking or external data leakage." 
-                          : "⚠ Mid to High risk of tracking or external script privacy leaks."}
-                      </p>
-                    </div>
-
-                    {/* Ethical Sourcing index */}
-                    <div>
-                      <div className="flex justify-between text-xs font-bold mb-1">
-                        <span className="text-amber-300 uppercase tracking-wide">Ethical Sourcing Alignment</span>
-                        <span className="font-mono text-amber-200">{estimationResults.ethicalScore} / 10</span>
-                      </div>
-                      <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                        <div 
-                          className="bg-amber-400 h-full transition-all duration-300" 
-                          style={{ width: `${estimationResults.ethicalScore * 10}%` }}
-                        ></div>
-                      </div>
-                      <p className="text-[9px] text-slate-400 leading-tight mt-1">
-                        {estimationResults.ethicalScore >= 8 
-                          ? "✓ Democratic stack alignment. Pure open source or non-VC dominated models." 
-                          : "⚠ Moderate lock-in risk or corporate-aligned stack architecture."}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Stack Optimization suggestions based on selections */}
-                <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-6">
-                  <h5 className="font-extrabold text-indigo-950 text-sm uppercase tracking-wide flex items-center mb-3">
-                    🚀 Actionable Optimization Guidelines For This Stack
-                  </h5>
-                  <ul className="space-y-3 text-xs text-indigo-900 leading-relaxed">
-                    {hostingType === 'standard' && (
-                      <li className="flex items-start gap-2">
-                        <span className="text-indigo-600 font-bold">1.</span>
-                        <span>
-                          <strong>Switch to Green Hosting:</strong> Migrating this exact stack to a green-energy matched provider (like <strong>Kinsta</strong> / Google Cloud) can decrease server emissions by up to <strong>70%</strong>.
-                        </span>
-                      </li>
-                    )}
-                    {selectedEstimatorCms === 'wordpress' && (
-                      <li className="flex items-start gap-2">
-                        <span className="text-indigo-600 font-bold">2.</span>
-                        <span>
-                          <strong>Optimize WordPress Cache:</strong> Since WordPress is dynamic, ensure absolute CDN caching is enabled to limit dynamic PHP page cycle energy footprint.
-                        </span>
-                      </li>
-                    )}
-                    {!selectedEstimatorTech.includes('mantine') && selectedEstimatorTech.includes('react') && (
-                      <li className="flex items-start gap-2">
-                        <span className="text-indigo-600 font-bold">3.</span>
-                        <span>
-                          <strong>Use Lightweight UI Libraries:</strong> Pairing React with tree-shaken, accessibility-optimized libraries like <strong>Mantine</strong> reduces mobile battery drainage globally.
-                        </span>
-                      </li>
-                    )}
-                    <li className="flex items-start gap-2">
-                      <span className="text-indigo-600 font-bold">4.</span>
-                      <span>
-                        <strong>Implement Static Export (SSG):</strong> Convert dynamic Next.js routes to static HTML exports to eliminate active database processing carbon cycles.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Tab 3: Interactive Stack Comparator */}
-        {activeTab === 'compare' && (
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
-            <div className="max-w-3xl mx-auto text-center mb-8">
-              <span className="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                Multi-System Radar Matrix
-              </span>
-              <h3 className="text-2xl font-black text-slate-900 mt-2">Compare Technical Dimensions Side-By-Side</h3>
-              <p className="text-sm text-slate-500 mt-2">
-                Select between 2 and 4 platforms or frameworks below to visually review and benchmark their core environmental, ethical, and privacy indices.
-              </p>
-            </div>
-
-            {/* Selection Toggles */}
-            <div className="flex flex-wrap gap-2 justify-center mb-8 bg-slate-50 p-4 rounded-xl border border-slate-200 max-w-4xl mx-auto">
-              <span className="text-xs text-slate-400 font-bold uppercase w-full text-center mb-2">Select Systems to Compare (Limit: 4)</span>
-              {allTools.map(item => {
-                const selected = selectedCompareIds.includes(item.id);
-                const disabled = !selected && selectedCompareIds.length >= 4;
-                return (
-                  <button
-                    key={item.id}
-                    disabled={disabled}
-                    onClick={() => toggleComparison(item.id)}
-                    className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1 ${
-                      selected
-                        ? 'bg-indigo-600 border-indigo-600 text-white font-extrabold shadow-sm'
-                        : disabled
-                        ? 'bg-slate-100 border-slate-200 text-slate-300 cursor-not-allowed'
-                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
-                    }`}
-                  >
-                    <span>{item.name}</span>
-                    {selected && <span className="text-[10px] bg-indigo-500 text-white px-1.5 rounded-full">✓</span>}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Side-by-Side Comparison Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {selectedCompareIds.map(id => {
-                const item = allTools.find(t => t.id === id);
-                if (!item) return null;
-                const rts = calculateScore(item);
-
-                return (
-                  <div key={item.id} className="bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col h-full">
-                    <div className="bg-slate-900 text-white p-4 text-center">
-                      <span className="text-[9px] bg-white/15 px-2 py-0.5 rounded-full uppercase font-bold text-slate-300">
-                        {item.category}
-                      </span>
-                      <h4 className="text-lg font-black mt-1 text-white">{item.name}</h4>
-                      <div className="mt-3 flex justify-center items-baseline gap-1">
-                        <span className="text-2xl font-black font-mono">{rts}</span>
-                        <span className="text-[10px] text-slate-400">/10 RTS</span>
-                      </div>
-                    </div>
-
-                    {/* Chart Container */}
-                    <div className="p-4 bg-slate-50 border-b border-slate-100 flex justify-center">
-                      {/* Simple SVG Visualizer */}
-                      <svg className="w-full h-32" viewBox="0 0 160 120">
-                        {/* Background lines */}
-                        <line x1="30" y1="20" x2="150" y2="20" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="2,2" />
-                        <line x1="30" y1="60" x2="150" y2="60" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="2,2" />
-                        <line x1="30" y1="100" x2="150" y2="100" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="2,2" />
-
-                        {/* Y Axis Labels */}
-                        <text x="5" y="24" className="text-[9px] fill-slate-400 font-bold font-mono">Env</text>
-                        <text x="5" y="64" className="text-[9px] fill-slate-400 font-bold font-mono">Eth</text>
-                        <text x="5" y="104" className="text-[9px] fill-slate-400 font-bold font-mono">Priv</text>
-
-                        {/* Value Bars */}
-                        {/* Env */}
-                        <rect x="30" y="14" width={item.envScore * 11} height="12" rx="3" fill="#10b981" />
-                        <text x={35 + (item.envScore * 11)} y="24" className="text-[10px] font-bold fill-emerald-800 font-mono">{item.envScore}</text>
-
-                        {/* Eth */}
-                        <rect x="30" y="54" width={item.ethicScore * 11} height="12" rx="3" fill="#f59e0b" />
-                        <text x={35 + (item.ethicScore * 11)} y="64" className="text-[10px] font-bold fill-amber-800 font-mono">{item.ethicScore}</text>
-
-                        {/* Priv */}
-                        <rect x="30" y="94" width={item.privScore * 11} height="12" rx="3" fill="#6366f1" />
-                        <text x={35 + (item.privScore * 11)} y="104" className="text-[10px] font-bold fill-indigo-800 font-mono">{item.privScore}</text>
-                      </svg>
-                    </div>
-
-                    {/* Brief summaries for compare */}
-                    <div className="p-4 flex-grow space-y-4 text-xs">
-                      <div>
-                        <strong className="text-slate-800 uppercase text-[10px] block mb-1">🌿 Carbon Factor</strong>
-                        <p className="text-[11px] text-slate-500 leading-tight">{item.envDetails.substring(0, 110)}...</p>
-                      </div>
-                      <div>
-                        <strong className="text-slate-800 uppercase text-[10px] block mb-1">⚖️ Governance/Ethic</strong>
-                        <p className="text-[11px] text-slate-500 leading-tight">{item.ethicDetails.substring(0, 110)}...</p>
-                      </div>
-                      <div>
-                        <strong className="text-slate-800 uppercase text-[10px] block mb-1">🔒 Privacy</strong>
-                        <p className="text-[11px] text-slate-500 leading-tight">{item.privDetails.substring(0, 110)}...</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Tab 4: Custom Audit Report Builder */}
-        {activeTab === 'report' && (
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
-            <div className="max-w-3xl mx-auto text-center mb-8">
-              <span className="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                Corporate Governance Export
-              </span>
-              <h3 className="text-2xl font-black text-slate-900 mt-2">Generate Your Sustainability & Privacy Report</h3>
-              <p className="text-sm text-slate-500 mt-2">
-                Compile a professional, custom-tailored markdown audit file for your development stack to share with compliance officers, clients, or engineering leads.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Controls Selector */}
-              <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-6">
-                <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2">
-                  Configure Report Structure
-                </h4>
-
-                {/* Custom Report Title */}
-                <div>
-                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block mb-2">
-                    Audit Document Title:
-                  </label>
-                  <input
-                    type="text"
-                    value={reportTitle}
-                    onChange={(e) => setReportTitle(e.target.value)}
-                    className="px-3 py-2 w-full bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm shadow-sm"
-                  />
-                </div>
-
-                {/* Checklist Selection */}
-                <div>
-                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block mb-2">
-                    Check Items to Include:
-                  </label>
-                  <div className="space-y-2 max-h-60 overflow-y-auto border border-slate-200 bg-white p-3 rounded-xl shadow-inner">
-                    {allTools.map(item => (
-                      <label key={item.id} className="flex items-center gap-2.5 text-xs text-slate-700 cursor-pointer p-1 hover:bg-slate-50 rounded">
-                        <input
-                          type="checkbox"
-                          checked={!!reportCheckedItems[item.id]}
-                          onChange={() => toggleReportItem(item.id)}
-                          className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
-                        />
-                        <span className="font-semibold text-slate-800">{item.name}</span>
-                        <span className="text-[10px] text-slate-400">({item.category})</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="p-4 bg-indigo-50 border border-indigo-100 rounded-xl text-xs text-indigo-950">
-                  <h5 className="font-bold flex items-center mb-1"><span className="mr-1">ℹ</span> Export Instructions</h5>
-                  <p className="leading-relaxed">
-                    Select your corporate stack targets. The preview pane on the right updates instantly in standard Markdown format, ideal for direct integration into engineering wikis, compliance audits, or documentation folders.
+            {/* Tab 3: Interactive Stack Comparator */}
+            {activeTab === 'compare' && (
+              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <div className="max-w-3xl mx-auto text-center mb-8">
+                  <span className="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    Multi-System Radar Matrix
+                  </span>
+                  <h3 className="text-2xl font-black text-slate-900 mt-2">Compare Technical Dimensions Side-By-Side</h3>
+                  <p className="text-sm text-slate-500 mt-2">
+                    Select between 2 and 4 platforms or frameworks below to visually review and benchmark their core environmental, ethical, and privacy indices.
                   </p>
                 </div>
+
+                {/* Selection Toggles */}
+                <div className="flex flex-wrap gap-2 justify-center mb-8 bg-slate-50 p-4 rounded-xl border border-slate-200 max-w-4xl mx-auto">
+                  <span className="text-xs text-slate-400 font-bold uppercase w-full text-center mb-2">Select Systems to Compare (Limit: 4)</span>
+                  {allTools.map(item => {
+                    const selected = selectedCompareIds.includes(item.id);
+                    const disabled = !selected && selectedCompareIds.length >= 4;
+                    return (
+                      <button
+                        key={item.id}
+                        disabled={disabled}
+                        onClick={() => toggleComparison(item.id)}
+                        className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1 ${
+                          selected
+                            ? 'bg-indigo-600 border-indigo-600 text-white font-extrabold shadow-sm'
+                            : disabled
+                            ? 'bg-slate-100 border-slate-200 text-slate-300 cursor-not-allowed'
+                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'
+                        }`}
+                      >
+                        <span>{item.name}</span>
+                        {selected && <span className="text-[10px] bg-indigo-500 text-white px-1.5 rounded-full">✓</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Side-by-Side Comparison Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {selectedCompareIds.map(id => {
+                    const item = allTools.find(t => t.id === id);
+                    if (!item) return null;
+                    const rts = calculateScore(item);
+
+                    return (
+                      <div key={item.id} className="bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col h-full">
+                        <div className="bg-slate-900 text-white p-4 text-center">
+                          <span className="text-[9px] bg-white/15 px-2 py-0.5 rounded-full uppercase font-bold text-slate-300">
+                            {item.category}
+                          </span>
+                          <h4 className="text-lg font-black mt-1 text-white">{item.name}</h4>
+                          <div className="mt-3 flex justify-center items-baseline gap-1">
+                            <span className="text-2xl font-black font-mono">{rts}</span>
+                            <span className="text-[10px] text-slate-400">/10 RTS</span>
+                          </div>
+                        </div>
+
+                        {/* Chart Container */}
+                        <div className="p-4 bg-slate-50 border-b border-slate-100 flex justify-center">
+                          {/* Simple SVG Visualizer */}
+                          <svg className="w-full h-32" viewBox="0 0 160 120">
+                            <line x1="30" y1="20" x2="150" y2="20" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="2,2" />
+                            <line x1="30" y1="60" x2="150" y2="60" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="2,2" />
+                            <line x1="30" y1="100" x2="150" y2="100" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="2,2" />
+
+                            <text x="5" y="24" className="text-[9px] fill-slate-400 font-bold font-mono">Env</text>
+                            <text x="5" y="64" className="text-[9px] fill-slate-400 font-bold font-mono">Eth</text>
+                            <text x="5" y="104" className="text-[9px] fill-slate-400 font-bold font-mono">Priv</text>
+
+                            {/* Value Bars */}
+                            {/* Env */}
+                            <rect x="30" y="14" width={item.envScore * 11} height="12" rx="3" fill="#10b981" />
+                            <text x={35 + (item.envScore * 11)} y="24" className="text-[10px] font-bold fill-emerald-800 font-mono">{item.envScore}</text>
+
+                            {/* Eth */}
+                            <rect x="30" y="54" width={item.ethicScore * 11} height="12" rx="3" fill="#f59e0b" />
+                            <text x={35 + (item.ethicScore * 11)} y="64" className="text-[10px] font-bold fill-amber-800 font-mono">{item.ethicScore}</text>
+
+                            {/* Priv */}
+                            <rect x="30" y="94" width={item.privScore * 11} height="12" rx="3" fill="#6366f1" />
+                            <text x={35 + (item.privScore * 11)} y="104" className="text-[10px] font-bold fill-indigo-800 font-mono">{item.privScore}</text>
+                          </svg>
+                        </div>
+
+                        {/* Brief summaries for compare */}
+                        <div className="p-4 flex-grow space-y-4 text-xs">
+                          <div>
+                            <strong className="text-slate-800 uppercase text-[10px] block mb-1">🌿 Carbon Factor</strong>
+                            <p className="text-[11px] text-slate-500 leading-tight">{item.envDetails.substring(0, 110)}...</p>
+                          </div>
+                          <div>
+                            <strong className="text-slate-800 uppercase text-[10px] block mb-1">⚖️ Governance/Ethic</strong>
+                            <p className="text-[11px] text-slate-500 leading-tight">{item.ethicDetails.substring(0, 110)}...</p>
+                          </div>
+                          <div>
+                            <strong className="text-slate-800 uppercase text-[10px] block mb-1">🔒 Privacy</strong>
+                            <p className="text-[11px] text-slate-500 leading-tight">{item.privDetails.substring(0, 110)}...</p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
+            )}
 
-              {/* Live Markdown Preview & Copy Code */}
-              <div className="lg:col-span-7 space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                    Markdown Output Preview
+            {/* Tab 4: Custom Audit Report Builder */}
+            {activeTab === 'report' && (
+              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <div className="max-w-3xl mx-auto text-center mb-8">
+                  <span className="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    Corporate Governance Export
                   </span>
-                  <button
-                    onClick={copyToClipboard}
-                    className={`px-4 py-2 text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1.5 ${
-                      isCopied
-                        ? 'bg-emerald-600 text-white'
-                        : 'bg-indigo-600 text-white hover:bg-indigo-700'
-                    }`}
-                  >
-                    <span>{isCopied ? '✓ Copied to Clipboard!' : 'Copy Markdown'}</span>
-                  </button>
+                  <h3 className="text-2xl font-black text-slate-900 mt-2">Generate Your Sustainability & Privacy Report</h3>
+                  <p className="text-sm text-slate-500 mt-2">
+                    Compile a professional, custom-tailored markdown audit file for your development stack to share with compliance officers, clients, or engineering leads.
+                  </p>
                 </div>
 
-                {/* Scrollable Markdown Box */}
-                <div className="bg-slate-900 text-slate-100 rounded-2xl border border-slate-800 p-6 shadow-lg font-mono text-xs overflow-x-auto h-[480px] select-all whitespace-pre">
-                  {reportMarkdown}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  {/* Controls Selector */}
+                  <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-6">
+                    <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider border-b border-slate-200 pb-2">
+                      Configure Report Structure
+                    </h4>
+
+                    {/* Custom Report Title */}
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block mb-2">
+                        Audit Document Title:
+                      </label>
+                      <input
+                        type="text"
+                        value={reportTitle}
+                        onChange={(e) => setReportTitle(e.target.value)}
+                        className="px-3 py-2 w-full bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm shadow-sm"
+                      />
+                    </div>
+
+                    {/* Checklist Selection */}
+                    <div>
+                      <label className="text-xs font-bold text-slate-700 uppercase tracking-wide block mb-2">
+                        Check Items to Include:
+                      </label>
+                      <div className="space-y-2 max-h-60 overflow-y-auto border border-slate-200 bg-white p-3 rounded-xl shadow-inner">
+                        {allTools.map(item => (
+                          <label key={item.id} className="flex items-center gap-2.5 text-xs text-slate-700 cursor-pointer p-1 hover:bg-slate-50 rounded">
+                            <input
+                              type="checkbox"
+                              checked={!!reportCheckedItems[item.id]}
+                              onChange={() => toggleReportItem(item.id)}
+                              className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                            />
+                            <span className="font-semibold text-slate-800">{item.name}</span>
+                            <span className="text-[10px] text-slate-400">({item.category})</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-indigo-50 border border-indigo-100 rounded-xl text-xs text-indigo-950">
+                      <h5 className="font-bold flex items-center mb-1"><span className="mr-1">ℹ</span> Export Instructions</h5>
+                      <p className="leading-relaxed">
+                        Select your corporate stack targets. The preview pane on the right updates instantly in standard Markdown format, ideal for direct integration into engineering wikis, compliance audits, or documentation folders.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Live Markdown Preview & Copy Code */}
+                  <div className="lg:col-span-7 space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                        Markdown Output Preview
+                      </span>
+                      <button
+                        onClick={copyToClipboard}
+                        className={`px-4 py-2 text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-1.5 ${
+                          isCopied
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                        }`}
+                      >
+                        <span>{isCopied ? '✓ Copied to Clipboard!' : 'Copy Markdown'}</span>
+                      </button>
+                    </div>
+
+                    {/* Scrollable Markdown Box */}
+                    <div className="bg-slate-900 text-slate-100 rounded-2xl border border-slate-800 p-6 shadow-lg font-mono text-xs overflow-x-auto h-[480px] select-all whitespace-pre">
+                      {reportMarkdown}
+                    </div>
+                  </div>
                 </div>
+              </div>
+            )}
+          </main>
+
+          {/* Structured Static Analysis Section for reference underneath */}
+          <footer className="bg-slate-900 text-white border-t border-slate-800 mt-16 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div>
+                <h4 className="text-xs font-extrabold text-emerald-400 uppercase tracking-widest mb-3">
+                  🌿 Environmental Goals
+                </h4>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Evaluating data center power optimization, runtime processing loops, caching standards, client battery drain metrics, and global green infrastructure matches.
+                </p>
+              </div>
+              <div>
+                <h4 className="text-xs font-extrabold text-amber-400 uppercase tracking-widest mb-3">
+                  ⚖️ Ethical & Open Governance
+                </h4>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Reviewing platform lock-in dynamics, community representation models, corporate stewardship vs independent development, licensing structures, and digital inclusion (Accessibility standards).
+                </p>
+              </div>
+              <div>
+                <h4 className="text-xs font-extrabold text-indigo-400 uppercase tracking-widest mb-3">
+                  🔒 Privacy Custody Standards
+                </h4>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Securing localized database custody, tracking transparency, avoiding platform-level telemetry, mitigating package registry supply-chain concerns, and maintaining strong native encryption.
+                </p>
               </div>
             </div>
-          </div>
-        )}
-      </main>
+            <div className="max-w-7xl mx-auto border-t border-white/10 mt-8 pt-8 text-center text-xs text-slate-500">
+              <p>© 2026 Responsible Tech Scorecard and Web Sustainability Initiative. Built to support green engineering.</p>
+            </div>
+          </footer>
+        </div>
+      );
+    }
 
-      {/* Structured Static Analysis Section for reference underneath */}
-      <footer className="bg-slate-900 text-white border-t border-slate-800 mt-16 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h4 className="text-xs font-extrabold text-emerald-400 uppercase tracking-widest mb-3">
-              🌿 Environmental Goals
-            </h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Evaluating data center power optimization, runtime processing loops, caching standards, client battery drain metrics, and global green infrastructure matches.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-xs font-extrabold text-amber-400 uppercase tracking-widest mb-3">
-              ⚖️ Ethical & Open Governance
-            </h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Reviewing platform lock-in dynamics, community representation models, corporate stewardship vs independent development, licensing structures, and digital inclusion (Accessibility standards).
-            </p>
-          </div>
-          <div>
-            <h4 className="text-xs font-extrabold text-indigo-400 uppercase tracking-widest mb-3">
-              🔒 Privacy Custody Standards
-            </h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Securing localized database custody, tracking transparency, avoiding platform-level telemetry, mitigating package registry supply-chain concerns, and maintaining strong native encryption.
-            </p>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto border-t border-white/10 mt-8 pt-8 text-center text-xs text-slate-500">
-          <p>© 2026 Responsible Tech Scorecard and Web Sustainability Initiative. Built to support green engineering.</p>
-        </div>
-      </footer>
-    </div>
-  );
-}
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
